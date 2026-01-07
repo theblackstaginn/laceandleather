@@ -1,264 +1,242 @@
-<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0f14" />
   <title>Lace & Leather — Digital Textures</title>
-  <meta name="description" content="Photoreal texture packs: parchment, cartography, and grimoire artifacts." />
-  <link rel="stylesheet" href="./styles.css" />
+  <meta name="description" content="Digital textures for artists, designers, & bookmakers. Aged parchment. Ritual surfaces. Dark elegance." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <!-- Fixed background layers (iOS-safe fallback in CSS) -->
+  <!-- Fixed background layer -->
   <div class="bg" aria-hidden="true"></div>
-  <div class="bg-vignette" aria-hidden="true"></div>
 
   <main class="wrap">
-    <header class="hero" aria-label="Lace & Leather">
-      <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
-      <p class="tagline">Photoreal textures • crafted surfaces • dark elegance</p>
+    <!-- HERO -->
+    <header class="hero glass">
+      <div class="hero-inner">
+        <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
+        <p class="tagline">Digital textures for artists, designers &amp; bookmakers.</p>
+        <p class="subtag">Aged parchment · ritual surfaces · dark elegance</p>
+      </div>
     </header>
 
-    <section class="panel" aria-label="Browsing room">
-      <h2>Process</h2>
+    <!-- PRODUCTS / VOLUMES -->
+    <section class="glass section" aria-label="Packs">
+      <h2 class="h2">Browse Packs</h2>
+      <p class="muted">Tap a cover to preview the full set. (No downloads here — this is the front porch.)</p>
+
+      <div class="packs">
+        <!-- Grimoire -->
+        <button class="pack" type="button" data-pack="grimoire">
+          <img
+            src="./assets/grimoire/grim-thumb.png"
+            alt="Grimoire pack preview"
+            loading="lazy"
+          />
+          <div class="pack-meta">
+            <div class="pack-title">Grimoire Pages</div>
+            <div class="pack-note muted">Click to preview all pages</div>
+          </div>
+        </button>
+
+        <!-- Mapmaker -->
+        <button class="pack" type="button" data-pack="mapmaker">
+          <img
+            src="./assets/mapmaker/mapmaker-cover.png"
+            alt="Mapmaker pack preview"
+            loading="lazy"
+          />
+          <div class="pack-meta">
+            <div class="pack-title">Mapmaker Sheets</div>
+            <div class="pack-note muted">Click to preview all sheets</div>
+          </div>
+        </button>
+
+        <!-- Vol 1 Light Parchment -->
+        <button class="pack" type="button" data-pack="vol1">
+          <img
+            src="./assets/vol-1/vol-1-thumbnail.png"
+            alt="Vol 1 light parchment preview"
+            loading="lazy"
+          />
+          <div class="pack-meta">
+            <div class="pack-title">Light Aged Parchment — Vol. 1</div>
+            <div class="pack-note muted">Click to preview all textures</div>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section id="process" class="glass section" aria-label="Process">
+      <h2 class="h2">Process</h2>
       <p class="muted">
-        Representational mockups of my real process (staining, aging, scanning, rasterizing).
-        Built to look real because it is.
+        Built like a workshop: stains, fibers, and surface wear — curated so your text stays legible.
       </p>
 
       <div class="creation-grid" aria-label="Creation photos">
-        <a class="shot" href="./assets/creation/creation_1.png" target="_blank" rel="noopener" aria-label="Open creation photo 1">
-          <img src="./assets/creation/creation_1.png" alt="Creation photo 1" loading="lazy">
-        </a>
-        <a class="shot" href="./assets/creation/creation_2.png" target="_blank" rel="noopener" aria-label="Open creation photo 2">
-          <img src="./assets/creation/creation_2.png" alt="Creation photo 2" loading="lazy">
-        </a>
-        <a class="shot" href="./assets/creation/creation_3.png" target="_blank" rel="noopener" aria-label="Open creation photo 3">
-          <img src="./assets/creation/creation_3.png" alt="Creation photo 3" loading="lazy">
-        </a>
-        <a class="shot" href="./assets/creation/creation_4.png" target="_blank" rel="noopener" aria-label="Open creation photo 4">
-          <img src="./assets/creation/creation_4.png" alt="Creation photo 4" loading="lazy">
-        </a>
+        <img src="./assets/creation/creation_1.png" alt="Creation process photo 1" loading="lazy" />
+        <img src="./assets/creation/creation_2.png" alt="Creation process photo 2" loading="lazy" />
+        <img src="./assets/creation/creation_3.png" alt="Creation process photo 3" loading="lazy" />
+        <img src="./assets/creation/creation_4.png" alt="Creation process photo 4" loading="lazy" />
       </div>
 
-      <hr class="rule" />
+      <!-- ✅ SOCIAL ICONS DIRECTLY UNDER PROCESS GRID -->
+      <div class="social-icons" aria-label="Shop and follow">
+        <a class="seal" href="YOUR_PAYHIP_LINK" target="_blank" rel="noopener" aria-label="Payhip">
+          <img src="./assets/social-icons/payhip-icon.PNG" alt="Payhip" />
+        </a>
 
-      <h2>Collections</h2>
-      <p class="muted">
-        Covers are clickable—open each collection to preview every texture inside.
-      </p>
+        <a class="seal" href="YOUR_ETSY_LINK" target="_blank" rel="noopener" aria-label="Etsy">
+          <img src="./assets/social-icons/etsy-icon.PNG" alt="Etsy" />
+        </a>
 
-      <div class="product-grid" aria-label="Collections">
+        <a class="seal" href="YOUR_INSTAGRAM_LINK" target="_blank" rel="noopener" aria-label="Instagram">
+          <img src="./assets/social-icons/instagram-icon.PNG" alt="Instagram" />
+        </a>
 
-        <!-- VOL-1 -->
-        <article class="product">
-          <button class="product-cover" type="button" data-gallery="vol1" aria-label="Preview all textures in Parchment Textures Vol. I">
-            <img src="./assets/vol-1/vol-1-thumbnail.png" alt="Parchment Textures Vol. I cover" loading="lazy" />
-          </button>
-
-          <div class="product-meta">
-            <h3>Parchment Textures — Vol. I</h3>
-            <p class="muted">
-              Light aged parchment surfaces. Print-ready. Layer-safe. Designed for artists, designers, and bookmakers.
-            </p>
-            <div class="product-links">
-              <!-- Replace with your real links -->
-              <a href="#" target="_blank" rel="noopener">Payhip</a>
-              <a href="#" target="_blank" rel="noopener">Etsy</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- MAPMAKER -->
-        <article class="product">
-          <button class="product-cover" type="button" data-gallery="mapmaker" aria-label="Preview all textures in Mapmaker Textures">
-            <img src="./assets/mapmaker/mapmaker-cover.png" alt="Mapmaker Textures cover" loading="lazy" />
-          </button>
-
-          <div class="product-meta">
-            <h3>Mapmaker Textures</h3>
-            <p class="muted">
-              Weathered cartographic surfaces and aged fields for fantasy maps, worldbuilding, and tabletop design.
-            </p>
-            <div class="product-links">
-              <span class="coming-soon">Coming Soon</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- GRIMOIRE -->
-        <article class="product">
-          <button class="product-cover" type="button" data-gallery="grimoire" aria-label="Preview all Grimoire pages">
-            <img src="./assets/grimoire/grim-thumb.png" alt="Grimoire Pages cover" loading="lazy" />
-          </button>
-
-          <div class="product-meta">
-            <h3>The Black Stag Grimoire</h3>
-            <p class="muted">
-              An interactive digital book artifact. Lore, memory, and ritual—bound as a living object.
-            </p>
-            <div class="product-links">
-              <span class="coming-soon">In Development</span>
-            </div>
-          </div>
-        </article>
-
+        <a class="seal" href="YOUR_PINTEREST_LINK" target="_blank" rel="noopener" aria-label="Pinterest">
+          <img src="./assets/social-icons/pinterest-icon.PNG" alt="Pinterest" />
+        </a>
       </div>
-
-      <hr class="rule" />
-
-      <h2>Shop & follow</h2>
-      <p class="muted">Choose your portal.</p>
-
-      <nav class="icon-row" aria-label="External links">
-        <!-- Replace href values with your real URLs -->
-        <a class="seal" href="#" target="_blank" rel="noopener" aria-label="Payhip">
-          <img src="./assets/social-icons/payhip-icon.PNG" alt="Payhip" loading="lazy">
-        </a>
-        <a class="seal" href="#" target="_blank" rel="noopener" aria-label="Etsy">
-          <img src="./assets/social-icons/etsy-icon.PNG" alt="Etsy" loading="lazy">
-        </a>
-        <a class="seal" href="#" target="_blank" rel="noopener" aria-label="Instagram">
-          <img src="./assets/social-icons/instagram-icon.PNG" alt="Instagram" loading="lazy">
-        </a>
-        <a class="seal" href="#" target="_blank" rel="noopener" aria-label="Pinterest">
-          <img src="./assets/social-icons/pinterest-icon.PNG" alt="Pinterest" loading="lazy">
-        </a>
-      </nav>
-
-      <footer class="foot">
-        <small class="muted">© <span id="y"></span> Lace &amp; Leather</small>
-      </footer>
     </section>
+
+    <footer class="footer glass" aria-label="Footer">
+      <div class="footer-inner">
+        <div class="brand">Lace &amp; Leather</div>
+        <div class="muted">Digital texture packs · PNG/JPG · Instant delivery via shop links</div>
+      </div>
+    </footer>
   </main>
 
-  <!-- GALLERY MODAL (no extra files; renders grids from existing paths) -->
-  <div id="galleryModal" class="modal" aria-hidden="true">
+  <!-- MODAL (preview collage) -->
+  <div class="modal" id="modal" aria-hidden="true">
     <div class="modal-backdrop" data-close></div>
 
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Collection preview">
+    <div class="modal-panel glass" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head">
-        <div class="modal-title" id="galleryTitle">Preview</div>
-        <button class="modal-close" type="button" data-close aria-label="Close">×</button>
+        <div>
+          <div id="modalTitle" class="modal-title">Preview</div>
+          <div id="modalSub" class="modal-sub muted"></div>
+        </div>
+        <button class="modal-x" type="button" data-close aria-label="Close preview">✕</button>
       </div>
 
-      <div id="galleryGrid" class="gallery-grid" aria-label="Texture previews"></div>
+      <div class="modal-body">
+        <div class="collage" id="collage" aria-label="Pack preview collage"></div>
+      </div>
     </div>
   </div>
 
+  <!-- Inline JS (no extra file) -->
   <script>
-    // Year
-    document.getElementById("y").textContent = new Date().getFullYear();
+    (() => {
+      "use strict";
 
-    const modal = document.getElementById("galleryModal");
-    const grid = document.getElementById("galleryGrid");
-    const titleEl = document.getElementById("galleryTitle");
+      const PACKS = {
+        grimoire: {
+          title: "Grimoire Pages",
+          sub: "Preview (12 pages)",
+          images: [
+            "./assets/grimoire/grim-1.PNG",
+            "./assets/grimoire/grim-2.PNG",
+            "./assets/grimoire/grim-3.PNG",
+            "./assets/grimoire/grim-4.PNG",
+            "./assets/grimoire/grim-5.PNG",
+            "./assets/grimoire/grim-6.PNG",
+            "./assets/grimoire/grim-7.PNG",
+            "./assets/grimoire/grim-8.PNG",
+            "./assets/grimoire/grim-9.PNG",
+            "./assets/grimoire/grim-10.PNG",
+            "./assets/grimoire/grim-11.PNG",
+            "./assets/grimoire/grim-12.PNG"
+          ]
+        },
+        mapmaker: {
+          title: "Mapmaker Sheets",
+          sub: "Preview (7 sheets)",
+          images: [
+            "./assets/mapmaker/map_3.png",
+            "./assets/mapmaker/map_4.png",
+            "./assets/mapmaker/map_5.png",
+            "./assets/mapmaker/map_6.png",
+            "./assets/mapmaker/map_7.png",
+            "./assets/mapmaker/map_8.png",
+            "./assets/mapmaker/map_9.png"
+          ]
+        },
+        vol1: {
+          title: "Light Aged Parchment — Vol. 1",
+          sub: "Preview (12 textures)",
+          images: [
+            "./assets/vol-1/parchment-light_1.jpg",
+            "./assets/vol-1/parchment-light_2.jpg",
+            "./assets/vol-1/parchment-light_3.jpg",
+            "./assets/vol-1/parchment-light_4.jpg",
+            "./assets/vol-1/parchment-light_5.jpg",
+            "./assets/vol-1/parchment-light_6.jpg",
+            "./assets/vol-1/parchment-light_7.jpg",
+            "./assets/vol-1/parchment-light_8.jpg",
+            "./assets/vol-1/parchment-light_9.jpg",
+            "./assets/vol-1/parchment-light_10.jpg",
+            "./assets/vol-1/parchment-light_11.jpg",
+            "./assets/vol-1/parchment-light_12.jpg"
+          ]
+        }
+      };
 
-    const GALLERIES = {
-      vol1: {
-        title: "Parchment Textures — Vol. I",
-        items: [
-          "./assets/vol-1/parchment-light_1.jpg",
-          "./assets/vol-1/parchment-light_2.jpg",
-          "./assets/vol-1/parchment-light_3.jpg",
-          "./assets/vol-1/parchment-light_4.jpg",
-          "./assets/vol-1/parchment-light_5.jpg",
-          "./assets/vol-1/parchment-light_6.jpg",
-          "./assets/vol-1/parchment-light_7.jpg",
-          "./assets/vol-1/parchment-light_8.jpg",
-          "./assets/vol-1/parchment-light_9.jpg",
-          "./assets/vol-1/parchment-light_10.jpg",
-          "./assets/vol-1/parchment-light_11.jpg",
-          "./assets/vol-1/parchment-light_12.jpg"
-        ]
-      },
-      mapmaker: {
-        title: "Mapmaker Textures",
-        items: [
-          "./assets/mapmaker/map_3.png",
-          "./assets/mapmaker/map_4.png",
-          "./assets/mapmaker/map_5.png",
-          "./assets/mapmaker/map_6.png",
-          "./assets/mapmaker/map_7.png",
-          "./assets/mapmaker/map_8.png",
-          "./assets/mapmaker/map_9.png",
-          "./assets/mapmaker/map_10.png",
-          "./assets/mapmaker/map_12.png",
-          "./assets/mapmaker/map_13.png"
-        ]
-      },
-      grimoire: {
-        title: "Grimoire Pages",
-        items: [
-          "./assets/grimoire/grim-1.PNG",
-          "./assets/grimoire/grim-2.PNG",
-          "./assets/grimoire/grim-3.PNG",
-          "./assets/grimoire/grim-4.PNG",
-          "./assets/grimoire/grim-5.PNG",
-          "./assets/grimoire/grim-6.PNG",
-          "./assets/grimoire/grim-7.PNG",
-          "./assets/grimoire/grim-8.PNG",
-          "./assets/grimoire/grim-9.PNG",
-          "./assets/grimoire/grim-10.PNG",
-          "./assets/grimoire/grim-11.PNG",
-          "./assets/grimoire/grim-12.PNG"
-        ]
-      }
-    };
+      const modal = document.getElementById("modal");
+      const collage = document.getElementById("collage");
+      const titleEl = document.getElementById("modalTitle");
+      const subEl = document.getElementById("modalSub");
 
-    function openModal(key){
-      const g = GALLERIES[key];
-      if(!g) return;
+      const openModal = (key) => {
+        const pack = PACKS[key];
+        if (!pack) return;
 
-      titleEl.textContent = g.title;
-      grid.innerHTML = "";
+        titleEl.textContent = pack.title;
+        subEl.textContent = pack.sub;
 
-      const frag = document.createDocumentFragment();
-      for(const src of g.items){
-        const a = document.createElement("a");
-        a.className = "gitem";
-        a.href = src;
-        a.target = "_blank";
-        a.rel = "noopener";
-        a.setAttribute("aria-label", "Open texture");
+        collage.innerHTML = "";
+        for (const src of pack.images) {
+          const img = new Image();
+          img.loading = "lazy";
+          img.alt = pack.title + " preview";
+          img.src = src;
+          collage.appendChild(img);
+        }
 
-        const img = document.createElement("img");
-        img.src = src;
-        img.alt = "";
-        img.loading = "lazy";
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+        document.documentElement.classList.add("no-scroll");
+      };
 
-        a.appendChild(img);
-        frag.appendChild(a);
-      }
-      grid.appendChild(frag);
+      const closeModal = () => {
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+        document.documentElement.classList.remove("no-scroll");
+      };
 
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden", "false");
+      document.addEventListener("click", (e) => {
+        const packBtn = e.target.closest(".pack");
+        if (packBtn) {
+          openModal(packBtn.getAttribute("data-pack"));
+          return;
+        }
 
-      document.documentElement.classList.add("modal-lock");
-      document.body.classList.add("modal-lock");
-    }
+        if (e.target.closest("[data-close]")) {
+          closeModal();
+          return;
+        }
+      });
 
-    function closeModal(){
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden", "true");
-      grid.innerHTML = "";
-      document.documentElement.classList.remove("modal-lock");
-      document.body.classList.remove("modal-lock");
-    }
-
-    document.querySelectorAll(".product-cover").forEach(btn => {
-      btn.addEventListener("click", () => openModal(btn.dataset.gallery));
-    });
-
-    modal.addEventListener("click", (e) => {
-      if (e.target && e.target.dataset && ("close" in e.target.dataset)) closeModal();
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
-    });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+      });
+    })();
   </script>
 </body>
 </html>
