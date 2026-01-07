@@ -478,3 +478,19 @@ html.no-scroll body{ overflow:hidden; }
     background-attachment: scroll; /* iOS sanity */
   }
 }
+@media (max-width: 768px){
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    background-image: url("./assets/lace-mobile-bg.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    z-index: -1;
+  }
+
+  body{
+    background: none;
+  }
+}
