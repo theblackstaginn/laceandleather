@@ -14,7 +14,7 @@
   <div class="bg" aria-hidden="true"></div>
 
   <main class="wrap">
-    <!-- HERO (NO glass panel now) -->
+    <!-- HERO (open air, no glass) -->
     <header class="hero">
       <div class="hero-inner">
         <!-- Logo with ornate frame -->
@@ -25,7 +25,7 @@
         <p class="tagline">Digital textures for artists, designers &amp; bookmakers.</p>
         <p class="subtag">Aged parchment · ritual surfaces · dark elegance</p>
 
-        <!-- PROCESS (keeps glass + seals) -->
+        <!-- PROCESS (glass stays) -->
         <section id="process" class="glass section" aria-label="Process">
           <h2 class="h2">Process</h2>
           <p class="muted">
@@ -71,11 +71,7 @@
       <div class="packs">
         <!-- Grimoire -->
         <button class="pack" type="button" data-pack="grimoire">
-          <img
-            src="./assets/grimoire/grim-thumb.png"
-            alt="Grimoire pack preview"
-            loading="lazy"
-          />
+          <img src="./assets/grimoire/grim-thumb.png" alt="Grimoire pack preview" loading="lazy" />
           <div class="pack-meta">
             <div class="pack-title">Grimoire Pages</div>
             <div class="pack-note muted">Click to preview all pages</div>
@@ -84,11 +80,7 @@
 
         <!-- Mapmaker -->
         <button class="pack" type="button" data-pack="mapmaker">
-          <img
-            src="./assets/mapmaker/mapmaker-cover.png"
-            alt="Mapmaker pack preview"
-            loading="lazy"
-          />
+          <img src="./assets/mapmaker/mapmaker-cover.png" alt="Mapmaker pack preview" loading="lazy" />
           <div class="pack-meta">
             <div class="pack-title">Mapmaker Sheets</div>
             <div class="pack-note muted">Click to preview all sheets</div>
@@ -97,11 +89,7 @@
 
         <!-- Vol 1 Light Parchment -->
         <button class="pack" type="button" data-pack="vol1">
-          <img
-            src="./assets/vol-1/vol-1-thumbnail.png"
-            alt="Vol 1 light parchment preview"
-            loading="lazy"
-          />
+          <img src="./assets/vol-1/vol-1-thumbnail.png" alt="Vol 1 light parchment preview" loading="lazy" />
           <div class="pack-meta">
             <div class="pack-title">Light Aged Parchment — Vol. 1</div>
             <div class="pack-note muted">Click to preview all textures</div>
@@ -118,26 +106,44 @@
     </footer>
   </main>
 
-  <!-- MODAL (preview collage) -->
+  <!-- MODAL -->
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modal-backdrop" data-close></div>
 
     <div class="modal-panel glass" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <!-- Header changes depending on view -->
       <div class="modal-head">
-        <div>
-          <div id="modalTitle" class="modal-title">Preview</div>
-          <div id="modalSub" class="modal-sub muted"></div>
+        <div class="modal-left">
+          <!-- Back button only shown in viewer mode -->
+          <button class="wax-btn back-btn" type="button" data-back aria-label="Back to collage">
+            <img src="./assets/back-button.PNG" alt="Back" />
+          </button>
+
+          <div>
+            <div id="modalTitle" class="modal-title">Preview</div>
+            <div id="modalSub" class="modal-sub muted"></div>
+          </div>
         </div>
-        <button class="modal-x" type="button" data-close aria-label="Close preview">✕</button>
+
+        <!-- Close is wax seal X -->
+        <button class="wax-btn close-btn" type="button" data-close aria-label="Close preview">
+          <img src="./assets/x-button.PNG" alt="Close" />
+        </button>
       </div>
 
       <div class="modal-body">
+        <!-- Collage view -->
         <div class="collage" id="collage" aria-label="Pack preview collage"></div>
+
+        <!-- Single image view -->
+        <div class="viewer" id="viewer" aria-label="Large preview" aria-hidden="true">
+          <img id="viewerImg" alt="Large preview" />
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Inline JS (no extra file) -->
+  <!-- Inline JS -->
   <script>
     (() => {
       "use strict";
@@ -196,24 +202,55 @@
 
       const modal = document.getElementById("modal");
       const collage = document.getElementById("collage");
+      const viewer = document.getElementById("viewer");
+      const viewerImg = document.getElementById("viewerImg");
       const titleEl = document.getElementById("modalTitle");
       const subEl = document.getElementById("modalSub");
+      const backBtn = document.querySelector("[data-back]");
+
+      let currentPackKey = null;
+
+      const setMode = (mode) => {
+        // mode: "collage" | "viewer"
+        if (mode === "viewer") {
+          modal.classList.add("mode-viewer");
+          viewer.setAttribute("aria-hidden", "false");
+          backBtn.style.display = "inline-flex";
+        } else {
+          modal.classList.remove("mode-viewer");
+          viewer.setAttribute("aria-hidden", "true");
+          backBtn.style.display = "none";
+          viewerImg.removeAttribute("src");
+        }
+      };
 
       const openModal = (key) => {
         const pack = PACKS[key];
         if (!pack) return;
 
+        currentPackKey = key;
         titleEl.textContent = pack.title;
         subEl.textContent = pack.sub;
 
         collage.innerHTML = "";
-        for (const src of pack.images) {
+        setMode("collage");
+
+        // Build collage tiles
+        pack.images.forEach((src, idx) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "tile";
+          btn.setAttribute("data-view", src);
+          btn.setAttribute("aria-label", `View image ${idx + 1}`);
+
           const img = new Image();
           img.loading = "lazy";
           img.alt = pack.title + " preview";
           img.src = src;
-          collage.appendChild(img);
-        }
+
+          btn.appendChild(img);
+          collage.appendChild(btn);
+        });
 
         modal.classList.add("open");
         modal.setAttribute("aria-hidden", "false");
@@ -224,12 +261,39 @@
         modal.classList.remove("open");
         modal.setAttribute("aria-hidden", "true");
         document.documentElement.classList.remove("no-scroll");
+        collage.innerHTML = "";
+        setMode("collage");
+        currentPackKey = null;
+      };
+
+      const openViewer = (src) => {
+        if (!src) return;
+        viewerImg.src = src;
+        setMode("viewer");
+        // scroll modal body to top so image is visible
+        const body = modal.querySelector(".modal-body");
+        if (body) body.scrollTop = 0;
+      };
+
+      const backToCollage = () => {
+        setMode("collage");
       };
 
       document.addEventListener("click", (e) => {
         const packBtn = e.target.closest(".pack");
         if (packBtn) {
           openModal(packBtn.getAttribute("data-pack"));
+          return;
+        }
+
+        const tileBtn = e.target.closest(".tile");
+        if (tileBtn && modal.classList.contains("open")) {
+          openViewer(tileBtn.getAttribute("data-view"));
+          return;
+        }
+
+        if (e.target.closest("[data-back]")) {
+          backToCollage();
           return;
         }
 
@@ -240,7 +304,18 @@
       });
 
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("open")) closeModal();
+        if (!modal.classList.contains("open")) return;
+
+        if (e.key === "Escape") {
+          closeModal();
+          return;
+        }
+
+        // Back with Backspace (optional UX candy, safe)
+        if ((e.key === "Backspace" || e.key === "ArrowLeft") && modal.classList.contains("mode-viewer")) {
+          e.preventDefault();
+          backToCollage();
+        }
       });
     })();
   </script>
