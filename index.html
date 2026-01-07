@@ -214,8 +214,6 @@
       titleEl.textContent = g.title;
       grid.innerHTML = "";
 
-      // Build a collage-like grid (thumbnails). Each opens the full image in a new tab.
-      // (No extra files, no heavy JS viewer.)
       const frag = document.createDocumentFragment();
       for(const src of g.items){
         const a = document.createElement("a");
@@ -238,7 +236,6 @@
       modal.classList.add("open");
       modal.setAttribute("aria-hidden", "false");
 
-      // Prevent body scroll behind modal
       document.documentElement.classList.add("modal-lock");
       document.body.classList.add("modal-lock");
     }
