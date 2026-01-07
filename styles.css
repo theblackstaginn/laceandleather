@@ -505,4 +505,7 @@ html.no-scroll body{ overflow:hidden; }
   body{
     background: none;
   }
+  body{
+  text-align: center;
+}
 }
