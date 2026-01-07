@@ -469,3 +469,12 @@ html.no-scroll body{ overflow:hidden; }
   .seal img{ max-height:80px; width:auto; }
   .wax-btn img{ width: 46px; height: 46px; }
 }
+@media (max-width: 768px){
+  body{
+    background-image: url("./assets/lace-mobile-bg.png");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: scroll; /* iOS sanity */
+  }
+}
