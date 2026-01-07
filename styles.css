@@ -1,9 +1,9 @@
 /* =========================================================
    Lace & Leather — Front Porch
    - Fixed background (iOS-safe layer)
-   - Glass panels (tinted but SEE-THROUGH)
+   - Glass panels (tinted but transparent w/ slight blur)
    - Process + creation grid
-   - Social wax seals: NO ring, seals are nickel-sized
+   - Social wax seals: NO ring, quarter-sized
    - Modal collage previews (no extra files)
    ========================================================= */
 
@@ -13,10 +13,10 @@
 
   --wrap: min(1100px, calc(100% - 36px));
 
-  /* Glass: VERY low alpha tint (see-through), plus specular sheen layers */
-  --glassTintA: rgba(12,14,18,.14);
-  --glassTintB: rgba(12,14,18,.20);
-  --glassSheenTop: rgba(255,255,255,.10);
+  /* Glass tint kept very light */
+  --glassTintA: rgba(12,14,18,.10);
+  --glassTintB: rgba(12,14,18,.16);
+  --glassSheenTop: rgba(255,255,255,.08);
 
   --line: rgba(255,255,255,.12);
 
@@ -76,7 +76,7 @@ html.no-scroll body{
   gap: 18px;
 }
 
-/* Glass panels (tinted but see-through) */
+/* Glass panels (tinted but transparent w/ slight blur) */
 .glass{
   position: relative;
   background:
@@ -86,9 +86,9 @@ html.no-scroll body{
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 
-  /* Blur sells glass; still see-through because tint alpha is low */
-  backdrop-filter: blur(10px) saturate(1.05);
-  -webkit-backdrop-filter: blur(10px) saturate(1.05);
+  /* slight blur only */
+  backdrop-filter: blur(6px) saturate(1.03);
+  -webkit-backdrop-filter: blur(6px) saturate(1.03);
 }
 
 .glass::before{
@@ -97,9 +97,7 @@ html.no-scroll body{
   inset: 1px;
   border-radius: calc(var(--radius) - 2px);
   pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.08), transparent 55%),
-    radial-gradient(140% 120% at 50% 0%, rgba(255,255,255,.06), transparent 55%);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), transparent 55%);
   opacity: .9;
 }
 
@@ -145,6 +143,16 @@ html.no-scroll body{
 
 .muted{
   color: var(--muted);
+}
+
+/* Process line above seals */
+.shop-line{
+  margin: 18px 0 6px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .85;
 }
 
 /* Packs */
@@ -241,9 +249,10 @@ html.no-scroll body{
   text-decoration: none;
 }
 
+/* quarter-sized seals */
 .seal img{
-  width: 82px;
-  height: 82px;
+  width: 96px;
+  height: 96px;
   display: block;
   object-fit: contain;
   filter:
@@ -389,6 +398,6 @@ html.no-scroll body{
 
 @media (max-width: 420px){
   .creation-grid img{ height: 140px; }
-  .seal img{ width: 68px; height: 68px; }
+  .seal img{ width: 80px; height: 80px; }
   .collage img{ height: 170px; }
 }
