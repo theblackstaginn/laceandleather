@@ -1,0 +1,15 @@
+{
+  "name": "Lace & Leather",
+  "short_name": "Lace & Leather",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1b1b1b",
+  "theme_color": "#1b1b1b",
+  "icons": [
+    {
+      "src": "/assets/l&l_logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
