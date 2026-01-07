@@ -17,7 +17,6 @@
   --glassTintA: rgba(12,14,18,.14);
   --glassTintB: rgba(12,14,18,.20);
   --glassSheenTop: rgba(255,255,255,.10);
-  --glassSheenMid: rgba(255,255,255,.05);
 
   --line: rgba(255,255,255,.12);
 
@@ -98,7 +97,6 @@ html.no-scroll body{
   inset: 1px;
   border-radius: calc(var(--radius) - 2px);
   pointer-events: none;
-  /* inner highlight + gentle edge falloff */
   background:
     linear-gradient(180deg, rgba(255,255,255,.08), transparent 55%),
     radial-gradient(140% 120% at 50% 0%, rgba(255,255,255,.06), transparent 55%);
@@ -163,12 +161,9 @@ html.no-scroll body{
   padding: 12px;
   border-radius: 16px;
   border: 1px solid rgba(255,255,255,.12);
-
-  /* Match glass system (lighter) */
   background:
     linear-gradient(180deg, rgba(255,255,255,.06), transparent 55%),
     rgba(0,0,0,.12);
-
   cursor: pointer;
   text-align: left;
   color: inherit;
@@ -228,7 +223,7 @@ html.no-scroll body{
   filter: drop-shadow(0 12px 20px rgba(0,0,0,.45));
 }
 
-/* ✅ SOCIAL ICON STRIP (directly under process grid) */
+/* Social icon strip */
 .social-icons{
   display: flex;
   justify-content: center;
@@ -236,7 +231,6 @@ html.no-scroll body{
   margin: 22px 0 6px;
 }
 
-/* individual seal link (NO ring, NO badge) */
 .seal{
   display: inline-flex;
   align-items: center;
@@ -247,17 +241,14 @@ html.no-scroll body{
   text-decoration: none;
 }
 
-/* the wax seal itself = nickel size */
 .seal img{
   width: 82px;
   height: 82px;
   display: block;
   object-fit: contain;
-
   filter:
     drop-shadow(0 10px 18px rgba(0,0,0,.45))
     drop-shadow(0 2px 4px rgba(0,0,0,.35));
-
   transition: transform .18s ease, filter .18s ease;
 }
 
