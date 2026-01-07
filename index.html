@@ -14,14 +14,18 @@
   <div class="bg" aria-hidden="true"></div>
 
   <main class="wrap">
-    <!-- HERO -->
-    <header class="hero glass">
+    <!-- HERO (NO glass panel now) -->
+    <header class="hero">
       <div class="hero-inner">
-        <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
+        <!-- Logo with ornate frame -->
+        <div class="logo-frame" aria-label="Lace & Leather mark">
+          <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
+        </div>
+
         <p class="tagline">Digital textures for artists, designers &amp; bookmakers.</p>
         <p class="subtag">Aged parchment · ritual surfaces · dark elegance</p>
 
-        <!-- PROCESS (moved directly under logo/tagline) -->
+        <!-- PROCESS (keeps glass + seals) -->
         <section id="process" class="glass section" aria-label="Process">
           <h2 class="h2">Process</h2>
           <p class="muted">
@@ -35,10 +39,9 @@
             <img src="./assets/creation/creation_4.png" alt="Creation process photo 4" loading="lazy" />
           </div>
 
-          <!-- line just above seals -->
           <p class="shop-line muted">Shop now</p>
 
-          <!-- SOCIAL ICONS (unchanged except size via CSS) -->
+          <!-- SOCIAL ICONS -->
           <div class="social-icons" aria-label="Shop and follow">
             <a class="seal" href="https://payhip.com/LaceLeather65" target="_blank" rel="noopener" aria-label="Payhip">
               <img src="./assets/social-icons/payhip-icon.PNG" alt="Payhip" />
