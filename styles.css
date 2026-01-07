@@ -23,17 +23,6 @@
   font-style:normal;
   font-display:swap;
 }
-/* =========================
-   BRAND TITLE
-   ========================= */
-
-.brand-title{
-  font-family: "Cardinal", serif;
-  font-size: clamp(1.6rem, 4vw, 2.4rem);
-  letter-spacing: 0.12em;
-  margin-bottom: 14px;
-  text-align: center;
-}
 
 /* =========================
    ROOT
@@ -66,13 +55,14 @@ body{
   color:var(--text);
   font-family:"DarkAges", ui-serif, Georgia, serif;
   overflow-x:hidden;
+  text-align:center;
 }
 
 html.no-scroll,
 html.no-scroll body{ overflow:hidden; }
 
 /* =========================
-   FIXED BACKGROUND
+   FIXED BACKGROUND (desktop default)
    ========================= */
 .bg{
   position:fixed;
@@ -91,6 +81,16 @@ html.no-scroll body{ overflow:hidden; }
     radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.06), transparent 60%),
     radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.66) 100%),
     linear-gradient(180deg, rgba(0,0,0,var(--bgDim)), rgba(0,0,0,var(--bgDim)));
+}
+
+/* =========================
+   MOBILE BACKGROUND OVERRIDE (iOS-safe)
+   - Uses lace-mobile-bg.png
+   ========================= */
+@media (max-width: 768px){
+  .bg{
+    background:url("./assets/lace-mobile-bg.png") center top / cover no-repeat;
+  }
 }
 
 /* =========================
@@ -118,12 +118,23 @@ html.no-scroll body{ overflow:hidden; }
   -webkit-backdrop-filter: blur(6px) saturate(1.03);
 }
 
-.section{ padding:18px 18px 16px; }
+.section{
+  padding:18px 18px 16px;
+}
 
 /* =========================
    HERO
    ========================= */
 .hero{ padding:18px; }
+
+/* Brand title above logo */
+.brand-title{
+  font-family: "Cardinal", serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+  text-align: center;
+}
 
 .hero-inner{
   display:grid;
@@ -154,6 +165,13 @@ html.no-scroll body{ overflow:hidden; }
 .subtag{ margin:0; color:var(--muted); font-size:15px; }
 .muted{ color:var(--muted); }
 
+/* Center ALL text everywhere (pages + cards) */
+p, h1, h2, h3, h4, h5, h6,
+.pack-title, .brand, .modal-title, .modal-sub, .pack-note,
+.pack, .section, .footer-inner, .hero-inner{
+  text-align:center;
+}
+
 /* =========================
    PACKS
    ========================= */
@@ -174,7 +192,7 @@ html.no-scroll body{ overflow:hidden; }
     linear-gradient(180deg, rgba(255,255,255,.06), transparent 55%),
     rgba(0,0,0,.12);
   cursor:pointer;
-  text-align:left;
+  text-align:center; /* override old left */
   color:inherit;
   transform: translateY(0);
   transition: transform .18s ease, background .18s ease, border-color .18s ease;
@@ -190,7 +208,12 @@ html.no-scroll body{ overflow:hidden; }
 }
 
 .pack-meta{ display:grid; gap:2px; }
-.pack-title{ font-family:"Cardinal", serif; font-size:16px; letter-spacing:.04em; }
+
+.pack-title{
+  font-family:"Cardinal", serif;
+  font-size:16px;
+  letter-spacing:.04em;
+}
 
 /* FORCE DarkAges for the "Click to preview..." lines */
 .pack-note{
@@ -239,7 +262,7 @@ html.no-scroll body{ overflow:hidden; }
 }
 
 /* =========================
-   SOCIAL SEALS (fix stretch + ensure hover feel)
+   SOCIAL SEALS
    ========================= */
 .social-icons{
   display:flex;
@@ -259,8 +282,8 @@ html.no-scroll body{ overflow:hidden; }
 
 .seal img{
   width:96px;
-  height:auto;              /* <-- key: stop forced square stretch */
-  max-height:96px;          /* keep them visually consistent */
+  height:auto;
+  max-height:96px;
   display:block;
   object-fit:contain;
   filter:
@@ -415,7 +438,7 @@ html.no-scroll body{ overflow:hidden; }
 .tile-shield{
   position:absolute;
   inset:0;
-  background: rgba(255,255,255,0); /* invisible */
+  background: rgba(255,255,255,0);
   pointer-events:auto;
 }
 
@@ -479,38 +502,4 @@ html.no-scroll body{ overflow:hidden; }
   .creation-grid img{ height: 140px; }
   .seal img{ max-height:80px; width:auto; }
   .wax-btn img{ width: 46px; height: 46px; }
-}
-@media (max-width: 768px){
-  body{
-    background-image: url("./assets/lace-mobile-bg.png");
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-attachment: scroll; /* iOS sanity */
-  }
-}
-@media (max-width: 768px){
-  body::before{
-    content:"";
-    position: fixed;
-    inset: 0;
-    background-image: url("./assets/lace-mobile-bg.png");
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    z-index: -1;
-  }
-
-  body{
-    background: none;
-  }
-  body{
-  text-align: center;
-}
-.section,
-.card,
-.hero,
-.modal{
-  align-items: center;
-}
 }
