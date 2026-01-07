@@ -1,3 +1,4 @@
+<!-- index.html (FULL) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,18 +15,16 @@
   <div class="bg" aria-hidden="true"></div>
 
   <main class="wrap">
-
-    <!-- HERO -->
+    <!-- HERO (open air, no glass) -->
     <header class="hero">
       <div class="hero-inner">
-
         <!-- Single framed logo image -->
         <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
 
         <p class="tagline">Digital textures for artists, designers &amp; bookmakers.</p>
         <p class="subtag">Aged parchment · ritual surfaces · dark elegance</p>
 
-        <!-- PROCESS -->
+        <!-- PROCESS (glass stays) -->
         <section id="process" class="glass section" aria-label="Process">
           <h2 class="h2">Process</h2>
           <p class="muted">
@@ -33,26 +32,29 @@
           </p>
 
           <div class="creation-grid" aria-label="Creation photos">
-            <img src="./assets/creation/creation_1.png" alt="" loading="lazy" />
-            <img src="./assets/creation/creation_2.png" alt="" loading="lazy" />
-            <img src="./assets/creation/creation_3.png" alt="" loading="lazy" />
-            <img src="./assets/creation/creation_4.png" alt="" loading="lazy" />
+            <img src="./assets/creation/creation_1.png" alt="Creation process photo 1" loading="lazy" />
+            <img src="./assets/creation/creation_2.png" alt="Creation process photo 2" loading="lazy" />
+            <img src="./assets/creation/creation_3.png" alt="Creation process photo 3" loading="lazy" />
+            <img src="./assets/creation/creation_4.png" alt="Creation process photo 4" loading="lazy" />
           </div>
 
           <p class="shop-line muted">Shop now</p>
 
           <!-- SOCIAL ICONS -->
           <div class="social-icons" aria-label="Shop and follow">
-            <a class="seal" href="https://payhip.com/LaceLeather65" target="_blank" rel="noopener">
+            <a class="seal" href="https://payhip.com/LaceLeather65" target="_blank" rel="noopener" aria-label="Payhip">
               <img src="./assets/social-icons/payhip-icon.PNG" alt="Payhip" />
             </a>
-            <a class="seal" href="https://www.etsy.com/shop/laceLeatherArcane" target="_blank" rel="noopener">
+
+            <a class="seal" href="https://www.etsy.com/shop/laceLeatherArcane" target="_blank" rel="noopener" aria-label="Etsy">
               <img src="./assets/social-icons/etsy-icon.PNG" alt="Etsy" />
             </a>
-            <a class="seal" href="https://instagram.com/lace.and.leather65" target="_blank" rel="noopener">
+
+            <a class="seal" href="https://instagram.com/lace.and.leather65" target="_blank" rel="noopener" aria-label="Instagram">
               <img src="./assets/social-icons/instagram-icon.PNG" alt="Instagram" />
             </a>
-            <a class="seal" href="https://pinterest.com/laceandleather65" target="_blank" rel="noopener">
+
+            <a class="seal" href="https://pinterest.com/laceandleather65" target="_blank" rel="noopener" aria-label="Pinterest">
               <img src="./assets/social-icons/pinterest-icon.PNG" alt="Pinterest" />
             </a>
           </div>
@@ -60,17 +62,14 @@
       </div>
     </header>
 
-    <!-- PACKS -->
+    <!-- PRODUCTS / VOLUMES -->
     <section class="glass section" aria-label="Packs">
       <h2 class="h2">Browse Packs</h2>
       <p class="muted">Tap a cover to preview the full set. (No downloads here — this is the front porch.)</p>
 
       <div class="packs">
-
         <button class="pack" type="button" data-pack="grimoire">
-          <div class="pack-media">
-            <img src="./assets/grimoire/grim-thumb.png" alt="" loading="lazy" />
-          </div>
+          <img src="./assets/grimoire/grim-thumb.png" alt="Grimoire pack preview" loading="lazy" />
           <div class="pack-meta">
             <div class="pack-title">Grimoire Pages</div>
             <div class="pack-note muted">Click to preview all pages</div>
@@ -78,9 +77,7 @@
         </button>
 
         <button class="pack" type="button" data-pack="mapmaker">
-          <div class="pack-media">
-            <img src="./assets/mapmaker/mapmaker-cover.png" alt="" loading="lazy" />
-          </div>
+          <img src="./assets/mapmaker/mapmaker-cover.png" alt="Mapmaker pack preview" loading="lazy" />
           <div class="pack-meta">
             <div class="pack-title">Mapmaker Sheets</div>
             <div class="pack-note muted">Click to preview all sheets</div>
@@ -88,15 +85,12 @@
         </button>
 
         <button class="pack" type="button" data-pack="vol1">
-          <div class="pack-media">
-            <img src="./assets/vol-1/vol-1-thumbnail.png" alt="" loading="lazy" />
-          </div>
+          <img src="./assets/vol-1/vol-1-thumbnail.png" alt="Vol 1 light parchment preview" loading="lazy" />
           <div class="pack-meta">
             <div class="pack-title">Light Aged Parchment — Vol. 1</div>
             <div class="pack-note muted">Click to preview all textures</div>
           </div>
         </button>
-
       </div>
     </section>
 
@@ -106,7 +100,6 @@
         <div class="muted">Digital texture packs · PNG/JPG · Instant delivery via shop links</div>
       </div>
     </footer>
-
   </main>
 
   <!-- MODAL -->
@@ -116,31 +109,34 @@
     <div class="modal-panel glass" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head">
         <div class="modal-left">
-          <button class="wax-btn back-btn" type="button" data-back aria-label="Back">
+          <button class="wax-btn back-btn" type="button" data-back aria-label="Back to collage">
             <img src="./assets/back-button.PNG" alt="Back" />
           </button>
+
           <div>
             <div id="modalTitle" class="modal-title">Preview</div>
             <div id="modalSub" class="modal-sub muted"></div>
           </div>
         </div>
 
-        <button class="wax-btn close-btn" type="button" data-close aria-label="Close">
+        <button class="wax-btn close-btn" type="button" data-close aria-label="Close preview">
           <img src="./assets/x-button.PNG" alt="Close" />
         </button>
       </div>
 
       <div class="modal-body">
-        <div class="collage" id="collage"></div>
+        <!-- Collage view -->
+        <div class="collage" id="collage" aria-label="Pack preview collage"></div>
 
-        <div class="viewer" id="viewer" aria-hidden="true">
-          <img id="viewerImg" alt="Large preview" />
+        <!-- Single image view (NOT an <img> — deterrence layer) -->
+        <div class="viewer" id="viewer" aria-label="Large preview" aria-hidden="true">
+          <div id="viewerImg" class="viewer-img" role="img" aria-label="Large preview image"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- SCRIPT -->
+  <!-- Inline JS -->
   <script>
     (() => {
       "use strict";
@@ -206,10 +202,16 @@
       const backBtn = document.querySelector("[data-back]");
 
       const setMode = (mode) => {
-        modal.classList.toggle("mode-viewer", mode === "viewer");
-        viewer.setAttribute("aria-hidden", mode !== "viewer");
-        backBtn.style.display = mode === "viewer" ? "inline-flex" : "none";
-        if (mode !== "viewer") viewerImg.removeAttribute("src");
+        if (mode === "viewer") {
+          modal.classList.add("mode-viewer");
+          viewer.setAttribute("aria-hidden", "false");
+          backBtn.style.display = "inline-flex";
+        } else {
+          modal.classList.remove("mode-viewer");
+          viewer.setAttribute("aria-hidden", "true");
+          backBtn.style.display = "none";
+          viewerImg.style.backgroundImage = "";
+        }
       };
 
       const openModal = (key) => {
@@ -218,49 +220,89 @@
 
         titleEl.textContent = pack.title;
         subEl.textContent = pack.sub;
+
         collage.innerHTML = "";
         setMode("collage");
 
-        pack.images.forEach(src => {
+        // Build collage tiles (background-image, not <img>)
+        pack.images.forEach((src, idx) => {
           const btn = document.createElement("button");
+          btn.type = "button";
           btn.className = "tile";
-          btn.dataset.view = src;
-          const img = new Image();
-          img.src = src;
-          img.loading = "lazy";
-          btn.appendChild(img);
+          btn.setAttribute("data-view", src);
+          btn.setAttribute("aria-label", `View image ${idx + 1}`);
+
+          const face = document.createElement("div");
+          face.className = "tile-face";
+          face.style.backgroundImage = `url("${src}")`;
+
+          // shield layer catches long-press/right-click on the image itself
+          const shield = document.createElement("span");
+          shield.className = "tile-shield";
+          shield.setAttribute("aria-hidden", "true");
+
+          btn.appendChild(face);
+          btn.appendChild(shield);
           collage.appendChild(btn);
         });
 
         modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
         document.documentElement.classList.add("no-scroll");
       };
 
       const closeModal = () => {
         modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
         document.documentElement.classList.remove("no-scroll");
         collage.innerHTML = "";
         setMode("collage");
       };
 
-      document.addEventListener("click", e => {
-        const pack = e.target.closest(".pack");
-        if (pack) return openModal(pack.dataset.pack);
-        const tile = e.target.closest(".tile");
-        if (tile) {
-          viewerImg.src = tile.dataset.view;
-          setMode("viewer");
-        }
-        if (e.target.closest("[data-back]")) setMode("collage");
-        if (e.target.closest("[data-close]")) closeModal();
+      const openViewer = (src) => {
+        if (!src) return;
+        viewerImg.style.backgroundImage = `url("${src}")`;
+        setMode("viewer");
+        const body = modal.querySelector(".modal-body");
+        if (body) body.scrollTop = 0;
+      };
+
+      const backToCollage = () => setMode("collage");
+
+      // Deterrence: disable context menu inside modal only (doesn't break the rest of your site)
+      modal.addEventListener("contextmenu", (e) => {
+        if (modal.classList.contains("open")) e.preventDefault();
       });
 
-      document.addEventListener("keydown", e => {
+      document.addEventListener("click", (e) => {
+        const packBtn = e.target.closest(".pack");
+        if (packBtn) {
+          e.preventDefault();
+          e.stopPropagation(); // helps prevent the “insta-viewer” glitch on some browsers
+          openModal(packBtn.getAttribute("data-pack"));
+          return;
+        }
+
+        const tileBtn = e.target.closest(".tile");
+        if (tileBtn && modal.classList.contains("open")) {
+          e.preventDefault();
+          e.stopPropagation();
+          openViewer(tileBtn.getAttribute("data-view"));
+          return;
+        }
+
+        if (e.target.closest("[data-back]")) return backToCollage();
+        if (e.target.closest("[data-close]")) return closeModal();
+      });
+
+      document.addEventListener("keydown", (e) => {
         if (!modal.classList.contains("open")) return;
-        if (e.key === "Escape") closeModal();
+
+        if (e.key === "Escape") return closeModal();
+
         if ((e.key === "Backspace" || e.key === "ArrowLeft") && modal.classList.contains("mode-viewer")) {
           e.preventDefault();
-          setMode("collage");
+          backToCollage();
         }
       });
     })();
