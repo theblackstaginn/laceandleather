@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,7 +18,7 @@
     <!-- HERO (open air, no glass) -->
     <header class="hero">
       <div class="hero-inner">
-        <!-- Logo with ornate frame -->
+        <!-- Logo with ornate frame (CSS-only) -->
         <div class="logo-frame" aria-label="Lace & Leather mark">
           <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
         </div>
@@ -41,7 +42,7 @@
 
           <p class="shop-line muted">Shop now</p>
 
-          <!-- SOCIAL ICONS -->
+          <!-- SOCIAL ICONS (no labels; logos only) -->
           <div class="social-icons" aria-label="Shop and follow">
             <a class="seal" href="https://payhip.com/LaceLeather65" target="_blank" rel="noopener" aria-label="Payhip">
               <img src="./assets/social-icons/payhip-icon.PNG" alt="Payhip" />
@@ -111,7 +112,6 @@
     <div class="modal-backdrop" data-close></div>
 
     <div class="modal-panel glass" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <!-- Header changes depending on view -->
       <div class="modal-head">
         <div class="modal-left">
           <!-- Back button only shown in viewer mode -->
@@ -137,6 +137,7 @@
 
         <!-- Single image view -->
         <div class="viewer" id="viewer" aria-label="Large preview" aria-hidden="true">
+          <button class="viewer-hit" type="button" data-back aria-label="Back to collage"></button>
           <img id="viewerImg" alt="Large preview" />
         </div>
       </div>
@@ -235,7 +236,6 @@
         collage.innerHTML = "";
         setMode("collage");
 
-        // Build collage tiles
         pack.images.forEach((src, idx) => {
           const btn = document.createElement("button");
           btn.type = "button";
@@ -270,14 +270,11 @@
         if (!src) return;
         viewerImg.src = src;
         setMode("viewer");
-        // scroll modal body to top so image is visible
         const body = modal.querySelector(".modal-body");
         if (body) body.scrollTop = 0;
       };
 
-      const backToCollage = () => {
-        setMode("collage");
-      };
+      const backToCollage = () => setMode("collage");
 
       document.addEventListener("click", (e) => {
         const packBtn = e.target.closest(".pack");
@@ -311,7 +308,6 @@
           return;
         }
 
-        // Back with Backspace (optional UX candy, safe)
         if ((e.key === "Backspace" || e.key === "ArrowLeft") && modal.classList.contains("mode-viewer")) {
           e.preventDefault();
           backToCollage();
