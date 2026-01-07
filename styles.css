@@ -198,42 +198,43 @@ body{
   outline-offset: 4px;
 }
 
-/* Wax seal links */
+/* Wax seal links (CENTERED + NICKEL SIZE) */
 .icon-row{
   display:flex;
-  gap: 14px;
+  justify-content: center;
+  gap: 18px;
   flex-wrap: wrap;
   align-items: center;
-  padding: 6px 0 2px;
+  padding: 10px 0 4px;
 }
 
 .seal{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width: 62px;
-  height: 62px;
+  width: 86px;
+  height: 86px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,.10);
   background: rgba(0,0,0,.22);
-  box-shadow: 0 10px 26px rgba(0,0,0,.40);
+  box-shadow: 0 14px 34px rgba(0,0,0,.45);
   transition: transform .14s ease, box-shadow .14s ease;
 }
 
 .seal img{
-  width: 52px;
-  height: 52px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
   display:block;
 }
 
 .seal:hover{
   transform: translateY(-2px);
-  box-shadow: 0 14px 34px rgba(0,0,0,.48);
+  box-shadow: 0 18px 42px rgba(0,0,0,.55);
 }
 
 .seal:active{
-  transform: translateY(0px) scale(.98);
+  transform: translateY(0) scale(.97);
 }
 
 .foot{
@@ -245,7 +246,6 @@ body{
    MODAL GALLERY
    =========================== */
 
-/* prevent background scroll while modal is open */
 html.modal-lock,
 body.modal-lock{
   overflow: hidden;
@@ -356,12 +356,14 @@ body.modal-lock{
   .panel{
     padding: 18px 14px;
   }
+
+  /* Nickel icons scale down on small phones */
   .seal{
-    width: 58px;
-    height: 58px;
+    width: 72px;
+    height: 72px;
   }
   .seal img{
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
   }
 }
