@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lace & Leather — Digital Textures</title>
+  <meta name="description" content="Photoreal parchment textures and grimoire surfaces for artists, designers, and bookmakers." />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Background layer (separate div = iOS safer than body fixed bg) -->
+  <div class="bg" aria-hidden="true"></div>
+  <div class="bg-vignette" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <header class="hero">
+      <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
+      <p class="tagline">
+        Photoreal parchment textures • ritual surfaces • dark elegance
+      </p>
+    </header>
+
+    <section class="panel">
+      <h2>Browse the work</h2>
+      <p class="muted">
+        High-resolution texture packs designed for print, design, and digital craft.
+        Built to layer cleanly. Built to feel real.
+      </p>
+
+      <div class="creation-grid" role="list">
+        <a class="shot" href="./assets/creation/creation_1.png" target="_blank" rel="noopener" aria-label="Open creation photo 1">
+          <img src="./assets/creation/creation_1.png" alt="Creation photo 1" loading="lazy">
+        </a>
+        <a class="shot" href="./assets/creation/creation_2.png" target="_blank" rel="noopener" aria-label="Open creation photo 2">
+          <img src="./assets/creation/creation_2.png" alt="Creation photo 2" loading="lazy">
+        </a>
+        <a class="shot" href="./assets/creation/creation_3.png" target="_blank" rel="noopener" aria-label="Open creation photo 3">
+          <img src="./assets/creation/creation_3.png" alt="Creation photo 3" loading="lazy">
+        </a>
+        <a class="shot" href="./assets/creation/creation_4.png" target="_blank" rel="noopener" aria-label="Open creation photo 4">
+          <img src="./assets/creation/creation_4.png" alt="Creation photo 4" loading="lazy">
+        </a>
+      </div>
+
+      <hr class="rule" />
+
+      <h2>Shop & follow</h2>
+      <p class="muted">Choose your portal.</p>
+
+      <nav class="icon-row" aria-label="Lace & Leather links">
+        <!-- Replace # with your real links -->
+        <a class="seal" href="#" target="_blank" rel="noopener" aria-label="Shop on Payhip">
+          <img src="./assets/social-icons/payhip-icon.PNG" alt="Payhip" loading="lazy">
+        </a>
+
+        <a class="seal" href="#" target="_blank" rel="noopener" aria-label="Shop on Etsy">
+          <img src="./assets/social-icons/etsy-icon.PNG" alt="Etsy" loading="lazy">
+        </a>
+
+        <a class="seal" href="#" target="_blank" rel="noopener" aria-label="Follow on Instagram">
+          <img src="./assets/social-icons/instagram-icon.PNG" alt="Instagram" loading="lazy">
+        </a>
+
+        <a class="seal" href="#" target="_blank" rel="noopener" aria-label="Follow on Pinterest">
+          <img src="./assets/social-icons/pinterest-icon.PNG" alt="Pinterest" loading="lazy">
+        </a>
+      </nav>
+
+      <footer class="foot">
+        <small class="muted">© <span id="y"></span> Lace & Leather</small>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
