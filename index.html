@@ -17,10 +17,8 @@
     <!-- HERO (open air, no glass) -->
     <header class="hero">
       <div class="hero-inner">
-        <!-- Logo with PNG frame (logo-frame.PNG is in root) -->
-        <div class="logo-frame" aria-label="Lace & Leather mark">
-          <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
-        </div>
+        <!-- Single framed logo image -->
+        <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
 
         <p class="tagline">Digital textures for artists, designers &amp; bookmakers.</p>
         <p class="subtag">Aged parchment · ritual surfaces · dark elegance</p>
@@ -69,7 +67,6 @@
       <p class="muted">Tap a cover to preview the full set. (No downloads here — this is the front porch.)</p>
 
       <div class="packs">
-        <!-- Grimoire -->
         <button class="pack" type="button" data-pack="grimoire">
           <img src="./assets/grimoire/grim-thumb.png" alt="Grimoire pack preview" loading="lazy" />
           <div class="pack-meta">
@@ -78,7 +75,6 @@
           </div>
         </button>
 
-        <!-- Mapmaker -->
         <button class="pack" type="button" data-pack="mapmaker">
           <img src="./assets/mapmaker/mapmaker-cover.png" alt="Mapmaker pack preview" loading="lazy" />
           <div class="pack-meta">
@@ -87,7 +83,6 @@
           </div>
         </button>
 
-        <!-- Vol 1 Light Parchment -->
         <button class="pack" type="button" data-pack="vol1">
           <img src="./assets/vol-1/vol-1-thumbnail.png" alt="Vol 1 light parchment preview" loading="lazy" />
           <div class="pack-meta">
@@ -113,7 +108,6 @@
     <div class="modal-panel glass" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head">
         <div class="modal-left">
-          <!-- Back button only shown in viewer mode -->
           <button class="wax-btn back-btn" type="button" data-back aria-label="Back to collage">
             <img src="./assets/back-button.PNG" alt="Back" />
           </button>
@@ -124,17 +118,14 @@
           </div>
         </div>
 
-        <!-- Close is wax seal X -->
         <button class="wax-btn close-btn" type="button" data-close aria-label="Close preview">
           <img src="./assets/x-button.PNG" alt="Close" />
         </button>
       </div>
 
       <div class="modal-body">
-        <!-- Collage view -->
         <div class="collage" id="collage" aria-label="Pack preview collage"></div>
 
-        <!-- Single image view -->
         <div class="viewer" id="viewer" aria-label="Large preview" aria-hidden="true">
           <img id="viewerImg" alt="Large preview" />
         </div>
@@ -271,35 +262,19 @@
 
       document.addEventListener("click", (e) => {
         const packBtn = e.target.closest(".pack");
-        if (packBtn) {
-          openModal(packBtn.getAttribute("data-pack"));
-          return;
-        }
+        if (packBtn) return openModal(packBtn.getAttribute("data-pack"));
 
         const tileBtn = e.target.closest(".tile");
-        if (tileBtn && modal.classList.contains("open")) {
-          openViewer(tileBtn.getAttribute("data-view"));
-          return;
-        }
+        if (tileBtn && modal.classList.contains("open")) return openViewer(tileBtn.getAttribute("data-view"));
 
-        if (e.target.closest("[data-back]")) {
-          backToCollage();
-          return;
-        }
-
-        if (e.target.closest("[data-close]")) {
-          closeModal();
-          return;
-        }
+        if (e.target.closest("[data-back]")) return backToCollage();
+        if (e.target.closest("[data-close]")) return closeModal();
       });
 
       document.addEventListener("keydown", (e) => {
         if (!modal.classList.contains("open")) return;
 
-        if (e.key === "Escape") {
-          closeModal();
-          return;
-        }
+        if (e.key === "Escape") return closeModal();
 
         if ((e.key === "Backspace" || e.key === "ArrowLeft") && modal.classList.contains("mode-viewer")) {
           e.preventDefault();
