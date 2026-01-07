@@ -26,7 +26,6 @@
 :root{
   --text:#e7e2db;
   --muted: rgba(231,226,219,.72);
-
   --wrap: min(1100px, calc(100% - 36px));
 
   --glassTintA: rgba(12,14,18,.10);
@@ -36,7 +35,6 @@
 
   --radius:18px;
   --shadow: 0 18px 48px rgba(0,0,0,.50);
-
   --bgDim:.58;
 
   --h2: clamp(20px, 2.2vw, 26px);
@@ -115,7 +113,7 @@ html.no-scroll body{ overflow:hidden; }
   place-items:center;
   text-align:center;
   gap:10px;
-  padding: 14px 10px;
+  padding:14px 10px;
 }
 
 .logo{
@@ -176,7 +174,7 @@ html.no-scroll body{ overflow:hidden; }
   display:block;
 }
 
-/* invisible ward */
+/* TRANSPARENT WARD */
 .pack-media::after{
   content:"";
   position:absolute;
@@ -325,13 +323,13 @@ html.no-scroll body{ overflow:hidden; }
 
 .tile img{
   width:100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio:3/4;
   object-fit:contain;
   border-radius:16px;
   display:block;
 }
 
-/* ward over collage tile */
+/* WARD */
 .tile::after{
   content:"";
   position:absolute;
@@ -348,15 +346,19 @@ html.no-scroll body{ overflow:hidden; }
 .modal.mode-viewer .collage{ display:none; }
 .modal.mode-viewer .viewer{ display:block; }
 
+.viewer{
+  position:relative;
+}
+
 .viewer img{
   width:100%;
   max-height:70vh;
   object-fit:contain;
-  display:block;
   border-radius:14px;
+  display:block;
 }
 
-/* ward over viewer image */
+/* WARD */
 .viewer::after{
   content:"";
   position:absolute;
