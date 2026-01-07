@@ -508,4 +508,10 @@ html.no-scroll body{ overflow:hidden; }
   body{
   text-align: center;
 }
+.section,
+.card,
+.hero,
+.modal{
+  align-items: center;
+}
 }
