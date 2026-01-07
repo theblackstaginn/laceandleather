@@ -18,9 +18,10 @@
     <!-- HERO (open air, no glass) -->
     <header class="hero">
       <div class="hero-inner">
-        <!-- Logo with ornate frame (CSS-only) -->
-        <div class="logo-frame" aria-label="Lace & Leather mark">
-          <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
+        <!-- Logo with PNG frame (logo-frame.PNG is in root) -->
+        <div class="logo-wrap" aria-label="Lace & Leather mark">
+          <img class="logo-img" src="./assets/l&l_logo.png" alt="Lace & Leather" />
+          <img class="logo-frame-img" src="./logo-frame.PNG" alt="" aria-hidden="true" />
         </div>
 
         <p class="tagline">Digital textures for artists, designers &amp; bookmakers.</p>
@@ -137,7 +138,6 @@
 
         <!-- Single image view -->
         <div class="viewer" id="viewer" aria-label="Large preview" aria-hidden="true">
-          <button class="viewer-hit" type="button" data-back aria-label="Back to collage"></button>
           <img id="viewerImg" alt="Large preview" />
         </div>
       </div>
@@ -209,10 +209,7 @@
       const subEl = document.getElementById("modalSub");
       const backBtn = document.querySelector("[data-back]");
 
-      let currentPackKey = null;
-
       const setMode = (mode) => {
-        // mode: "collage" | "viewer"
         if (mode === "viewer") {
           modal.classList.add("mode-viewer");
           viewer.setAttribute("aria-hidden", "false");
@@ -229,7 +226,6 @@
         const pack = PACKS[key];
         if (!pack) return;
 
-        currentPackKey = key;
         titleEl.textContent = pack.title;
         subEl.textContent = pack.sub;
 
@@ -263,7 +259,6 @@
         document.documentElement.classList.remove("no-scroll");
         collage.innerHTML = "";
         setMode("collage");
-        currentPackKey = null;
       };
 
       const openViewer = (src) => {
