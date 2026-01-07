@@ -23,6 +23,18 @@
   font-style:normal;
   font-display:swap;
 }
+/* =========================
+   BRAND TITLE
+   ========================= */
+
+.brand-title{
+  font-family: "Cardinal", serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  text-align: center;
+}
 
 /* =========================
    ROOT
