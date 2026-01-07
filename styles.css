@@ -2,9 +2,10 @@
    Lace & Leather — Front Porch
    - Fixed background (iOS-safe layer)
    - Glass panels (tinted but transparent w/ slight blur)
-   - Process + creation grid
-   - Social wax seals: NO ring, quarter-sized
-   - Modal collage previews (no extra files)
+   - Hero is open (no glass)
+   - Logo has ornate frame (CSS-only)
+   - Modal previews show full pages (no cropping)
+   - Social wax seals: quarter-sized
    ========================================================= */
 
 :root{
@@ -13,7 +14,7 @@
 
   --wrap: min(1100px, calc(100% - 36px));
 
-  /* Glass tint kept very light */
+  /* Glass tint kept light + transparent */
   --glassTintA: rgba(12,14,18,.10);
   --glassTintB: rgba(12,14,18,.16);
   --glassSheenTop: rgba(255,255,255,.08);
@@ -23,7 +24,8 @@
   --radius: 18px;
   --shadow: 0 18px 48px rgba(0,0,0,.50);
 
-  --bgDim: .70;
+  /* Brighten background a bit */
+  --bgDim: .58;
 
   --h2: clamp(20px, 2.2vw, 26px);
 }
@@ -55,7 +57,9 @@ html.no-scroll body{
   background-position: center;
   background-repeat: no-repeat;
   transform: translateZ(0);
-  filter: saturate(1.05) contrast(1.03) brightness(.95);
+
+  /* brighter than before */
+  filter: saturate(1.08) contrast(1.02) brightness(1.08);
 }
 
 .bg::after{
@@ -64,7 +68,7 @@ html.no-scroll body{
   inset: 0;
   background:
     radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.06), transparent 60%),
-    radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.72) 100%),
+    radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.66) 100%),
     linear-gradient(180deg, rgba(0,0,0,var(--bgDim)), rgba(0,0,0,var(--bgDim)));
 }
 
@@ -76,7 +80,7 @@ html.no-scroll body{
   gap: 18px;
 }
 
-/* Glass panels (tinted but transparent w/ slight blur) */
+/* Glass panels */
 .glass{
   position: relative;
   background:
@@ -105,6 +109,7 @@ html.no-scroll body{
   padding: 18px 18px 16px;
 }
 
+/* HERO is open air (no glass) */
 .hero{
   padding: 18px;
 }
@@ -115,6 +120,55 @@ html.no-scroll body{
   text-align: center;
   gap: 10px;
   padding: 14px 10px;
+}
+
+/* Ornate logo frame (CSS-only, complements parchment + wax) */
+.logo-frame{
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  padding: 14px 18px;
+  border-radius: 22px;
+
+  /* parchment-ish halo */
+  background:
+    radial-gradient(120% 90% at 50% 30%, rgba(255,235,205,.10), transparent 55%),
+    linear-gradient(180deg, rgba(12,14,18,.18), rgba(12,14,18,.10));
+  box-shadow: 0 18px 50px rgba(0,0,0,.55);
+}
+
+.logo-frame::before{
+  content:"";
+  position: absolute;
+  inset: 6px;
+  border-radius: 18px;
+
+  /* double-line ornamental frame, subtle warmth */
+  border: 1px solid rgba(231,226,219,.22);
+  box-shadow: inset 0 0 0 1px rgba(170,120,90,.18);
+
+  /* corner ornaments via gradients */
+  background:
+    radial-gradient(14px 14px at 0% 0%, rgba(170,120,90,.22), transparent 70%),
+    radial-gradient(14px 14px at 100% 0%, rgba(170,120,90,.22), transparent 70%),
+    radial-gradient(14px 14px at 0% 100%, rgba(170,120,90,.22), transparent 70%),
+    radial-gradient(14px 14px at 100% 100%, rgba(170,120,90,.22), transparent 70%);
+  pointer-events: none;
+}
+
+.logo-frame::after{
+  content:"";
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  pointer-events: none;
+
+  /* faint “engraved” flourish feel */
+  background:
+    radial-gradient(90% 70% at 50% 10%, rgba(255,255,255,.07), transparent 60%),
+    radial-gradient(90% 70% at 50% 90%, rgba(255,255,255,.05), transparent 60%);
+  mix-blend-mode: screen;
+  opacity: .55;
 }
 
 .logo{
@@ -369,10 +423,11 @@ html.no-scroll body{
   gap: 10px;
 }
 
+/* ✅ Show full page (no cropping) */
 .collage img{
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 280px;
+  object-fit: contain;         /* key change */
   border-radius: 16px;
   border: 1px solid rgba(255,255,255,.10);
   background: rgba(0,0,0,.10);
@@ -394,10 +449,11 @@ html.no-scroll body{
   .pack img{ height: 220px; }
   .creation-grid{ grid-template-columns: repeat(2, 1fr); }
   .collage{ grid-template-columns: repeat(2, 1fr); }
+  .collage img{ height: 300px; }
 }
 
 @media (max-width: 420px){
   .creation-grid img{ height: 140px; }
   .seal img{ width: 80px; height: 80px; }
-  .collage img{ height: 170px; }
+  .collage img{ height: 260px; }
 }
