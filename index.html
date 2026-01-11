@@ -136,9 +136,14 @@
           <strong>Deliverables:</strong> High-resolution PNG/JPG, print-ready at 300 DPI, optional transparent background.
         </p>
         <p>
-          <strong>Availability:</strong> Only 2 custom map slots open each month.
+          <strong>Availability:</strong> 3 custom map slots open each month.
         </p>
       </div>
+
+      <p class="maps-ward muted">
+        Protection ward: previews stay here. No reuse, resale, or training data. Full-resolution files are delivered
+        privately to clients.
+      </p>
 
       <div class="maps-cta">
         <a class="btn-primary" href="https://instagram.com/lace.and.leather65" target="_blank" rel="noopener">
@@ -253,6 +258,12 @@
       const titleEl = document.getElementById("modalTitle");
       const subEl = document.getElementById("modalSub");
       const backBtn = document.querySelector("[data-back]");
+
+      // Protection ward: block context menu on map previews
+      const mapsGrid = document.querySelector(".maps-grid");
+      if (mapsGrid) {
+        mapsGrid.addEventListener("contextmenu", (e) => e.preventDefault());
+      }
 
       const setMode = (mode) => {
         if (mode === "viewer") {
