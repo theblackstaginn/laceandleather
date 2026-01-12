@@ -1,4 +1,4 @@
-<!-- index.html (CLEAN + DUST + MODALS + COMMISSION FLOW) -->
+<!-- index.html (CLEAN + DUST + MODALS + COMMISSION ENVELOPE) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,15 +8,11 @@
   <title>Lace & Leather — Digital Textures</title>
   <meta name="description" content="Digital textures for artists, designers, & bookmakers. Aged parchment. Ritual surfaces. Dark elegance." />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="manifest" href="/manifest.json">
 
-  <!-- iOS -->
+  <!-- PWA / icons -->
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="./favicon.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
-  <meta name="theme-color" content="#1b1b1b">
-
-  <!-- Theme -->
   <meta name="theme-color" content="#1b1b1b">
 </head>
 
@@ -35,7 +31,7 @@
   <main class="wrap">
     <!-- HERO (open air, no glass) -->
     <header class="hero">
-      <div class="brand-title">Lace & Leather</div>
+      <div class="brand-title">Lace &amp; Leather</div>
       <div class="hero-inner">
         <!-- Single framed logo image -->
         <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
@@ -163,8 +159,9 @@
         privately to clients.
       </p>
 
+      <!-- Custom maps wax button now triggers commission envelope modal -->
       <div class="maps-cta">
-        <button id="openCommissionModal" class="maps-btn" type="button">
+        <button class="maps-btn" type="button" id="commissionTrigger">
           <img class="wax-seal-img" src="./assets/custom-maps-button.png" alt="Request a custom map slot" />
         </button>
       </div>
@@ -242,83 +239,30 @@
     </div>
   </div>
 
-  <!-- ENVELOPE SEQUENCE MODAL (FULLSCREEN, NO SCROLL) -->
-  <div class="modal" id="commissionModal" aria-hidden="true">
-    <div class="modal-backdrop" data-comm-close></div>
+  <!-- COMMISSION ENVELOPE MODAL (full-screen sequence) -->
+  <div class="modal commission-modal" id="commissionModal" aria-hidden="true">
+    <div class="modal-backdrop" data-commission-close></div>
 
-    <div class="commission-panel" role="dialog" aria-modal="true">
-      <div class="commission-surface">
-        <!-- Background surface -->
-        <img
-          id="commissionSurfaceImg"
-          src="./assets/commission-modal-assets/modal-bg.png"
-          alt=""
-          aria-hidden="true"
-        />
-
-        <!-- Envelope sequence image (click to advance) -->
-        <img
-          id="commissionEnvelope"
-          class="commission-envelope"
-          src="./assets/commission-modal-assets/envelope-closed.png"
-          alt="Commission envelope"
-        />
-      </div>
-
-      <!-- Close button (top-right) -->
-      <button
-        class="wax-btn close-btn commission-close"
-        type="button"
-        data-comm-close
-        aria-label="Close"
-      >
-        <img src="./assets/x-button.PNG" alt="Close" />
-      </button>
-    </div>
-  </div>
-
-  <!-- COMMISSION LETTER MODAL (SCROLLABLE BODY) -->
-  <div class="modal" id="commissionLetterModal" aria-hidden="true">
-    <div class="modal-backdrop" data-comm-letter-close></div>
-
-    <div class="modal-panel glass" role="dialog" aria-modal="true">
-      <div class="modal-head">
-        <div class="modal-left">
-          <div>
-            <div class="modal-title" id="commissionTitle">Commission a Map</div>
-            <div class="modal-sub muted">Instructions &amp; request button</div>
-          </div>
-        </div>
-
+    <div class="commission-panel" role="dialog" aria-modal="true" aria-labelledby="commissionTitle">
+      <div class="commission-bg">
         <button
-          class="wax-btn close-btn"
+          class="wax-btn close-btn commission-close"
           type="button"
-          data-comm-letter-close
-          aria-label="Close commission instructions"
-        >
+          data-commission-close
+          aria-label="Close commission instructions">
           <img src="./assets/x-button.PNG" alt="Close" />
         </button>
-      </div>
 
-      <div class="modal-body">
-        <div class="commission-letter-wrap">
+        <div class="commission-stage" id="commissionStage">
+          <!-- This image src is controlled by JS (4-step sequence) -->
           <img
-            class="commission-letter-img"
-            src="./assets/commission-modal-assets/commission-letter.png"
-            alt="How to commission a custom map from Lace &amp; Leather"
-          />
+            id="commissionImage"
+            src="./assets/commission-modal-assets/envelope-closed.png"
+            alt="Commission envelope" />
 
-          <!-- Button visually in the empty margin at the bottom of the letter -->
-          <button
-            class="letter-slot-btn"
-            type="button"
-            id="commissionEmailBtn"
-            aria-label="Claim a map slot via email"
-          >
-            <img
-              src="./assets/commission-modal-assets/map-slot-button.png"
-              alt="Claim Map Slot"
-            />
+          <!-- Claim Map Slot wax button (only appears on final letter step) -->
+          <button class="map-slot-btn" type="button" id="mapSlotBtn" aria-label="Claim a custom map slot">
+            <img src="./assets/commission-modal-assets/map-slot-button.png" alt="Claim map slot" />
           </button>
         </div>
       </div>
@@ -434,6 +378,67 @@
       const mapSubEl = document.getElementById("mapModalSub");
       const mapsGrid = document.querySelector(".maps-grid");
 
+      // Commission envelope modal elements
+      const commissionModal = document.getElementById("commissionModal");
+      const commissionTrigger = document.getElementById("commissionTrigger");
+      const commissionImage = document.getElementById("commissionImage");
+      const commissionStage = document.getElementById("commissionStage");
+      const mapSlotBtn = document.getElementById("mapSlotBtn");
+
+      const COMMISSION_STEPS = [
+        {
+          src: "./assets/commission-modal-assets/envelope-closed.png",
+          alt: "Closed parchment envelope"
+        },
+        {
+          src: "./assets/commission-modal-assets/envelope-open-letter.png",
+          alt: "Opened envelope with folded letter inside"
+        },
+        {
+          src: "./assets/commission-modal-assets/envelope-empty.png",
+          alt: "Open empty parchment envelope"
+        },
+        {
+          src: "./assets/commission-modal-assets/commission-letter.png",
+          alt: "Commission instructions letter"
+        }
+      ];
+
+      let commissionStep = 0;
+
+      const setCommissionStep = (step) => {
+        commissionStep = step;
+        const frame = COMMISSION_STEPS[step];
+        if (!frame || !commissionImage) return;
+
+        commissionImage.src = frame.src;
+        commissionImage.alt = frame.alt;
+
+        // Last step = letter visible
+        const isLetter = step === COMMISSION_STEPS.length - 1;
+        if (commissionModal) {
+          commissionModal.classList.toggle("letter-step", isLetter);
+        }
+        if (mapSlotBtn) {
+          mapSlotBtn.style.display = isLetter ? "inline-flex" : "none";
+        }
+      };
+
+      const openCommissionModal = () => {
+        if (!commissionModal) return;
+        setCommissionStep(0);
+        commissionModal.classList.add("open");
+        commissionModal.setAttribute("aria-hidden", "false");
+        lockScroll();
+      };
+
+      const closeCommissionModal = () => {
+        if (!commissionModal) return;
+        commissionModal.classList.remove("open", "letter-step");
+        commissionModal.setAttribute("aria-hidden", "true");
+        unlockScroll();
+      };
+
       const setMode = (mode) => {
         if (mode === "viewer") {
           modal.classList.add("mode-viewer");
@@ -457,7 +462,7 @@
         collage.innerHTML = "";
         setMode("collage");
 
-        // Build collage tiles
+        // Build collage tiles (background-image, not <img>)
         pack.images.forEach((src, idx) => {
           const btn = document.createElement("button");
           btn.type = "button";
@@ -522,77 +527,6 @@
         unlockScroll();
       };
 
-      // === COMMISSION MODALS ===
-      const commissionModal = document.getElementById("commissionModal");
-      const commissionEnvelope = document.getElementById("commissionEnvelope");
-      const openCommissionBtn = document.getElementById("openCommissionModal");
-
-      const commissionLetterModal = document.getElementById("commissionLetterModal");
-      const commissionEmailBtn = document.getElementById("commissionEmailBtn");
-
-      const envelopeStates = [
-        "./assets/commission-modal-assets/envelope-closed.png",
-        "./assets/commission-modal-assets/envelope-open-letter.png",
-        "./assets/commission-modal-assets/envelope-empty.png"
-      ];
-      let envelopeStep = 0;
-
-      const openCommissionModal = () => {
-        envelopeStep = 0;
-        commissionEnvelope.src = envelopeStates[0];
-        commissionModal.classList.add("open");
-        commissionModal.setAttribute("aria-hidden", "false");
-        lockScroll();
-      };
-
-      const closeCommissionModal = () => {
-        commissionModal.classList.remove("open");
-        commissionModal.setAttribute("aria-hidden", "true");
-        // Only unlock if letter modal is not open
-        if (!commissionLetterModal.classList.contains("open")) {
-          unlockScroll();
-        }
-      };
-
-      const openCommissionLetterModal = () => {
-        commissionLetterModal.classList.add("open");
-        commissionLetterModal.setAttribute("aria-hidden", "false");
-        // scroll already locked from envelope modal
-      };
-
-      const closeCommissionLetterModal = () => {
-        commissionLetterModal.classList.remove("open");
-        commissionLetterModal.setAttribute("aria-hidden", "true");
-        unlockScroll();
-      };
-
-      if (openCommissionBtn) {
-        openCommissionBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          openCommissionModal();
-        });
-      }
-
-      if (commissionEnvelope) {
-        commissionEnvelope.addEventListener("click", () => {
-          envelopeStep++;
-          if (envelopeStep < envelopeStates.length) {
-            commissionEnvelope.src = envelopeStates[envelopeStep];
-          } else {
-            // Finished sequence → show letter modal
-            closeCommissionModal();
-            openCommissionLetterModal();
-          }
-        });
-      }
-
-      if (commissionEmailBtn) {
-        commissionEmailBtn.addEventListener("click", () => {
-          window.location.href = "mailto:lace.and.leather65@gmail.com?subject=Custom%20Map%20Commission";
-        });
-      }
-
       // Wards: disable context menu on sensitive surfaces
       modal.addEventListener("contextmenu", (e) => {
         if (modal.classList.contains("open")) e.preventDefault();
@@ -602,13 +536,9 @@
         if (mapModal.classList.contains("open")) e.preventDefault();
       });
 
-      commissionModal.addEventListener("contextmenu", (e) => {
-        if (commissionModal.classList.contains("open")) e.preventDefault();
-      });
-
-      commissionLetterModal.addEventListener("contextmenu", (e) => {
-        if (commissionLetterModal.classList.contains("open")) e.preventDefault();
-      });
+      if (commissionModal) {
+        commissionModal.addEventListener("contextmenu", (e) => e.preventDefault());
+      }
 
       if (mapsGrid) {
         mapsGrid.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -625,6 +555,43 @@
           e.preventDefault();
         }
       });
+
+      // Wire commission trigger
+      if (commissionTrigger) {
+        commissionTrigger.addEventListener("click", (e) => {
+          e.preventDefault();
+          openCommissionModal();
+        });
+      }
+
+      // Click to advance envelope -> open -> empty -> letter
+      if (commissionStage && commissionImage) {
+        commissionStage.addEventListener("click", (e) => {
+          // Don't advance if they clicked the Claim button
+          if (e.target.closest("#mapSlotBtn")) return;
+
+          if (commissionStep < COMMISSION_STEPS.length - 1) {
+            setCommissionStep(commissionStep + 1);
+          }
+        });
+      }
+
+      // Claim Map Slot button -> opens default email client
+      if (mapSlotBtn) {
+        mapSlotBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const subject = encodeURIComponent("Custom Map Commission Request");
+          const body = encodeURIComponent(
+`Map / region name(s):
+City / town names:
+Preferred parchment type:
+Size / orientation:
+Additional notes:`
+          );
+          window.location.href =
+            `mailto:lace.and.leather65@gmail.com?subject=${subject}&body=${body}`;
+        });
+      }
 
       document.addEventListener("click", (e) => {
         // Packs
@@ -661,8 +628,7 @@
         if (e.target.closest("[data-map-close]")) return closeMapModal();
         if (e.target.closest("[data-map-back]")) return closeMapModal();
 
-        if (e.target.closest("[data-comm-close]")) return closeCommissionModal();
-        if (e.target.closest("[data-comm-letter-close]")) return closeCommissionLetterModal();
+        if (e.target.closest("[data-commission-close]")) return closeCommissionModal();
       });
 
       document.addEventListener("keydown", (e) => {
@@ -676,11 +642,7 @@
             closeMapModal();
             return;
           }
-          if (commissionLetterModal.classList.contains("open")) {
-            closeCommissionLetterModal();
-            return;
-          }
-          if (commissionModal.classList.contains("open")) {
+          if (commissionModal && commissionModal.classList.contains("open")) {
             closeCommissionModal();
             return;
           }
@@ -693,10 +655,7 @@
           } else if (mapModal.classList.contains("open")) {
             e.preventDefault();
             closeMapModal();
-          } else if (commissionLetterModal.classList.contains("open")) {
-            e.preventDefault();
-            closeCommissionLetterModal();
-          } else if (commissionModal.classList.contains("open")) {
+          } else if (commissionModal && commissionModal.classList.contains("open")) {
             e.preventDefault();
             closeCommissionModal();
           }
