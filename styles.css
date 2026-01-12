@@ -79,6 +79,111 @@ body{
     radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.66) 100%),
     linear-gradient(180deg, rgba(0,0,0,var(--bgDim)), rgba(0,0,0,var(--bgDim)));
 }
+/* =========================
+   DUST PARTICLES (subtle floating specks)
+   ========================= */
+.dust{
+  position:fixed;
+  inset:0;
+  z-index:-1; /* above bg, below content */
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.dust span{
+  position:absolute;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:rgba(255,255,255,.55);
+  opacity:0;
+  filter:blur(.8px);
+  animation:dustFloat 18s linear infinite;
+}
+
+/* Give each particle its own path / timing */
+.dust span:nth-child(1){
+  top:10%; left:18%;
+  --dx: 40px; --dy: -60px;
+  animation-duration:24s; animation-delay:0s;
+}
+.dust span:nth-child(2){
+  top:22%; left:68%;
+  --dx:-30px; --dy:-50px;
+  animation-duration:20s; animation-delay:3s;
+}
+.dust span:nth-child(3){
+  top:40%; left:30%;
+  --dx: 25px; --dy:-35px;
+  animation-duration:26s; animation-delay:6s;
+}
+.dust span:nth-child(4){
+  top:55%; left:75%;
+  --dx:-35px; --dy:-55px;
+  animation-duration:22s; animation-delay:9s;
+}
+.dust span:nth-child(5){
+  top:70%; left:20%;
+  --dx: 30px; --dy:-40px;
+  animation-duration:28s; animation-delay:4s;
+}
+.dust span:nth-child(6){
+  top:80%; left:55%;
+  --dx:-20px; --dy:-30px;
+  animation-duration:24s; animation-delay:10s;
+}
+.dust span:nth-child(7){
+  top:32%; left:10%;
+  --dx: 35px; --dy:-45px;
+  animation-duration:26s; animation-delay:7s;
+}
+.dust span:nth-child(8){
+  top:15%; left:52%;
+  --dx:-25px; --dy:-35px;
+  animation-duration:23s; animation-delay:11s;
+}
+.dust span:nth-child(9){
+  top:62%; left:88%;
+  --dx:-40px; --dy:-55px;
+  animation-duration:29s; animation-delay:2s;
+}
+.dust span:nth-child(10){
+  top:48%; left:45%;
+  --dx: 20px; --dy:-30px;
+  animation-duration:21s; animation-delay:5s;
+}
+.dust span:nth-child(11){
+  top:78%; left:38%;
+  --dx: 28px; --dy:-42px;
+  animation-duration:27s; animation-delay:8s;
+}
+.dust span:nth-child(12){
+  top:25%; left:82%;
+  --dx:-32px; --dy:-48px;
+  animation-duration:25s; animation-delay:12s;
+}
+
+@keyframes dustFloat{
+  0%{
+    opacity:0;
+    transform:translate3d(0,0,0) scale(1);
+  }
+  10%{
+    opacity:.55;
+  }
+  50%{
+    opacity:.3;
+    transform:translate3d(var(--dx,20px), var(--dy,-40px), 0) scale(1.08);
+  }
+  90%{
+    opacity:.55;
+  }
+  100%{
+    opacity:0;
+    transform:translate3d(calc(var(--dx,20px) * -0.3), calc(var(--dy,-40px) * -0.3), 0) scale(1);
+  }
+}
+
 
 /* =========================
    MOBILE BACKGROUND OVERRIDE (iOS-safe)
