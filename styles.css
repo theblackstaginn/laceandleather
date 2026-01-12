@@ -709,6 +709,85 @@ p, h1, h2, h3, h4, h5, h6,
 .modal.mode-viewer .viewer{ display:block; }
 .modal.mode-viewer .back-btn{ display:inline-flex; }
 
+/* =========================
+   TYPE LEGIBILITY TWEAKS
+   ========================= */
+
+/* Slightly brighter text globally */
+:root{
+  --text:#f3eee6;
+  --muted:rgba(243,236,226,.86);
+}
+
+/* Base body size a bit larger */
+body{
+  font-size:16px;
+}
+
+/* Brand at the top — bigger and punchier */
+.brand-title{
+  font-size: clamp(2.2rem, 4.8vw, 3.1rem);
+  letter-spacing:0.16em;
+  text-shadow:0 3px 12px rgba(0,0,0,.9);
+}
+
+/* Hero copy */
+.tagline{
+  font-size:19px;
+  text-shadow:0 2px 8px rgba(0,0,0,.85);
+}
+.subtag{
+  font-size:16px;
+  text-shadow:0 2px 6px rgba(0,0,0,.85);
+}
+
+/* Pack cards */
+.pack-title{
+  font-size:17px;
+  font-weight:600;
+}
+.pack-note{
+  font-size:14px;
+}
+
+/* Map captions */
+.map-caption{
+  font-size:14px;
+}
+.map-name{
+  display:block;
+  font-family:"Cardinal", serif;
+  font-size:16px;
+  letter-spacing:.06em;
+  font-weight:600;
+}
+.map-tagline{
+  display:block;
+  font-size:14px;
+}
+
+/* Body text in the maps section */
+.maps-copy p{
+  font-size:15px;
+}
+.maps-ward{
+  font-size:13px;
+}
+
+/* Modal titles + subs */
+.modal-title{
+  font-size:20px;
+  letter-spacing:.08em;
+}
+.modal-sub{
+  font-size:14px;
+}
+
+/* Modal body text a touch larger */
+.modal-body{
+  font-size:15px;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
