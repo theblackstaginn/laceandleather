@@ -1,4 +1,4 @@
-<!-- index.html (CLEAN + DUST + MODALS + COMMISSION ENVELOPE) -->
+<!-- index.html (CLEAN + DUST + PACK/MAP MODALS + COMMISSION MODALS) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,7 +9,7 @@
   <meta name="description" content="Digital textures for artists, designers, & bookmakers. Aged parchment. Ritual surfaces. Dark elegance." />
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- PWA / icons -->
+  <!-- PWA / Icons -->
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="./favicon.png">
   <link rel="apple-touch-icon" href="./icon-192.png">
@@ -25,13 +25,12 @@
     <span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
   </div>
 
   <main class="wrap">
     <!-- HERO (open air, no glass) -->
     <header class="hero">
-      <div class="brand-title">Lace &amp; Leather</div>
+      <div class="brand-title">Lace & Leather</div>
       <div class="hero-inner">
         <!-- Single framed logo image -->
         <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
@@ -159,9 +158,9 @@
         privately to clients.
       </p>
 
-      <!-- Custom maps wax button now triggers commission envelope modal -->
       <div class="maps-cta">
-        <button class="maps-btn" type="button" id="commissionTrigger">
+        <!-- Opens commission envelope sequence -->
+        <button class="maps-btn" type="button" id="openCommission">
           <img class="wax-seal-img" src="./assets/custom-maps-button.png" alt="Request a custom map slot" />
         </button>
       </div>
@@ -239,28 +238,59 @@
     </div>
   </div>
 
-  <!-- COMMISSION ENVELOPE MODAL (full-screen sequence) -->
-  <div class="modal commission-modal" id="commissionModal" aria-hidden="true">
-    <div class="modal-backdrop" data-commission-close></div>
+  <!-- COMMISSION ENVELOPE MODAL (fullscreen, no scroll) -->
+  <div class="modal" id="commissionModal" aria-hidden="true">
+    <div class="modal-backdrop commission-backdrop" data-commission-close></div>
 
-    <div class="commission-panel" role="dialog" aria-modal="true" aria-labelledby="commissionTitle">
-      <div class="commission-bg">
-        <button
-          class="wax-btn close-btn commission-close"
-          type="button"
-          data-commission-close
-          aria-label="Close commission instructions">
+    <div class="modal-panel commission-panel" role="dialog" aria-modal="true" aria-labelledby="commissionTitle">
+      <div class="commission-inner">
+        <div class="commission-bg" aria-hidden="true"></div>
+
+        <button class="wax-btn commission-close" type="button" data-commission-close aria-label="Close commission envelope">
           <img src="./assets/x-button.PNG" alt="Close" />
         </button>
 
-        <div class="commission-stage" id="commissionStage">
-          <!-- This image src is controlled by JS (4-step sequence) -->
+        <button class="commission-envelope-btn" type="button" id="commissionAdvance" aria-label="Open commission envelope">
           <img
-            id="commissionImage"
+            id="commissionImg"
+            class="commission-envelope-img"
             src="./assets/commission-modal-assets/envelope-closed.png"
-            alt="Commission envelope" />
+            alt="Closed parchment envelope"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
 
-          <!-- Claim Map Slot wax button (only appears on final letter step) -->
+  <!-- COMMISSION LETTER MODAL (scrollable) -->
+  <div class="modal" id="commissionLetterModal" aria-hidden="true">
+    <div class="modal-backdrop letter-backdrop" data-letter-close></div>
+
+    <div class="modal-panel glass letter-panel" role="dialog" aria-modal="true" aria-labelledby="commissionLetterTitle">
+      <div class="modal-head">
+        <div class="modal-left">
+          <div>
+            <div id="commissionLetterTitle" class="modal-title">Commission a Custom Map</div>
+            <div class="modal-sub muted">Instructions &amp; contact</div>
+          </div>
+        </div>
+
+        <button class="wax-btn close-btn" type="button" data-letter-close aria-label="Close commission letter">
+          <img src="./assets/x-button.PNG" alt="Close" />
+        </button>
+      </div>
+
+      <div class="modal-body letter-body">
+        <div class="letter-bg" aria-hidden="true"></div>
+
+        <div class="letter-stack">
+          <img
+            src="./assets/commission-modal-assets/commission-letter.png"
+            alt="Commission instructions letter"
+            class="letter-img"
+          />
+
+          <!-- Wax button sitting in the empty bottom margin of the parchment -->
           <button class="map-slot-btn" type="button" id="mapSlotBtn" aria-label="Claim a custom map slot">
             <img src="./assets/commission-modal-assets/map-slot-button.png" alt="Claim map slot" />
           </button>
@@ -378,11 +408,12 @@
       const mapSubEl = document.getElementById("mapModalSub");
       const mapsGrid = document.querySelector(".maps-grid");
 
-      // Commission envelope modal elements
+      // Commission modals
       const commissionModal = document.getElementById("commissionModal");
-      const commissionTrigger = document.getElementById("commissionTrigger");
-      const commissionImage = document.getElementById("commissionImage");
-      const commissionStage = document.getElementById("commissionStage");
+      const commissionImg = document.getElementById("commissionImg");
+      const commissionAdvanceBtn = document.getElementById("commissionAdvance");
+      const commissionLetterModal = document.getElementById("commissionLetterModal");
+      const openCommissionBtn = document.getElementById("openCommission");
       const mapSlotBtn = document.getElementById("mapSlotBtn");
 
       const COMMISSION_STEPS = [
@@ -392,52 +423,14 @@
         },
         {
           src: "./assets/commission-modal-assets/envelope-open-letter.png",
-          alt: "Opened envelope with folded letter inside"
+          alt: "Open parchment envelope revealing a folded letter"
         },
         {
           src: "./assets/commission-modal-assets/envelope-empty.png",
           alt: "Open empty parchment envelope"
-        },
-        {
-          src: "./assets/commission-modal-assets/commission-letter.png",
-          alt: "Commission instructions letter"
         }
       ];
-
       let commissionStep = 0;
-
-      const setCommissionStep = (step) => {
-        commissionStep = step;
-        const frame = COMMISSION_STEPS[step];
-        if (!frame || !commissionImage) return;
-
-        commissionImage.src = frame.src;
-        commissionImage.alt = frame.alt;
-
-        // Last step = letter visible
-        const isLetter = step === COMMISSION_STEPS.length - 1;
-        if (commissionModal) {
-          commissionModal.classList.toggle("letter-step", isLetter);
-        }
-        if (mapSlotBtn) {
-          mapSlotBtn.style.display = isLetter ? "inline-flex" : "none";
-        }
-      };
-
-      const openCommissionModal = () => {
-        if (!commissionModal) return;
-        setCommissionStep(0);
-        commissionModal.classList.add("open");
-        commissionModal.setAttribute("aria-hidden", "false");
-        lockScroll();
-      };
-
-      const closeCommissionModal = () => {
-        if (!commissionModal) return;
-        commissionModal.classList.remove("open", "letter-step");
-        commissionModal.setAttribute("aria-hidden", "true");
-        unlockScroll();
-      };
 
       const setMode = (mode) => {
         if (mode === "viewer") {
@@ -527,6 +520,66 @@
         unlockScroll();
       };
 
+      // === COMMISSION MODALS ===
+      const showCommissionStep = (index) => {
+        const step = COMMISSION_STEPS[index];
+        if (!step || !commissionImg) return;
+        commissionImg.src = step.src;
+        commissionImg.alt = step.alt;
+      };
+
+      const openCommissionModal = () => {
+        commissionStep = 0;
+        showCommissionStep(commissionStep);
+        commissionModal.classList.add("open");
+        commissionModal.setAttribute("aria-hidden", "false");
+        lockScroll();
+      };
+
+      const openCommissionLetterModal = () => {
+        commissionModal.classList.remove("open");
+        commissionModal.setAttribute("aria-hidden", "true");
+
+        commissionLetterModal.classList.add("open");
+        commissionLetterModal.setAttribute("aria-hidden", "false");
+      };
+
+      const closeCommissionModals = () => {
+        commissionModal.classList.remove("open");
+        commissionModal.setAttribute("aria-hidden", "true");
+        commissionLetterModal.classList.remove("open");
+        commissionLetterModal.setAttribute("aria-hidden", "true");
+        commissionStep = 0;
+        unlockScroll();
+      };
+
+      const advanceCommission = () => {
+        commissionStep += 1;
+        if (commissionStep < COMMISSION_STEPS.length) {
+          showCommissionStep(commissionStep);
+          // brief pause on each click; the last click hands off to the letter modal
+          if (commissionStep === COMMISSION_STEPS.length - 1) {
+            // next click will show the letter modal
+          }
+        } else {
+          openCommissionLetterModal();
+        }
+      };
+
+      const openMailClient = () => {
+        const subject = encodeURIComponent("Custom Fantasy Map Commission");
+        const body = encodeURIComponent(
+`To commission a map, please include:
+• Map & city/town names
+• Preferred parchment style
+• Any compass or border preferences
+• Additional notes (scale, vibe, special locations)
+
+You can also attach sketches or references if you have them.`
+        );
+        window.location.href = `mailto:lace.and.leather65@gmail.com?subject=${subject}&body=${body}`;
+      };
+
       // Wards: disable context menu on sensitive surfaces
       modal.addEventListener("contextmenu", (e) => {
         if (modal.classList.contains("open")) e.preventDefault();
@@ -536,13 +589,16 @@
         if (mapModal.classList.contains("open")) e.preventDefault();
       });
 
-      if (commissionModal) {
-        commissionModal.addEventListener("contextmenu", (e) => e.preventDefault());
+      if (mapsGrid) {
+        mapsGrid.addEventListener("contextmenu", (e) => e.preventDefault();
       }
 
-      if (mapsGrid) {
-        mapsGrid.addEventListener("contextmenu", (e) => e.preventDefault());
-      }
+      commissionModal.addEventListener("contextmenu", (e) => {
+        if (commissionModal.classList.contains("open")) e.preventDefault();
+      });
+      commissionLetterModal.addEventListener("contextmenu", (e) => {
+        if (commissionLetterModal.classList.contains("open")) e.preventDefault();
+      });
 
       // Extra ward: block drag-save on key areas
       document.addEventListener("dragstart", (e) => {
@@ -556,43 +612,7 @@
         }
       });
 
-      // Wire commission trigger
-      if (commissionTrigger) {
-        commissionTrigger.addEventListener("click", (e) => {
-          e.preventDefault();
-          openCommissionModal();
-        });
-      }
-
-      // Click to advance envelope -> open -> empty -> letter
-      if (commissionStage && commissionImage) {
-        commissionStage.addEventListener("click", (e) => {
-          // Don't advance if they clicked the Claim button
-          if (e.target.closest("#mapSlotBtn")) return;
-
-          if (commissionStep < COMMISSION_STEPS.length - 1) {
-            setCommissionStep(commissionStep + 1);
-          }
-        });
-      }
-
-      // Claim Map Slot button -> opens default email client
-      if (mapSlotBtn) {
-        mapSlotBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const subject = encodeURIComponent("Custom Map Commission Request");
-          const body = encodeURIComponent(
-`Map / region name(s):
-City / town names:
-Preferred parchment type:
-Size / orientation:
-Additional notes:`
-          );
-          window.location.href =
-            `mailto:lace.and.leather65@gmail.com?subject=${subject}&body=${body}`;
-        });
-      }
-
+      // Click wiring
       document.addEventListener("click", (e) => {
         // Packs
         const packBtn = e.target.closest(".pack");
@@ -621,15 +641,47 @@ Additional notes:`
           return;
         }
 
-        // Controls
+        // Open commission sequence from button
+        if (e.target.closest("#openCommission")) {
+          e.preventDefault();
+          e.stopPropagation();
+          openCommissionModal();
+          return;
+        }
+
+        // Controls for existing modals
         if (e.target.closest("[data-back]")) return backToCollage();
         if (e.target.closest("[data-close]")) return closeModal();
 
         if (e.target.closest("[data-map-close]")) return closeMapModal();
         if (e.target.closest("[data-map-back]")) return closeMapModal();
 
-        if (e.target.closest("[data-commission-close]")) return closeCommissionModal();
+        // Commission close controls
+        if (e.target.closest("[data-commission-close]")) {
+          e.preventDefault();
+          return closeCommissionModals();
+        }
+        if (e.target.closest("[data-letter-close]")) {
+          e.preventDefault();
+          return closeCommissionModals();
+        }
       });
+
+      // Direct listeners where needed
+      if (commissionAdvanceBtn) {
+        commissionAdvanceBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          advanceCommission();
+        });
+      }
+
+      if (mapSlotBtn) {
+        mapSlotBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openMailClient();
+        });
+      }
 
       document.addEventListener("keydown", (e) => {
         // Escape closes whichever modal is open
@@ -642,8 +694,8 @@ Additional notes:`
             closeMapModal();
             return;
           }
-          if (commissionModal && commissionModal.classList.contains("open")) {
-            closeCommissionModal();
+          if (commissionModal.classList.contains("open") || commissionLetterModal.classList.contains("open")) {
+            closeCommissionModals();
             return;
           }
         }
@@ -655,9 +707,6 @@ Additional notes:`
           } else if (mapModal.classList.contains("open")) {
             e.preventDefault();
             closeMapModal();
-          } else if (commissionModal && commissionModal.classList.contains("open")) {
-            e.preventDefault();
-            closeCommissionModal();
           }
         }
       });
