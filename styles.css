@@ -195,6 +195,13 @@ html.no-scroll body{ overflow:hidden; }
     opacity:0;
   }
 }
+@keyframes dustColor{
+  0%   { background:rgba(255,255,255,0.9); }
+  25%  { background:rgba(250,230,180,0.9); }
+  50%  { background:rgba(255,255,255,0.8); }
+  75%  { background:rgba(250,230,180,0.9); }
+  100% { background:rgba(255,255,255,0.9); }
+}
 
 /* =========================
    MOBILE BACKGROUND OVERRIDE (iOS-safe)
