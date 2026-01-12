@@ -28,8 +28,8 @@
    ROOT
    ========================= */
 :root{
-  --text:#e7e2db;
-  --muted: rgba(231,226,219,.72);
+  --text:#f3eee6;
+  --muted: rgba(243,236,226,.86);
 
   --wrap: min(1100px, calc(100% - 36px));
 
@@ -43,7 +43,7 @@
 
   --bgDim:.58;
 
-  --h2: clamp(20px, 2.2vw, 26px);
+  --h2: clamp(22px, 2.4vw, 28px);
 }
 
 *{ box-sizing:border-box; }
@@ -56,7 +56,11 @@ body{
   font-family:"DarkAges", ui-serif, Georgia, serif;
   overflow-x:hidden;
   text-align:center;
+  font-size:16px;
 }
+
+html.no-scroll,
+html.no-scroll body{ overflow:hidden; }
 
 /* =========================
    FIXED BACKGROUND (desktop default)
@@ -79,8 +83,9 @@ body{
     radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.66) 100%),
     linear-gradient(180deg, rgba(0,0,0,var(--bgDim)), rgba(0,0,0,var(--bgDim)));
 }
+
 /* =========================
-   DUST PARTICLES (subtle floating specks)
+   DUST PARTICLES
    ========================= */
 .dust{
   position:fixed;
@@ -92,20 +97,20 @@ body{
 
 .dust span{
   position:absolute;
-  width:3px;
-  height:3px;
+  width:4px;
+  height:4px;
   border-radius:50%;
-  background:rgba(255,255,255,.55);
+  background:rgba(255,255,255,.65);
   opacity:0;
-  filter:blur(.8px);
-  animation:dustFloat 18s linear infinite;
+  filter:blur(1px);
+  animation:dustFloat 22s linear infinite;
 }
 
-/* Give each particle its own path / timing */
+/* 12 particles with different paths/timing */
 .dust span:nth-child(1){
   top:10%; left:18%;
   --dx: 40px; --dy: -60px;
-  animation-duration:24s; animation-delay:0s;
+  animation-duration:26s; animation-delay:0s;
 }
 .dust span:nth-child(2){
   top:22%; left:68%;
@@ -115,17 +120,17 @@ body{
 .dust span:nth-child(3){
   top:40%; left:30%;
   --dx: 25px; --dy:-35px;
-  animation-duration:26s; animation-delay:6s;
+  animation-duration:28s; animation-delay:6s;
 }
 .dust span:nth-child(4){
   top:55%; left:75%;
   --dx:-35px; --dy:-55px;
-  animation-duration:22s; animation-delay:9s;
+  animation-duration:24s; animation-delay:9s;
 }
 .dust span:nth-child(5){
   top:70%; left:20%;
   --dx: 30px; --dy:-40px;
-  animation-duration:28s; animation-delay:4s;
+  animation-duration:30s; animation-delay:4s;
 }
 .dust span:nth-child(6){
   top:80%; left:55%;
@@ -169,14 +174,14 @@ body{
     transform:translate3d(0,0,0) scale(1);
   }
   10%{
-    opacity:.55;
+    opacity:.7;
   }
   50%{
-    opacity:.3;
+    opacity:.4;
     transform:translate3d(var(--dx,20px), var(--dy,-40px), 0) scale(1.08);
   }
   90%{
-    opacity:.55;
+    opacity:.7;
   }
   100%{
     opacity:0;
@@ -184,10 +189,8 @@ body{
   }
 }
 
-
 /* =========================
    MOBILE BACKGROUND OVERRIDE (iOS-safe)
-   - Uses lace-mobile-bg.png
    ========================= */
 @media (max-width: 768px){
   .bg{
@@ -232,14 +235,11 @@ body{
 /* Brand title above logo */
 .brand-title{
   font-family: "Cardinal", serif;
-  font-size: clamp(2.1rem, 5vw, 3rem);
-  letter-spacing: 0.14em;
-  margin-bottom: 18px;
+  font-size: clamp(2.2rem, 4.8vw, 3.1rem);
+  letter-spacing: 0.16em;
+  margin-bottom: 14px;
   text-align: center;
-  font-weight: 600;
-  text-shadow:
-    0 0 6px rgba(0,0,0,.85),
-    0 0 14px rgba(0,0,0,.85);
+  text-shadow:0 3px 12px rgba(0,0,0,.9);
 }
 
 .hero-inner{
@@ -263,12 +263,21 @@ body{
 .h2{
   font-family:"Cardinal", serif;
   font-size:var(--h2);
-  letter-spacing:.06em;
+  letter-spacing:.08em;
   margin:0 0 8px;
 }
 
-.tagline{ margin:0; font-size:18px; }
-.subtag{ margin:0; color:var(--muted); font-size:15px; }
+.tagline{
+  margin:0;
+  font-size:19px;
+  text-shadow:0 2px 8px rgba(0,0,0,.85);
+}
+.subtag{
+  margin:0;
+  color:var(--muted);
+  font-size:16px;
+  text-shadow:0 2px 6px rgba(0,0,0,.85);
+}
 .muted{ color:var(--muted); }
 
 /* Center ALL text everywhere (pages + cards) */
@@ -311,22 +320,20 @@ p, h1, h2, h3, h4, h5, h6,
   border-radius:14px;
   border:1px solid rgba(255,255,255,.10);
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
-  -webkit-user-drag:none;
-  user-select:none;
 }
 
 .pack-meta{ display:grid; gap:2px; }
 
 .pack-title{
   font-family:"Cardinal", serif;
-  font-size:16px;
-  letter-spacing:.04em;
+  font-size:17px;
+  letter-spacing:.06em;
+  font-weight:600;
 }
 
-/* FORCE DarkAges for the "Click to preview..." lines */
 .pack-note{
   font-family:"DarkAges", ui-serif, Georgia, serif;
-  font-size:13px;
+  font-size:14px;
 }
 
 .pack:hover{
@@ -355,8 +362,6 @@ p, h1, h2, h3, h4, h5, h6,
   border-radius:16px;
   border:1px solid rgba(255,255,255,.10);
   filter: drop-shadow(0 12px 20px rgba(0,0,0,.45));
-  -webkit-user-drag:none;
-  user-select:none;
 }
 
 /* =========================
@@ -434,44 +439,30 @@ p, h1, h2, h3, h4, h5, h6,
   cursor:pointer;
 }
 
-.map-thumb{
-  border-radius:16px;
-  overflow:hidden;
-}
-
 .map-card img{
   width:100%;
   height:auto;
   border-radius:16px;
   border:1px solid rgba(255,255,255,.12);
   filter: drop-shadow(0 12px 22px rgba(0,0,0,.48));
-  -webkit-user-drag:none;
-  user-select:none;
 }
 
 .map-caption{
-  margin-top:8px;
+  margin-top:6px;
   font-size:14px;
-  line-height:1.4;
-  color:var(--text);
-  text-shadow:
-    0 0 5px rgba(0,0,0,.9),
-    0 0 10px rgba(0,0,0,.9);
 }
 
 .map-name{
   display:block;
   font-family:"Cardinal", serif;
-  letter-spacing:.08em;
-  font-size:15px;
-  margin-bottom:2px;
+  font-size:16px;
+  letter-spacing:.06em;
+  font-weight:600;
 }
 
 .map-tagline{
   display:block;
-  font-family:"DarkAges", ui-serif, Georgia, serif;
-  font-size:13px;
-  color:var(--muted);
+  font-size:14px;
 }
 
 .maps-copy{
@@ -481,10 +472,14 @@ p, h1, h2, h3, h4, h5, h6,
   gap:6px;
 }
 
+.maps-copy p{
+  font-size:15px;
+}
+
 .maps-ward{
   margin:2px auto 10px;
   max-width:620px;
-  font-size:12px;
+  font-size:13px;
   opacity:.82;
 }
 
@@ -492,35 +487,33 @@ p, h1, h2, h3, h4, h5, h6,
   margin-top:4px;
 }
 
-/* Wax-seal CTA */
+/* Wax seal maps button */
 .maps-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  display:inline-block;
   text-decoration:none;
 }
 
 .wax-seal-img{
-  width:220px;
-  max-width:72vw;
+  width:260px;
+  max-width:80vw;
   height:auto;
   display:block;
+  margin:0 auto;
   filter:
-    drop-shadow(0 14px 28px rgba(0,0,0,.6))
+    drop-shadow(0 12px 24px rgba(0,0,0,.6))
     drop-shadow(0 3px 6px rgba(0,0,0,.5));
-  transition: transform .18s ease, filter .18s ease;
+  transition:transform .18s ease, filter .18s ease;
 }
 
-.maps-btn:hover .wax-seal-img,
-.maps-btn:focus-visible .wax-seal-img{
-  transform: translateY(-2px);
+.maps-btn:hover .wax-seal-img{
+  transform:translateY(-2px);
   filter:
-    drop-shadow(0 18px 32px rgba(0,0,0,.7))
-    drop-shadow(0 5px 8px rgba(0,0,0,.6));
+    drop-shadow(0 16px 32px rgba(0,0,0,.7))
+    drop-shadow(0 4px 8px rgba(0,0,0,.55));
 }
 
 .maps-btn:active .wax-seal-img{
-  transform: translateY(0) scale(.97);
+  transform:translateY(0) scale(.97);
 }
 
 /* =========================
@@ -577,16 +570,20 @@ p, h1, h2, h3, h4, h5, h6,
 
 .modal-title{
   font-family:"Cardinal", serif;
-  letter-spacing:.05em;
-  font-size:18px;
+  letter-spacing:.08em;
+  font-size:20px;
 }
-.modal-sub{ font-size:13px; margin-top:2px; }
+.modal-sub{
+  font-size:14px;
+  margin-top:2px;
+}
 
 .modal-body{
   padding:14px;
   overflow:auto;
   max-height: calc(82vh - 64px);
   -webkit-overflow-scrolling: touch;
+  font-size:15px;
 }
 
 /* Wax action buttons */
@@ -678,10 +675,6 @@ p, h1, h2, h3, h4, h5, h6,
   position:relative;
   overflow:hidden;
 }
-/* Map modal uses a dedicated viewer that is always visible */
-.map-viewer{
-  display:block;
-}
 
 /* Viewer image as background */
 .viewer-img{
@@ -705,88 +698,13 @@ p, h1, h2, h3, h4, h5, h6,
   pointer-events:auto;
 }
 
+.map-viewer{
+  display:block;
+}
+
 .modal.mode-viewer .collage{ display:none; }
 .modal.mode-viewer .viewer{ display:block; }
 .modal.mode-viewer .back-btn{ display:inline-flex; }
-
-/* =========================
-   TYPE LEGIBILITY TWEAKS
-   ========================= */
-
-/* Slightly brighter text globally */
-:root{
-  --text:#f3eee6;
-  --muted:rgba(243,236,226,.86);
-}
-
-/* Base body size a bit larger */
-body{
-  font-size:16px;
-}
-
-/* Brand at the top — bigger and punchier */
-.brand-title{
-  font-size: clamp(2.2rem, 4.8vw, 3.1rem);
-  letter-spacing:0.16em;
-  text-shadow:0 3px 12px rgba(0,0,0,.9);
-}
-
-/* Hero copy */
-.tagline{
-  font-size:19px;
-  text-shadow:0 2px 8px rgba(0,0,0,.85);
-}
-.subtag{
-  font-size:16px;
-  text-shadow:0 2px 6px rgba(0,0,0,.85);
-}
-
-/* Pack cards */
-.pack-title{
-  font-size:17px;
-  font-weight:600;
-}
-.pack-note{
-  font-size:14px;
-}
-
-/* Map captions */
-.map-caption{
-  font-size:14px;
-}
-.map-name{
-  display:block;
-  font-family:"Cardinal", serif;
-  font-size:16px;
-  letter-spacing:.06em;
-  font-weight:600;
-}
-.map-tagline{
-  display:block;
-  font-size:14px;
-}
-
-/* Body text in the maps section */
-.maps-copy p{
-  font-size:15px;
-}
-.maps-ward{
-  font-size:13px;
-}
-
-/* Modal titles + subs */
-.modal-title{
-  font-size:20px;
-  letter-spacing:.08em;
-}
-.modal-sub{
-  font-size:14px;
-}
-
-/* Modal body text a touch larger */
-.modal-body{
-  font-size:15px;
-}
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
