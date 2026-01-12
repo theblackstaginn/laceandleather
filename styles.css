@@ -81,7 +81,7 @@ html.no-scroll body{ overflow:hidden; }
 }
 
 /* =========================
-   DUST PARTICLES (DEPTH + COLOR CYCLE)
+   DUST PARTICLES
    ========================= */
 .dust{
   position:fixed;
@@ -91,7 +91,6 @@ html.no-scroll body{ overflow:hidden; }
   overflow:hidden;
 }
 
-/* Base dust particle */
 .dust span{
   position:absolute;
   border-radius:50%;
@@ -118,7 +117,7 @@ html.no-scroll body{ overflow:hidden; }
 .dust span:nth-child(15){ top:75%; left:15%; --i:15; }
 .dust span:nth-child(16){ top:15%; left:85%; --i:16; }
 
-/* Small background specks (depth) */
+/* Small background specks */
 .dust span:nth-child(1),
 .dust span:nth-child(4),
 .dust span:nth-child(9),
@@ -147,7 +146,7 @@ html.no-scroll body{ overflow:hidden; }
   animation-delay: calc(-1.5s * var(--i)), calc(-1s * var(--i));
 }
 
-/* Larger foreground motes (a few left big for depth) */
+/* Foreground motes */
 .dust span:nth-child(3),
 .dust span:nth-child(6),
 .dust span:nth-child(8),
@@ -166,21 +165,10 @@ html.no-scroll body{ overflow:hidden; }
 }
 
 @keyframes dustFloat{
-  0%{
-    transform: translate3d(0,0,0) scale(.8);
-    opacity:0;
-  }
-  10%{
-    opacity:1;
-  }
-  50%{
-    opacity:.55;
-    transform: translate3d(30px,-40px,0) scale(1);
-  }
-  100%{
-    transform: translate3d(90px,-140px,0) scale(1.1);
-    opacity:0;
-  }
+  0%{ transform: translate3d(0,0,0) scale(.8); opacity:0; }
+  10%{ opacity:1; }
+  50%{ opacity:.55; transform: translate3d(30px,-40px,0) scale(1); }
+  100%{ transform: translate3d(90px,-140px,0) scale(1.1); opacity:0; }
 }
 @keyframes dustColor{
   0%   { background:rgba(255,255,255,0.9); }
@@ -191,8 +179,7 @@ html.no-scroll body{ overflow:hidden; }
 }
 
 /* =========================
-   MOBILE BACKGROUND OVERRIDE (iOS-safe)
-   - Uses lace-mobile-bg.png
+   MOBILE BACKGROUND
    ========================= */
 @media (max-width: 768px){
   .bg{
@@ -234,7 +221,6 @@ html.no-scroll body{ overflow:hidden; }
    ========================= */
 .hero{ padding:18px; }
 
-/* Brand title above logo */
 .brand-title{
   font-family: "Cardinal", serif;
   font-size: clamp(2.2rem, 5vw, 3.1rem);
@@ -283,7 +269,6 @@ html.no-scroll body{ overflow:hidden; }
 }
 .muted{ color:var(--muted); }
 
-/* Center ALL text everywhere */
 p, h1, h2, h3, h4, h5, h6,
 .pack-title, .brand, .modal-title, .modal-sub, .pack-note,
 .pack, .section, .footer-inner, .hero-inner{
@@ -312,7 +297,8 @@ p, h1, h2, h3, h4, h5, h6,
   cursor:pointer;
   color:inherit;
   transform: translateY(0);
-  transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+  transition: transform .18s ease, background .18s ease,
+              border-color .18s ease, box-shadow .18s ease;
 }
 
 .pack img{
@@ -489,7 +475,7 @@ p, h1, h2, h3, h4, h5, h6,
   margin-top:4px;
 }
 
-/* BUTTON FOR WAX SEAL — KILL THE WHITE BACKGROUND */
+/* Wax seal CTA — no white block */
 .maps-btn{
   display:inline-block;
   padding:0;
@@ -524,7 +510,7 @@ p, h1, h2, h3, h4, h5, h6,
 }
 
 /* =========================
-   MODAL
+   BASE MODAL STYLES
    ========================= */
 .modal{
   position:fixed;
@@ -638,7 +624,6 @@ p, h1, h2, h3, h4, h5, h6,
   overflow:hidden;
 }
 
-/* Face is the image (background-image) */
 .tile-face{
   width:100%;
   aspect-ratio: 3 / 4;
@@ -652,7 +637,6 @@ p, h1, h2, h3, h4, h5, h6,
   transition: transform .16s ease, border-color .16s ease;
 }
 
-/* Transparent shield: blocks “save image” on the underlying visual */
 .tile-shield{
   position:absolute;
   inset:0;
@@ -680,7 +664,6 @@ p, h1, h2, h3, h4, h5, h6,
   display:block;
 }
 
-/* Viewer image as background */
 .viewer-img{
   width:100%;
   max-height: min(68vh, 760px);
@@ -693,7 +676,6 @@ p, h1, h2, h3, h4, h5, h6,
   background-size:contain;
 }
 
-/* Viewer shield (same idea) */
 .viewer::after{
   content:"";
   position:absolute;
@@ -706,7 +688,92 @@ p, h1, h2, h3, h4, h5, h6,
 .modal.mode-viewer .viewer{ display:block; }
 .modal.mode-viewer .back-btn{ display:inline-flex; }
 
-/* Responsive */
+/* =========================
+   COMMISSION ENVELOPE MODAL
+   ========================= */
+.commission-modal .modal-backdrop{
+  background: rgba(0,0,0,.78);
+}
+
+.commission-panel{
+  position:absolute;
+  inset:0;
+  margin:0;
+  transform:none;
+  width:100vw;
+  height:100vh;
+  max-height:none;
+  border-radius:0;
+  box-shadow:none;
+  background:transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.commission-bg{
+  position:relative;
+  width:100%;
+  height:100%;
+  background:url("./assets/commission-modal-assets/modal-bg.png") center / cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+}
+
+.commission-stage{
+  position:relative;
+  max-width:min(720px, 92vw);
+  max-height:90vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.commission-stage img{
+  width:100%;
+  height:auto;
+  display:block;
+  filter: drop-shadow(0 22px 44px rgba(0,0,0,.9));
+}
+
+.commission-close{
+  position:absolute;
+  top:16px;
+  right:16px;
+  z-index:2;
+}
+
+.map-slot-btn{
+  position:absolute;
+  bottom:10%;
+  left:50%;
+  transform: translateX(-50%);
+  display:none;
+  background:transparent;
+  border:none;
+  padding:0;
+  cursor:pointer;
+}
+
+.map-slot-btn img{
+  width:220px;
+  max-width:70vw;
+  height:auto;
+  display:block;
+  filter: drop-shadow(0 14px 30px rgba(0,0,0,.8));
+}
+
+/* Allow scroll on the letter step if needed */
+.commission-modal.letter-step .commission-panel{
+  overflow:auto;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
 @media (max-width: 980px){
   .packs{ grid-template-columns: 1fr; }
   .pack img{ height: 220px; }
