@@ -642,10 +642,7 @@ p, h1, h2, h3, h4, h5, h6,
 .modal.mode-viewer .viewer{ display:block; }
 .modal.mode-viewer .back-btn{ display:inline-flex; }
 
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce){
-  *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
-}
+
 
 /* Responsive */
 @media (max-width: 980px){
