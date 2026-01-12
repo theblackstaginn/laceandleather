@@ -192,7 +192,7 @@ p, h1, h2, h3, h4, h5, h6,
     linear-gradient(180deg, rgba(255,255,255,.06), transparent 55%),
     rgba(0,0,0,.12);
   cursor:pointer;
-  text-align:center; /* override old left */
+  text-align:center;
   color:inherit;
   transform: translateY(0);
   transition: transform .18s ease, background .18s ease, border-color .18s ease;
@@ -343,80 +343,6 @@ p, h1, h2, h3, h4, h5, h6,
   gap:6px;
 }
 
-.maps-cta{
-  margin-top:4px;
-}
-
-/* CTA button */
-.btn-primary{
-  display:inline-block;
-  padding:10px 22px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.5);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.09), transparent 55%),
-    rgba(0,0,0,.35);
-  color:var(--text);
-  text-decoration:none;
-  text-transform:uppercase;
-  letter-spacing:.09em;
-  font-size:13px;
-  cursor:pointer;
-  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
-}
-
-.btn-primary:hover{
-  transform: translateY(-1px);
-  border-color: rgba(255,255,255,.8);
-  box-shadow: 0 14px 30px rgba(0,0,0,.55);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.12), transparent 55%),
-    rgba(0,0,0,.3);
-}
-
-.btn-primary:active{
-  transform: translateY(0) scale(.97);
-  box-shadow:none;
-}
-
-/* MAP COMMISSIONS */
-.section-maps{
-  margin-top:4px;
-}
-
-.maps-grid{
-  margin:18px 0 14px;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:16px;
-}
-
-.map-card{
-  margin:0;
-  max-width:320px;
-}
-
-.map-card img{
-  width:100%;
-  height:auto;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,.12);
-  filter: drop-shadow(0 12px 22px rgba(0,0,0,.48));
-}
-
-.map-caption{
-  margin-top:6px;
-  font-size:13px;
-}
-
-.maps-copy{
-  max-width:720px;
-  margin:0 auto 16px;
-  display:grid;
-  gap:6px;
-}
-
 .maps-ward{
   margin:2px auto 10px;
   max-width:620px;
@@ -424,11 +350,48 @@ p, h1, h2, h3, h4, h5, h6,
   opacity:.82;
 }
 
+/* CTA container */
 .maps-cta{
-  margin-top:4px;
+  margin:28px 0 10px;
+  display:flex;
+  justify-content:center;
 }
 
-/* CTA button */
+/* Wax seal image CTA */
+.wax-seal-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+}
+
+.wax-seal-cta:focus-visible{
+  outline:2px solid rgba(255,255,255,.7);
+  outline-offset:4px;
+}
+
+.wax-seal-img{
+  width:min(260px, 72vw);
+  height:auto;
+  display:block;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,.55));
+  transition: transform .22s ease, filter .22s ease;
+  transform: translateY(0);
+}
+
+.wax-seal-cta:hover .wax-seal-img,
+.wax-seal-cta:focus-visible .wax-seal-img{
+  transform: translateY(-3px);
+  filter:
+    drop-shadow(0 18px 34px rgba(0,0,0,.65))
+    drop-shadow(0 4px 6px rgba(0,0,0,.42));
+}
+
+.wax-seal-cta:active .wax-seal-img{
+  transform: translateY(0) scale(.97);
+}
+
+/* Legacy CTA button (kept for future use if needed) */
 .btn-primary{
   display:inline-block;
   padding:10px 22px;
@@ -458,12 +421,6 @@ p, h1, h2, h3, h4, h5, h6,
 .btn-primary:active{
   transform: translateY(0) scale(.97);
   box-shadow:none;
-}
-
-/* responsive tweak */
-@media (max-width: 980px){
-  .maps-grid{ flex-direction:column; }
-  .map-card{ max-width:none; }
 }
 
 /* =========================
