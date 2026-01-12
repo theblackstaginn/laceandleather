@@ -1,5 +1,9 @@
-/* styles.css (UPDATED FULL)
-   Lace & Leather — Front Porch
+/* styles.css (FULL)
+   Lace & Leather — Front Porch (CLEAN)
+   - Cardinal: headers/titles
+   - DarkAges: all other text
+   - Framed logo is a single image now
+   - Modal previews use background-image (deterrence vs Save Image)
 */
 
 /* =========================
@@ -54,11 +58,8 @@ body{
   text-align:center;
 }
 
-html.no-scroll,
-html.no-scroll body{ overflow:hidden; }
-
 /* =========================
-   FIXED BACKGROUND
+   FIXED BACKGROUND (desktop default)
    ========================= */
 .bg{
   position:fixed;
@@ -79,7 +80,10 @@ html.no-scroll body{ overflow:hidden; }
     linear-gradient(180deg, rgba(0,0,0,var(--bgDim)), rgba(0,0,0,var(--bgDim)));
 }
 
-/* MOBILE BACKGROUND */
+/* =========================
+   MOBILE BACKGROUND OVERRIDE (iOS-safe)
+   - Uses lace-mobile-bg.png
+   ========================= */
 @media (max-width: 768px){
   .bg{
     background:url("./assets/lace-mobile-bg.png") center top / cover no-repeat;
@@ -120,16 +124,17 @@ html.no-scroll body{ overflow:hidden; }
    ========================= */
 .hero{ padding:18px; }
 
+/* Brand title above logo */
 .brand-title{
   font-family: "Cardinal", serif;
-  font-size: clamp(2.1rem, 5vw, 3rem); /* bigger */
+  font-size: clamp(2.1rem, 5vw, 3rem);
   letter-spacing: 0.14em;
   margin-bottom: 18px;
   text-align: center;
-  font-weight: 600; /* bolder impression, even if single-weight font */
+  font-weight: 600;
   text-shadow:
     0 0 6px rgba(0,0,0,.85),
-    0 0 14px rgba(0,0,0,.85); /* punches through the background */
+    0 0 14px rgba(0,0,0,.85);
 }
 
 .hero-inner{
@@ -161,6 +166,7 @@ html.no-scroll body{ overflow:hidden; }
 .subtag{ margin:0; color:var(--muted); font-size:15px; }
 .muted{ color:var(--muted); }
 
+/* Center ALL text everywhere (pages + cards) */
 p, h1, h2, h3, h4, h5, h6,
 .pack-title, .brand, .modal-title, .modal-sub, .pack-note,
 .pack, .section, .footer-inner, .hero-inner{
@@ -187,6 +193,7 @@ p, h1, h2, h3, h4, h5, h6,
     linear-gradient(180deg, rgba(255,255,255,.06), transparent 55%),
     rgba(0,0,0,.12);
   cursor:pointer;
+  text-align:center;
   color:inherit;
   transform: translateY(0);
   transition: transform .18s ease, background .18s ease, border-color .18s ease;
@@ -199,6 +206,8 @@ p, h1, h2, h3, h4, h5, h6,
   border-radius:14px;
   border:1px solid rgba(255,255,255,.10);
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
+  -webkit-user-drag:none;
+  user-select:none;
 }
 
 .pack-meta{ display:grid; gap:2px; }
@@ -209,6 +218,7 @@ p, h1, h2, h3, h4, h5, h6,
   letter-spacing:.04em;
 }
 
+/* FORCE DarkAges for the "Click to preview..." lines */
 .pack-note{
   font-family:"DarkAges", ui-serif, Georgia, serif;
   font-size:13px;
@@ -240,6 +250,8 @@ p, h1, h2, h3, h4, h5, h6,
   border-radius:16px;
   border:1px solid rgba(255,255,255,.10);
   filter: drop-shadow(0 12px 20px rgba(0,0,0,.45));
+  -webkit-user-drag:none;
+  user-select:none;
 }
 
 /* =========================
@@ -247,6 +259,7 @@ p, h1, h2, h3, h4, h5, h6,
    ========================= */
 .shop-line{
   margin:18px 0 6px;
+  text-align:center;
   font-size:14px;
   letter-spacing:.08em;
   text-transform:uppercase;
@@ -318,37 +331,40 @@ p, h1, h2, h3, h4, h5, h6,
 
 .map-thumb{
   border-radius:16px;
-  border:1px solid rgba(255,255,255,.12);
   overflow:hidden;
-  filter: drop-shadow(0 12px 22px rgba(0,0,0,.48));
 }
 
 .map-card img{
   width:100%;
   height:auto;
-  display:block;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);
+  filter: drop-shadow(0 12px 22px rgba(0,0,0,.48));
+  -webkit-user-drag:none;
+  user-select:none;
 }
 
-/* Legible map captions */
 .map-caption{
-  margin-top:6px;
+  margin-top:8px;
   font-size:14px;
+  line-height:1.4;
   color:var(--text);
-  display:flex;
-  flex-direction:column;
-  gap:2px;
   text-shadow:
-    0 0 5px rgba(0,0,0,.85),
-    0 0 12px rgba(0,0,0,.8);
+    0 0 5px rgba(0,0,0,.9),
+    0 0 10px rgba(0,0,0,.9);
 }
 
 .map-name{
+  display:block;
   font-family:"Cardinal", serif;
-  letter-spacing:.06em;
+  letter-spacing:.08em;
   font-size:15px;
+  margin-bottom:2px;
 }
 
 .map-tagline{
+  display:block;
+  font-family:"DarkAges", ui-serif, Georgia, serif;
   font-size:13px;
   color:var(--muted);
 }
@@ -371,45 +387,35 @@ p, h1, h2, h3, h4, h5, h6,
   margin-top:4px;
 }
 
-/* Wax seal maps button */
+/* Wax-seal CTA */
 .maps-btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
   text-decoration:none;
-  background:transparent;
-  border:none;
-  padding:0;
-  cursor:pointer;
 }
 
 .wax-seal-img{
-  width:min(260px, 70vw);
+  width:220px;
+  max-width:72vw;
   height:auto;
   display:block;
-  filter: drop-shadow(0 16px 32px rgba(0,0,0,.65));
-  transition: transform .16s ease, filter .16s ease;
+  filter:
+    drop-shadow(0 14px 28px rgba(0,0,0,.6))
+    drop-shadow(0 3px 6px rgba(0,0,0,.5));
+  transition: transform .18s ease, filter .18s ease;
 }
 
-.maps-btn:hover .wax-seal-img{
-  transform: translateY(-1px);
-  filter: drop-shadow(0 22px 40px rgba(0,0,0,.75));
+.maps-btn:hover .wax-seal-img,
+.maps-btn:focus-visible .wax-seal-img{
+  transform: translateY(-2px);
+  filter:
+    drop-shadow(0 18px 32px rgba(0,0,0,.7))
+    drop-shadow(0 5px 8px rgba(0,0,0,.6));
 }
+
 .maps-btn:active .wax-seal-img{
   transform: translateY(0) scale(.97);
-  filter: drop-shadow(0 10px 24px rgba(0,0,0,.6));
-}
-
-/* =========================
-   HARDENING: NON-DRAGGABLE IMAGES
-   ========================= */
-.pack img,
-.creation-grid img,
-.map-card img,
-.wax-seal-img{
-  -webkit-user-drag:none;
-  user-select:none;
-  pointer-events:none;
 }
 
 /* =========================
@@ -529,6 +535,7 @@ p, h1, h2, h3, h4, h5, h6,
   overflow:hidden;
 }
 
+/* Face is the image (background-image) */
 .tile-face{
   width:100%;
   aspect-ratio: 3 / 4;
@@ -542,6 +549,7 @@ p, h1, h2, h3, h4, h5, h6,
   transition: transform .16s ease, border-color .16s ease;
 }
 
+/* Transparent shield: blocks “save image” on the underlying visual */
 .tile-shield{
   position:absolute;
   inset:0;
@@ -566,11 +574,7 @@ p, h1, h2, h3, h4, h5, h6,
   overflow:hidden;
 }
 
-/* map modal viewer is always visible when modal is open */
-.map-viewer{
-  display:block;
-}
-
+/* Viewer image as background */
 .viewer-img{
   width:100%;
   max-height: min(68vh, 760px);
@@ -583,6 +587,7 @@ p, h1, h2, h3, h4, h5, h6,
   background-size:contain;
 }
 
+/* Viewer shield (same idea) */
 .viewer::after{
   content:"";
   position:absolute;
@@ -595,16 +600,12 @@ p, h1, h2, h3, h4, h5, h6,
 .modal.mode-viewer .viewer{ display:block; }
 .modal.mode-viewer .back-btn{ display:inline-flex; }
 
-/* =========================
-   REDUCED MOTION
-   ========================= */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
 }
 
-/* =========================
-   RESPONSIVE
-   ========================= */
+/* Responsive */
 @media (max-width: 980px){
   .packs{ grid-template-columns: 1fr; }
   .pack img{ height: 220px; }
@@ -618,5 +619,4 @@ p, h1, h2, h3, h4, h5, h6,
   .creation-grid img{ height: 140px; }
   .seal img{ max-height:80px; width:auto; }
   .wax-btn img{ width: 46px; height: 46px; }
-  .wax-seal-img{ width:min(230px, 78vw); }
 }
