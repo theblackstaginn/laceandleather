@@ -1,4 +1,4 @@
-<!-- index.html (FULL) -->
+<!-- index.html (UPDATED FULL) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -116,14 +116,24 @@
       </p>
 
       <div class="maps-grid" aria-label="Map examples">
-        <figure class="map-card">
-          <img src="./assets/maps/suneen-reef.png" alt="Fantasy map example — Suneen Reef" loading="lazy" />
-          <figcaption class="map-caption muted">Suneen Reef — ringed reef &amp; coastal settlements</figcaption>
+        <figure class="map-card" data-map="suneen">
+          <div class="map-thumb">
+            <img src="./assets/maps/suneen-reef.png" alt="Fantasy map example — Suneen Reef" loading="lazy" />
+          </div>
+          <figcaption class="map-caption">
+            <span class="map-name">Suneen Reef</span>
+            <span class="map-tagline">ringed reef &amp; coastal settlements</span>
+          </figcaption>
         </figure>
 
-        <figure class="map-card">
-          <img src="./assets/maps/whispering-bay.png" alt="Fantasy map example — Whispering Bay" loading="lazy" />
-          <figcaption class="map-caption muted">Whispering Bay — shadowed shores &amp; hidden coves</figcaption>
+        <figure class="map-card" data-map="whispering">
+          <div class="map-thumb">
+            <img src="./assets/maps/whispering-bay.png" alt="Fantasy map example — Whispering Bay" loading="lazy" />
+          </div>
+          <figcaption class="map-caption">
+            <span class="map-name">Whispering Bay</span>
+            <span class="map-tagline">shadowed shores &amp; hidden coves</span>
+          </figcaption>
         </figure>
       </div>
 
@@ -146,12 +156,8 @@
       </p>
 
       <div class="maps-cta">
-        <a class="wax-seal-cta" href="https://instagram.com/lace.and.leather65" target="_blank" rel="noopener">
-          <img
-            src="./assets/custom-maps-button.png"
-            alt="Custom Maps"
-            class="wax-seal-img"
-          />
+        <a class="maps-btn" href="https://instagram.com/lace.and.leather65" target="_blank" rel="noopener">
+          <img class="wax-seal-img" src="./assets/custom-maps-button.png" alt="Request a custom map slot" />
         </a>
       </div>
     </section>
@@ -164,7 +170,7 @@
     </footer>
   </main>
 
-  <!-- MODAL -->
+  <!-- PACKS MODAL -->
   <div class="modal" id="modal" aria-hidden="true">
     <div class="modal-backdrop" data-close></div>
 
@@ -193,6 +199,36 @@
         <!-- Single image view (NOT an <img> — deterrence layer) -->
         <div class="viewer" id="viewer" aria-label="Large preview" aria-hidden="true">
           <div id="viewerImg" class="viewer-img" role="img" aria-label="Large preview image"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAPS MODAL -->
+  <div class="modal" id="mapModal" aria-hidden="true">
+    <div class="modal-backdrop" data-map-close></div>
+
+    <div class="modal-panel glass" role="dialog" aria-modal="true" aria-labelledby="mapModalTitle">
+      <div class="modal-head">
+        <div class="modal-left">
+          <button class="wax-btn back-btn" type="button" data-map-back aria-label="Back to maps">
+            <img src="./assets/back-button.PNG" alt="Back" />
+          </button>
+
+          <div>
+            <div id="mapModalTitle" class="modal-title">Custom Map</div>
+            <div id="mapModalSub" class="modal-sub muted">Preview</div>
+          </div>
+        </div>
+
+        <button class="wax-btn close-btn" type="button" data-map-close aria-label="Close map preview">
+          <img src="./assets/x-button.PNG" alt="Close" />
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="viewer map-viewer" id="mapViewer" aria-label="Large map preview">
+          <div id="mapViewerImg" class="viewer-img" role="img" aria-label="Large map preview image"></div>
         </div>
       </div>
     </div>
@@ -255,19 +291,35 @@
         }
       };
 
+      const MAPS = {
+        suneen: {
+          title: "Suneen Reef",
+          sub: "Ringed reef & coastal settlements",
+          src: "./assets/maps/suneen-reef.png"
+        },
+        whispering: {
+          title: "Whispering Bay",
+          sub: "Shadowed shores & hidden coves",
+          src: "./assets/maps/whispering-bay.png"
+        }
+      };
+
+      // Packs modal elements
       const modal = document.getElementById("modal");
       const collage = document.getElementById("collage");
       const viewer = document.getElementById("viewer");
       const viewerImg = document.getElementById("viewerImg");
-      const titleEl = document.getElementById("modalTitle");
-      const subEl = document.getElementById("modalSub");
+      const packTitleEl = document.getElementById("modalTitle");
+      const packSubEl = document.getElementById("modalSub");
       const backBtn = document.querySelector("[data-back]");
 
-      // Protection ward: block context menu on map previews
+      // Maps modal elements
+      const mapModal = document.getElementById("mapModal");
+      const mapViewerImg = document.getElementById("mapViewerImg");
+      const mapTitleEl = document.getElementById("mapModalTitle");
+      const mapSubEl = document.getElementById("mapModalSub");
+
       const mapsGrid = document.querySelector(".maps-grid");
-      if (mapsGrid) {
-        mapsGrid.addEventListener("contextmenu", (e) => e.preventDefault());
-      }
 
       const setMode = (mode) => {
         if (mode === "viewer") {
@@ -286,8 +338,8 @@
         const pack = PACKS[key];
         if (!pack) return;
 
-        titleEl.textContent = pack.title;
-        subEl.textContent = pack.sub;
+        packTitleEl.textContent = pack.title;
+        packSubEl.textContent = pack.sub;
 
         collage.innerHTML = "";
         setMode("collage");
@@ -337,20 +389,63 @@
 
       const backToCollage = () => setMode("collage");
 
-      // Deterrence: disable context menu inside modal only (doesn't break the rest of your site)
+      // === MAP MODAL ===
+      const openMapModal = (key) => {
+        const map = MAPS[key];
+        if (!map) return;
+
+        mapTitleEl.textContent = map.title;
+        mapSubEl.textContent = map.sub;
+        mapViewerImg.style.backgroundImage = `url("${map.src}")`;
+
+        mapModal.classList.add("open");
+        mapModal.setAttribute("aria-hidden", "false");
+        document.documentElement.classList.add("no-scroll");
+      };
+
+      const closeMapModal = () => {
+        mapModal.classList.remove("open");
+        mapModal.setAttribute("aria-hidden", "true");
+        document.documentElement.classList.remove("no-scroll");
+        mapViewerImg.style.backgroundImage = "";
+      };
+
+      // Wards: disable context menu on sensitive surfaces
       modal.addEventListener("contextmenu", (e) => {
         if (modal.classList.contains("open")) e.preventDefault();
       });
 
+      mapModal.addEventListener("contextmenu", (e) => {
+        if (mapModal.classList.contains("open")) e.preventDefault();
+      });
+
+      if (mapsGrid) {
+        mapsGrid.addEventListener("contextmenu", (e) => e.preventDefault());
+      }
+
+      // Extra ward: block drag-save on key areas
+      document.addEventListener("dragstart", (e) => {
+        if (
+          e.target.closest(".maps-grid") ||
+          e.target.closest(".modal") ||
+          e.target.closest(".packs") ||
+          e.target.closest(".creation-grid")
+        ) {
+          e.preventDefault();
+        }
+      });
+
       document.addEventListener("click", (e) => {
+        // Packs
         const packBtn = e.target.closest(".pack");
         if (packBtn) {
           e.preventDefault();
-          e.stopPropagation(); // helps prevent the “insta-viewer” glitch on some browsers
+          e.stopPropagation();
           openModal(packBtn.getAttribute("data-pack"));
           return;
         }
 
+        // Pack tiles inside modal
         const tileBtn = e.target.closest(".tile");
         if (tileBtn && modal.classList.contains("open")) {
           e.preventDefault();
@@ -359,18 +454,44 @@
           return;
         }
 
+        // Map cards
+        const mapCard = e.target.closest(".map-card");
+        if (mapCard) {
+          e.preventDefault();
+          e.stopPropagation();
+          openMapModal(mapCard.getAttribute("data-map"));
+          return;
+        }
+
+        // Controls
         if (e.target.closest("[data-back]")) return backToCollage();
         if (e.target.closest("[data-close]")) return closeModal();
+
+        if (e.target.closest("[data-map-close]")) return closeMapModal();
+        if (e.target.closest("[data-map-back]")) return closeMapModal();
       });
 
       document.addEventListener("keydown", (e) => {
-        if (!modal.classList.contains("open")) return;
+        // Escape closes whichever modal is open
+        if (e.key === "Escape") {
+          if (modal.classList.contains("open")) {
+            closeModal();
+            return;
+          }
+          if (mapModal.classList.contains("open")) {
+            closeMapModal();
+            return;
+          }
+        }
 
-        if (e.key === "Escape") return closeModal();
-
-        if ((e.key === "Backspace" || e.key === "ArrowLeft") && modal.classList.contains("mode-viewer")) {
-          e.preventDefault();
-          backToCollage();
+        if ((e.key === "Backspace" || e.key === "ArrowLeft")) {
+          if (modal.classList.contains("mode-viewer")) {
+            e.preventDefault();
+            backToCollage();
+          } else if (mapModal.classList.contains("open")) {
+            e.preventDefault();
+            closeMapModal();
+          }
         }
       });
     })();
