@@ -238,24 +238,25 @@
   <script>
     (() => {
       "use strict";
-      
-            let scrollPosition = 0;
+
+      // Keep scroll position when modals open/close
+      let scrollPosition = 0;
 
       const lockScroll = () => {
         scrollPosition = window.scrollY || document.documentElement.scrollTop || 0;
-        document.documentElement.classList.add("no-scroll");
         document.body.style.position = "fixed";
         document.body.style.top = `-${scrollPosition}px`;
         document.body.style.left = "0";
         document.body.style.right = "0";
+        document.body.style.width = "100%";
       };
 
       const unlockScroll = () => {
-        document.documentElement.classList.remove("no-scroll");
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.left = "";
         document.body.style.right = "";
+        document.body.style.width = "";
         window.scrollTo(0, scrollPosition || 0);
       };
 
@@ -387,15 +388,15 @@
 
         modal.classList.add("open");
         modal.setAttribute("aria-hidden", "false");
-        document.documentElement.classList.add("no-scroll");
+        lockScroll();
       };
 
       const closeModal = () => {
         modal.classList.remove("open");
         modal.setAttribute("aria-hidden", "true");
-        document.documentElement.classList.remove("no-scroll");
         collage.innerHTML = "";
         setMode("collage");
+        unlockScroll();
       };
 
       const openViewer = (src) => {
@@ -419,14 +420,14 @@
 
         mapModal.classList.add("open");
         mapModal.setAttribute("aria-hidden", "false");
-        document.documentElement.classList.add("no-scroll");
+        lockScroll();
       };
 
       const closeMapModal = () => {
         mapModal.classList.remove("open");
         mapModal.setAttribute("aria-hidden", "true");
-        document.documentElement.classList.remove("no-scroll");
         mapViewerImg.style.backgroundImage = "";
+        unlockScroll();
       };
 
       // Wards: disable context menu on sensitive surfaces
