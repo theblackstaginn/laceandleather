@@ -488,8 +488,13 @@ p, h1, h2, h3, h4, h5, h6,
   margin-top:4px;
 }
 
+/* UPDATED: strip default button styling */
 .maps-btn{
   display:inline-block;
+  padding:0;
+  border:none;
+  background:transparent;
+  cursor:pointer;
 }
 
 .wax-seal-img{
@@ -721,7 +726,7 @@ p, h1, h2, h3, h4, h5, h6,
 .commission-bg{
   position:absolute;
   inset:0;
-  background:url("./assets/commission-modal-assets/modal-bg.png") center / cover no-repeat;
+  background:url("./commission-modal-assets/modal-bg.png") center / cover no-repeat;
   z-index:-1;
 }
 
@@ -765,7 +770,7 @@ p, h1, h2, h3, h4, h5, h6,
 .letter-bg{
   position:absolute;
   inset:0;
-  background:url("./assets/commission-modal-assets/modal-bg.png") center / cover no-repeat;
+  background:url("./commission-modal-assets/modal-bg.png") center / cover no-repeat;
   opacity:0.9;
   z-index:-1;
 }
