@@ -79,7 +79,7 @@ html.no-scroll body{ overflow:hidden; }
     linear-gradient(180deg, rgba(0,0,0,var(--bgDim)), rgba(0,0,0,var(--bgDim)));
 }
 
-/* MOBILE BACKGROUND (iOS-safe) */
+/* MOBILE BACKGROUND */
 @media (max-width: 768px){
   .bg{
     background:url("./assets/lace-mobile-bg.png") center top / cover no-repeat;
@@ -405,7 +405,7 @@ p, h1, h2, h3, h4, h5, h6,
 .wax-seal-img{
   -webkit-user-drag:none;
   user-select:none;
-  pointer-events:none; /* clicks land on parent button/figure/anchor */
+  pointer-events:none;
 }
 
 /* =========================
@@ -560,6 +560,11 @@ p, h1, h2, h3, h4, h5, h6,
   background: rgba(0,0,0,.10);
   position:relative;
   overflow:hidden;
+}
+
+/* map modal viewer is always visible when modal is open */
+.map-viewer{
+  display:block;
 }
 
 .viewer-img{
