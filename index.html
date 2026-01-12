@@ -1,4 +1,4 @@
-<!-- index.html (UPDATED FULL) -->
+<!-- index.html (CLEAN + DUST + MODALS + SCROLL LOCK) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -251,6 +251,7 @@
 
       const lockScroll = () => {
         scrollPosition = window.scrollY || document.documentElement.scrollTop || 0;
+        document.documentElement.classList.add("no-scroll");
         document.body.style.position = "fixed";
         document.body.style.top = `-${scrollPosition}px`;
         document.body.style.left = "0";
@@ -259,6 +260,7 @@
       };
 
       const unlockScroll = () => {
+        document.documentElement.classList.remove("no-scroll");
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.left = "";
