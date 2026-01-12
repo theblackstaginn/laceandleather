@@ -238,6 +238,26 @@
   <script>
     (() => {
       "use strict";
+      
+            let scrollPosition = 0;
+
+      const lockScroll = () => {
+        scrollPosition = window.scrollY || document.documentElement.scrollTop || 0;
+        document.documentElement.classList.add("no-scroll");
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${scrollPosition}px`;
+        document.body.style.left = "0";
+        document.body.style.right = "0";
+      };
+
+      const unlockScroll = () => {
+        document.documentElement.classList.remove("no-scroll");
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        window.scrollTo(0, scrollPosition || 0);
+      };
 
       const PACKS = {
         grimoire: {
