@@ -100,41 +100,7 @@ html.no-scroll body{ overflow:hidden; }
   will-change: transform, opacity, background;
 }
 
-/* Small background specks (depth) */
-.dust span.depth{
-  width:2px;
-  height:2px;
-  background:rgba(255,255,255,0.6);
-  box-shadow:0 0 4px rgba(255,255,255,.45);
-  filter:blur(0.5px);
-  animation-duration:28s, 8s;
-  animation-delay: calc(-1s * var(--i)), calc(-1s * var(--i));
-}
-
-/* Mid specks */
-.dust span.mid{
-  width:3px;
-  height:3px;
-  background:rgba(245,225,185,0.8);
-  box-shadow:0 0 6px rgba(245,225,185,.55);
-  animation-duration:24s, 6s;
-  animation-delay: calc(-1.5s * var(--i)), calc(-1s * var(--i));
-}
-
-/* Larger foreground motes */
-.dust span.fore{
-  width:6px;
-  height:6px;
-  background:rgba(250,235,200,0.9);
-  box-shadow:
-    0 0 10px rgba(250,235,200,.85),
-    0 0 18px rgba(0,0,0,.6);
-  filter:blur(0);
-  animation-duration:20s, 6s;
-  animation-delay: calc(-2s * var(--i)), calc(-1s * var(--i));
-}
-
-/* Position & type distribution (16 particles) */
+/* Positions + individual indices */
 .dust span:nth-child(1){ top:12%; left:18%; --i:1; }
 .dust span:nth-child(2){ top:28%; left:72%; --i:2; }
 .dust span:nth-child(3){ top:46%; left:35%; --i:3; }
@@ -152,30 +118,51 @@ html.no-scroll body{ overflow:hidden; }
 .dust span:nth-child(15){ top:75%; left:15%; --i:15; }
 .dust span:nth-child(16){ top:15%; left:85%; --i:16; }
 
-/* Assign types */
+/* Small background specks (depth) */
 .dust span:nth-child(1),
 .dust span:nth-child(4),
 .dust span:nth-child(9),
-.dust span:nth-child(15){  /* very small depth */
-  @apply depth;
+.dust span:nth-child(15){
+  width:2px;
+  height:2px;
+  background:rgba(255,255,255,0.6);
+  box-shadow:0 0 4px rgba(255,255,255,.45);
+  filter:blur(0.6px);
+  animation-duration:28s, 8s;
+  animation-delay: calc(-1s * var(--i)), calc(-1s * var(--i));
 }
 
+/* Mid specks */
 .dust span:nth-child(2),
 .dust span:nth-child(5),
 .dust span:nth-child(7),
 .dust span:nth-child(10),
 .dust span:nth-child(13),
 .dust span:nth-child(14){
-  @apply mid;              /* mid-size */
+  width:3px;
+  height:3px;
+  background:rgba(245,225,185,0.8);
+  box-shadow:0 0 6px rgba(245,225,185,.55);
+  animation-duration:24s, 6s;
+  animation-delay: calc(-1.5s * var(--i)), calc(-1s * var(--i));
 }
 
+/* Larger foreground motes (a few left big for depth) */
 .dust span:nth-child(3),
 .dust span:nth-child(6),
 .dust span:nth-child(8),
 .dust span:nth-child(11),
 .dust span:nth-child(12),
 .dust span:nth-child(16){
-  @apply fore;             /* foreground motes */
+  width:5px;
+  height:5px;
+  background:rgba(250,235,200,0.9);
+  box-shadow:
+    0 0 10px rgba(250,235,200,.85),
+    0 0 18px rgba(0,0,0,.6);
+  filter:blur(0);
+  animation-duration:20s, 6s;
+  animation-delay: calc(-2s * var(--i)), calc(-1s * var(--i));
 }
 
 @keyframes dustFloat{
@@ -705,8 +692,6 @@ p, h1, h2, h3, h4, h5, h6,
 .modal.mode-viewer .collage{ display:none; }
 .modal.mode-viewer .viewer{ display:block; }
 .modal.mode-viewer .back-btn{ display:inline-flex; }
-
-
 
 /* Responsive */
 @media (max-width: 980px){
