@@ -413,7 +413,6 @@
       const commissionImg = document.getElementById("commissionImg");
       const commissionAdvanceBtn = document.getElementById("commissionAdvance");
       const commissionLetterModal = document.getElementById("commissionLetterModal");
-      const openCommissionBtn = document.getElementById("openCommission");
       const mapSlotBtn = document.getElementById("mapSlotBtn");
 
       const COMMISSION_STEPS = [
@@ -431,6 +430,7 @@
         }
       ];
       let commissionStep = 0;
+      let commissionAnimating = false;
 
       const setMode = (mode) => {
         if (mode === "viewer") {
@@ -530,6 +530,7 @@
 
       const openCommissionModal = () => {
         commissionStep = 0;
+        commissionAnimating = false;
         showCommissionStep(commissionStep);
         commissionModal.classList.add("open");
         commissionModal.setAttribute("aria-hidden", "false");
@@ -550,20 +551,31 @@
         commissionLetterModal.classList.remove("open");
         commissionLetterModal.setAttribute("aria-hidden", "true");
         commissionStep = 0;
+        commissionAnimating = false;
         unlockScroll();
       };
 
-      const advanceCommission = () => {
-        commissionStep += 1;
-        if (commissionStep < COMMISSION_STEPS.length) {
+      // One-click sequence: closed -> open-letter -> empty -> letter modal
+      const playCommissionSequence = () => {
+        if (commissionAnimating) return;
+        commissionAnimating = true;
+        commissionStep = 0;
+        showCommissionStep(commissionStep);
+
+        setTimeout(() => {
+          commissionStep = 1;
           showCommissionStep(commissionStep);
-          // brief pause on each click; the last click hands off to the letter modal
-          if (commissionStep === COMMISSION_STEPS.length - 1) {
-            // next click will show the letter modal
-          }
-        } else {
+        }, 250);
+
+        setTimeout(() => {
+          commissionStep = 2;
+          showCommissionStep(commissionStep);
+        }, 550);
+
+        setTimeout(() => {
           openCommissionLetterModal();
-        }
+          commissionAnimating = false;
+        }, 900);
       };
 
       const openMailClient = () => {
@@ -668,10 +680,11 @@ You can also attach sketches or references if you have them.`
       });
 
       // Direct listeners where needed
-      if (commissionAdvanceBtn) {
-        commissionAdvanceBtn.addEventListener("click", (e) => {
+      const commissionAdvanceBtnEl = document.getElementById("commissionAdvance");
+      if (commissionAdvanceBtnEl) {
+        commissionAdvanceBtnEl.addEventListener("click", (e) => {
           e.stopPropagation();
-          advanceCommission();
+          playCommissionSequence();
         });
       }
 
