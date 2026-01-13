@@ -488,7 +488,7 @@ p, h1, h2, h3, h4, h5, h6,
   margin-top:4px;
 }
 
-/* UPDATED: strip default button styling */
+/* strip default button styling */
 .maps-btn{
   display:inline-block;
   padding:0;
@@ -711,6 +711,7 @@ p, h1, h2, h3, h4, h5, h6,
   border-radius:0;
   background:transparent;
   box-shadow:none;
+  overflow:hidden; /* lock scene, no scroll */
 }
 
 .commission-inner{
