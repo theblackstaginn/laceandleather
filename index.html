@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#0b0f14" />
 
   <title>Digital Parchment Textures & Aged Paper Backgrounds | Lace & Leather</title>
 
@@ -14,20 +13,19 @@
   <!-- Pinterest domain verify -->
   <meta name="p:domain_verify" content="35ebca8082bfd2bfe5109b2afea18305" />
 
+  <meta name="theme-color" content="#0b0f14" />
+
   <link rel="stylesheet" href="styles.css" />
 
   <!-- PWA / Icons -->
   <link rel="manifest" href="./manifest.json" />
   <link rel="icon" href="./favicon.png" />
   <link rel="apple-touch-icon" href="./icon-192.png" />
-  <meta name="theme-color" content="#1b1b1b" />
 </head>
 
 <body>
-  <!-- Fixed background layer -->
   <div class="bg" aria-hidden="true"></div>
 
-  <!-- Subtle dust particles over the background -->
   <div class="dust" aria-hidden="true">
     <span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span>
@@ -35,47 +33,40 @@
   </div>
 
   <main class="wrap">
-    <!-- HERO (open air, no glass) -->
     <header class="hero">
-      <div class="brand-title">Lace & Leather</div>
+      <div class="brand-title">Lace &amp; Leather</div>
       <div class="hero-inner">
-        <!-- Single framed logo image -->
-        <img class="logo" src="./assets/l&l_logo.png" alt="Lace & Leather" />
+        <img class="logo" src="./assets/l&l_logo.png" alt="Lace &amp; Leather" />
 
         <p class="tagline">Digital textures for artists, designers &amp; bookmakers.</p>
         <p class="subtag">Aged parchment · ritual surfaces · dark elegance</p>
 
-        <!-- PROCESS (glass stays) -->
-        <section id="process" class="glass section" aria-label="Process">
+        <section id="process" class="glass section">
           <h2 class="h2">Process</h2>
           <p class="muted">
             Built like a workshop: stains, fibers, and surface wear — curated so your text stays legible.
           </p>
 
-          <div class="creation-grid" aria-label="Creation photos">
-            <img src="./assets/creation/creation_1.png" alt="Creation process photo 1" loading="lazy" />
-            <img src="./assets/creation/creation_2.png" alt="Creation process photo 2" loading="lazy" />
-            <img src="./assets/creation/creation_3.png" alt="Creation process photo 3" loading="lazy" />
-            <img src="./assets/creation/creation_4.png" alt="Creation process photo 4" loading="lazy" />
+          <div class="creation-grid">
+            <img src="./assets/creation/creation_1.png" alt="" loading="lazy" />
+            <img src="./assets/creation/creation_2.png" alt="" loading="lazy" />
+            <img src="./assets/creation/creation_3.png" alt="" loading="lazy" />
+            <img src="./assets/creation/creation_4.png" alt="" loading="lazy" />
           </div>
 
           <p class="shop-line muted">Shop now</p>
 
-          <!-- SOCIAL ICONS (these are the only outbound things in the hero) -->
-          <div class="social-icons" aria-label="Shop and follow">
-            <a class="seal" href="https://payhip.com/LaceLeather65" target="_blank" rel="noopener" aria-label="Payhip">
+          <div class="social-icons">
+            <a class="seal" href="https://payhip.com/LaceLeather65" target="_blank" rel="noopener noreferrer">
               <img src="./assets/social-icons/payhip-icon.PNG" alt="Payhip" />
             </a>
-
-            <a class="seal" href="https://www.etsy.com/shop/laceLeatherArcane" target="_blank" rel="noopener" aria-label="Etsy">
+            <a class="seal" href="https://www.etsy.com/shop/laceLeatherArcane" target="_blank" rel="noopener noreferrer">
               <img src="./assets/social-icons/etsy-icon.PNG" alt="Etsy" />
             </a>
-
-            <a class="seal" href="https://instagram.com/lace.and.leather65" target="_blank" rel="noopener" aria-label="Instagram">
+            <a class="seal" href="https://instagram.com/lace.and.leather65" target="_blank" rel="noopener noreferrer">
               <img src="./assets/social-icons/instagram-icon.PNG" alt="Instagram" />
             </a>
-
-            <a class="seal" href="https://pinterest.com/laceandleather65" target="_blank" rel="noopener" aria-label="Pinterest">
+            <a class="seal" href="https://pinterest.com/laceandleather65" target="_blank" rel="noopener noreferrer">
               <img src="./assets/social-icons/pinterest-icon.PNG" alt="Pinterest" />
             </a>
           </div>
@@ -83,56 +74,15 @@
       </div>
     </header>
 
-    <!-- PRODUCTS / VOLUMES -->
-    <section class="glass section" aria-label="Packs">
-      <h2 class="h2">Browse Packs</h2>
-      <p class="muted">Tap a cover to preview the full set. (No downloads here — this is the front porch.)</p>
-
-      <div class="packs">
-        <!-- Grimoire Pages -->
-        <button class="pack" type="button" data-pack="grimoire">
-          <img src="./assets/grimoire/grim-thumb.png" alt="Grimoire pack preview" loading="lazy" />
-          <div class="pack-meta">
-            <div class="pack-title">Grimoire Pages</div>
-            <div class="pack-note muted">Click to preview all pages</div>
-          </div>
-        </button>
-
-        <!-- Mapmaker Sheets -->
-        <button class="pack" type="button" data-pack="mapmaker">
-          <img src="./assets/mapmaker/mapmaker-cover.png" alt="Mapmaker pack preview" loading="lazy" />
-          <div class="pack-meta">
-            <div class="pack-title">Mapmaker Sheets</div>
-            <div class="pack-note muted">Click to preview all sheets</div>
-          </div>
-        </button>
-
-        <!-- Vol One -->
-        <button class="pack" type="button" data-pack="volone">
-          <img
-            src="./assets/vol-one/vol-1-thumbnail.png"
-            alt="Vol One light parchment preview"
-            loading="lazy"
-          />
-          <div class="pack-meta">
-            <div class="pack-title">Light Aged Parchment — Vol. One</div>
-            <div class="pack-note muted">Click to preview all textures</div>
-          </div>
-        </button>
-      </div>
-    </section>
-
     <!-- MAP COMMISSIONS -->
-    <section id="maps" class="glass section section-maps" aria-label="Custom fantasy maps">
+    <section id="maps" class="glass section section-maps">
       <h2 class="h2">Custom Fantasy Maps</h2>
-      <p class="muted">
-        Hand-drawn parchment cartography for D&amp;D campaigns, novels, and worldbuilding.
-      </p>
+      <p class="muted">Hand-drawn parchment cartography for D&amp;D campaigns, novels, and worldbuilding.</p>
 
-      <div class="maps-grid" aria-label="Map examples">
+      <div class="maps-grid">
         <figure class="map-card" data-map="suneen">
           <div class="map-thumb">
-            <img src="./assets/maps/suneen-reef.png" alt="Fantasy map example — Suneen Reef" loading="lazy" />
+            <img src="./assets/maps/suneen-reef.png" alt="" loading="lazy" />
           </div>
           <figcaption class="map-caption">
             <span class="map-name">Suneen Reef</span>
@@ -142,7 +92,7 @@
 
         <figure class="map-card" data-map="whispering">
           <div class="map-thumb">
-            <img src="./assets/maps/whispering-bay.png" alt="Fantasy map example — Whispering Bay" loading="lazy" />
+            <img src="./assets/maps/whispering-bay.png" alt="" loading="lazy" />
           </div>
           <figcaption class="map-caption">
             <span class="map-name">Whispering Bay</span>
@@ -152,621 +102,83 @@
       </div>
 
       <div class="maps-copy">
-        <p>
-          Islands, regions, and towns illustrated on aged parchment with custom coastlines, labels, and compasses —
-          tuned for print and digital campaigns alike.
-        </p>
-        <p>
-          <strong>Deliverables:</strong> High-resolution PNG/JPG, print-ready at 300 DPI, optional transparent background.
-        </p>
-        <p>
-          <strong>Availability:</strong> 3 custom map slots open each month.
-        </p>
+        <p><strong>Availability:</strong> 3 custom map slots open each month.</p>
       </div>
 
-      <p class="maps-ward muted">
-        Protection ward: previews stay here. No reuse, resale, or training data. Full-resolution files are delivered
-        privately to clients.
-      </p>
-
       <div class="maps-cta">
-        <!-- Opens commission envelope sequence -->
         <button class="maps-btn" type="button" id="openCommission">
           <img class="wax-seal-img" src="./assets/custom-maps-button.png" alt="Request a custom map slot" />
         </button>
       </div>
     </section>
-
-    <!-- SEO copy block -->
-    <section class="section section-copy">
-      <div class="wrap">
-        <h2>Digital aged parchment textures for designers, authors &amp; bookmakers</h2>
-        <p>
-          Lace &amp; Leather creates <strong>digital parchment textures</strong> for artists, writers,
-          bookbinders, and TTRPG creators. Every page is built as a high-resolution
-          <strong>printable vintage paper</strong> file you can drop straight into your layouts
-          for journals, notebooks, book interiors, spellbooks, and campaign logs.
-        </p>
-        <p>
-          Packs are designed for <strong>commercial use</strong> and tested across common
-          workflows: <strong>scrapbooking &amp; journaling</strong>, bookbinding and
-          <strong>book arts</strong>, fantasy <strong>TTRPG map-making</strong>, tarot
-          and oracle decks, and digital collages. Use them as <strong>aged paper
-          backgrounds</strong>, subtle <strong>graphic design overlays</strong>, or full
-          printable pages for DIY projects.
-        </p>
-        <p>
-          If you need believable, high-detail parchment that prints cleanly and works
-          with layered designs, these <strong>digital textures</strong> were built for you.
-          No stock-photo noise, no fake grunge — just consistent, archival-feeling
-          pages that make your work look like it has a history.
-        </p>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="site-footer">
-      <p class="footer-sub">
-        Website by
-        <a href="https://blackstagweb.com" rel="noopener noreferrer">Black Stag Web Studio</a>
-      </p>
-      <div class="footer-inner">
-        <div class="brand">Lace &amp; Leather</div>
-        <div class="muted">
-          Digital texture packs · PNG/JPG · Instant delivery via shop links
-        </div>
-      </div>
-    </footer>
   </main>
 
-  <!-- PACKS MODAL -->
-  <div class="modal" id="modal" aria-hidden="true">
-    <div class="modal-backdrop" data-close></div>
+  <!-- COMMISSION LETTER MODAL -->
+  <div class="modal" id="commissionLetterModal">
+    <div class="modal-backdrop" data-letter-close></div>
 
-    <div class="modal-panel glass" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-panel glass letter-panel">
       <div class="modal-head">
-        <div class="modal-left">
-          <button class="wax-btn back-btn" type="button" data-back aria-label="Back to collage">
-            <img src="./assets/back-button.PNG" alt="Back" />
-          </button>
-
-          <div>
-            <div id="modalTitle" class="modal-title">Preview</div>
-            <div id="modalSub" class="modal-sub muted"></div>
-          </div>
+        <div>
+          <div class="modal-title">Commission a Custom Map</div>
+          <div class="modal-sub muted">Instructions</div>
         </div>
-
-        <button class="wax-btn close-btn" type="button" data-close aria-label="Close preview">
-          <img src="./assets/x-button.PNG" alt="Close" />
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <!-- Collage view -->
-        <div class="collage" id="collage" aria-label="Pack preview collage"></div>
-
-        <!-- Single image view (NOT an <img> — deterrence layer) -->
-        <div class="viewer" id="viewer" aria-label="Large preview" aria-hidden="true">
-          <div id="viewerImg" class="viewer-img" role="img" aria-label="Large preview image"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MAPS MODAL -->
-  <div class="modal" id="mapModal" aria-hidden="true">
-    <div class="modal-backdrop" data-map-close></div>
-
-    <div class="modal-panel glass" role="dialog" aria-modal="true" aria-labelledby="mapModalTitle">
-      <div class="modal-head">
-        <div class="modal-left">
-          <button class="wax-btn back-btn" type="button" data-map-back aria-label="Back to maps">
-            <img src="./assets/back-button.PNG" alt="Back" />
-          </button>
-
-          <div>
-            <div id="mapModalTitle" class="modal-title">Custom Map</div>
-            <div id="mapModalSub" class="modal-sub muted">Preview</div>
-          </div>
-        </div>
-
-        <button class="wax-btn close-btn" type="button" data-map-close aria-label="Close map preview">
-          <img src="./assets/x-button.PNG" alt="Close" />
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <div class="viewer map-viewer" id="mapViewer" aria-label="Large map preview">
-          <div id="mapViewerImg" class="viewer-img" role="img" aria-label="Large map preview image"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- COMMISSION ENVELOPE MODAL (fullscreen, no scroll) -->
-  <div class="modal" id="commissionModal" aria-hidden="true">
-    <div class="modal-backdrop commission-backdrop" data-commission-close></div>
-
-    <div class="modal-panel commission-panel" role="dialog" aria-modal="true" aria-labelledby="commissionTitle">
-      <div class="commission-inner">
-        <div class="commission-bg" aria-hidden="true"></div>
-
-        <button class="wax-btn commission-close" type="button" data-commission-close aria-label="Close commission envelope">
-          <img src="./assets/x-button.PNG" alt="Close" />
-        </button>
-
-        <button class="commission-envelope-btn" type="button" id="commissionAdvance" aria-label="Open commission envelope">
-          <img
-            id="commissionImg"
-            class="commission-envelope-img"
-            src="./commission-modal-assets/envelope-closed.png"
-            alt="Closed parchment envelope"
-          />
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- COMMISSION LETTER MODAL (scrollable) -->
-  <div class="modal" id="commissionLetterModal" aria-hidden="true">
-    <div class="modal-backdrop letter-backdrop" data-letter-close></div>
-
-    <div class="modal-panel glass letter-panel" role="dialog" aria-modal="true" aria-labelledby="commissionLetterTitle">
-      <div class="modal-head">
-        <div class="modal-left">
-          <div>
-            <div id="commissionLetterTitle" class="modal-title">Commission a Custom Map</div>
-            <div class="modal-sub muted">Instructions &amp; contact</div>
-          </div>
-        </div>
-
-        <button class="wax-btn close-btn" type="button" data-letter-close aria-label="Close commission letter">
+        <button class="wax-btn close-btn" type="button" data-letter-close>
           <img src="./assets/x-button.PNG" alt="Close" />
         </button>
       </div>
 
       <div class="modal-body letter-body">
-        <div class="letter-bg" aria-hidden="true"></div>
+        <div class="letter-bg"></div>
 
         <div class="letter-stack">
-          <img
-            src="./commission-modal-assets/commission-letter.png"
-            alt="Commission instructions letter"
-            class="letter-img"
-          />
+          <img src="./commission-modal-assets/commission-letter.png" class="letter-img" alt="" />
 
-          <!-- Wax button sitting in the empty bottom margin of the parchment -->
-          <button class="map-slot-btn" type="button" id="mapSlotBtn" aria-label="Claim a custom map slot">
+          <!-- GOOGLE FORM LINK -->
+          <a
+            class="map-slot-btn"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSf_DSOolY4i1vQgBOu9oJriiGl_ViNXpJk7jBLEiRqkxvWuzA/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Claim a custom map slot"
+          >
             <img src="./commission-modal-assets/map-slot-button.png" alt="Claim map slot" />
-          </button>
+          </a>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Inline JS -->
   <script>
     (() => {
       "use strict";
 
-      // Keep scroll position when modals open/close
       let scrollPosition = 0;
-
       const lockScroll = () => {
-        scrollPosition = window.scrollY || document.documentElement.scrollTop || 0;
+        scrollPosition = window.scrollY || 0;
         document.documentElement.classList.add("no-scroll");
         document.body.style.position = "fixed";
         document.body.style.top = `-${scrollPosition}px`;
-        document.body.style.left = "0";
-        document.body.style.right = "0";
-        document.body.style.width = "100%";
       };
-
       const unlockScroll = () => {
         document.documentElement.classList.remove("no-scroll");
         document.body.style.position = "";
         document.body.style.top = "";
-        document.body.style.left = "";
-        document.body.style.right = "";
-        document.body.style.width = "";
-        window.scrollTo(0, scrollPosition || 0);
+        window.scrollTo(0, scrollPosition);
       };
 
-      const PACKS = {
-        grimoire: {
-          title: "Grimoire Pages",
-          sub: "Preview (12 pages)",
-          images: [
-            "./assets/grimoire/grim-1.PNG",
-            "./assets/grimoire/grim-2.PNG",
-            "./assets/grimoire/grim-3.PNG",
-            "./assets/grimoire/grim-4.PNG",
-            "./assets/grimoire/grim-5.PNG",
-            "./assets/grimoire/grim-6.PNG",
-            "./assets/grimoire/grim-7.PNG",
-            "./assets/grimoire/grim-8.PNG",
-            "./assets/grimoire/grim-9.PNG",
-            "./assets/grimoire/grim-10.PNG",
-            "./assets/grimoire/grim-11.PNG",
-            "./assets/grimoire/grim-12.PNG"
-          ]
-        },
-        mapmaker: {
-          title: "Mapmaker Sheets",
-          sub: "Preview (7 sheets)",
-          images: [
-            "./assets/mapmaker/map_3.png",
-            "./assets/mapmaker/map_4.png",
-            "./assets/mapmaker/map_5.png",
-            "./assets/mapmaker/map_6.png",
-            "./assets/mapmaker/map_7.png",
-            "./assets/mapmaker/map_8.png",
-            "./assets/mapmaker/map_9.png"
-          ]
-        },
-        volone: {
-          title: "Light Aged Parchment — Vol. One",
-          sub: "Preview (12 textures)",
-          images: [
-            "./assets/vol-one/parchment-light_1.jpg",
-            "./assets/vol-one/parchment-light_2.jpg",
-            "./assets/vol-one/parchment-light_3.jpg",
-            "./assets/vol-one/parchment-light_4.jpg",
-            "./assets/vol-one/parchment-light_5.jpg",
-            "./assets/vol-one/parchment-light_6.jpg",
-            "./assets/vol-one/parchment-light_7.jpg",
-            "./assets/vol-one/parchment-light_8.jpg",
-            "./assets/vol-one/parchment-light_9.jpg",
-            "./assets/vol-one/parchment-light_10.jpg",
-            "./assets/vol-one/parchment-light_11.jpg",
-            "./assets/vol-one/parchment-light_12.jpg"
-          ]
-        }
-      };
-
-      const MAPS = {
-        suneen: {
-          title: "Suneen Reef",
-          sub: "Ringed reef & coastal settlements",
-          src: "./assets/maps/suneen-reef.png"
-        },
-        whispering: {
-          title: "Whispering Bay",
-          sub: "Shadowed shores & hidden coves",
-          src: "./assets/maps/whispering-bay.png"
-        }
-      };
-
-      // Packs modal elements
-      const modal = document.getElementById("modal");
-      const collage = document.getElementById("collage");
-      const viewer = document.getElementById("viewer");
-      const viewerImg = document.getElementById("viewerImg");
-      const packTitleEl = document.getElementById("modalTitle");
-      const packSubEl = document.getElementById("modalSub");
-      const backBtn = document.querySelector("[data-back]");
-
-      // Maps modal elements
-      const mapModal = document.getElementById("mapModal");
-      const mapViewerImg = document.getElementById("mapViewerImg");
-      const mapTitleEl = document.getElementById("mapModalTitle");
-      const mapSubEl = document.getElementById("mapModalSub");
-      const mapsGrid = document.querySelector(".maps-grid");
-
-      // Commission modals
-      const commissionModal = document.getElementById("commissionModal");
-      const commissionImg = document.getElementById("commissionImg");
-      const commissionAdvanceBtn = document.getElementById("commissionAdvance");
       const commissionLetterModal = document.getElementById("commissionLetterModal");
-      const mapSlotBtn = document.getElementById("mapSlotBtn");
 
-      const COMMISSION_STEPS = [
-        {
-          src: "./commission-modal-assets/envelope-closed.png",
-          alt: "Closed parchment envelope"
-        },
-        {
-          src: "./commission-modal-assets/envelope-open-letter.png",
-          alt: "Open parchment envelope revealing a folded letter"
-        },
-        {
-          src: "./commission-modal-assets/envelope-empty.png",
-          alt: "Open empty parchment envelope"
-        }
-      ];
-      let commissionStep = 0;
-      let commissionAnimating = false;
-
-      const setMode = (mode) => {
-        if (mode === "viewer") {
-          modal.classList.add("mode-viewer");
-          viewer.setAttribute("aria-hidden", "false");
-          backBtn.style.display = "inline-flex";
-        } else {
-          modal.classList.remove("mode-viewer");
-          viewer.setAttribute("aria-hidden", "true");
-          backBtn.style.display = "none";
-          viewerImg.style.backgroundImage = "";
-        }
-      };
-
-      const openModal = (key) => {
-        const pack = PACKS[key];
-        if (!pack) return;
-
-        packTitleEl.textContent = pack.title;
-        packSubEl.textContent = pack.sub;
-
-        collage.innerHTML = "";
-        setMode("collage");
-
-        // Build collage tiles (background-image, not <img>)
-        pack.images.forEach((src, idx) => {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "tile";
-          btn.setAttribute("data-view", src);
-          btn.setAttribute("aria-label", `View image ${idx + 1}`);
-
-          const face = document.createElement("div");
-          face.className = "tile-face";
-          face.style.backgroundImage = `url("${src}")`;
-
-          const shield = document.createElement("span");
-          shield.className = "tile-shield";
-          shield.setAttribute("aria-hidden", "true");
-
-          btn.appendChild(face);
-          btn.appendChild(shield);
-          collage.appendChild(btn);
-        });
-
-        modal.classList.add("open");
-        modal.setAttribute("aria-hidden", "false");
-        lockScroll();
-      };
-
-      const closeModal = () => {
-        modal.classList.remove("open");
-        modal.setAttribute("aria-hidden", "true");
-        collage.innerHTML = "";
-        setMode("collage");
-        unlockScroll();
-      };
-
-      const openViewer = (src) => {
-        if (!src) return;
-        viewerImg.style.backgroundImage = `url("${src}")`;
-        setMode("viewer");
-        const body = modal.querySelector(".modal-body");
-        if (body) body.scrollTop = 0;
-      };
-
-      const backToCollage = () => setMode("collage");
-
-      // === MAP MODAL ===
-      const openMapModal = (key) => {
-        const map = MAPS[key];
-        if (!map) return;
-
-        mapTitleEl.textContent = map.title;
-        mapSubEl.textContent = map.sub;
-        mapViewerImg.style.backgroundImage = `url("${map.src}")`;
-
-        mapModal.classList.add("open");
-        mapModal.setAttribute("aria-hidden", "false");
-        lockScroll();
-      };
-
-      const closeMapModal = () => {
-        mapModal.classList.remove("open");
-        mapModal.setAttribute("aria-hidden", "true");
-        mapViewerImg.style.backgroundImage = "";
-        unlockScroll();
-      };
-
-      // === COMMISSION MODALS ===
-      const showCommissionStep = (index) => {
-        const step = COMMISSION_STEPS[index];
-        if (!step || !commissionImg) return;
-        commissionImg.src = step.src;
-        commissionImg.alt = step.alt;
-      };
-
-      const openCommissionModal = () => {
-        commissionStep = 0;
-        commissionAnimating = false;
-        showCommissionStep(commissionStep);
-        commissionModal.classList.add("open");
-        commissionModal.setAttribute("aria-hidden", "false");
-        lockScroll();
-      };
-
-      const openCommissionLetterModal = () => {
-        commissionModal.classList.remove("open");
-        commissionModal.setAttribute("aria-hidden", "true");
-
-        commissionLetterModal.classList.add("open");
-        commissionLetterModal.setAttribute("aria-hidden", "false");
-      };
-
-      const closeCommissionModals = () => {
-        commissionModal.classList.remove("open");
-        commissionModal.setAttribute("aria-hidden", "true");
-        commissionLetterModal.classList.remove("open");
-        commissionLetterModal.setAttribute("aria-hidden", "true");
-        commissionStep = 0;
-        commissionAnimating = false;
-        unlockScroll();
-      };
-
-      // One-click sequence: closed -> open-letter -> empty -> letter modal
-      const playCommissionSequence = () => {
-        if (commissionAnimating) return;
-        commissionAnimating = true;
-        commissionStep = 0;
-        showCommissionStep(commissionStep);
-
-        setTimeout(() => {
-          commissionStep = 1;
-          showCommissionStep(commissionStep);
-        }, 250);
-
-        setTimeout(() => {
-          commissionStep = 2;
-          showCommissionStep(commissionStep);
-        }, 550);
-
-        setTimeout(() => {
-          openCommissionLetterModal();
-          commissionAnimating = false;
-        }, 900);
-      };
-
-      const openMailClient = () => {
-        const subject = encodeURIComponent("Custom Fantasy Map Commission");
-        const body = encodeURIComponent(
-`To commission a map, please include:
-• Map & city/town names
-• Preferred parchment style
-• Any compass or border preferences
-• Additional notes (scale, vibe, special locations)
-
-You can also attach sketches or references if you have them.`
-        );
-        window.location.href = `mailto:lace.and.leather65@gmail.com?subject=${subject}&body=${body}`;
-      };
-
-      // Wards: disable context menu on sensitive surfaces
-      modal.addEventListener("contextmenu", (e) => {
-        if (modal.classList.contains("open")) e.preventDefault();
-      });
-
-      mapModal.addEventListener("contextmenu", (e) => {
-        if (mapModal.classList.contains("open")) e.preventDefault();
-      });
-
-      if (mapsGrid) {
-        mapsGrid.addEventListener("contextmenu", (e) => e.preventDefault());
-      }
-
-      commissionModal.addEventListener("contextmenu", (e) => {
-        if (commissionModal.classList.contains("open")) e.preventDefault();
-      });
-      commissionLetterModal.addEventListener("contextmenu", (e) => {
-        if (commissionLetterModal.classList.contains("open")) e.preventDefault();
-      });
-
-      // Extra ward: block drag-save on key areas
-      document.addEventListener("dragstart", (e) => {
-        if (
-          e.target.closest(".maps-grid") ||
-          e.target.closest(".modal") ||
-          e.target.closest(".packs") ||
-          e.target.closest(".creation-grid")
-        ) {
-          e.preventDefault();
-        }
-      });
-
-      // Click wiring
       document.addEventListener("click", (e) => {
-        // Packs
-        const packBtn = e.target.closest(".pack");
-        if (packBtn) {
-          e.preventDefault();
-          e.stopPropagation();
-          openModal(packBtn.getAttribute("data-pack"));
-          return;
-        }
-
-        // Pack tiles inside modal
-        const tileBtn = e.target.closest(".tile");
-        if (tileBtn && modal.classList.contains("open")) {
-          e.preventDefault();
-          e.stopPropagation();
-          openViewer(tileBtn.getAttribute("data-view"));
-          return;
-        }
-
-        // Map cards
-        const mapCard = e.target.closest(".map-card");
-        if (mapCard) {
-          e.preventDefault();
-          e.stopPropagation();
-          openMapModal(mapCard.getAttribute("data-map"));
-          return;
-        }
-
-        // Open commission sequence from button
-        if (e.target.closest("#openCommission")) {
-          e.preventDefault();
-          e.stopPropagation();
-          openCommissionModal();
-          return;
-        }
-
-        // Controls for existing modals
-        if (e.target.closest("[data-back]")) return backToCollage();
-        if (e.target.closest("[data-close]")) return closeModal();
-
-        if (e.target.closest("[data-map-close]")) return closeMapModal();
-        if (e.target.closest("[data-map-back]")) return closeMapModal();
-
-        // Commission close controls
-        if (e.target.closest("[data-commission-close]")) {
-          e.preventDefault();
-          return closeCommissionModals();
-        }
         if (e.target.closest("[data-letter-close]")) {
-          e.preventDefault();
-          return closeCommissionModals();
+          commissionLetterModal.classList.remove("open");
+          unlockScroll();
         }
       });
 
-      // Direct listeners where needed
-      const commissionAdvanceBtnEl = document.getElementById("commissionAdvance");
-      if (commissionAdvanceBtnEl) {
-        commissionAdvanceBtnEl.addEventListener("click", (e) => {
-          e.stopPropagation();
-          playCommissionSequence();
-        });
-      }
-
-      if (mapSlotBtn) {
-        mapSlotBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          openMailClient();
-        });
-      }
-
-      document.addEventListener("keydown", (e) => {
-        // Escape closes whichever modal is open
-        if (e.key === "Escape") {
-          if (modal.classList.contains("open")) {
-            closeModal();
-            return;
-          }
-          if (mapModal.classList.contains("open")) {
-            closeMapModal();
-            return;
-          }
-          if (commissionModal.classList.contains("open") || commissionLetterModal.classList.contains("open")) {
-            closeCommissionModals();
-            return;
-          }
-        }
-
-        if ((e.key === "Backspace" || e.key === "ArrowLeft")) {
-          if (modal.classList.contains("mode-viewer")) {
-            e.preventDefault();
-            backToCollage();
-          } else if (mapModal.classList.contains("open")) {
-            e.preventDefault();
-            closeMapModal();
-          }
-        }
+      document.getElementById("openCommission")?.addEventListener("click", () => {
+        commissionLetterModal.classList.add("open");
+        lockScroll();
       });
     })();
   </script>
