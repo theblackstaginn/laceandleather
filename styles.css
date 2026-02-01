@@ -27,7 +27,8 @@
   --text:#e7e2db;
   --muted: rgba(231,226,219,.80);
 
-  --wrap: min(1100px, calc(100% - 36px));
+  /* FIX: avoid sub-pixel width rounding on mobile (off-center “drift”) */
+  --wrap: min(1100px, 100%);
 
   --glassTintA: rgba(12,14,18,.10);
   --glassTintB: rgba(12,14,18,.16);
@@ -205,6 +206,7 @@ html.no-scroll body{ overflow:hidden; }
 .wrap{
   width:var(--wrap);
   margin:28px auto 40px;
+  padding-inline:18px; /* FIX: symmetric gutters, prevents “off-center” load */
   display:grid;
   gap:18px;
 }
@@ -839,26 +841,15 @@ p, h1, h2, h3, h4, h5, h6,
   .seal img{ max-height:80px; width:auto; }
   .wax-btn img{ width: 46px; height: 46px; }
 }
-/* =========================
-   FIX — Map Slot button sits too high on mobile
-   (only affects small screens; desktop unchanged)
-   ========================= */
-@media (max-width: 520px){
-  .map-slot-btn{
-    bottom: 3.5%;
-  }
 
-  /* Optional: slightly reduce seal size so it feels anchored, not crowded */
-  .map-slot-btn img{
-    width: min(300px, 78vw);
-  }
-}
-/* FIX — undo the mobile oversize + move seal lower */
+/* =========================
+   FIX — Map Slot button position + size on mobile
+   (merged + de-duplicated)
+   ========================= */
 @media (max-width: 520px){
   .map-slot-btn{
     bottom: 1.5%;
   }
-
   .map-slot-btn img{
     width: clamp(190px, 60vw, 250px);
   }
