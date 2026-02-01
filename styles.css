@@ -853,3 +853,13 @@ p, h1, h2, h3, h4, h5, h6,
     width: min(300px, 78vw);
   }
 }
+/* FIX — undo the mobile oversize + move seal lower */
+@media (max-width: 520px){
+  .map-slot-btn{
+    bottom: 1.5%;
+  }
+
+  .map-slot-btn img{
+    width: clamp(190px, 60vw, 250px);
+  }
+}
