@@ -839,3 +839,17 @@ p, h1, h2, h3, h4, h5, h6,
   .seal img{ max-height:80px; width:auto; }
   .wax-btn img{ width: 46px; height: 46px; }
 }
+/* =========================
+   FIX — Map Slot button sits too high on mobile
+   (only affects small screens; desktop unchanged)
+   ========================= */
+@media (max-width: 520px){
+  .map-slot-btn{
+    bottom: 3.5%;
+  }
+
+  /* Optional: slightly reduce seal size so it feels anchored, not crowded */
+  .map-slot-btn img{
+    width: min(300px, 78vw);
+  }
+}
