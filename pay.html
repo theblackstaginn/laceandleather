@@ -1,100 +1,108 @@
-<!-- pay.html (FULL) — Lace & Leather / Tablet Pay Screen -->
+<!-- pay.html (FULL) — Lace & Leather / Tablet Pay Screen (Viewport-fit + Screen-rect fixed) -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-
   <title>Pay — Lace & Leather</title>
   <meta name="robots" content="noindex,nofollow" />
 
-  <!-- Pay page font (clean + readable) -->
+  <!-- Clean readable font for pay page -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --text:#efe9df;
       --muted: rgba(239,233,223,.78);
-      --line: rgba(255,255,255,.14);
-      --shadow: 0 18px 48px rgba(0,0,0,.55);
 
-      /* “tablet screen” readability */
-      --stroke: rgba(0,0,0,.55);
-      --glow: rgba(0,0,0,.75);
+      /* tablet screen rectangle (tuned tighter to keep UI inside frame) */
+      --screenLeft: 14.0%;
+      --screenTop: 23.0%;
+      --screenW: 72.0%;
+      --screenH: 56.5%;
 
-      /* tweak these if needed */
-      --screenLeft: 10.2%;
-      --screenTop: 18.5%;
-      --screenW: 79.6%;
-      --screenH: 63.0%;
+      --glow: rgba(0,0,0,.78);
+      --line: rgba(255,255,255,.16);
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      color:var(--text);
-      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background:#05060a;
+      color:var(--text);
+      font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       overflow:hidden;
     }
 
-    /* Subtle dark desk behind the tablet */
+    /* full-viewport stage */
     .stage{
       position:fixed;
       inset:0;
       display:grid;
       place-items:center;
-      padding:14px;
+      padding:
+        max(10px, env(safe-area-inset-top))
+        max(10px, env(safe-area-inset-right))
+        max(10px, env(safe-area-inset-bottom))
+        max(10px, env(safe-area-inset-left));
       background:
         radial-gradient(1200px 600px at 50% 30%, rgba(255,255,255,.06), transparent 60%),
-        radial-gradient(900px 900px at 50% 70%, rgba(0,0,0,.2), rgba(0,0,0,.85));
+        radial-gradient(900px 900px at 50% 70%, rgba(0,0,0,.18), rgba(0,0,0,.88));
     }
 
-    /* Tablet frame itself (fits viewport) */
+    /* IMPORTANT: scale tablet by HEIGHT so it always fits viewport */
     .tablet{
       position:relative;
-      width:min(1280px, 96vw);
+
+      height: min(92vh, 760px);   /* viewport-fit */
+      width: auto;
       aspect-ratio: 16 / 9;
-      background:url("./assets/tablet-web.png") center / contain no-repeat;
-      filter: brightness(1.12) contrast(1.06) saturate(1.05);
+
+      background: url("./assets/tablet-web.png") center / contain no-repeat;
+      filter: brightness(1.10) contrast(1.06) saturate(1.05);
       transform: translateZ(0);
+
+      /* prevent any accidental overflow */
+      max-width: 96vw;
+      max-height: 92vh;
     }
 
-    /* Mobile tablet art */
     @media (max-width: 768px){
       .tablet{
-        width:min(980px, 98vw);
-        aspect-ratio: 16 / 9;
-        background:url("./assets/tablet-mobile.png") center / contain no-repeat;
+        height: min(90vh, 560px);
+        background: url("./assets/tablet-mobile.png") center / contain no-repeat;
       }
+
+      /* mobile often needs slightly different rect */
       :root{
-        /* mobile screen rectangle tends to differ slightly */
-        --screenLeft: 9.8%;
-        --screenTop: 18.2%;
-        --screenW: 80.2%;
-        --screenH: 63.6%;
+        --screenLeft: 13.4%;
+        --screenTop: 22.7%;
+        --screenW: 73.2%;
+        --screenH: 57.2%;
       }
     }
 
-    /* The “screen area” inside the tablet */
+    /* UI pinned to “screen area” INSIDE the tablet */
     .screen{
       position:absolute;
       left: var(--screenLeft);
       top:  var(--screenTop);
       width: var(--screenW);
       height:var(--screenH);
+
       display:flex;
       flex-direction:column;
       gap:12px;
+
       padding:14px;
-      /* IMPORTANT: completely transparent as requested */
-      background: transparent;
+      background: transparent; /* requested */
+      overflow:hidden;
     }
 
-    /* Top bar (Back/Clear) */
+    /* Top bar */
     .topbar{
       display:flex;
       align-items:flex-start;
@@ -106,29 +114,23 @@
     .brand{
       text-align:left;
       line-height:1.15;
-      text-shadow: 0 2px 10px var(--glow);
+      text-shadow: 0 2px 12px var(--glow);
     }
     .brand .name{
-      font-weight:700;
+      font-weight:800;
       letter-spacing:.14em;
       text-transform:uppercase;
-      font-size:14px;
+      font-size:13px;
     }
     .brand .sub{
       margin-top:4px;
       color:var(--muted);
-      font-size:13px;
-      font-weight:500;
+      font-size:12px;
+      font-weight:600;
     }
 
-    .actions{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
+    .actions{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
 
-    /* Buttons: clean, readable, not chunky */
     .btn{
       appearance:none;
       border:1px solid rgba(255,255,255,.22);
@@ -136,8 +138,8 @@
       color: var(--text);
       border-radius: 10px;
       padding:9px 12px;
-      font-weight:600;
-      font-size:13px;
+      font-weight:700;
+      font-size:12px;
       cursor:pointer;
       box-shadow: 0 10px 22px rgba(0,0,0,.35);
       backdrop-filter: blur(4px);
@@ -145,43 +147,44 @@
     }
     .btn:active{ transform: scale(.99); }
 
-    /* Main two-column layout */
+    /* Main layout */
     .grid{
       flex:1;
       display:grid;
       grid-template-columns: 1.05fr .95fr;
       gap:14px;
       align-items:stretch;
-      min-height:0; /* allow inner scrolling */
+      min-height:0;
     }
+
     @media (max-width: 980px){
       .grid{ grid-template-columns:1fr; }
     }
 
-    /* Panels: fully transparent */
+    /* Transparent panels */
     .panel{
       border:1px solid rgba(255,255,255,.14);
       border-radius:14px;
       background: transparent; /* requested */
-      box-shadow:none;        /* requested */
+      box-shadow:none;         /* requested */
       padding:12px;
       display:flex;
       flex-direction:column;
       min-height:0;
+      overflow:hidden;
     }
 
     .h{
-      font-weight:700;
+      font-weight:800;
       letter-spacing:.10em;
       text-transform:uppercase;
-      font-size:12px;
+      font-size:11px;
       opacity:.92;
-      text-shadow: 0 2px 10px var(--glow);
+      text-shadow: 0 2px 12px var(--glow);
       margin-bottom:8px;
       text-align:center;
     }
 
-    /* Cart list (scrollable) */
     .cart{
       flex:1;
       overflow:auto;
@@ -191,26 +194,25 @@
       min-height:0;
     }
 
-    /* Cart items: also transparent */
     .item{
       border:1px solid rgba(255,255,255,.14);
       border-radius:12px;
-      background: transparent; /* requested */
+      background: transparent;
       padding:10px;
       display:grid;
       gap:8px;
     }
 
     .item-title{
-      font-weight:700;
-      font-size:14px;
-      text-shadow: 0 2px 10px var(--glow);
+      font-weight:800;
+      font-size:13px;
+      text-shadow: 0 2px 12px var(--glow);
     }
     .item-sub{
       font-size:12px;
       color:var(--muted);
       margin-top:2px;
-      text-shadow: 0 2px 10px var(--glow);
+      text-shadow: 0 2px 12px var(--glow);
     }
 
     .controls{
@@ -232,14 +234,14 @@
     }
 
     .qbtn{
-      width:34px;
-      height:34px;
+      width:32px;
+      height:32px;
       border-radius:999px;
       border:1px solid rgba(255,255,255,.18);
       background: rgba(0,0,0,.20);
       color:var(--text);
       cursor:pointer;
-      font-weight:800;
+      font-weight:900;
       font-size:16px;
       line-height:1;
     }
@@ -247,7 +249,7 @@
     .qtynum{
       min-width:22px;
       text-align:center;
-      font-weight:700;
+      font-weight:800;
     }
 
     .remove{
@@ -258,8 +260,8 @@
       border-radius:999px;
       padding:8px 10px;
       cursor:pointer;
-      font-weight:600;
-      font-size:12px;
+      font-weight:800;
+      font-size:11px;
     }
 
     .sumrow{
@@ -270,13 +272,14 @@
       justify-content:space-between;
       align-items:center;
       gap:10px;
-      text-shadow: 0 2px 10px var(--glow);
+      text-shadow: 0 2px 12px var(--glow);
+      font-size:12px;
     }
 
     /* Pay side */
     .amount{
-      font-size: clamp(34px, 4.8vw, 60px);
-      font-weight:800;
+      font-size: clamp(30px, 4.2vw, 54px);
+      font-weight:900;
       letter-spacing:.04em;
       text-align:center;
       text-shadow: 0 2px 14px var(--glow);
@@ -290,7 +293,7 @@
     }
 
     .qr{
-      width:min(320px, 60vw);
+      width:min(300px, 52vw);
       height:auto;
       border-radius:16px;
       border:1px solid rgba(255,255,255,.18);
@@ -304,9 +307,9 @@
       justify-content:center;
       gap:10px;
       flex-wrap:wrap;
-      font-size:13px;
+      font-size:12px;
       color:var(--muted);
-      text-shadow: 0 2px 10px var(--glow);
+      text-shadow: 0 2px 12px var(--glow);
     }
 
     .pill{
@@ -328,8 +331,8 @@
       border-radius:999px;
       padding:7px 10px;
       cursor:pointer;
-      font-weight:700;
-      font-size:12px;
+      font-weight:900;
+      font-size:11px;
     }
 
     .cta{
@@ -341,28 +344,28 @@
     }
 
     .primary{
-      border-color: rgba(255,255,255,.26);
+      border-color: rgba(255,255,255,.28);
       background: rgba(255,255,255,.10);
       color: var(--text);
     }
 
     .warn{
       margin-top:10px;
-      font-size:13px;
+      font-size:12px;
       padding:10px 12px;
       border-radius:12px;
       border:1px solid rgba(255,255,255,.18);
       background: rgba(140, 20, 20, .16);
       display:none;
-      text-shadow: 0 2px 10px var(--glow);
+      text-shadow: 0 2px 12px var(--glow);
       text-align:center;
     }
 
     .fine{
       margin-top:2px;
-      font-size:12px;
+      font-size:11px;
       color: rgba(239,233,223,.70);
-      text-shadow: 0 2px 10px var(--glow);
+      text-shadow: 0 2px 12px var(--glow);
       text-align:center;
     }
   </style>
@@ -393,8 +396,8 @@
             <div class="cart" id="cart"></div>
 
             <div class="sumrow">
-              <div style="color:var(--muted); font-weight:600;">Subtotal</div>
-              <div style="font-weight:800;" id="subtotal">$0.00</div>
+              <div style="color:var(--muted); font-weight:800;">Subtotal</div>
+              <div style="font-weight:900;" id="subtotal">$0.00</div>
             </div>
 
             <div id="warn" class="warn"></div>
@@ -407,7 +410,6 @@
             <div class="amount" id="amount">$0.00</div>
 
             <div class="qr-wrap">
-              <!-- local QR file -->
               <img id="qr" class="qr" alt="PayPal QR code" src="./assets/lace-qr.png" />
             </div>
 
@@ -419,7 +421,7 @@
               </span>
             </div>
 
-            <div class="row" style="font-size:12px;">
+            <div class="row" style="font-size:11px;">
               In PayPal, paste the Order ID into the note.
             </div>
 
@@ -431,7 +433,7 @@
         </div>
 
         <div class="fine">
-          This page replaces your cart modal: edit quantities here, then scan/pay. Designed for a tablet at the counter.
+          This page replaces your cart modal: edit quantities here, then scan/pay. Designed for the counter tablet.
         </div>
 
       </section>
@@ -446,7 +448,7 @@
       const PAYPAL_ME_HANDLE = "YOUR_PAYPAL_ME_HANDLE"; // <-- set this
       const LOCAL_QR_SRC = "./assets/lace-qr.png";
 
-      // Storage keys (MUST match your main site)
+      // Storage keys (must match index.html)
       const CART_KEY  = "ll_cart";
       const ORDER_KEY = "ll_order_id";
 
@@ -524,7 +526,6 @@
 
         cartEl.innerHTML = "";
 
-        // warnings + pay url
         if (!PAYPAL_ME_HANDLE || PAYPAL_ME_HANDLE === "YOUR_PAYPAL_ME_HANDLE") {
           setWarn("Set your PayPal.me handle in pay.html (PAYPAL_ME_HANDLE).");
           currentPayUrl = "";
@@ -536,7 +537,6 @@
           currentPayUrl = paypalUrlFor(total, oid);
         }
 
-        // local QR always (you already uploaded lace-qr.png)
         qrEl.src = LOCAL_QR_SRC;
 
         if (!cart.length) {
@@ -558,10 +558,10 @@
               </div>
 
               <div class="controls">
-                <div class="qty" aria-label="Quantity controls">
-                  <button class="qbtn" data-dec="${idx}" type="button" aria-label="Decrease quantity">−</button>
-                  <div class="qtynum" aria-label="Quantity">${qty}</div>
-                  <button class="qbtn" data-inc="${idx}" type="button" aria-label="Increase quantity">+</button>
+                <div class="qty">
+                  <button class="qbtn" data-dec="${idx}" type="button">−</button>
+                  <div class="qtynum">${qty}</div>
+                  <button class="qbtn" data-inc="${idx}" type="button">+</button>
                 </div>
                 <button class="remove" data-rm="${idx}" type="button">Remove</button>
               </div>
@@ -571,7 +571,6 @@
         }
       };
 
-      // Click handlers for cart controls
       document.addEventListener("click", (e) => {
         const cart = readCart();
 
@@ -618,9 +617,6 @@
       });
 
       $("paidBtn").addEventListener("click", () => {
-        // OPTIONAL: clear after confirming payment:
-        // localStorage.removeItem(CART_KEY);
-        // localStorage.removeItem(ORDER_KEY);
         window.location.href = "./index.html";
       });
 
@@ -634,7 +630,6 @@
         window.location.href = "./index.html";
       });
 
-      // Init
       render();
     })();
   </script>
