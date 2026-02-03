@@ -1165,7 +1165,7 @@ body.pay-page .bg::after{
   /* Re-map the “screen window” to the portrait tablet background */
   body.pay-page .tablet-screen{
     /* top, right, bottom, left — tune these if needed */
-    inset: 33% 12% 23% 12%;
+    inset: 28% 12% 20% 12%;
     border-radius: 14px;
   }
 
