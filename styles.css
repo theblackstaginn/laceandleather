@@ -1051,3 +1051,63 @@ body.pay-page{
 @media (max-width: 768px){
   .pay-qr{ width: 175px; }
 }
+/* === PAY PAGE OVERRIDES (paste at VERY BOTTOM of styles.css) === */
+
+/* Make the cards smaller + actually translucent (force override) */
+body.pay-page .pay-grid{
+  gap: 12px !important;
+  padding: 4px !important;
+  align-items: start !important;
+}
+
+/* Clamp card width so they don't become giant panels on wide screens */
+body.pay-page .pay-card{
+  width: min(420px, 100%) !important;
+  margin: 0 auto !important;
+
+  /* kill the white slab */
+  background: rgba(255,255,255,.14) !important;
+  border: 1px solid rgba(0,0,0,.16) !important;
+
+  /* less “big box” feel */
+  padding: 10px 10px 9px !important;
+  border-radius: 14px !important;
+
+  /* keep it airy but not milky */
+  backdrop-filter: blur(10px) saturate(1.05) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.05) !important;
+  box-shadow: 0 10px 26px rgba(0,0,0,.18) !important;
+
+  color: #111 !important;
+}
+
+/* Make headings/rows smaller so the card height tightens */
+body.pay-page .pay-card h2{
+  font-size: 11px !important;
+  letter-spacing: .12em !important;
+  margin: 0 0 6px !important;
+  color: #111 !important;
+}
+
+body.pay-page .pay-row{
+  margin-bottom: 5px !important;
+  color: #111 !important;
+}
+
+body.pay-page .pay-muted,
+body.pay-page .pay-note{
+  color: #111 !important;
+}
+
+/* Slightly smaller QR so it never gets clipped */
+body.pay-page .pay-qr{
+  width: 150px !important;
+  height: auto !important;
+  display:block !important;
+}
+
+/* Total a bit smaller so it doesn't dominate */
+body.pay-page .pay-total{
+  font-size: 20px !important;
+  color:#111 !important;
+}
