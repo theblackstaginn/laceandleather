@@ -1063,3 +1063,22 @@ body.pay-page{
 @media (max-width: 768px){
   .pay-qr{ width: 165px; }
 }
+/* === PAY CARD FORCE OVERRIDE (BOTTOM OF FILE) === */
+.pay-card{
+  width: min(360px, 100%) !important;
+  margin: 0 auto !important;
+  background: rgba(255,255,255,.12) !important;
+  border: 1px solid rgba(0,0,0,.18) !important;
+  backdrop-filter: blur(14px) saturate(1.05) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.05) !important;
+  box-shadow: 0 10px 26px rgba(0,0,0,.16) !important;
+  padding: 10px 10px 9px !important;
+  border-radius: 14px !important;
+  color:#111 !important;
+}
+
+.pay-grid{
+  gap: 12px !important;
+  justify-items: center !important;
+  align-items: start !important;
+}
