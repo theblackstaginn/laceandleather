@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+
   <title>Cart + QR Checkout | Lace & Leather</title>
   <meta name="description" content="Tablet checkout screen for Lace & Leather. Review cart and scan QR to pay." />
   <meta name="theme-color" content="#0b0f14" />
@@ -13,9 +14,13 @@
 </head>
 
 <body class="pay-page">
+  <!-- Full-viewport stage -->
   <main class="pay-stage" aria-label="Checkout">
+    <!-- Tablet “image as background” so it always fits viewport -->
     <section class="pay-tablet" aria-label="Tablet checkout frame">
+      <!-- This is the “screen cutout” inside the tablet -->
       <div class="pay-screen" role="region" aria-label="Tablet screen area">
+        <!-- Header INSIDE the tablet screen -->
         <header class="pay-header">
           <div class="pay-brand">
             <div class="pay-brand-title">LACE &amp; LEATHER</div>
@@ -28,9 +33,10 @@
           </div>
         </header>
 
-        <!-- ONLY SCROLLER (kept inside tablet screen) -->
+        <!-- SCROLLABLE CONTENT (scrollbar stays INSIDE the tablet screen) -->
         <div class="pay-scroll" id="payScroll">
           <div class="pay-grid">
+            <!-- LEFT: cart -->
             <section class="pay-card" aria-label="Cart">
               <h2 class="pay-h2">Cart</h2>
 
@@ -54,12 +60,14 @@
               </div>
             </section>
 
+            <!-- RIGHT: QR -->
             <section class="pay-card pay-qr-card" aria-label="Scan to Pay">
               <div class="pay-qr-top">
                 <div class="pay-muted pay-qr-label">SCAN TO PAY</div>
                 <div class="pay-amount" id="totalBig">$0.00</div>
               </div>
 
+              <!-- Use your uploaded asset -->
               <div class="pay-qr-wrap" aria-label="QR code">
                 <img
                   class="pay-qr"
@@ -88,11 +96,16 @@
     (() => {
       "use strict";
 
+      // ====== STORAGE KEYS ======
       const CART_KEY  = "ll_cart";
       const ORDER_KEY = "ll_order_id";
 
+      // ====== CONFIG ======
+      // If you want a PayPal.me fallback button:
+      // Put your PayPal.me handle here (no @). Example: "laceleather65"
       const PAYPAL_ME_HANDLE = ""; // optional
 
+      // ====== HELPERS ======
       const money = (n) => {
         const v = Number(n || 0);
         return v.toLocaleString(undefined, { style:"currency", currency:"USD" });
@@ -110,7 +123,9 @@
         } catch { return []; }
       };
 
-      const writeCart = (arr) => localStorage.setItem(CART_KEY, JSON.stringify(arr || []));
+      const writeCart = (arr) => {
+        localStorage.setItem(CART_KEY, JSON.stringify(arr || []));
+      };
 
       const ensureOrderId = () => {
         let id = localStorage.getItem(ORDER_KEY);
@@ -121,32 +136,31 @@
         return id;
       };
 
+      // ====== RENDER ======
       const cartList = document.getElementById("cartList");
       const subtotalEl = document.getElementById("subtotal");
       const totalBigEl = document.getElementById("totalBig");
       const orderIdEl = document.getElementById("orderId");
 
       const normalizeItem = (it) => {
+        // Accept a few shapes without breaking:
+        // {name, price, qty} OR {title, amount, quantity} OR strings
         if (typeof it === "string") return { name: it, price: 0, qty: 1 };
         const name = it.name ?? it.title ?? "Item";
         const price = Number(it.price ?? it.amount ?? 0);
-        const qty = Math.max(1, Number(it.qty ?? it.quantity ?? 1));
-        return { name, price, qty };
+        const qty = Number(it.qty ?? it.quantity ?? 1);
+        return { name, price, qty: Math.max(1, qty) };
       };
 
       const calcSubtotal = (items) =>
         items.reduce((sum, it) => sum + (Number(it.price || 0) * Number(it.qty || 1)), 0);
 
-      const escapeHtml = (s) =>
-        String(s).replace(/[&<>"']/g, (c) => ({
-          "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-        }[c]));
-
       const render = () => {
         const raw = readCart();
         const items = raw.map(normalizeItem);
 
-        orderIdEl.textContent = ensureOrderId();
+        const orderId = ensureOrderId();
+        orderIdEl.textContent = orderId;
 
         if (!items.length) {
           cartList.innerHTML = `<div class="pay-empty">Cart is empty.</div>`;
@@ -170,11 +184,26 @@
         }).join("");
       };
 
+      const escapeHtml = (s) =>
+        String(s).replace(/[&<>"']/g, (c) => ({
+          "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+        }[c]));
+
+      // ====== ACTIONS ======
       document.getElementById("copyOrderBtn")?.addEventListener("click", async () => {
         const id = orderIdEl.textContent || "";
         try {
           await navigator.clipboard.writeText(id);
-        } catch {}
+          flash(orderIdEl, "Copied");
+        } catch {
+          // Fallback: select text
+          const r = document.createRange();
+          r.selectNodeContents(orderIdEl);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(r);
+          flash(orderIdEl, "Select & copy");
+        }
       });
 
       document.getElementById("clearCartBtn")?.addEventListener("click", () => {
@@ -183,6 +212,7 @@
       });
 
       document.getElementById("openPaypalBtn")?.addEventListener("click", () => {
+        // Best-effort: open PayPal.me if you set handle, otherwise do nothing.
         if (!PAYPAL_ME_HANDLE) {
           alert("Set PAYPAL_ME_HANDLE in pay.html if you want this button to open PayPal.me.");
           return;
@@ -192,11 +222,21 @@
       });
 
       document.getElementById("paidBtn")?.addEventListener("click", () => {
+        // You can change this behavior later (e.g., keep history).
+        // For now: clear cart after payment confirmation.
         writeCart([]);
         render();
         alert("Got it. Cart cleared.");
       });
 
+      const flash = (el, text) => {
+        if (!el) return;
+        const prev = el.textContent;
+        el.textContent = text;
+        setTimeout(() => { el.textContent = prev; }, 700);
+      };
+
+      // boot
       render();
     })();
   </script>
