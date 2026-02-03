@@ -1,187 +1,212 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="pay-html">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Lace & Leather — Pay</title>
-  <meta name="robots" content="noindex,nofollow" />
 
-  <!-- Clean, readable font just for pay screen -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <!-- IMPORTANT: bump this version any time you edit styles.css -->
-  <link rel="stylesheet" href="styles.css>
+  <!-- IMPORTANT: cache-bust this whenever you edit CSS -->
+  <link rel="stylesheet" href="./styles.css?v=PAY-001" />
 </head>
 
 <body class="pay-page">
-  <main class="pay-shell">
-    <div class="tablet-wrap">
+  <main class="pay-shell" aria-label="Checkout">
+    <section class="tablet-wrap" aria-label="Tablet checkout screen">
+      <!-- Tablet background image -->
+      <img class="tablet-img tablet-desktop" src="./assets/tablet-web.png" alt="" aria-hidden="true" />
 
-      <!-- Desktop tablet -->
-      <img
-        class="tablet-img tablet-desktop"
-        src="./assets/tablet-web.png"
-        alt=""
-        aria-hidden="true"
-      />
-
-      <!-- Mobile tablet -->
-      <img
-        class="tablet-img tablet-mobile"
-        src="./assets/tablet-mobile.png"
-        alt=""
-        aria-hidden="true"
-      />
-
-      <!-- SCREEN (clipped to tablet interior) -->
-      <section class="tablet-screen">
-        <!-- HEADER -->
+      <!-- Screen overlay area (content lives here) -->
+      <div class="tablet-screen">
         <header class="pay-head">
-          <div>
+          <div class="pay-head-left">
             <div class="pay-brand">LACE &amp; LEATHER</div>
-            <div class="pay-sub">Cart + QR checkout (PayPal)</div>
+            <div class="pay-sub">Review your cart, then scan to pay.</div>
           </div>
 
           <div class="pay-actions">
             <a class="pay-btn" href="./index.html">Back</a>
-            <button class="pay-btn" id="clearCart" type="button">Clear cart</button>
+            <button class="pay-btn" id="clearCartBtn" type="button">Clear cart</button>
           </div>
         </header>
 
-        <!-- SCROLLABLE CONTENT -->
-        <div class="pay-scroll">
+        <!-- This is the ONLY scroll container -->
+        <div class="pay-scroll" id="payScroll">
           <div class="pay-grid">
-            <!-- CART -->
-            <section class="pay-card">
-              <h2>CART</h2>
+            <!-- LEFT: Cart -->
+            <section class="pay-card" aria-label="Order summary">
+              <h2>ORDER</h2>
 
-              <p class="pay-muted" id="emptyMsg">Cart is empty.</p>
+              <div class="pay-row pay-row-top">
+                <div>
+                  <div class="pay-muted">Order ID</div>
+                  <div class="pay-id">
+                    <span id="orderId">—</span>
+                    <button class="pay-mini" id="copyOrderIdBtn" type="button">Copy</button>
+                  </div>
+                </div>
 
-              <!-- NEW: actual cart items list (forces real scrolling when cart grows) -->
+                <div class="pay-right">
+                  <div class="pay-muted">Subtotal</div>
+                  <div class="pay-total" id="subtotal">$0.00</div>
+                </div>
+              </div>
+
               <ul class="pay-items" id="cartList" aria-label="Cart items"></ul>
 
-              <div class="pay-row">
-                <span>Subtotal</span>
-                <strong id="subtotal">$0.00</strong>
+              <div class="pay-note" id="emptyNote">
+                Cart is empty. Add items on the main page, then return here.
               </div>
 
-              <div class="pay-row">
-                <span>Order ID</span>
-                <span class="pay-order">
-                  <code id="orderId">—</code>
-                  <button class="pay-mini" id="copyOrder" type="button">Copy</button>
-                </span>
+              <div class="pay-note">
+                This page replaces your cart modal. Confirm items + total, then scan/pay.
               </div>
-
-              <p class="pay-note">
-                Review items, then scan/pay. (This replaces your cart modal.)
-              </p>
             </section>
 
-            <!-- QR -->
-            <section class="pay-card">
-              <div class="pay-row pay-row-top">
-                <h2>SCAN TO PAY</h2>
-                <strong class="pay-total" id="total">$0.00</strong>
+            <!-- RIGHT: Pay -->
+            <section class="pay-card" aria-label="Payment">
+              <h2>SCAN TO PAY</h2>
+
+              <div class="pay-qr-wrap" id="qrWrap">
+                <!-- replace path with your actual QR file -->
+                <img class="pay-qr" src="./assets/paypal-qr.png" alt="PayPal QR Code" />
               </div>
 
-              <div class="pay-qr-wrap">
-                <img
-                  src="./assets/lace-qr.png"
-                  class="pay-qr"
-                  alt="PayPal QR code"
-                />
-              </div>
-
-              <p class="pay-muted">
+              <div class="pay-note">
                 Open PayPal → Scan → Pay exact total.
-              </p>
+              </div>
+
+              <div class="pay-note pay-tiny">
+                Tip: if PayPal tries to “guess” the amount, ignore it—match the total shown on the left.
+              </div>
             </section>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </main>
 
   <script>
-    (() => {
-      const CART_KEY = "ll_cart";
-      const ORDER_KEY = "ll_order_id";
+    // ---------- Storage keys ----------
+    const CART_KEY = "ll_cart";        // array of {name, price, qty}
+    const ORDER_KEY = "ll_order_id";   // string
 
-      const subtotalEl = document.getElementById("subtotal");
-      const totalEl = document.getElementById("total");
-      const orderEl = document.getElementById("orderId");
-      const emptyMsg = document.getElementById("emptyMsg");
-      const cartList = document.getElementById("cartList");
+    // ---------- Helpers ----------
+    const $ = (id) => document.getElementById(id);
 
-      const money = n =>
-        Number(n).toLocaleString(undefined, { style:"currency", currency:"USD" });
+    function money(n){
+      const v = Number(n || 0);
+      return v.toLocaleString(undefined, { style:"currency", currency:"USD" });
+    }
 
-      const safeId = () =>
-        Math.random().toString(16).slice(2,6).toUpperCase() + "-" +
-        Math.random().toString(16).slice(2,6).toUpperCase();
+    function safeParse(json, fallback){
+      try { return JSON.parse(json) ?? fallback; } catch { return fallback; }
+    }
 
-      const cart = (() => {
-        try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-        catch { return []; }
-      })();
+    function genOrderId(){
+      // short + readable
+      const a = Math.random().toString(16).slice(2,6).toUpperCase();
+      const b = Math.random().toString(16).slice(2,6).toUpperCase();
+      return `${a}-${b}`;
+    }
 
-      // Render items
-      const renderCart = (items) => {
-        if (!cartList) return;
-        cartList.innerHTML = "";
+    function loadCart(){
+      const raw = localStorage.getItem(CART_KEY);
+      const cart = safeParse(raw, []);
+      return Array.isArray(cart) ? cart : [];
+    }
 
-        items.forEach((i) => {
-          const name = (i && i.name) ? String(i.name) : "Item";
-          const qty  = (i && i.qty) ? Number(i.qty) : 1;
-          const price = (i && i.price) ? Number(i.price) : 0;
+    function saveCart(cart){
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
 
-          const li = document.createElement("li");
-          li.className = "pay-item";
-          li.innerHTML = `
-            <span class="pay-item-name">${name}</span>
-            <span class="pay-item-meta">
-              <span class="pay-item-qty">×${qty}</span>
-              <span class="pay-item-price">${money(price * qty)}</span>
-            </span>
-          `;
-          cartList.appendChild(li);
-        });
-      };
+    function loadOrderId(){
+      let id = localStorage.getItem(ORDER_KEY);
+      if(!id){
+        id = genOrderId();
+        localStorage.setItem(ORDER_KEY, id);
+      }
+      return id;
+    }
 
-      let total = cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
+    function clearOrderId(){
+      const id = genOrderId();
+      localStorage.setItem(ORDER_KEY, id);
+      return id;
+    }
 
-      subtotalEl.textContent = money(total);
-      totalEl.textContent = money(total);
+    // ---------- Render ----------
+    function render(){
+      const cart = loadCart();
+      const list = $("cartList");
+      const emptyNote = $("emptyNote");
+      list.innerHTML = "";
 
-      if (!cart.length) {
-        emptyMsg.style.display = "block";
-        if (cartList) cartList.style.display = "none";
-      } else {
-        emptyMsg.style.display = "none";
-        if (cartList) cartList.style.display = "block";
-        renderCart(cart);
+      let subtotal = 0;
+
+      for(const item of cart){
+        const name = (item?.name ?? "Item").toString();
+        const qty  = Math.max(1, Number(item?.qty ?? 1));
+        const price = Number(item?.price ?? 0);
+
+        subtotal += (price * qty);
+
+        const li = document.createElement("li");
+        li.className = "pay-item";
+        li.innerHTML = `
+          <div class="pay-item-left">
+            <div class="pay-item-name">${escapeHtml(name)}</div>
+          </div>
+          <div class="pay-item-meta">
+            <span class="pay-item-qty">x${qty}</span>
+            <span class="pay-item-price">${money(price * qty)}</span>
+          </div>
+        `;
+        list.appendChild(li);
       }
 
-      let oid = localStorage.getItem(ORDER_KEY);
-      if (!oid || oid === "—") {
-        oid = safeId();
-        localStorage.setItem(ORDER_KEY, oid);
+      $("subtotal").textContent = money(subtotal);
+
+      const hasItems = cart.length > 0;
+      emptyNote.style.display = hasItems ? "none" : "block";
+
+      // Ensure order id exists
+      $("orderId").textContent = loadOrderId();
+    }
+
+    function escapeHtml(str){
+      return str
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    // ---------- Events ----------
+    $("clearCartBtn").addEventListener("click", () => {
+      saveCart([]);
+      clearOrderId();  // fresh order id after wipe
+      render();
+      // scroll to top of in-screen area so it "feels" responsive
+      $("payScroll").scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    $("copyOrderIdBtn").addEventListener("click", async () => {
+      const id = $("orderId").textContent.trim();
+      try{
+        await navigator.clipboard.writeText(id);
+        $("copyOrderIdBtn").textContent = "Copied";
+        setTimeout(() => $("copyOrderIdBtn").textContent = "Copy", 900);
+      }catch{
+        // fallback: do nothing
       }
-      orderEl.textContent = oid;
+    });
 
-      document.getElementById("copyOrder").onclick = () =>
-        navigator.clipboard.writeText(oid);
-
-      document.getElementById("clearCart").onclick = () => {
-        localStorage.removeItem(CART_KEY);
-        localStorage.removeItem(ORDER_KEY);
-        location.reload();
-      };
-    })();
+    // ---------- Boot ----------
+    render();
+    window.addEventListener("storage", (e) => {
+      if(e.key === CART_KEY || e.key === ORDER_KEY) render();
+    });
   </script>
 </body>
 </html>
