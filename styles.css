@@ -1184,15 +1184,4 @@ body.pay-page .bg::after{
     font-size: 12px;
   }
 
-  /* One column on mobile */
-  body.pay-page .pay-grid{
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 4px;
-    justify-items: stretch;
-  }
-
-  body.pay-page .pay-card{
-    width: 100%;
-  }
-}
+ 
