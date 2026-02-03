@@ -1,4 +1,4 @@
-<!-- index.html (CLEAN + DUST + PACK/MAP MODALS + COMMISSION MODALS + SEO/SHARE/SCHEMA + CART/CHECKOUT) -->
+<!-- index.html (CLEAN + DUST + PACK/MAP MODALS + COMMISSION MODALS + SEO/SHARE/SCHEMA + PAY PAGE LINK) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,6 +25,7 @@
   <meta property="og:title" content="Digital Parchment Textures & Aged Paper Backgrounds | Lace & Leather" />
   <meta property="og:description" content="Digital parchment, aged textures, grimoire surfaces, overlays, and ritual map assets for TTRPG creators, designers, and bookbinders." />
   <meta property="og:url" content="https://laceleatherarcane.com/" />
+  <!-- NOTE: update this to a real 1200x630 image when you have one -->
   <meta property="og:image" content="https://laceleatherarcane.com/assets/og-cover.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -65,6 +66,33 @@
   </script>
 
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Tiny inline style for Cart/Pay button (no CSS file edits needed) -->
+  <style>
+    .cart-pay-row{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    .cart-pay-btn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.18);
+      color:inherit;
+      border-radius:999px;
+      padding:12px 16px;
+      cursor:pointer;
+      text-decoration:none;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:14px;
+      box-shadow:0 12px 26px rgba(0,0,0,.35);
+    }
+    .cart-pay-btn:hover{ transform: translateY(-1px); }
+    .cart-pay-btn:active{ transform: translateY(0) scale(.99); }
+  </style>
 </head>
 
 <body>
@@ -76,14 +104,7 @@
     <span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
   </div>
-
-  <!-- Floating Cart Button -->
-  <button class="cart-fab" id="openCart" type="button" aria-label="Open cart">
-    <span class="cart-fab-label">Cart</span>
-    <span class="cart-badge" id="cartCount" aria-label="Items in cart">0</span>
-  </button>
 
   <main class="wrap">
     <!-- HERO (open air, no glass) -->
@@ -95,6 +116,13 @@
 
         <p class="tagline">Digital textures for artists, designers &amp; bookmakers.</p>
         <p class="subtag">Aged parchment · ritual surfaces · dark elegance</p>
+
+        <!-- NEW: Cart / Pay button (wired to pay.html) -->
+        <div class="cart-pay-row" aria-label="Cart and checkout">
+          <button class="cart-pay-btn" type="button" id="cartBtn">Cart / Pay</button>
+          <!-- optional direct link, in case JS is blocked -->
+          <a class="cart-pay-btn" href="./pay.html" rel="noopener noreferrer">Open Pay Screen</a>
+        </div>
 
         <!-- PROCESS (glass stays) -->
         <section id="process" class="glass section" aria-label="Process">
@@ -112,7 +140,7 @@
 
           <p class="shop-line muted">Shop now</p>
 
-          <!-- SOCIAL ICONS (these are the only outbound things in the hero) -->
+          <!-- SOCIAL ICONS -->
           <div class="social-icons" aria-label="Shop and follow">
             <a class="seal" href="https://payhip.com/LaceLeather65" target="_blank" rel="noopener noreferrer" aria-label="Payhip">
               <img src="./assets/social-icons/payhip-icon.PNG" alt="Payhip" />
@@ -139,33 +167,27 @@
       <h2 class="h2">Browse Packs</h2>
       <p class="muted">Tap a cover to preview the full set. (No downloads here — this is the front porch.)</p>
 
-      <div class="packs" aria-label="Pack list">
+      <div class="packs">
         <!-- Grimoire Pages -->
-        <div class="pack" role="button" tabindex="0" data-pack="grimoire" aria-label="Preview Grimoire Pages pack">
+        <button class="pack" type="button" data-pack="grimoire">
           <img src="./assets/grimoire/grim-thumb.png" alt="Grimoire pack preview" loading="lazy" />
           <div class="pack-meta">
             <div class="pack-title">Grimoire Pages</div>
             <div class="pack-note muted">Click to preview all pages</div>
           </div>
-          <div class="pack-actions" aria-label="Purchase actions">
-            <button class="pack-buy" type="button" data-add="grimoire">Add to cart</button>
-          </div>
-        </div>
+        </button>
 
         <!-- Mapmaker Sheets -->
-        <div class="pack" role="button" tabindex="0" data-pack="mapmaker" aria-label="Preview Mapmaker Sheets pack">
+        <button class="pack" type="button" data-pack="mapmaker">
           <img src="./assets/mapmaker/mapmaker-cover.png" alt="Mapmaker pack preview" loading="lazy" />
           <div class="pack-meta">
             <div class="pack-title">Mapmaker Sheets</div>
             <div class="pack-note muted">Click to preview all sheets</div>
           </div>
-          <div class="pack-actions" aria-label="Purchase actions">
-            <button class="pack-buy" type="button" data-add="mapmaker">Add to cart</button>
-          </div>
-        </div>
+        </button>
 
         <!-- Vol One -->
-        <div class="pack" role="button" tabindex="0" data-pack="volone" aria-label="Preview Light Aged Parchment Vol One pack">
+        <button class="pack" type="button" data-pack="volone">
           <img
             src="./assets/vol-one/vol-1-thumbnail.png"
             alt="Vol One light parchment preview"
@@ -175,21 +197,13 @@
             <div class="pack-title">Light Aged Parchment — Vol. One</div>
             <div class="pack-note muted">Click to preview all textures</div>
           </div>
-          <div class="pack-actions" aria-label="Purchase actions">
-            <button class="pack-buy" type="button" data-add="volone">Add to cart</button>
-          </div>
-        </div>
+        </button>
       </div>
-    </section>
 
-    <!-- PAYMENT / CHECKOUT INFO (optional clarity, keeps trust high) -->
-    <section class="glass section" aria-label="Checkout">
-      <h2 class="h2">Checkout</h2>
-      <p class="muted checkout-note">
-        Checkout is handled through PayPal. After payment, you’ll receive your download links privately.
-        (This site is the front porch — previews live here, full-resolution delivery happens after purchase.)
-      </p>
-      <button class="pack-buy checkout-open" type="button" id="openCartInline">Open cart</button>
+      <!-- COMING SOON: Button section placeholder (we'll generate real add-to-cart buttons next) -->
+      <div style="margin-top:14px;" class="muted">
+        Buttons (Add to Cart) — <strong>coming soon</strong>.
+      </div>
     </section>
 
     <!-- MAP COMMISSIONS -->
@@ -240,15 +254,13 @@
       </p>
 
       <div class="maps-cta">
+        <!-- Opens commission envelope sequence -->
         <button class="maps-btn" type="button" id="openCommission">
           <img class="wax-seal-img" src="./assets/custom-maps-button.png" alt="Request a custom map slot" />
         </button>
-
-        <!-- Optional: map deposit as a real SKU in the cart -->
-        <div class="maps-cartline">
-          <button class="pack-buy" type="button" data-add="mapdeposit">Add $50 map deposit to cart</button>
-        </div>
       </div>
+
+      <!-- NOTE: No “$50 map deposit to cart” button exists in this file. -->
     </section>
 
     <!-- SEO copy block -->
@@ -353,70 +365,6 @@
     </div>
   </div>
 
-  <!-- CART / CHECKOUT MODAL -->
-  <div class="modal" id="cartModal" aria-hidden="true">
-    <div class="modal-backdrop" data-cart-close></div>
-
-    <div class="modal-panel glass cart-panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
-      <div class="modal-head">
-        <div class="modal-left">
-          <div>
-            <div id="cartTitle" class="modal-title">Cart</div>
-            <div class="modal-sub muted" id="cartSub">Ready when you are.</div>
-          </div>
-        </div>
-
-        <button class="wax-btn close-btn" type="button" data-cart-close aria-label="Close cart">
-          <img src="./assets/x-button.PNG" alt="Close" />
-        </button>
-      </div>
-
-      <div class="modal-body cart-body">
-        <div class="cart-empty muted" id="cartEmpty" hidden>Your cart is empty.</div>
-
-        <div class="cart-list" id="cartList" aria-label="Cart items"></div>
-
-        <div class="cart-summary" aria-label="Cart summary">
-          <div class="cart-row">
-            <span class="muted">Subtotal</span>
-            <strong id="cartSubtotal">$0.00</strong>
-          </div>
-          <div class="cart-row small muted">
-            PayPal will show the final total before you confirm.
-          </div>
-        </div>
-
-        <div class="checkout-block" aria-label="Checkout">
-          <div class="checkout-title">Checkout</div>
-
-          <label class="field">
-            <span class="muted">Email for delivery</span>
-            <input class="input" id="buyerEmail" type="email" inputmode="email" placeholder="you@example.com" />
-          </label>
-
-          <label class="field">
-            <span class="muted">Order note (optional)</span>
-            <input class="input" id="buyerNote" type="text" placeholder="Any special request…" maxlength="80" />
-          </label>
-
-          <div class="order-id">
-            <span class="muted">Order ID:</span>
-            <strong id="orderId">—</strong>
-            <button class="mini-btn" type="button" id="copyOrder">Copy</button>
-          </div>
-
-          <button class="pay-btn" type="button" id="payNow">
-            Pay with PayPal
-          </button>
-
-          <p class="muted checkout-fineprint">
-            Important: add the Order ID in your PayPal note so we can match your payment to your files.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- COMMISSION ENVELOPE MODAL (fullscreen, no scroll) -->
   <div class="modal" id="commissionModal" aria-hidden="true">
     <div class="modal-backdrop commission-backdrop" data-commission-close></div>
@@ -469,6 +417,7 @@
             class="letter-img"
           />
 
+          <!-- Wax button sitting in the empty bottom margin of the parchment -->
           <a
             class="map-slot-btn"
             id="mapSlotBtn"
@@ -488,30 +437,6 @@
   <script>
     (() => {
       "use strict";
-
-      /* =========================
-         PAYPAL CONFIG
-         =========================
-         1) Create your PayPal
-         2) Create your PayPal.me handle
-         3) Replace the handle below
-      */
-      const PAYPAL_ME_HANDLE = "YOURHANDLE"; // <-- REPLACE (no @)
-      const PAYPAL_CURRENCY = "USD";
-
-      /* =========================
-         CART PRODUCTS
-         =========================
-         Prices are placeholders. Change anytime.
-      */
-      const PRODUCTS = {
-        grimoire:   { name: "Grimoire Pages (12)", price: 15.00 },
-        mapmaker:   { name: "Mapmaker Sheets (7)", price: 15.00 },
-        volone:     { name: "Light Aged Parchment — Vol. One (12)", price: 15.00 },
-        mapdeposit: { name: "Custom Map Deposit", price: 50.00 }
-      };
-
-      const CART_KEY = "ll_cart_v1";
 
       // Keep scroll position when modals open/close
       let scrollPosition = 0;
@@ -536,73 +461,51 @@
         window.scrollTo(0, scrollPosition || 0);
       };
 
-      const money = (n) => {
-        const x = Number(n || 0);
-        return x.toLocaleString(undefined, { style:"currency", currency: PAYPAL_CURRENCY });
-      };
+      // ==== CART -> PAY PAGE (tablet handles checkout) ====
+      const CART_KEY  = "ll_cart";
+      const ORDER_KEY = "ll_order_id";
 
-      const safeId = () => {
-        // short, human-readable: LL-7H2K9D
-        const chars = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
-        let out = "LL-";
-        for (let i=0;i<6;i++) out += chars[Math.floor(Math.random()*chars.length)];
-        return out;
+      const safeId = () =>
+        Math.random().toString(16).slice(2, 6).toUpperCase() + "-" +
+        Math.random().toString(16).slice(2, 6).toUpperCase();
+
+      const ensureOrderId = () => {
+        let id = localStorage.getItem(ORDER_KEY);
+        if (!id || id === "—") {
+          id = safeId();
+          localStorage.setItem(ORDER_KEY, id);
+        }
+        return id;
       };
 
       const readCart = () => {
         try {
           const raw = localStorage.getItem(CART_KEY);
-          const data = raw ? JSON.parse(raw) : {};
-          return (data && typeof data === "object") ? data : {};
-        } catch {
-          return {};
-        }
+          const arr = raw ? JSON.parse(raw) : [];
+          return Array.isArray(arr) ? arr : [];
+        } catch { return []; }
       };
 
-      const writeCart = (cart) => {
-        localStorage.setItem(CART_KEY, JSON.stringify(cart));
-      };
-
-      const cartCount = (cart) => Object.values(cart).reduce((a,b)=>a + (Number(b)||0), 0);
-
-      const cartSubtotal = (cart) => {
-        let sum = 0;
-        for (const [key, qty] of Object.entries(cart)) {
-          const p = PRODUCTS[key];
-          if (!p) continue;
-          sum += p.price * Number(qty || 0);
-        }
-        return Math.max(0, sum);
-      };
-
-      const setBadge = () => {
-        const el = document.getElementById("cartCount");
-        if (!el) return;
-        const c = readCart();
-        el.textContent = String(cartCount(c));
-      };
-
-      const addToCart = (key, qty=1) => {
-        const p = PRODUCTS[key];
-        if (!p) return;
+      const goToPayPage = () => {
         const cart = readCart();
-        cart[key] = Math.min(99, (Number(cart[key]||0) + Number(qty||1)));
-        writeCart(cart);
-        setBadge();
+        if (!cart.length) {
+          alert("Your cart is empty.");
+          return;
+        }
+        ensureOrderId();
+        window.location.href = "./pay.html";
       };
 
-      const setQty = (key, qty) => {
-        const cart = readCart();
-        const n = Number(qty || 0);
-        if (n <= 0) delete cart[key];
-        else cart[key] = Math.min(99, n);
-        writeCart(cart);
-        setBadge();
-      };
+      // Wire Cart/Pay button
+      const cartBtn = document.getElementById("cartBtn");
+      if (cartBtn) {
+        cartBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          goToPayPage();
+        });
+      }
 
-      /* =========================
-         EXISTING PACK/MAP MODALS
-         ========================= */
       const PACKS = {
         grimoire: {
           title: "Grimoire Pages",
@@ -656,8 +559,16 @@
       };
 
       const MAPS = {
-        suneen: { title: "Suneen Reef", sub: "Ringed reef & coastal settlements", src: "./assets/maps/suneen-reef.png" },
-        whispering: { title: "Whispering Bay", sub: "Shadowed shores & hidden coves", src: "./assets/maps/whispering-bay.png" }
+        suneen: {
+          title: "Suneen Reef",
+          sub: "Ringed reef & coastal settlements",
+          src: "./assets/maps/suneen-reef.png"
+        },
+        whispering: {
+          title: "Whispering Bay",
+          sub: "Shadowed shores & hidden coves",
+          src: "./assets/maps/whispering-bay.png"
+        }
       };
 
       // Packs modal elements
@@ -714,6 +625,7 @@
         collage.innerHTML = "";
         setMode("collage");
 
+        // Build collage tiles (background-image, not <img>)
         pack.images.forEach((src, idx) => {
           const btn = document.createElement("button");
           btn.type = "button";
@@ -813,166 +725,69 @@
         unlockScroll();
       };
 
+      // One-click sequence: closed -> open-letter -> empty -> letter modal
       const playCommissionSequence = () => {
         if (commissionAnimating) return;
         commissionAnimating = true;
         commissionStep = 0;
         showCommissionStep(commissionStep);
 
-        setTimeout(() => { commissionStep = 1; showCommissionStep(commissionStep); }, 250);
-        setTimeout(() => { commissionStep = 2; showCommissionStep(commissionStep); }, 550);
-        setTimeout(() => { openCommissionLetterModal(); commissionAnimating = false; }, 900);
+        setTimeout(() => {
+          commissionStep = 1;
+          showCommissionStep(commissionStep);
+        }, 250);
+
+        setTimeout(() => {
+          commissionStep = 2;
+          showCommissionStep(commissionStep);
+        }, 550);
+
+        setTimeout(() => {
+          openCommissionLetterModal();
+          commissionAnimating = false;
+        }, 900);
       };
 
-      /* =========================
-         CART MODAL
-         ========================= */
-      const cartModal = document.getElementById("cartModal");
-      const cartList = document.getElementById("cartList");
-      const cartEmpty = document.getElementById("cartEmpty");
-      const cartSubtotalEl = document.getElementById("cartSubtotal");
-      const buyerEmail = document.getElementById("buyerEmail");
-      const buyerNote = document.getElementById("buyerNote");
-      const orderIdEl = document.getElementById("orderId");
-      const copyOrderBtn = document.getElementById("copyOrder");
-      const payNowBtn = document.getElementById("payNow");
+      // Wards: disable context menu on sensitive surfaces
+      modal.addEventListener("contextmenu", (e) => {
+        if (modal.classList.contains("open")) e.preventDefault();
+      });
 
-      let currentOrderId = "—";
+      mapModal.addEventListener("contextmenu", (e) => {
+        if (mapModal.classList.contains("open")) e.preventDefault();
+      });
 
-      const openCart = () => {
-        currentOrderId = safeId();
-        orderIdEl.textContent = currentOrderId;
-        renderCart();
-        cartModal.classList.add("open");
-        cartModal.setAttribute("aria-hidden", "false");
-        lockScroll();
-      };
+      if (mapsGrid) {
+        mapsGrid.addEventListener("contextmenu", (e) => e.preventDefault());
+      }
 
-      const closeCart = () => {
-        cartModal.classList.remove("open");
-        cartModal.setAttribute("aria-hidden", "true");
-        unlockScroll();
-      };
+      commissionModal.addEventListener("contextmenu", (e) => {
+        if (commissionModal.classList.contains("open")) e.preventDefault();
+      });
+      commissionLetterModal.addEventListener("contextmenu", (e) => {
+        if (commissionLetterModal.classList.contains("open")) e.preventDefault();
+      });
 
-      const renderCart = () => {
-        const cart = readCart();
-        const keys = Object.keys(cart);
-
-        cartList.innerHTML = "";
-
-        if (keys.length === 0) {
-          cartEmpty.hidden = false;
-          cartList.innerHTML = "";
-          cartSubtotalEl.textContent = money(0);
-          setBadge();
-          return;
-        }
-
-        cartEmpty.hidden = true;
-
-        for (const key of keys) {
-          const p = PRODUCTS[key];
-          if (!p) continue;
-
-          const qty = Number(cart[key] || 0);
-          const row = document.createElement("div");
-          row.className = "cart-item";
-
-          row.innerHTML = `
-            <div class="cart-item-main">
-              <div class="cart-item-name">${p.name}</div>
-              <div class="cart-item-price muted">${money(p.price)} each</div>
-            </div>
-
-            <div class="cart-item-controls" aria-label="Quantity controls">
-              <button class="qty-btn" type="button" data-qty-minus="${key}" aria-label="Decrease quantity">−</button>
-              <div class="qty-num" aria-label="Quantity">${qty}</div>
-              <button class="qty-btn" type="button" data-qty-plus="${key}" aria-label="Increase quantity">+</button>
-              <button class="remove-btn" type="button" data-remove="${key}" aria-label="Remove item">Remove</button>
-            </div>
-          `;
-
-          cartList.appendChild(row);
-        }
-
-        cartSubtotalEl.textContent = money(cartSubtotal(cart));
-        setBadge();
-      };
-
-      const paypalUrlFor = (amount) => {
-        const a = Number(amount || 0).toFixed(2);
-        // PayPal.me format: https://www.paypal.me/HANDLE/AMOUNT?currencyCode=USD
-        // Note: PayPal does not reliably allow pre-filling the "note" from a static link.
-        return `https://www.paypal.me/${encodeURIComponent(PAYPAL_ME_HANDLE)}/${a}?currencyCode=${encodeURIComponent(PAYPAL_CURRENCY)}`;
-      };
-
-      const buildOrderSummary = () => {
-        const cart = readCart();
-        const items = Object.entries(cart)
-          .filter(([k,v]) => PRODUCTS[k] && Number(v)>0)
-          .map(([k,v]) => `${PRODUCTS[k].name} x${Number(v)}`);
-        return items.join(" • ");
-      };
-
-      const guardPaypal = () => {
-        if (!PAYPAL_ME_HANDLE || PAYPAL_ME_HANDLE === "YOURHANDLE") {
-          alert("Set your PayPal.me handle in the code first (PAYPAL_ME_HANDLE).");
-          return false;
-        }
-        return true;
-      };
-
-      /* =========================
-         WARDS (existing)
-         ========================= */
-      modal.addEventListener("contextmenu", (e) => { if (modal.classList.contains("open")) e.preventDefault(); });
-      mapModal.addEventListener("contextmenu", (e) => { if (mapModal.classList.contains("open")) e.preventDefault(); });
-      if (mapsGrid) mapsGrid.addEventListener("contextmenu", (e) => e.preventDefault());
-
-      commissionModal.addEventListener("contextmenu", (e) => { if (commissionModal.classList.contains("open")) e.preventDefault(); });
-      commissionLetterModal.addEventListener("contextmenu", (e) => { if (commissionLetterModal.classList.contains("open")) e.preventDefault(); });
-
+      // Extra ward: block drag-save on key areas
       document.addEventListener("dragstart", (e) => {
         if (
           e.target.closest(".maps-grid") ||
           e.target.closest(".modal") ||
           e.target.closest(".packs") ||
           e.target.closest(".creation-grid")
-        ) e.preventDefault();
+        ) {
+          e.preventDefault();
+        }
       });
 
-      /* =========================
-         CLICK WIRING
-         ========================= */
+      // Click wiring
       document.addEventListener("click", (e) => {
-        // Add to cart buttons (stop preview)
-        const addBtn = e.target.closest("[data-add]");
-        if (addBtn) {
+        // Packs
+        const packBtn = e.target.closest(".pack");
+        if (packBtn) {
           e.preventDefault();
           e.stopPropagation();
-          const key = addBtn.getAttribute("data-add");
-          addToCart(key, 1);
-          // subtle feedback without toast frameworks
-          addBtn.textContent = "Added";
-          setTimeout(() => { addBtn.textContent = "Add to cart"; }, 850);
-          return;
-        }
-
-        // Open cart (FAB + inline)
-        if (e.target.closest("#openCart") || e.target.closest("#openCartInline")) {
-          e.preventDefault();
-          openCart();
-          return;
-        }
-
-        // Packs — open preview (div pack)
-        const packEl = e.target.closest(".pack");
-        if (packEl && packEl.hasAttribute("data-pack")) {
-          // if clicked inside actions, ignore (handled above)
-          if (e.target.closest(".pack-actions")) return;
-          e.preventDefault();
-          e.stopPropagation();
-          openModal(packEl.getAttribute("data-pack"));
+          openModal(packBtn.getAttribute("data-pack"));
           return;
         }
 
@@ -1002,63 +817,55 @@
           return;
         }
 
-        // Close controls
+        // Controls for existing modals
         if (e.target.closest("[data-back]")) return backToCollage();
         if (e.target.closest("[data-close]")) return closeModal();
 
         if (e.target.closest("[data-map-close]")) return closeMapModal();
         if (e.target.closest("[data-map-back]")) return closeMapModal();
 
-        // Cart close
-        if (e.target.closest("[data-cart-close]")) return closeCart();
-
         // Commission close controls
-        if (e.target.closest("[data-commission-close]")) { e.preventDefault(); return closeCommissionModals(); }
-        if (e.target.closest("[data-letter-close]")) { e.preventDefault(); return closeCommissionModals(); }
-
-        // Cart qty controls
-        const plus = e.target.closest("[data-qty-plus]");
-        if (plus) {
+        if (e.target.closest("[data-commission-close]")) {
           e.preventDefault();
-          const key = plus.getAttribute("data-qty-plus");
-          const c = readCart();
-          setQty(key, Number(c[key]||0) + 1);
-          renderCart();
-          return;
+          return closeCommissionModals();
         }
-        const minus = e.target.closest("[data-qty-minus]");
-        if (minus) {
+        if (e.target.closest("[data-letter-close]")) {
           e.preventDefault();
-          const key = minus.getAttribute("data-qty-minus");
-          const c = readCart();
-          setQty(key, Number(c[key]||0) - 1);
-          renderCart();
-          return;
-        }
-        const rem = e.target.closest("[data-remove]");
-        if (rem) {
-          e.preventDefault();
-          const key = rem.getAttribute("data-remove");
-          setQty(key, 0);
-          renderCart();
-          return;
+          return closeCommissionModals();
         }
       });
 
-      // Pack keyboard support (Enter/Space opens preview)
-      document.addEventListener("keydown", (e) => {
-        if ((e.key === "Enter" || e.key === " ") && document.activeElement && document.activeElement.classList.contains("pack")) {
-          e.preventDefault();
-          const key = document.activeElement.getAttribute("data-pack");
-          if (key) openModal(key);
-        }
+      // Direct listeners where needed
+      const commissionAdvanceBtnEl = document.getElementById("commissionAdvance");
+      if (commissionAdvanceBtnEl) {
+        commissionAdvanceBtnEl.addEventListener("click", (e) => {
+          e.stopPropagation();
+          playCommissionSequence();
+        });
+      }
 
+      // mapSlotBtn is an <a>; do NOT preventDefault. Only stop propagation.
+      if (mapSlotBtn) {
+        mapSlotBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+        });
+      }
+
+      document.addEventListener("keydown", (e) => {
         // Escape closes whichever modal is open
         if (e.key === "Escape") {
-          if (modal.classList.contains("open")) return closeModal();
-          if (mapModal.classList.contains("open")) return closeMapModal();
-          if (cartModal.classList.contains("open")) return closeCart();
-          if (commissionModal.classList.contains("open") || commissionLetterModal.classList.contains("open")) return closeCommissionModals();
+          if (modal.classList.contains("open")) {
+            closeModal();
+            return;
+          }
+          if (mapModal.classList.contains("open")) {
+            closeMapModal();
+            return;
+          }
+          if (commissionModal.classList.contains("open") || commissionLetterModal.classList.contains("open")) {
+            closeCommissionModals();
+            return;
+          }
         }
 
         if ((e.key === "Backspace" || e.key === "ArrowLeft")) {
@@ -1071,68 +878,6 @@
           }
         }
       });
-
-      // Commission sequence click
-      if (commissionAdvanceBtn) {
-        commissionAdvanceBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          playCommissionSequence();
-        });
-      }
-
-      // mapSlotBtn is an <a>; do NOT preventDefault. Only stop propagation.
-      if (mapSlotBtn) mapSlotBtn.addEventListener("click", (e) => e.stopPropagation());
-
-      // Cart buttons
-      if (copyOrderBtn) {
-        copyOrderBtn.addEventListener("click", async () => {
-          try {
-            await navigator.clipboard.writeText(currentOrderId);
-            copyOrderBtn.textContent = "Copied";
-            setTimeout(() => copyOrderBtn.textContent = "Copy", 900);
-          } catch {
-            alert("Copy failed. Long-press and copy the Order ID.");
-          }
-        });
-      }
-
-      if (payNowBtn) {
-        payNowBtn.addEventListener("click", () => {
-          if (!guardPaypal()) return;
-
-          const cart = readCart();
-          const subtotal = cartSubtotal(cart);
-          if (subtotal <= 0) {
-            alert("Cart is empty.");
-            return;
-          }
-
-          const email = (buyerEmail?.value || "").trim();
-          const note = (buyerNote?.value || "").trim();
-          const summary = buildOrderSummary();
-
-          // This site can't inject the PayPal note reliably.
-          // So we *show* the Order ID and instruct the buyer to paste it into PayPal notes.
-          // We'll also store a local receipt so returning users can reference it.
-          const receipt = {
-            orderId: currentOrderId,
-            email,
-            note,
-            summary,
-            cart,
-            subtotal,
-            createdAt: new Date().toISOString()
-          };
-          try {
-            localStorage.setItem("ll_last_receipt_v1", JSON.stringify(receipt));
-          } catch {}
-
-          window.open(paypalUrlFor(subtotal), "_blank", "noopener,noreferrer");
-        });
-      }
-
-      // Init badge on load
-      setBadge();
     })();
   </script>
 </body>
