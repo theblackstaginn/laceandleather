@@ -12,7 +12,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=20260203-1">
+  <!-- IMPORTANT: bump this version any time you change CSS -->
+  <link rel="stylesheet" href="styles.css?v=20260203-2">
 </head>
 
 <body class="pay-page">
@@ -101,6 +102,26 @@
       </section>
     </div>
   </main>
+
+  <script>
+    // 🔥 KILL PWA CACHING FOR THIS PAY SCREEN
+    // If a service worker is caching styles.css, your edits won't show.
+    (async () => {
+      if (!("serviceWorker" in navigator)) return;
+
+      try {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map(r => r.unregister()));
+
+        if (window.caches) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map(k => caches.delete(k)));
+        }
+      } catch (e) {
+        // silent: we don't want to break checkout UI
+      }
+    })();
+  </script>
 
   <script>
     (() => {
