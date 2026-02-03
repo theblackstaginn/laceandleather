@@ -3,87 +3,373 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-
-  <title>Cart + QR Checkout | Lace & Leather</title>
-  <meta name="description" content="Tablet checkout screen for Lace & Leather. Review cart and scan QR to pay." />
+  <title>Lace & Leather — Pay</title>
   <meta name="theme-color" content="#0b0f14" />
-
   <link rel="icon" href="./favicon.png" />
   <link rel="apple-touch-icon" href="./icon-192.png" />
-  <link rel="stylesheet" href="./styles.css" />
+
+  <style>
+    /* =========================
+       PAY PAGE (SELF-CONTAINED)
+       Nothing from styles.css touches this page.
+       ========================= */
+
+    :root{
+      /* 👇 ONLY 4 NUMBERS YOU TUNE */
+      --cut-l: 7.1%;
+      --cut-r: 7.1%;
+      --cut-t: 15.9%;
+      --cut-b: 15.8%;
+
+      /* inner padding of the screen UI */
+      --ui-pad-x: 18px;
+      --ui-pad-y: 12px;
+
+      /* QR sizing cap */
+      --qr-max: 235px;     /* reduce if your QR still clips */
+    }
+
+    *{ box-sizing:border-box; }
+
+    html, body{
+      height:100%;
+      margin:0;
+      overflow:hidden; /* kill browser scrollbar */
+      background:#06070a;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:#0b0b0b;
+    }
+
+    /* Stage that always fits viewport */
+    .pay-stage{
+      height:100svh;
+      width:100vw;
+      display:grid;
+      place-items:center;
+      padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right))
+               max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+    }
+
+    /* Tablet frame wrapper */
+    .tablet{
+      position:relative;
+      width:min(1280px, 98vw);
+      max-height: 94svh;
+      aspect-ratio: 16 / 9;
+      display:grid;
+      place-items:center;
+    }
+
+    /* The tablet image itself ALWAYS fits */
+    .tablet img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      filter: drop-shadow(0 22px 60px rgba(0,0,0,.65));
+      user-select:none;
+      -webkit-user-drag:none;
+      pointer-events:none;
+    }
+
+    /* Screen cutout overlay (this is the “inside the tablet screen”) */
+    .screen{
+      position:absolute;
+      left: var(--cut-l);
+      right: var(--cut-r);
+      top: var(--cut-t);
+      bottom: var(--cut-b);
+
+      border-radius: 12px;
+      overflow:hidden;              /* hard clip: keeps scrollbars inside */
+      display:flex;
+      flex-direction:column;
+
+      /* subtle “glass” so text stays readable on bright tablet art */
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(1px);
+    }
+
+    /* Header */
+    .header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+
+      padding: 10px var(--ui-pad-x) 8px;
+      color:#0b0b0b;                /* black text */
+    }
+
+    .brand-title{
+      font-weight:900;
+      letter-spacing:.12em;
+      font-size:14px;
+      line-height:1.1;
+    }
+    .brand-sub{
+      margin-top:3px;
+      font-size:12px;
+      opacity:.9;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .pill{
+      appearance:none;
+      border:1px solid rgba(0,0,0,.20);
+      background: rgba(255,255,255,.28);
+      color:#0b0b0b;
+      border-radius:999px;
+      padding:8px 12px;
+      cursor:pointer;
+      text-decoration:none;
+      font-weight:800;
+      font-size:12px;
+    }
+
+    /* ONLY SCROLLER — scrollbar stays INSIDE screen */
+    .scroll{
+      flex:1;
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
+      padding: var(--ui-pad-y) var(--ui-pad-x) calc(var(--ui-pad-y) + 2px);
+    }
+
+    /* Layout inside screen */
+    .grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:12px;
+      align-items:start;
+      width:100%;
+      max-width:100%;
+    }
+
+    .card{
+      border:1px solid rgba(0,0,0,.16);
+      background: rgba(255,255,255,.22);
+      border-radius:14px;
+      padding:12px;
+      color:#0b0b0b; /* all text black */
+      min-width:0;
+    }
+
+    .h2{
+      margin:0 0 10px;
+      font-size:13px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:900;
+    }
+
+    .cart{
+      display:grid;
+      gap:8px;
+      margin-bottom:10px;
+    }
+
+    .line{
+      border:1px solid rgba(0,0,0,.12);
+      background: rgba(255,255,255,.20);
+      border-radius:12px;
+      padding:10px;
+      min-width:0;
+    }
+    .line-name{ font-weight:900; font-size:13px; margin-bottom:2px; }
+    .line-meta{ font-size:12px; opacity:.9; }
+
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:10px;
+      font-size:12px;
+    }
+
+    .money{ font-weight:900; font-size:13px; }
+
+    .order{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-width:0;
+    }
+    .order-id{
+      font-weight:900;
+      letter-spacing:.08em;
+      font-size:12px;
+      white-space:nowrap;
+    }
+
+    .mini{
+      appearance:none;
+      border:1px solid rgba(0,0,0,.20);
+      background: rgba(255,255,255,.28);
+      color:#0b0b0b;
+      border-radius:999px;
+      padding:6px 10px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:12px;
+      white-space:nowrap;
+    }
+
+    /* QR column */
+    .qr-top{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .qr-label{
+      font-weight:900;
+      letter-spacing:.14em;
+      font-size:12px;
+      text-transform:uppercase;
+      opacity:.95;
+    }
+
+    .amount{
+      font-weight:900;
+      font-size: clamp(26px, 3.2vw, 44px);
+      line-height:1;
+    }
+
+    .qr-wrap{
+      border:1px solid rgba(0,0,0,.14);
+      background: rgba(255,255,255,.28);
+      border-radius:14px;
+      padding:10px;
+      display:grid;
+      place-items:center;
+      width:100%;
+      max-width:100%;
+    }
+
+    /* QR is capped so the full code is visible */
+    .qr{
+      width: min(var(--qr-max), 34vw);
+      max-width:100%;
+      height:auto;
+      object-fit:contain;
+      display:block;
+    }
+
+    .pay-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .cta, .ghost{
+      appearance:none;
+      border-radius:999px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:#0b0b0b;
+      border:1px solid rgba(0,0,0,.20);
+      background: rgba(255,255,255,.28);
+    }
+    .ghost{ background: rgba(255,255,255,.18); }
+
+    .fine{
+      margin-top:10px;
+      font-size:12px;
+      opacity:.9;
+    }
+
+    .empty{
+      padding:8px 0;
+      font-size:13px;
+      opacity:.95;
+    }
+
+    /* Responsive stack */
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+      :root{ --qr-max: 250px; }
+    }
+
+    /* Optional: debug outlines if you add ?debug=1 */
+    .debug .screen{ outline: 2px solid rgba(255,70,70,.9); }
+  </style>
 </head>
 
-<body class="pay-page">
-  <!-- Full-viewport stage -->
-  <main class="pay-stage" aria-label="Checkout">
-    <!-- Tablet “image as background” so it always fits viewport -->
-    <section class="pay-tablet" aria-label="Tablet checkout frame">
-      <!-- This is the “screen cutout” inside the tablet -->
-      <div class="pay-screen" role="region" aria-label="Tablet screen area">
-        <!-- Header INSIDE the tablet screen -->
-        <header class="pay-header">
-          <div class="pay-brand">
-            <div class="pay-brand-title">LACE &amp; LEATHER</div>
-            <div class="pay-brand-sub">Cart + QR checkout (PayPal)</div>
-          </div>
+<body>
+  <main class="pay-stage" id="stage">
+    <section class="tablet" aria-label="Tablet checkout">
 
-          <div class="pay-header-actions">
-            <a class="pay-pill" href="./index.html" aria-label="Back to front porch">Back</a>
-            <button class="pay-pill" type="button" id="clearCartBtn">Clear cart</button>
+      <!-- ✅ CHANGE THIS FILENAME if your tablet art is named differently -->
+      <img src="./assets/pay-tablet.png" alt="" aria-hidden="true" />
+
+      <div class="screen" role="region" aria-label="Screen">
+        <header class="header">
+          <div>
+            <div class="brand-title">LACE &amp; LEATHER</div>
+            <div class="brand-sub">Cart + QR checkout (PayPal)</div>
+          </div>
+          <div class="actions">
+            <a class="pill" href="./index.html">Back</a>
+            <button class="pill" type="button" id="clearCartBtn">Clear cart</button>
           </div>
         </header>
 
-        <!-- SCROLLABLE CONTENT (scrollbar stays INSIDE the tablet screen) -->
-        <div class="pay-scroll" id="payScroll">
-          <div class="pay-grid">
-            <!-- LEFT: cart -->
-            <section class="pay-card" aria-label="Cart">
-              <h2 class="pay-h2">Cart</h2>
+        <div class="scroll">
+          <div class="grid">
+            <section class="card" aria-label="Cart">
+              <h2 class="h2">Cart</h2>
 
-              <div class="pay-cart" id="cartList"></div>
+              <div class="cart" id="cartList"></div>
 
-              <div class="pay-row pay-total-row" aria-label="Subtotal">
-                <span class="pay-muted">Subtotal</span>
-                <span class="pay-money" id="subtotal">$0.00</span>
+              <div class="row">
+                <span>Subtotal</span>
+                <span class="money" id="subtotal">$0.00</span>
               </div>
 
-              <div class="pay-row pay-order-row" aria-label="Order ID">
-                <span class="pay-muted">Order ID</span>
-                <span class="pay-order">
-                  <span class="pay-order-id" id="orderId">—</span>
-                  <button class="pay-mini" type="button" id="copyOrderBtn">Copy</button>
+              <div class="row">
+                <span>Order ID</span>
+                <span class="order">
+                  <span class="order-id" id="orderId">—</span>
+                  <button class="mini" type="button" id="copyOrderBtn">Copy</button>
                 </span>
               </div>
 
-              <div class="pay-note">
-                If you need it: your PayPal.me handle can be set inside <code>pay.html</code>.
+              <div class="fine">
+                This page replaces your cart modal. Review items, then scan/pay.
               </div>
             </section>
 
-            <!-- RIGHT: QR -->
-            <section class="pay-card pay-qr-card" aria-label="Scan to Pay">
-              <div class="pay-qr-top">
-                <div class="pay-muted pay-qr-label">SCAN TO PAY</div>
-                <div class="pay-amount" id="totalBig">$0.00</div>
+            <section class="card" aria-label="Scan to pay">
+              <div class="qr-top">
+                <div class="qr-label">Scan to pay</div>
+                <div class="amount" id="totalBig">$0.00</div>
               </div>
 
-              <!-- Use your uploaded asset -->
-              <div class="pay-qr-wrap" aria-label="QR code">
-                <img
-                  class="pay-qr"
-                  src="./assets/lace-qr.png"
-                  alt="PayPal QR code"
-                  loading="eager"
-                />
+              <div class="qr-wrap">
+                <img class="qr" src="./assets/lace-qr.png" alt="PayPal QR code" />
               </div>
 
               <div class="pay-actions">
-                <button class="pay-cta" type="button" id="openPaypalBtn">Open PayPal</button>
-                <button class="pay-ghost" type="button" id="paidBtn">I paid</button>
+                <button class="cta" type="button" id="openPaypalBtn">Open PayPal</button>
+                <button class="ghost" type="button" id="paidBtn">I paid</button>
               </div>
 
-              <div class="pay-fine">
-                This page replaces your cart modal. Review items, then scan/pay.
+              <div class="fine">
+                QR code uses the file <strong>assets/lace-qr.png</strong>.
               </div>
             </section>
           </div>
@@ -96,36 +382,24 @@
     (() => {
       "use strict";
 
-      // ====== STORAGE KEYS ======
+      // Debug outline with ?debug=1
+      const stage = document.getElementById("stage");
+      if (new URLSearchParams(location.search).get("debug") === "1") {
+        document.documentElement.classList.add("debug");
+      }
+
       const CART_KEY  = "ll_cart";
       const ORDER_KEY = "ll_order_id";
 
-      // ====== CONFIG ======
-      // If you want a PayPal.me fallback button:
-      // Put your PayPal.me handle here (no @). Example: "laceleather65"
-      const PAYPAL_ME_HANDLE = ""; // optional
+      // Optional PayPal.me handle (button opens it if set)
+      const PAYPAL_ME_HANDLE = ""; // e.g. "YourHandle"
 
-      // ====== HELPERS ======
-      const money = (n) => {
-        const v = Number(n || 0);
-        return v.toLocaleString(undefined, { style:"currency", currency:"USD" });
-      };
+      const money = (n) =>
+        Number(n || 0).toLocaleString(undefined, { style:"currency", currency:"USD" });
 
       const safeId = () =>
         Math.random().toString(16).slice(2, 6).toUpperCase() + "-" +
         Math.random().toString(16).slice(2, 6).toUpperCase();
-
-      const readCart = () => {
-        try {
-          const raw = localStorage.getItem(CART_KEY);
-          const arr = raw ? JSON.parse(raw) : [];
-          return Array.isArray(arr) ? arr : [];
-        } catch { return []; }
-      };
-
-      const writeCart = (arr) => {
-        localStorage.setItem(CART_KEY, JSON.stringify(arr || []));
-      };
 
       const ensureOrderId = () => {
         let id = localStorage.getItem(ORDER_KEY);
@@ -136,34 +410,41 @@
         return id;
       };
 
-      // ====== RENDER ======
-      const cartList = document.getElementById("cartList");
-      const subtotalEl = document.getElementById("subtotal");
-      const totalBigEl = document.getElementById("totalBig");
-      const orderIdEl = document.getElementById("orderId");
+      const readCart = () => {
+        try {
+          const raw = localStorage.getItem(CART_KEY);
+          const arr = raw ? JSON.parse(raw) : [];
+          return Array.isArray(arr) ? arr : [];
+        } catch { return []; }
+      };
+
+      const writeCart = (arr) => localStorage.setItem(CART_KEY, JSON.stringify(arr || []));
 
       const normalizeItem = (it) => {
-        // Accept a few shapes without breaking:
-        // {name, price, qty} OR {title, amount, quantity} OR strings
         if (typeof it === "string") return { name: it, price: 0, qty: 1 };
         const name = it.name ?? it.title ?? "Item";
         const price = Number(it.price ?? it.amount ?? 0);
-        const qty = Number(it.qty ?? it.quantity ?? 1);
-        return { name, price, qty: Math.max(1, qty) };
+        const qty = Math.max(1, Number(it.qty ?? it.quantity ?? 1));
+        return { name, price, qty };
       };
 
       const calcSubtotal = (items) =>
-        items.reduce((sum, it) => sum + (Number(it.price || 0) * Number(it.qty || 1)), 0);
+        items.reduce((sum, it) => sum + (Number(it.price||0) * Number(it.qty||1)), 0);
+
+      const esc = (s) =>
+        String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+      const cartList  = document.getElementById("cartList");
+      const subtotalEl= document.getElementById("subtotal");
+      const totalBigEl= document.getElementById("totalBig");
+      const orderIdEl = document.getElementById("orderId");
 
       const render = () => {
-        const raw = readCart();
-        const items = raw.map(normalizeItem);
-
-        const orderId = ensureOrderId();
-        orderIdEl.textContent = orderId;
+        const items = readCart().map(normalizeItem);
+        orderIdEl.textContent = ensureOrderId();
 
         if (!items.length) {
-          cartList.innerHTML = `<div class="pay-empty">Cart is empty.</div>`;
+          cartList.innerHTML = `<div class="empty">Cart is empty.</div>`;
           subtotalEl.textContent = money(0);
           totalBigEl.textContent = money(0);
           return;
@@ -173,37 +454,19 @@
         subtotalEl.textContent = money(sub);
         totalBigEl.textContent = money(sub);
 
-        cartList.innerHTML = items.map((it) => {
-          const line = it.price ? `${money(it.price)} × ${it.qty}` : `× ${it.qty}`;
+        cartList.innerHTML = items.map(it => {
+          const meta = it.price ? `${money(it.price)} × ${it.qty}` : `× ${it.qty}`;
           return `
-            <div class="pay-line">
-              <div class="pay-line-name">${escapeHtml(it.name)}</div>
-              <div class="pay-line-meta">${escapeHtml(line)}</div>
+            <div class="line">
+              <div class="line-name">${esc(it.name)}</div>
+              <div class="line-meta">${esc(meta)}</div>
             </div>
           `;
         }).join("");
       };
 
-      const escapeHtml = (s) =>
-        String(s).replace(/[&<>"']/g, (c) => ({
-          "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-        }[c]));
-
-      // ====== ACTIONS ======
       document.getElementById("copyOrderBtn")?.addEventListener("click", async () => {
-        const id = orderIdEl.textContent || "";
-        try {
-          await navigator.clipboard.writeText(id);
-          flash(orderIdEl, "Copied");
-        } catch {
-          // Fallback: select text
-          const r = document.createRange();
-          r.selectNodeContents(orderIdEl);
-          const sel = window.getSelection();
-          sel.removeAllRanges();
-          sel.addRange(r);
-          flash(orderIdEl, "Select & copy");
-        }
+        try { await navigator.clipboard.writeText(orderIdEl.textContent || ""); } catch {}
       });
 
       document.getElementById("clearCartBtn")?.addEventListener("click", () => {
@@ -212,31 +475,19 @@
       });
 
       document.getElementById("openPaypalBtn")?.addEventListener("click", () => {
-        // Best-effort: open PayPal.me if you set handle, otherwise do nothing.
         if (!PAYPAL_ME_HANDLE) {
           alert("Set PAYPAL_ME_HANDLE in pay.html if you want this button to open PayPal.me.");
           return;
         }
-        const url = `https://www.paypal.com/paypalme/${encodeURIComponent(PAYPAL_ME_HANDLE)}`;
-        window.open(url, "_blank", "noopener,noreferrer");
+        window.open(`https://www.paypal.com/paypalme/${encodeURIComponent(PAYPAL_ME_HANDLE)}`, "_blank", "noopener,noreferrer");
       });
 
       document.getElementById("paidBtn")?.addEventListener("click", () => {
-        // You can change this behavior later (e.g., keep history).
-        // For now: clear cart after payment confirmation.
         writeCart([]);
         render();
         alert("Got it. Cart cleared.");
       });
 
-      const flash = (el, text) => {
-        if (!el) return;
-        const prev = el.textContent;
-        el.textContent = text;
-        setTimeout(() => { el.textContent = prev; }, 700);
-      };
-
-      // boot
       render();
     })();
   </script>
