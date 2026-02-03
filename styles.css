@@ -896,7 +896,7 @@ display:block;
      - TOP higher pushes content DOWN away from the crest
      - RIGHT/LEFT larger pulls panels inward from bezel
      - BOTTOM larger keeps QR off the lower edge */
-  inset: 16% 14% 18% 14%;
+  inset: 22% 18% 22% 18%;
 
   display:flex;
   flex-direction:column;
