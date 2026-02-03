@@ -25,10 +25,9 @@
       font-family: ui-serif, Georgia, serif;
       background:#06070a;
       text-align:center;
-      overflow:hidden;
+      overflow:auto;
     }
 
-    /* Background (use your existing tablet-web.png / tablet-mobile.png if you want) */
     .bg{
       position:fixed;
       inset:0;
@@ -50,16 +49,16 @@
     }
 
     .wrap{
-      height:100%;
+      min-height:100%;
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:center;
       padding:18px;
     }
 
     .glass{
       position:relative;
-      width:min(920px, 96vw);
+      width:min(980px, 96vw);
       padding:18px;
       border:1px solid var(--line);
       border-radius:var(--radius);
@@ -71,6 +70,7 @@
       -webkit-backdrop-filter: blur(6px) saturate(1.03);
       display:grid;
       gap:14px;
+      margin: 22px 0 40px;
     }
 
     .top{
@@ -78,6 +78,7 @@
       align-items:center;
       justify-content:space-between;
       gap:12px;
+      flex-wrap:wrap;
     }
 
     .brand{
@@ -89,33 +90,67 @@
 
     .muted{ color:var(--muted); }
 
-    .close{
+    .btn{
       appearance:none;
       border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.18);
+      background:rgba(0,0,0,.22);
       color:var(--text);
       border-radius:999px;
-      padding:10px 14px;
+      padding:12px 16px;
       cursor:pointer;
       box-shadow: 0 12px 26px rgba(0,0,0,.40);
+      min-width: 180px;
     }
-    .close:active{ transform: scale(.99); }
+    .btn.primary{
+      border-color: rgba(255,255,255,.22);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.22));
+    }
+    .btn.small{ padding:10px 12px; min-width:unset; }
+    .btn:active{ transform: scale(.99); }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background: rgba(0,0,0,.14);
+      padding:14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.30);
+      display:grid;
+      gap:12px;
+    }
+
+    .h{
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size: 13px;
+      opacity:.92;
+    }
 
     .amount{
-      font-size: clamp(52px, 7vw, 92px);
+      font-size: clamp(46px, 6vw, 78px);
       line-height:1;
       letter-spacing:.06em;
       text-shadow:0 0 14px rgba(0,0,0,.9);
-      margin-top:4px;
+      margin-top:2px;
     }
 
     .qr-wrap{
       display:flex;
       justify-content:center;
-      padding:8px 0 2px;
+      padding:6px 0 2px;
     }
     .qr{
-      width:min(380px, 72vw);
+      width:min(360px, 70vw);
       height:auto;
       border-radius:18px;
       border:1px solid rgba(255,255,255,.14);
@@ -129,7 +164,7 @@
       justify-content:center;
       gap:10px;
       flex-wrap:wrap;
-      font-size:16px;
+      font-size:15px;
     }
 
     .pill{
@@ -152,47 +187,91 @@
       cursor:pointer;
     }
 
-    .actions{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-top:6px;
-    }
-
-    .btn{
-      appearance:none;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.22);
-      color:var(--text);
-      border-radius:999px;
-      padding:12px 16px;
-      cursor:pointer;
-      min-width: 220px;
-      box-shadow: 0 12px 26px rgba(0,0,0,.40);
-    }
-    .btn.primary{
-      border-color: rgba(255,255,255,.22);
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.22));
-    }
-    .btn:active{ transform: scale(.99); }
-
-    .fine{
-      font-size:13px;
-      opacity:.92;
-      max-width:720px;
-      margin:0 auto;
-      text-shadow:0 0 8px rgba(0,0,0,.85);
-    }
-
     .warn{
       font-size:14px;
-      opacity:.95;
+      opacity:.96;
       padding:10px 12px;
       border-radius:14px;
       border:1px solid rgba(255,255,255,.14);
       background:rgba(140, 20, 20, .16);
       display:none;
+      text-shadow:0 0 8px rgba(0,0,0,.85);
+    }
+
+    /* Cart list */
+    .cart{
+      display:grid;
+      gap:10px;
+      text-align:left;
+    }
+
+    .item{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap:10px;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.12);
+    }
+
+    .item-title{
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+    .item-sub{ font-size:13px; color:var(--muted); margin-top:2px; }
+
+    .controls{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+    }
+
+    .qty{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;
+      padding:8px 10px;
+      background: rgba(0,0,0,.12);
+    }
+
+    .qbtn{
+      width:36px;
+      height:36px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color:var(--text);
+      cursor:pointer;
+      font-weight:700;
+    }
+    .qbtn:active{ transform: scale(.99); }
+
+    .qtynum{
+      min-width: 20px;
+      text-align:center;
+      font-weight:700;
+    }
+
+    .sumrow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding-top:8px;
+      border-top:1px solid rgba(255,255,255,.12);
+    }
+
+    .fine{
+      font-size:13px;
+      opacity:.92;
+      max-width:860px;
+      margin:0 auto;
+      text-shadow:0 0 8px rgba(0,0,0,.85);
     }
   </style>
 </head>
@@ -205,38 +284,59 @@
       <div class="top">
         <div>
           <div class="brand">Lace &amp; Leather</div>
-          <div class="muted">Scan to pay with PayPal</div>
+          <div class="muted">Cart + QR checkout (PayPal)</div>
         </div>
-        <button class="close" type="button" id="closeBtn">Close</button>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+          <button class="btn small" type="button" id="backBtn">Back</button>
+          <button class="btn small" type="button" id="clearBtn">Clear cart</button>
+        </div>
       </div>
 
-      <div class="amount" id="amount">$0.00</div>
+      <div class="grid">
+        <!-- LEFT: CART -->
+        <div class="panel">
+          <div class="h">Cart</div>
+          <div class="cart" id="cart"></div>
 
-      <div class="qr-wrap">
-        <img id="qr" class="qr" alt="PayPal QR code" />
+          <div class="sumrow">
+            <div class="muted">Subtotal</div>
+            <strong id="subtotal">$0.00</strong>
+          </div>
+
+          <div id="warn" class="warn"></div>
+        </div>
+
+        <!-- RIGHT: PAY -->
+        <div class="panel">
+          <div class="h">Scan to pay</div>
+
+          <div class="amount" id="amount">$0.00</div>
+
+          <div class="qr-wrap">
+            <img id="qr" class="qr" alt="PayPal QR code" />
+          </div>
+
+          <div class="row">
+            <span class="muted">Order ID</span>
+            <span class="pill">
+              <strong id="orderId">—</strong>
+              <button class="mini" type="button" id="copyOrder">Copy</button>
+            </span>
+          </div>
+
+          <div class="row muted" style="font-size:13px;">
+            In PayPal, paste the Order ID into the note.
+          </div>
+
+          <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px;">
+            <button class="btn primary" type="button" id="openPaypal">Open PayPal on this device</button>
+            <button class="btn" type="button" id="paidBtn">I paid</button>
+          </div>
+        </div>
       </div>
-
-      <div class="row">
-        <span class="muted">Order ID</span>
-        <span class="pill">
-          <strong id="orderId">—</strong>
-          <button class="mini" type="button" id="copyOrder">Copy</button>
-        </span>
-      </div>
-
-      <div class="row muted" style="font-size:13px;">
-        In PayPal, paste the Order ID into the note.
-      </div>
-
-      <div class="actions">
-        <button class="btn primary" type="button" id="openPaypal">Open PayPal on this device</button>
-        <button class="btn" type="button" id="paidBtn">I paid</button>
-      </div>
-
-      <div class="warn" id="warn"></div>
 
       <div class="fine muted">
-        Counter mode: this page is meant to stay open on a tablet while customers scan and pay on their phone.
+        This page replaces your cart modal: edit quantities here, then scan/pay. Designed for a tablet at the counter.
       </div>
     </section>
   </div>
@@ -245,20 +345,23 @@
     (() => {
       "use strict";
 
-      // === CONFIG (set this once) ===
-      // If you don't have paypal.me, create it and drop your handle here.
-      // Example: "laceandleather65" -> https://paypal.me/laceandleather65/12.00
-      const PAYPAL_ME_HANDLE = "YOUR_PAYPAL_ME_HANDLE";
+      // === CONFIG ===
+      const PAYPAL_ME_HANDLE = "YOUR_PAYPAL_ME_HANDLE"; // <-- set this
 
-      // Cart storage keys (match your existing cart system)
-      const CART_KEY = "ll_cart";
+      // Storage keys (MUST match your main site)
+      const CART_KEY  = "ll_cart";
       const ORDER_KEY = "ll_order_id";
 
       const $ = (id) => document.getElementById(id);
+
+      const cartEl = $("cart");
+      const subtotalEl = $("subtotal");
       const amountEl = $("amount");
       const orderEl = $("orderId");
       const qrEl = $("qr");
       const warnEl = $("warn");
+
+      let currentPayUrl = "";
 
       const money = (n) => {
         const x = Number(n || 0);
@@ -269,101 +372,181 @@
         Math.random().toString(16).slice(2, 6).toUpperCase() + "-" +
         Math.random().toString(16).slice(2, 6).toUpperCase();
 
-      const readCart = () => {
-        try {
-          const raw = localStorage.getItem(CART_KEY);
-          const arr = raw ? JSON.parse(raw) : [];
-          return Array.isArray(arr) ? arr : [];
-        } catch { return []; }
-      };
-
-      const cartSubtotal = (cart) => cart.reduce((sum, it) => {
-        const price = Number(it && it.price) || 0;
-        const qty = Math.max(1, Number(it && it.qty) || 1);
-        return sum + price * qty;
-      }, 0);
-
-      const paypalUrlFor = (amount, orderId) => {
-        const base = `https://paypal.me/${encodeURIComponent(PAYPAL_ME_HANDLE)}/${Number(amount).toFixed(2)}`;
-        // Optional: pass orderId as a query note for your own tracking (PayPal may ignore for note field)
-        return `${base}?utm_source=laceleatherarcane&utm_medium=tabletpay&utm_campaign=${encodeURIComponent(orderId)}`;
-      };
-
       const setWarn = (msg) => {
         warnEl.textContent = msg;
         warnEl.style.display = msg ? "block" : "none";
       };
 
-      const init = () => {
+      const readCart = () => {
+        try{
+          const raw = localStorage.getItem(CART_KEY);
+          const arr = raw ? JSON.parse(raw) : [];
+          return Array.isArray(arr) ? arr : [];
+        }catch{ return []; }
+      };
+
+      const writeCart = (cart) => {
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      };
+
+      const subtotal = (cart) =>
+        cart.reduce((sum, it) => {
+          const price = Number(it && it.price) || 0;
+          const qty = Math.max(1, Number(it && it.qty) || 1);
+          return sum + price * qty;
+        }, 0);
+
+      const ensureOrderId = () => {
+        let id = localStorage.getItem(ORDER_KEY);
+        if (!id || id === "—") {
+          id = safeId();
+          localStorage.setItem(ORDER_KEY, id);
+        }
+        orderEl.textContent = id;
+        return id;
+      };
+
+      const paypalUrlFor = (amount, orderId) => {
+        const base = `https://paypal.me/${encodeURIComponent(PAYPAL_ME_HANDLE)}/${Number(amount).toFixed(2)}`;
+        return `${base}?utm_source=laceleatherarcane&utm_medium=tabletpay&utm_campaign=${encodeURIComponent(orderId)}`;
+      };
+
+      const render = () => {
+        const cart = readCart();
+        const total = subtotal(cart);
+        const oid = ensureOrderId();
+
+        subtotalEl.textContent = money(total);
+        amountEl.textContent = money(total);
+
+        cartEl.innerHTML = "";
+
         if (!PAYPAL_ME_HANDLE || PAYPAL_ME_HANDLE === "YOUR_PAYPAL_ME_HANDLE") {
-          setWarn("Set your PayPal.me handle in pay.html (PAYPAL_ME_HANDLE). QR can't be generated yet.");
+          setWarn("Set your PayPal.me handle in pay.html (PAYPAL_ME_HANDLE).");
+        } else if (total <= 0) {
+          setWarn("Cart is empty. Go back and add items.");
         } else {
           setWarn("");
         }
 
-        // Order ID: use existing, or generate
-        let orderId = localStorage.getItem(ORDER_KEY);
-        if (!orderId || orderId === "—") {
-          orderId = safeId();
-          localStorage.setItem(ORDER_KEY, orderId);
-        }
+        if (!cart.length) {
+          cartEl.innerHTML = `<div class="muted" style="padding:10px; text-align:center;">
+            No items yet.
+          </div>`;
+        } else {
+          cart.forEach((it, idx) => {
+            const title = (it && it.title) ? String(it.title) : "Item";
+            const price = Number(it && it.price) || 0;
+            const qty = Math.max(1, Number(it && it.qty) || 1);
 
-        // Amount: from cart, or from URL param (?amount=12.00)
-        const url = new URL(window.location.href);
-        const urlAmount = Number(url.searchParams.get("amount") || 0);
-        const cart = readCart();
-        const cartTotal = cartSubtotal(cart);
-        const total = urlAmount > 0 ? urlAmount : cartTotal;
+            const row = document.createElement("div");
+            row.className = "item";
+            row.innerHTML = `
+              <div>
+                <div class="item-title">${escapeHtml(title)}</div>
+                <div class="item-sub muted">${money(price)} each</div>
+              </div>
 
-        orderEl.textContent = orderId;
-        amountEl.textContent = money(total);
-
-        if (!total || total <= 0) {
-          setWarn("Cart is empty (or no amount provided). Go back and add items.");
-          qrEl.removeAttribute("src");
-          return;
-        }
-
-        if (PAYPAL_ME_HANDLE && PAYPAL_ME_HANDLE !== "YOUR_PAYPAL_ME_HANDLE") {
-          const payUrl = paypalUrlFor(total, orderId);
-
-          // QR image generation (simple hosted endpoint)
-          const qrUrl =
-            "https://api.qrserver.com/v1/create-qr-code/?size=520x520&margin=10&data=" +
-            encodeURIComponent(payUrl);
-
-          qrEl.src = qrUrl;
-
-          $("openPaypal").addEventListener("click", () => {
-            window.open(payUrl, "_blank", "noopener,noreferrer");
+              <div class="controls">
+                <div class="qty" aria-label="Quantity controls">
+                  <button class="qbtn" data-dec="${idx}" type="button" aria-label="Decrease quantity">−</button>
+                  <div class="qtynum" aria-label="Quantity">${qty}</div>
+                  <button class="qbtn" data-inc="${idx}" type="button" aria-label="Increase quantity">+</button>
+                </div>
+                <button class="btn small" data-rm="${idx}" type="button">Remove</button>
+              </div>
+            `;
+            cartEl.appendChild(row);
           });
         }
 
-        $("copyOrder").addEventListener("click", async () => {
-          try {
-            await navigator.clipboard.writeText(orderEl.textContent.trim());
-            setWarn("Order ID copied.");
-            setTimeout(() => setWarn(""), 1100);
-          } catch {
-            setWarn("Couldn't copy automatically. Tap and hold to copy the Order ID.");
-          }
-        });
+        // QR + link
+        if (PAYPAL_ME_HANDLE && PAYPAL_ME_HANDLE !== "YOUR_PAYPAL_ME_HANDLE" && total > 0) {
+          currentPayUrl = paypalUrlFor(total, oid);
+          const qrUrl =
+            "https://api.qrserver.com/v1/create-qr-code/?size=520x520&margin=10&data=" +
+            encodeURIComponent(currentPayUrl);
 
-        $("paidBtn").addEventListener("click", () => {
-          // OPTIONAL: clear cart after payment confirmation
-          // localStorage.removeItem(CART_KEY);
-          // localStorage.removeItem(ORDER_KEY);
-
-          // Return to homepage
-          window.location.href = "./index.html";
-        });
-
-        $("closeBtn").addEventListener("click", () => {
-          window.location.href = "./index.html";
-        });
+          qrEl.src = qrUrl;
+        } else {
+          currentPayUrl = "";
+          qrEl.removeAttribute("src");
+        }
       };
 
-      init();
+      const escapeHtml = (s) =>
+        s.replace(/[&<>"']/g, (c) => ({
+          "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+        }[c]));
+
+      // Events
+      document.addEventListener("click", (e) => {
+        const cart = readCart();
+
+        const inc = e.target.closest("[data-inc]");
+        if (inc) {
+          const i = Number(inc.getAttribute("data-inc"));
+          if (cart[i]) cart[i].qty = Math.max(1, (Number(cart[i].qty)||1) + 1);
+          writeCart(cart);
+          render();
+          return;
+        }
+
+        const dec = e.target.closest("[data-dec]");
+        if (dec) {
+          const i = Number(dec.getAttribute("data-dec"));
+          if (cart[i]) cart[i].qty = Math.max(1, (Number(cart[i].qty)||1) - 1);
+          writeCart(cart);
+          render();
+          return;
+        }
+
+        const rm = e.target.closest("[data-rm]");
+        if (rm) {
+          const i = Number(rm.getAttribute("data-rm"));
+          cart.splice(i, 1);
+          writeCart(cart);
+          render();
+          return;
+        }
+      });
+
+      $("copyOrder").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(orderEl.textContent.trim());
+          setWarn("Order ID copied.");
+          setTimeout(() => setWarn(""), 1100);
+        } catch {
+          setWarn("Couldn't copy automatically. Tap and hold to copy the Order ID.");
+        }
+      });
+
+      $("openPaypal").addEventListener("click", () => {
+        if (!currentPayUrl) return;
+        window.open(currentPayUrl, "_blank", "noopener,noreferrer");
+      });
+
+      $("paidBtn").addEventListener("click", () => {
+        // OPTIONAL: clear cart after payment confirmation:
+        // localStorage.removeItem(CART_KEY);
+        // localStorage.removeItem(ORDER_KEY);
+
+        window.location.href = "./index.html";
+      });
+
+      $("clearBtn").addEventListener("click", () => {
+        localStorage.removeItem(CART_KEY);
+        // keep order id or reset it—your choice. I reset it:
+        localStorage.removeItem(ORDER_KEY);
+        render();
+      });
+
+      $("backBtn").addEventListener("click", () => {
+        window.location.href = "./index.html";
+      });
+
+      // Init
+      render();
     })();
   </script>
 </body>
