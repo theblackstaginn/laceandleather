@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- bump version to bust cache -->
+  <!-- IMPORTANT: bump this version any time you edit styles.css -->
   <link rel="stylesheet" href="styles.css?v=20260203-2">
 </head>
 
@@ -40,7 +40,7 @@
       <section class="tablet-screen">
         <!-- HEADER -->
         <header class="pay-head">
-          <div class="pay-head-left">
+          <div>
             <div class="pay-brand">LACE &amp; LEATHER</div>
             <div class="pay-sub">Cart + QR checkout (PayPal)</div>
           </div>
@@ -60,6 +60,9 @@
 
               <p class="pay-muted" id="emptyMsg">Cart is empty.</p>
 
+              <!-- NEW: actual cart items list (forces real scrolling when cart grows) -->
+              <ul class="pay-items" id="cartList" aria-label="Cart items"></ul>
+
               <div class="pay-row">
                 <span>Subtotal</span>
                 <strong id="subtotal">$0.00</strong>
@@ -67,14 +70,14 @@
 
               <div class="pay-row">
                 <span>Order ID</span>
-                <span class="pay-idline">
+                <span class="pay-order">
                   <code id="orderId">—</code>
                   <button class="pay-mini" id="copyOrder" type="button">Copy</button>
                 </span>
               </div>
 
               <p class="pay-note">
-                This page replaces your cart modal. Review items, then scan/pay.
+                Review items, then scan/pay. (This replaces your cart modal.)
               </p>
             </section>
 
@@ -112,6 +115,7 @@
       const totalEl = document.getElementById("total");
       const orderEl = document.getElementById("orderId");
       const emptyMsg = document.getElementById("emptyMsg");
+      const cartList = document.getElementById("cartList");
 
       const money = n =>
         Number(n).toLocaleString(undefined, { style:"currency", currency:"USD" });
@@ -125,15 +129,45 @@
         catch { return []; }
       })();
 
-      const total = cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
+      // Render items
+      const renderCart = (items) => {
+        if (!cartList) return;
+        cartList.innerHTML = "";
+
+        items.forEach((i) => {
+          const name = (i && i.name) ? String(i.name) : "Item";
+          const qty  = (i && i.qty) ? Number(i.qty) : 1;
+          const price = (i && i.price) ? Number(i.price) : 0;
+
+          const li = document.createElement("li");
+          li.className = "pay-item";
+          li.innerHTML = `
+            <span class="pay-item-name">${name}</span>
+            <span class="pay-item-meta">
+              <span class="pay-item-qty">×${qty}</span>
+              <span class="pay-item-price">${money(price * qty)}</span>
+            </span>
+          `;
+          cartList.appendChild(li);
+        });
+      };
+
+      let total = cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
 
       subtotalEl.textContent = money(total);
       totalEl.textContent = money(total);
 
-      emptyMsg.style.display = cart.length ? "none" : "block";
+      if (!cart.length) {
+        emptyMsg.style.display = "block";
+        if (cartList) cartList.style.display = "none";
+      } else {
+        emptyMsg.style.display = "none";
+        if (cartList) cartList.style.display = "block";
+        renderCart(cart);
+      }
 
       let oid = localStorage.getItem(ORDER_KEY);
-      if (!oid) {
+      if (!oid || oid === "—") {
         oid = safeId();
         localStorage.setItem(ORDER_KEY, oid);
       }
