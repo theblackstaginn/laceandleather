@@ -847,226 +847,244 @@ p, h1, h2, h3, h4, h5, h6,
 }
 
 /* =========================
-PAY PAGE (Tablet Checkout)
-Scoped hard so nothing else overrides it
-========================= */
+   PAY PAGE (Tablet Checkout)
+   Scoped to body.pay-page so nothing else wins
+   ========================= */
 
 body.pay-page{
-background:#111;
-font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-color:#111;
-overflow:hidden; /* no page scroll; only the in-screen scroll area */
+  background:#111;
+  font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:#111;
+  overflow:hidden; /* no page scroll; only the in-screen scroll area */
+  text-align:left; /* undo global center */
 }
 
-/* isolate pay screen from global centering/text rules */
+/* kill global shadows/centering on pay page typography */
 body.pay-page p,
 body.pay-page h1, body.pay-page h2, body.pay-page h3, body.pay-page h4, body.pay-page h5, body.pay-page h6{
-text-align:left;
-text-shadow:none;
+  text-align:left;
+  text-shadow:none;
 }
 
+/* Layout */
 body.pay-page .pay-shell{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:10px;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
 }
 
-/* Tablet wrapper MUST fit viewport */
 body.pay-page .tablet-wrap{
-position:relative;
-width:100%;
-max-width:min(1200px, 96vw);
-max-height:92vh;
-aspect-ratio:16 / 9;
+  position:relative;
+  width:100%;
+  max-width:min(1200px, 96vw);
+  max-height:92vh;
+  aspect-ratio:16 / 9;
 }
 
 body.pay-page .tablet-img{
-width:100%;
-height:100%;
-object-fit:contain;
-display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
 }
 
 body.pay-page .tablet-mobile{ display:none; }
 
 @media (max-width:768px){
-body.pay-page .tablet-desktop{ display:none; }
-body.pay-page .tablet-mobile{ display:block; }
-body.pay-page .tablet-wrap{
-aspect-ratio:9 / 16;
-max-height:92vh;
-}
+  body.pay-page .tablet-desktop{ display:none; }
+  body.pay-page .tablet-mobile{ display:block; }
+  body.pay-page .tablet-wrap{
+    aspect-ratio:9 / 16;
+    max-height:92vh;
+  }
 }
 
 /* Screen area inside bezel */
 body.pay-page .tablet-screen{
-position:absolute;
-inset: 9% 9.4% 12% 8.6%;
-display:flex;
-flex-direction:column;
-overflow:hidden;
-border-radius:16px;
+  position:absolute;
+  inset: 9% 9.4% 12% 8.6%;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  border-radius:16px;
 }
 
 /* Header */
 body.pay-page .pay-head{
-display:flex;
-justify-content:space-between;
-align-items:flex-start;
-gap:12px;
-padding:10px 14px 8px;
-color:#111;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  padding:10px 14px 8px;
+  color:#111;
 }
 
+body.pay-page .pay-head-left{ min-width: 0; }
+
 body.pay-page .pay-brand{
-font-weight:800;
-letter-spacing:.10em;
-font-size:13px;
-color:#111;
+  font-weight:800;
+  letter-spacing:.10em;
+  font-size:13px;
+  color:#111;
+  white-space:nowrap;
 }
 
 body.pay-page .pay-sub{
-font-size:12px;
-color:#111;
-opacity:.82;
+  font-size:12px;
+  color:#111;
+  opacity:.82;
 }
 
 body.pay-page .pay-actions{
-display:flex;
-gap:8px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
 
 body.pay-page .pay-btn{
-background:rgba(255,255,255,.55);
-border:1px solid rgba(0,0,0,.18);
-border-radius:999px;
-padding:6px 10px;
-cursor:pointer;
-font-size:12px;
-text-decoration:none;
-color:#111;
-backdrop-filter: blur(8px);
--webkit-backdrop-filter: blur(8px);
+  background:rgba(255,255,255,.55);
+  border:1px solid rgba(0,0,0,.18);
+  border-radius:999px;
+  padding:6px 10px;
+  cursor:pointer;
+  font-size:12px;
+  text-decoration:none;
+  color:#111;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 /* Scroll area */
 body.pay-page .pay-scroll{
-flex:1;
-overflow-y:auto;
-padding:10px 18px 14px 18px;
--webkit-overflow-scrolling:touch;
-scrollbar-gutter: stable both-edges;
-color:#111;
+  flex:1;
+  overflow-y:auto;
+  padding:10px 18px 14px 18px; /* right pad keeps scrollbar off bezel */
+  -webkit-overflow-scrolling:touch;
+  scrollbar-gutter: stable both-edges;
+  color:#111;
 }
 
 body.pay-page .pay-scroll::-webkit-scrollbar{ width:10px; }
 body.pay-page .pay-scroll::-webkit-scrollbar-track{
-background: rgba(0,0,0,.06);
-border-radius:999px;
+  background: rgba(0,0,0,.06);
+  border-radius:999px;
 }
 body.pay-page .pay-scroll::-webkit-scrollbar-thumb{
-background: rgba(0,0,0,.22);
-border-radius:999px;
+  background: rgba(0,0,0,.22);
+  border-radius:999px;
 }
 
 /* Grid */
 body.pay-page .pay-grid{
-display:grid;
-grid-template-columns: 1fr 1fr;
-gap:12px;
-padding:6px;
-justify-items:center;
-align-items:start;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+  padding:6px;
+  justify-items:center;
+  align-items:start;
 }
 
 @media (max-width:768px){
-body.pay-page .pay-grid{
-grid-template-columns:1fr;
-gap:12px;
-}
+  body.pay-page .pay-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
 }
 
-/* Cards — THIS is the “big white slab” fix */
+/* Cards: compact, translucent (no giant white slabs) */
 body.pay-page .pay-card{
-width:min(360px, 100%);
-margin:0 auto;
+  width:min(360px, 100%);
+  margin:0 auto;
 
-background: rgba(255,255,255,.12);
-border:1px solid rgba(0,0,0,.18);
-border-radius:14px;
-padding:10px 10px 9px;
+  background: rgba(255,255,255,.12);
+  border:1px solid rgba(0,0,0,.18);
+  border-radius:14px;
+  padding:10px 10px 9px;
 
-backdrop-filter: blur(14px) saturate(1.05);
--webkit-backdrop-filter: blur(14px) saturate(1.05);
+  backdrop-filter: blur(14px) saturate(1.05);
+  -webkit-backdrop-filter: blur(14px) saturate(1.05);
 
-box-shadow:0 10px 26px rgba(0,0,0,.16);
-color:#111;
+  box-shadow:0 10px 26px rgba(0,0,0,.16);
+  color:#111;
 }
 
 /* Type inside cards */
 body.pay-page .pay-card h2{
-margin:0 0 6px;
-font-size:11px;
-letter-spacing:.12em;
-color:#111;
-text-align:left;
+  margin:0 0 6px;
+  font-size:11px;
+  letter-spacing:.12em;
+  color:#111;
 }
 
 body.pay-page .pay-row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-margin-bottom:5px;
-color:#111;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:5px;
+  color:#111;
+}
+
+body.pay-page .pay-row-top{
+  align-items:flex-end;
+}
+
+body.pay-page .pay-idline{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
 }
 
 body.pay-page .pay-muted{
-font-size:12px;
-color:#111;
-opacity:.78;
+  font-size:12px;
+  color:#111;
+  opacity:.78;
 }
 
 body.pay-page .pay-note{
-font-size:11px;
-margin-top:8px;
-color:#111;
-opacity:.86;
+  font-size:11px;
+  margin-top:8px;
+  color:#111;
+  opacity:.86;
 }
 
 body.pay-page .pay-mini{
-margin-left:6px;
-font-size:11px;
-color:#111;
+  margin-left:0;
+  font-size:11px;
+  color:#111;
+  background: rgba(255,255,255,.45);
+  border:1px solid rgba(0,0,0,.16);
+  border-radius:999px;
+  padding:4px 8px;
+  cursor:pointer;
 }
 
+/* Total */
 body.pay-page .pay-total{
-font-size:20px;
-font-weight:800;
-letter-spacing:.02em;
-color:#111;
+  font-size:20px;
+  font-weight:800;
+  letter-spacing:.02em;
+  color:#111;
 }
 
 /* QR */
 body.pay-page .pay-qr-wrap{
-display:flex;
-justify-content:center;
-align-items:center;
-margin:10px 0 8px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:10px 0 8px;
 }
 
 body.pay-page .pay-qr{
-width:150px;
-max-width:100%;
-height:auto;
-display:block;
+  width:150px;
+  max-width:100%;
+  height:auto;
+  display:block;
 }
 
 @media (max-width:768px){
-body.pay-page .pay-qr{ width:165px; }
+  body.pay-page .pay-qr{ width:165px; }
 }
-/* === HARD PROOF: if this doesn't show, your pay rules aren't applying === */
-body.pay-page{ background:#ff00ff !important; }
-body.pay-page .pay-card{ outline:6px solid #00ff00 !important; }
