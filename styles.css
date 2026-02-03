@@ -856,6 +856,7 @@ body.pay-page{
   overflow:hidden; /* ONLY the in-tablet screen scrolls */
 }
 
+
 /* Stop porch text centering ONLY where it causes damage */
 body.pay-page .pay-shell,
 body.pay-page .tablet-screen,
@@ -1131,4 +1132,21 @@ body.pay-page .bg{
   body.pay-page .bg{
     background-image: url("./assets/tablet-mobile.png");
   }
+}
+/* =========================
+   PAY PAGE — BRIGHTER TABLET BG
+   ========================= */
+
+/* Brighten ONLY on pay.html */
+body.pay-page .bg{
+  filter: brightness(1.35) contrast(1.06) saturate(1.05);
+}
+
+/* Optional: reduce the global dark overlay on pay page */
+body.pay-page .bg::after{
+  /* your default overlay is dim-heavy; lighten it for pay */
+  background:
+    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(120% 120% at 50% 50%, transparent 62%, rgba(0,0,0,.38) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.28));
 }
