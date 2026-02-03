@@ -1115,3 +1115,11 @@ body.pay-page .pay-qr{
   body.pay-page .pay-grid{ grid-template-columns:1fr; }
   body.pay-page .pay-items{ max-height: 200px; }
 }
+/* =========================
+   PAY PAGE — MOBILE TABLET BACKGROUND
+   ========================= */
+@media (max-width: 768px){
+  body.pay-page .bg{
+    background:url("./assets/tablet-mobile.png") center top / cover no-repeat;
+  }
+}
