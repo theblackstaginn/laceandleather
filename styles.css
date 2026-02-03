@@ -920,6 +920,10 @@ padding:10px 14px 8px;
 color:#111;
 }
 
+.pay-page{
+   font-size: 15px;
+   font-weight: 500;
+}
 .pay-brand{
 font-weight:900;
 letter-spacing:.12em;
