@@ -847,7 +847,7 @@ p, h1, h2, h3, h4, h5, h6,
 }
 
 /* =========================================================
-PAY PAGE (Tablet Checkout) — CLEAN REBUILD
+PAY PAGE (Tablet Checkout) — CLEAN + STABLE
 ========================================================= */
 
 body.pay-page{
@@ -856,15 +856,23 @@ font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-se
 overflow:hidden; /* ONLY the in-tablet screen scrolls */
 }
 
-/* hard stop: prevent porch/global centering rules from affecting pay page */
-body.pay-page *{ text-align: unset; }
+/* Stop porch text centering ONLY where it causes damage */
+body.pay-page .pay-shell,
+body.pay-page .tablet-screen,
+body.pay-page .pay-scroll,
+body.pay-page .pay-grid,
+body.pay-page .pay-card{
+text-align: left;
+}
+
+/* Kill porch shadows on pay page text */
 body.pay-page p,
 body.pay-page h1, body.pay-page h2, body.pay-page h3,
 body.pay-page h4, body.pay-page h5, body.pay-page h6{
 text-shadow:none;
 }
 
-.pay-shell{
+body.pay-page .pay-shell{
 min-height:100vh;
 display:flex;
 align-items:center;
@@ -872,7 +880,7 @@ justify-content:center;
 padding:10px; /* keeps tablet off edges */
 }
 
-.tablet-wrap{
+body.pay-page .tablet-wrap{
 position:relative;
 width:100%;
 max-width:min(1200px, 96vw);
@@ -880,78 +888,68 @@ max-height:92vh;
 aspect-ratio:16 / 9;
 }
 
-.tablet-img{
+body.pay-page .tablet-img{
 width:100%;
 height:100%;
 object-fit:contain;
 display:block;
 }
 
-/* Screen region inside bezel (tweak these if needed) */
-/* Screen region inside bezel */
-.tablet-screen{
-  position:absolute;
-
-  /* TOP RIGHT BOTTOM LEFT
-     - TOP higher pushes content DOWN away from the crest
-     - RIGHT/LEFT larger pulls panels inward from bezel
-     - BOTTOM larger keeps QR off the lower edge */
-  inset: 28% 24% 28% 24%;
-
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  border-radius:16px;
-}
-
-/* (Optional) give the header a touch more breathing room */
-.pay-head{
-  padding:10px 14px 8px;
-  padding-top:12px;
+/* Screen region inside bezel (your “in and down” control) */
+body.pay-page .tablet-screen{
+position:absolute;
+inset: 28% 24% 28% 24%;
+display:flex;
+flex-direction:column;
+overflow:hidden;
+border-radius:16px;
 }
 
 /* Header */
-.pay-head{
+body.pay-page .pay-head{
 display:flex;
 justify-content:space-between;
 align-items:flex-start;
 gap:12px;
-padding:10px 14px 8px;
-color:#111;
-}
-.pay-brand{
-font-weight:900;
-letter-spacing:.12em;
-font-size:13px;
+padding:12px 14px 8px;
 color:#111;
 }
 
-.pay-sub{
-font-size:12px;
+body.pay-page .pay-brand{
+font-weight:900;
+letter-spacing:.12em;
+font-size:14px; /* slightly larger */
+color:#111;
+}
+
+body.pay-page .pay-sub{
+font-size:13px; /* slightly larger */
+font-weight:600;
 opacity:.82;
 color:#111;
 }
 
-.pay-actions{
+body.pay-page .pay-actions{
 display:flex;
 gap:8px;
 }
 
-.pay-btn{
+body.pay-page .pay-btn{
 background:rgba(255,255,255,.55);
 border:1px solid rgba(0,0,0,.18);
 border-radius:999px;
-padding:6px 10px;
+padding:7px 11px; /* slightly larger */
 cursor:pointer;
-font-size:12px;
+font-size:13px; /* slightly larger */
+font-weight:700;
 text-decoration:none;
 color:#111;
 backdrop-filter: blur(8px);
 -webkit-backdrop-filter: blur(8px);
 }
 
-/* Scroll container (the whole point) */
-.pay-scroll{
+/* The ONLY scroll container */
+body.pay-page .pay-scroll{
 flex:1;
 overflow-y:auto;
 padding:10px 18px 14px 18px;
@@ -960,18 +958,18 @@ scrollbar-gutter: stable both-edges;
 }
 
 /* Slim scrollbar */
-.pay-scroll::-webkit-scrollbar{ width:10px; }
-.pay-scroll::-webkit-scrollbar-track{
+body.pay-page .pay-scroll::-webkit-scrollbar{ width:10px; }
+body.pay-page .pay-scroll::-webkit-scrollbar-track{
 background: rgba(0,0,0,.06);
 border-radius:999px;
 }
-.pay-scroll::-webkit-scrollbar-thumb{
+body.pay-page .pay-scroll::-webkit-scrollbar-thumb{
 background: rgba(0,0,0,.22);
 border-radius:999px;
 }
 
 /* Grid */
-.pay-grid{
+body.pay-page .pay-grid{
 display:grid;
 grid-template-columns: 1fr 1fr;
 gap:12px;
@@ -980,84 +978,70 @@ justify-items:center;
 align-items:start;
 }
 
-/* Cards */
 /* =========================
-   PAY CARDS — FULLY TRANSPARENT
-   ========================= */
+PAY CARDS — FULLY TRANSPARENT
+========================= */
+body.pay-page .pay-card{
+width:min(360px, 100%);
+margin:0 auto;
+background: transparent;
+border: none;
+box-shadow: none;
+backdrop-filter: none;
+-webkit-backdrop-filter: none;
+padding:0;
 
-.pay-card{
-  width:min(360px, 100%);
-  margin:0 auto;
-
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-
-  padding: 0;
-  color:#111;
-   font-size: 15px;
-   font-weight: 500;
+color:#111;
+font-size:15px; /* slightly larger */
+font-weight:600; /* bolder */
 }
 
-.pay-card h2{
-margin:0 0 6px;
-font-size:15px;
-font-weight: 500;   
+body.pay-page .pay-card h2{
+margin:0 0 8px;
+font-size:15px; /* slightly larger */
+font-weight:900; /* bolder */
 letter-spacing:.12em;
 color:#111;
 }
 
-.pay-row{
+/* Rows */
+body.pay-page .pay-row{
 display:flex;
 justify-content:space-between;
 align-items:center;
 gap:10px;
-margin-bottom:6px;
+margin-bottom:8px;
 }
 
-.pay-row-top{
-align-items:flex-end;
-}
+body.pay-page .pay-row-top{ align-items:flex-end; }
 
-.pay-muted{
-font-size:12px;
+body.pay-page .pay-muted{
+font-size:13px; /* slightly larger */
+font-weight:700;
 opacity:.78;
 }
 
-.pay-id{
+body.pay-page .pay-id{
 display:flex;
 align-items:center;
 gap:8px;
-font-size:12px;
+font-size:13px;
+font-weight:800;
 }
 
-.pay-mini{
-border:none;
-background: rgba(255,255,255,.45);
-border:1px solid rgba(0,0,0,.14);
-border-radius:999px;
-padding:4px 8px;
-font-size:11px;
-cursor:pointer;
-}
+body.pay-page .pay-right{ text-align:right; }
 
-.pay-right{
-text-align:right;
-}
-
-.pay-total{
-font-size:20px;
+body.pay-page .pay-total{
+font-size:22px;
 font-weight:900;
 letter-spacing:.02em;
 }
 
 /* Cart list */
-.pay-items{
+body.pay-page .pay-items{
 list-style:none;
 padding:0;
-margin: 6px 0 10px;
+margin: 8px 0 12px;
 display:grid;
 gap:6px;
 
@@ -1066,56 +1050,61 @@ overflow:auto;
 padding-right:6px;
 }
 
-.pay-items::-webkit-scrollbar{ width:8px; }
-.pay-items::-webkit-scrollbar-thumb{
+body.pay-page .pay-items::-webkit-scrollbar{ width:8px; }
+body.pay-page .pay-items::-webkit-scrollbar-thumb{
 background: rgba(0,0,0,.18);
 border-radius:999px;
 }
 
-.pay-item{
+body.pay-page .pay-item{
 display:flex;
 justify-content:space-between;
 align-items:flex-start;
 gap:10px;
-padding:6px 8px;
+padding:7px 9px;
+
 border:1px solid rgba(0,0,0,.10);
 border-radius:10px;
+
+/* NOTE: the item rows are allowed a faint fill for readability.
+If you want them 100% transparent too, set this to transparent. */
 background: rgba(255,255,255,.08);
 }
 
-.pay-item-name{
-font-size:12px;
-font-weight:700;
+body.pay-page .pay-item-name{
+font-size:13px; /* slightly larger */
+font-weight:900;
 line-height:1.2;
 }
 
-.pay-item-meta{
+body.pay-page .pay-item-meta{
 display:flex;
 gap:10px;
-font-size:12px;
+font-size:13px;
 white-space:nowrap;
+font-weight:800;
 }
-.pay-item-qty{ opacity:.72; }
-.pay-item-price{ font-weight:900; }
 
-.pay-note{
-font-size:11px;
+body.pay-page .pay-item-qty{ opacity:.72; }
+body.pay-page .pay-item-price{ font-weight:900; }
+
+body.pay-page .pay-note{
+font-size:12px; /* slightly larger */
+font-weight:700;
 opacity:.86;
-margin-top:8px;
+margin-top:10px;
 }
 
-.pay-tiny{
-opacity:.78;
-}
+body.pay-page .pay-tiny{ opacity:.78; }
 
 /* QR */
-.pay-qr-wrap{
+body.pay-page .pay-qr-wrap{
 display:flex;
 justify-content:center;
 align-items:center;
 margin:10px 0 8px;
 }
-.pay-qr{
+body.pay-page .pay-qr{
 width:150px;
 max-width:100%;
 height:auto;
@@ -1124,6 +1113,6 @@ display:block;
 
 /* Responsive */
 @media (max-width: 860px){
-.pay-grid{ grid-template-columns:1fr; }
-.pay-items{ max-height: 200px; }
+body.pay-page .pay-grid{ grid-template-columns:1fr; }
+body.pay-page .pay-items{ max-height: 200px; }
 }
