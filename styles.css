@@ -1114,17 +1114,21 @@ body.pay-page .pay-qr{
    PAY PAGE — MOBILE BG (tablet-mobile.png)
    ========================= */
 
-/* Override the porch background image ONLY on pay.html */
+/* =========================================================
+   PAY PAGE BACKGROUND (tablet-web.png / tablet-mobile.png)
+========================================================= */
+
+/* Pay page uses tablet background */
 body.pay-page .bg{
-  background-image: url("./assets/tablet-mobile.png");
+  background-image: url("./assets/tablet-web.png");
   background-position: center top;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-/* Optional: if you want it to ONLY swap on small screens */
-@media (min-width: 769px){
+/* Mobile swaps to tablet-mobile.png */
+@media (max-width: 768px){
   body.pay-page .bg{
-    background-image: url("./assets/lace-bg.png");
+    background-image: url("./assets/tablet-mobile.png");
   }
 }
