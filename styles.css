@@ -856,14 +856,13 @@ body.pay-page{
   overflow:hidden; /* ONLY the in-tablet screen scrolls */
 }
 
-
 /* Stop porch text centering ONLY where it causes damage */
 body.pay-page .pay-shell,
 body.pay-page .tablet-screen,
 body.pay-page .pay-scroll,
 body.pay-page .pay-grid,
 body.pay-page .pay-card{
-  text-align: left;
+  text-align:left;
 }
 
 /* Kill porch shadows on pay page text */
@@ -873,19 +872,21 @@ body.pay-page h4, body.pay-page h5, body.pay-page h6{
   text-shadow:none;
 }
 
+/* less wasted space */
 body.pay-page .pay-shell{
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:10px; /* keeps tablet off edges */
+  padding: clamp(4px, 1vh, 10px);
 }
 
+/* tablet container */
 body.pay-page .tablet-wrap{
   position:relative;
   width:100%;
   max-width:min(1200px, 96vw);
-  max-height:92vh;
+  max-height:96vh;
   aspect-ratio:16 / 9;
 }
 
@@ -896,7 +897,7 @@ body.pay-page .tablet-img{
   display:block;
 }
 
-/* Screen region inside bezel (your “in and down” control) */
+/* Screen region inside bezel (desktop/landscape default) */
 body.pay-page .tablet-screen{
   position:absolute;
   inset: 28% 24% 28% 24%;
@@ -919,12 +920,12 @@ body.pay-page .pay-head{
 body.pay-page .pay-brand{
   font-weight:900;
   letter-spacing:.12em;
-  font-size:14px; /* slightly larger */
+  font-size:14px;
   color:#111;
 }
 
 body.pay-page .pay-sub{
-  font-size:13px; /* slightly larger */
+  font-size:13px;
   font-weight:600;
   opacity:.82;
   color:#111;
@@ -939,9 +940,9 @@ body.pay-page .pay-btn{
   background:rgba(255,255,255,.55);
   border:1px solid rgba(0,0,0,.18);
   border-radius:999px;
-  padding:7px 11px; /* slightly larger */
+  padding:7px 11px;
   cursor:pointer;
-  font-size:13px; /* slightly larger */
+  font-size:13px;
   font-weight:700;
   text-decoration:none;
   color:#111;
@@ -986,21 +987,21 @@ body.pay-page .pay-card{
   width:min(360px, 100%);
   margin:0 auto;
   background: transparent;
-  border: none;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  border:none;
+  box-shadow:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
   padding:0;
 
   color:#111;
-  font-size:15px; /* slightly larger */
-  font-weight:600; /* bolder */
+  font-size:15px;
+  font-weight:600;
 }
 
 body.pay-page .pay-card h2{
   margin:0 0 8px;
-  font-size:15px; /* slightly larger */
-  font-weight:900; /* bolder */
+  font-size:15px;
+  font-weight:900;
   letter-spacing:.12em;
   color:#111;
 }
@@ -1017,7 +1018,7 @@ body.pay-page .pay-row{
 body.pay-page .pay-row-top{ align-items:flex-end; }
 
 body.pay-page .pay-muted{
-  font-size:13px; /* slightly larger */
+  font-size:13px;
   font-weight:700;
   opacity:.78;
 }
@@ -1046,7 +1047,7 @@ body.pay-page .pay-items{
   display:grid;
   gap:6px;
 
-  max-height: 230px; /* inner scroll when lots of items */
+  max-height: 230px;
   overflow:auto;
   padding-right:6px;
 }
@@ -1066,13 +1067,11 @@ body.pay-page .pay-item{
 
   border:1px solid rgba(0,0,0,.10);
   border-radius:10px;
-
-  /* allowed faint fill for readability */
   background: rgba(255,255,255,.08);
 }
 
 body.pay-page .pay-item-name{
-  font-size:13px; /* slightly larger */
+  font-size:13px;
   font-weight:900;
   line-height:1.2;
 }
@@ -1089,7 +1088,7 @@ body.pay-page .pay-item-qty{ opacity:.72; }
 body.pay-page .pay-item-price{ font-weight:900; }
 
 body.pay-page .pay-note{
-  font-size:12px; /* slightly larger */
+  font-size:12px;
   font-weight:700;
   opacity:.86;
   margin-top:10px;
@@ -1111,20 +1110,27 @@ body.pay-page .pay-qr{
   display:block;
 }
 
-/* =========================
-   PAY PAGE — MOBILE BG (tablet-mobile.png)
-   ========================= */
-
 /* =========================================================
    PAY PAGE BACKGROUND (tablet-web.png / tablet-mobile.png)
 ========================================================= */
 
-/* Pay page uses tablet background */
+/* Pay page uses tablet-web.png by default */
 body.pay-page .bg{
   background-image: url("./assets/tablet-web.png");
   background-position: center top;
   background-size: cover;
   background-repeat: no-repeat;
+
+  /* brighten ONLY on pay.html */
+  filter: brightness(1.35) contrast(1.06) saturate(1.05);
+}
+
+/* lighten the global dark overlay ONLY on pay page */
+body.pay-page .bg::after{
+  background:
+    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(120% 120% at 50% 50%, transparent 62%, rgba(0,0,0,.38) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.28));
 }
 
 /* Mobile swaps to tablet-mobile.png */
@@ -1133,43 +1139,24 @@ body.pay-page .bg{
     background-image: url("./assets/tablet-mobile.png");
   }
 }
-/* =========================
-   PAY PAGE — BRIGHTER TABLET BG
-   ========================= */
 
-/* Brighten ONLY on pay.html */
-body.pay-page .bg{
-  filter: brightness(1.35) contrast(1.06) saturate(1.05);
-}
+/* =========================================================
+   PAY PAGE — MOBILE FIT FIX (PORTRAIT ONLY)
+   (Prevents desktop/web from getting trashed in narrow windows)
+========================================================= */
+@media (max-width: 768px) and (orientation: portrait){
 
-/* Optional: reduce the global dark overlay on pay page */
-body.pay-page .bg::after{
-  /* your default overlay is dim-heavy; lighten it for pay */
-  background:
-    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
-    radial-gradient(120% 120% at 50% 50%, transparent 62%, rgba(0,0,0,.38) 100%),
-    linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.28));
-}
-/* =========================
-   PAY PAGE — MOBILE FIT FIX
-   ========================= */
-
-@media (max-width: 768px){
-  /* Let the tablet image breathe properly on tall phones */
   body.pay-page .tablet-wrap{
     max-height: 94vh;
     width: min(520px, 96vw);
-    aspect-ratio: 9 / 16; /* phones are tall; helps scaling */
+    aspect-ratio: 9 / 16;
   }
 
-  /* Re-map the “screen window” to the portrait tablet background */
   body.pay-page .tablet-screen{
-    /* top, right, bottom, left — tune these if needed */
     inset: 28% 12% 20% 12%;
     border-radius: 14px;
   }
 
-  /* Make the header/buttons less likely to overflow */
   body.pay-page .pay-head{
     padding: 10px 12px 8px;
     gap: 10px;
@@ -1183,5 +1170,19 @@ body.pay-page .bg::after{
     padding: 6px 10px;
     font-size: 12px;
   }
+}
 
- 
+/* =========================================================
+   PAY PAGE — WEB/LANDSCAPE LOCK
+========================================================= */
+@media (min-width: 769px), (orientation: landscape){
+  body.pay-page .tablet-wrap{
+    aspect-ratio: 16 / 9;
+    max-height: 96vh;
+    width: 100%;
+    max-width: min(1200px, 96vw);
+  }
+  body.pay-page .tablet-screen{
+    inset: 28% 24% 28% 24%;
+  }
+}
