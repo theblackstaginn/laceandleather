@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Lace & Leather — Pay</title>
 
-  <!-- IMPORTANT: cache-bust this whenever you edit CSS -->
-  <link rel="stylesheet" href="./styles.css?v=PAY-001" />
+  <!-- IMPORTANT: bump this whenever you edit CSS -->
+  <link rel="stylesheet" href="./styles.css?v=PAY-002" />
 </head>
 
 <body class="pay-page">
@@ -20,7 +20,7 @@
         <header class="pay-head">
           <div class="pay-head-left">
             <div class="pay-brand">LACE &amp; LEATHER</div>
-            <div class="pay-sub">Review your cart, then scan to pay.</div>
+            <div class="pay-sub">Review your cart, confirm, then scan to pay.</div>
           </div>
 
           <div class="pay-actions">
@@ -41,7 +41,6 @@
                   <div class="pay-muted">Order ID</div>
                   <div class="pay-id">
                     <span id="orderId">—</span>
-                    <button class="pay-mini" id="copyOrderIdBtn" type="button">Copy</button>
                   </div>
                 </div>
 
@@ -56,15 +55,32 @@
               <div class="pay-note" id="emptyNote">
                 Cart is empty. Add items on the main page, then return here.
               </div>
+
+              <!-- CONFIRM -->
+              <div class="pay-confirm-wrap">
+                <button class="pay-confirm-btn" id="confirmBtn" type="button">
+                  Confirm Order
+                </button>
+                <div class="pay-confirm-status" id="confirmStatus" aria-live="polite"></div>
+              </div>
+
+              <div class="pay-note pay-tiny" id="confirmHint">
+                Confirm saves your receipt to our order log. QR appears after save.
+              </div>
             </section>
 
             <!-- RIGHT: Pay -->
             <section class="pay-card" aria-label="Payment">
               <h2>SCAN TO PAY</h2>
 
+              <!-- Hidden until confirm succeeds -->
               <div class="pay-qr-wrap" id="qrWrap">
-                <!-- replace path with your actual QR file -->
                 <img class="pay-qr" src="./assets/lace-qr.png" alt="PayPal QR Code" />
+              </div>
+
+              <!-- Shown until confirm succeeds -->
+              <div class="pay-qr-blocked" id="qrBlocked">
+                Confirm your order to reveal the QR code.
               </div>
 
               <div class="pay-note">
@@ -84,11 +100,16 @@
   </main>
 
   <script>
-    // ---------- Storage keys ----------
-    const CART_KEY = "ll_cart";        // array of {name, price, qty}
-    const ORDER_KEY = "ll_order_id";   // string
+    // =============================
+    // CONFIG
+    // =============================
+    const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzQSkg_6m84LsodueoI9LN6VuXhuWpfRtYNlyzleZ_I0XghmU-ra49-Bmb4SaoSG8uI/exec";
 
-    // ---------- Helpers ----------
+    // Storage keys
+    const CART_KEY  = "ll_cart";        // array of {name, price, qty}
+    const ORDER_KEY = "ll_order_id";    // string
+
+    // Helpers
     const $ = (id) => document.getElementById(id);
 
     function money(n){
@@ -101,7 +122,6 @@
     }
 
     function genOrderId(){
-      // short + readable
       const a = Math.random().toString(16).slice(2,6).toUpperCase();
       const b = Math.random().toString(16).slice(2,6).toUpperCase();
       return `${a}-${b}`;
@@ -126,53 +146,14 @@
       return id;
     }
 
-    function clearOrderId(){
+    function newOrderId(){
       const id = genOrderId();
       localStorage.setItem(ORDER_KEY, id);
       return id;
     }
 
-    // ---------- Render ----------
-    function render(){
-      const cart = loadCart();
-      const list = $("cartList");
-      const emptyNote = $("emptyNote");
-      list.innerHTML = "";
-
-      let subtotal = 0;
-
-      for(const item of cart){
-        const name = (item?.name ?? "Item").toString();
-        const qty  = Math.max(1, Number(item?.qty ?? 1));
-        const price = Number(item?.price ?? 0);
-
-        subtotal += (price * qty);
-
-        const li = document.createElement("li");
-        li.className = "pay-item";
-        li.innerHTML = `
-          <div class="pay-item-left">
-            <div class="pay-item-name">${escapeHtml(name)}</div>
-          </div>
-          <div class="pay-item-meta">
-            <span class="pay-item-qty">x${qty}</span>
-            <span class="pay-item-price">${money(price * qty)}</span>
-          </div>
-        `;
-        list.appendChild(li);
-      }
-
-      $("subtotal").textContent = money(subtotal);
-
-      const hasItems = cart.length > 0;
-      emptyNote.style.display = hasItems ? "none" : "block";
-
-      // Ensure order id exists
-      $("orderId").textContent = loadOrderId();
-    }
-
     function escapeHtml(str){
-      return str
+      return String(str)
         .replaceAll("&","&amp;")
         .replaceAll("<","&lt;")
         .replaceAll(">","&gt;")
@@ -180,28 +161,145 @@
         .replaceAll("'","&#039;");
     }
 
-    // ---------- Events ----------
+    function calcSubtotal(cart){
+      let subtotal = 0;
+      for(const item of cart){
+        const qty  = Math.max(1, Number(item?.qty ?? 1));
+        const price = Number(item?.price ?? 0);
+        subtotal += (price * qty);
+      }
+      return subtotal;
+    }
+
+    // =============================
+    // UI state: QR hidden until confirm succeeds
+    // =============================
+    function setQrReady(isReady){
+      document.body.classList.toggle("qr-ready", !!isReady);
+      $("qrBlocked").style.display = isReady ? "none" : "block";
+      $("qrWrap").style.display = isReady ? "flex" : "none";
+    }
+
+    function setConfirmStatus(msg, kind){
+      const el = $("confirmStatus");
+      el.textContent = msg || "";
+      el.classList.remove("ok","bad");
+      if(kind) el.classList.add(kind);
+    }
+
+    function setConfirmBusy(busy){
+      $("confirmBtn").disabled = !!busy;
+      $("confirmBtn").classList.toggle("busy", !!busy);
+    }
+
+    // =============================
+    // Render
+    // =============================
+    function render(){
+      const cart = loadCart();
+      const list = $("cartList");
+      const emptyNote = $("emptyNote");
+      list.innerHTML = "";
+
+      const subtotal = calcSubtotal(cart);
+      $("subtotal").textContent = money(subtotal);
+
+      const hasItems = cart.length > 0;
+      emptyNote.style.display = hasItems ? "none" : "block";
+
+      $("orderId").textContent = loadOrderId();
+
+      // If cart is empty, QR should not be ready
+      if(!hasItems){
+        setQrReady(false);
+        setConfirmStatus("", null);
+        setConfirmBusy(false);
+      }
+    }
+
+    // =============================
+    // POST receipt to Google Sheet
+    // =============================
+    async function postReceipt(){
+      const cart = loadCart();
+      if(!cart.length){
+        setConfirmStatus("Cart is empty.", "bad");
+        return;
+      }
+
+      const orderId = loadOrderId();
+      const subtotal = calcSubtotal(cart);
+
+      // Build a clean receipt payload
+      const receipt = {
+        orderId,
+        createdAt: new Date().toISOString(),
+        currency: "USD",
+        subtotal: Number(subtotal.toFixed(2)),
+        items: cart.map(it => ({
+          name: String(it?.name ?? "Item"),
+          qty: Math.max(1, Number(it?.qty ?? 1)),
+          price: Number(Number(it?.price ?? 0).toFixed(2))
+        })),
+        userAgent: navigator.userAgent
+      };
+
+      setConfirmBusy(true);
+      setConfirmStatus("Saving receipt…", null);
+
+      try{
+        const res = await fetch(ENDPOINT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(receipt)
+        });
+
+        // Apps Script sometimes returns 200 with text
+        const text = await res.text();
+
+        if(!res.ok){
+          setConfirmStatus("Save failed. Try again.", "bad");
+          setConfirmBusy(false);
+          return;
+        }
+
+        // Success: reveal QR
+        setConfirmStatus("Saved. Scan to pay.", "ok");
+        setQrReady(true);
+        setConfirmBusy(false);
+
+      }catch(err){
+        setConfirmStatus("Network error. Try again.", "bad");
+        setConfirmBusy(false);
+      }
+    }
+
+    // =============================
+    // Events
+    // =============================
     $("clearCartBtn").addEventListener("click", () => {
       saveCart([]);
-      clearOrderId();  // fresh order id after wipe
+      newOrderId();           // fresh order id after wipe
+      setQrReady(false);      // hide QR again
+      setConfirmStatus("", null);
+      setConfirmBusy(false);
       render();
-      // scroll to top of in-screen area so it "feels" responsive
       $("payScroll").scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    $("copyOrderIdBtn").addEventListener("click", async () => {
-      const id = $("orderId").textContent.trim();
-      try{
-        await navigator.clipboard.writeText(id);
-        $("copyOrderIdBtn").textContent = "Copied";
-        setTimeout(() => $("copyOrderIdBtn").textContent = "Copy", 900);
-      }catch{
-        // fallback: do nothing
+    $("confirmBtn").addEventListener("click", () => {
+      // do not re-save if already ready
+      if(document.body.classList.contains("qr-ready")){
+        setConfirmStatus("Already saved. Scan to pay.", "ok");
+        return;
       }
+      postReceipt();
     });
 
-    // ---------- Boot ----------
+    // Boot
+    setQrReady(false);
     render();
+
     window.addEventListener("storage", (e) => {
       if(e.key === CART_KEY || e.key === ORDER_KEY) render();
     });
