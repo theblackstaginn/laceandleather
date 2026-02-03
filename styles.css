@@ -1111,33 +1111,40 @@ body.pay-page .pay-qr{
 }
 
 /* =========================================================
-   PAY PAGE BACKGROUND (tablet-web.png / tablet-mobile.png)
+PAY PAGE BACKGROUND (tablet-web.png / tablet-mobile.png)
+Fix: stop "blown up" zoom/crop by using CONTAIN.
 ========================================================= */
 
-/* Pay page uses tablet-web.png by default */
 body.pay-page .bg{
-  background-image: url("./assets/tablet-web.png");
-  background-position: center top;
-  background-size: cover;
-  background-repeat: no-repeat;
+background-image: url("./assets/tablet-web.png");
+background-position: center center;
+background-repeat: no-repeat;
 
-  /* brighten ONLY on pay.html */
-  filter: brightness(1.35) contrast(1.06) saturate(1.05);
+/* KEY: show the whole tablet, no cropping */
+background-size: contain;
+
+/* fill the leftover space nicely */
+background-color: #0b0c10;
+
+/* keep your brighten */
+filter: brightness(1.35) contrast(1.06) saturate(1.05);
 }
 
-/* lighten the global dark overlay ONLY on pay page */
-body.pay-page .bg::after{
-  background:
-    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
-    radial-gradient(120% 120% at 50% 50%, transparent 62%, rgba(0,0,0,.38) 100%),
-    linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.28));
-}
-
-/* Mobile swaps to tablet-mobile.png */
+/* Mobile: you can still keep contain (most consistent) */
 @media (max-width: 768px){
-  body.pay-page .bg{
-    background-image: url("./assets/tablet-mobile.png");
-  }
+body.pay-page .bg{
+background-image: url("./assets/tablet-mobile.png");
+background-size: contain;
+background-position: center center;
+}
+}
+
+/* Optional: lighten overlay ONLY on pay page */
+body.pay-page .bg::after{
+background:
+radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
+radial-gradient(120% 120% at 50% 50%, transparent 62%, rgba(0,0,0,.38) 100%),
+linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.28));
 }
 
 /* =========================================================
