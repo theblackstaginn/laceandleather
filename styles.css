@@ -1150,3 +1150,49 @@ body.pay-page .bg::after{
     radial-gradient(120% 120% at 50% 50%, transparent 62%, rgba(0,0,0,.38) 100%),
     linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.28));
 }
+/* =========================
+   PAY PAGE — MOBILE FIT FIX
+   ========================= */
+
+@media (max-width: 768px){
+  /* Let the tablet image breathe properly on tall phones */
+  body.pay-page .tablet-wrap{
+    max-height: 94vh;
+    width: min(520px, 96vw);
+    aspect-ratio: 9 / 16; /* phones are tall; helps scaling */
+  }
+
+  /* Re-map the “screen window” to the portrait tablet background */
+  body.pay-page .tablet-screen{
+    /* top, right, bottom, left — tune these if needed */
+    inset: 33% 12% 23% 12%;
+    border-radius: 14px;
+  }
+
+  /* Make the header/buttons less likely to overflow */
+  body.pay-page .pay-head{
+    padding: 10px 12px 8px;
+    gap: 10px;
+  }
+
+  body.pay-page .pay-actions{
+    gap: 6px;
+  }
+
+  body.pay-page .pay-btn{
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  /* One column on mobile */
+  body.pay-page .pay-grid{
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 4px;
+    justify-items: stretch;
+  }
+
+  body.pay-page .pay-card{
+    width: 100%;
+  }
+}
