@@ -1,4 +1,4 @@
-<!-- pay.html (FULL) — Lace & Leather / Tablet Pay Screen (Viewport-fit + Screen-rect fixed) -->
+<!-- pay.html (FULL) — Lace & Leather / Tablet Pay Screen (Viewport-fit + Scroll + Screen-rect tuned) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,11 +17,11 @@
       --text:#efe9df;
       --muted: rgba(239,233,223,.78);
 
-      /* tablet screen rectangle (tuned tighter to keep UI inside frame) */
-      --screenLeft: 14.0%;
-      --screenTop: 23.0%;
-      --screenW: 72.0%;
-      --screenH: 56.5%;
+      /* tablet screen rectangle (tucked in slightly on the sides) */
+      --screenLeft: 14.7%;
+      --screenTop:  23.0%;
+      --screenW:    70.8%;
+      --screenH:    56.5%;
 
       --glow: rgba(0,0,0,.78);
       --line: rgba(255,255,255,.16);
@@ -57,7 +57,7 @@
     .tablet{
       position:relative;
 
-      height: min(92vh, 760px);   /* viewport-fit */
+      height: min(92vh, 760px);
       width: auto;
       aspect-ratio: 16 / 9;
 
@@ -65,7 +65,6 @@
       filter: brightness(1.10) contrast(1.06) saturate(1.05);
       transform: translateZ(0);
 
-      /* prevent any accidental overflow */
       max-width: 96vw;
       max-height: 92vh;
     }
@@ -76,12 +75,12 @@
         background: url("./assets/tablet-mobile.png") center / contain no-repeat;
       }
 
-      /* mobile often needs slightly different rect */
+      /* mobile screen rect (also tucked in slightly) */
       :root{
-        --screenLeft: 13.4%;
-        --screenTop: 22.7%;
-        --screenW: 73.2%;
-        --screenH: 57.2%;
+        --screenLeft: 14.2%;
+        --screenTop:  22.7%;
+        --screenW:    71.6%;
+        --screenH:    57.2%;
       }
     }
 
@@ -98,8 +97,11 @@
       gap:12px;
 
       padding:14px;
-      background: transparent; /* requested */
-      overflow:hidden;
+      background: transparent;
+
+      /* ✅ scroll if content exceeds tablet screen */
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     /* Top bar */
@@ -109,6 +111,14 @@
       justify-content:space-between;
       gap:10px;
       flex-wrap:wrap;
+      /* keep topbar visible above scroll content */
+      position:sticky;
+      top:0;
+      z-index:2;
+      padding-bottom:8px;
+      background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,0));
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
     }
 
     .brand{
@@ -149,11 +159,11 @@
 
     /* Main layout */
     .grid{
-      flex:1;
+      flex:0 0 auto;
       display:grid;
       grid-template-columns: 1.05fr .95fr;
       gap:14px;
-      align-items:stretch;
+      align-items:start;
       min-height:0;
     }
 
@@ -165,13 +175,17 @@
     .panel{
       border:1px solid rgba(255,255,255,.14);
       border-radius:14px;
-      background: transparent; /* requested */
-      box-shadow:none;         /* requested */
+      background: transparent;
+      box-shadow:none;
       padding:12px;
+
       display:flex;
       flex-direction:column;
-      min-height:0;
-      overflow:hidden;
+      gap:10px;
+
+      /* ✅ allow panel to scroll internally if needed */
+      overflow:auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .h{
@@ -181,17 +195,13 @@
       font-size:11px;
       opacity:.92;
       text-shadow: 0 2px 12px var(--glow);
-      margin-bottom:8px;
+      margin:0;
       text-align:center;
     }
 
     .cart{
-      flex:1;
-      overflow:auto;
-      padding-right:4px;
       display:grid;
       gap:10px;
-      min-height:0;
     }
 
     .item{
@@ -265,7 +275,6 @@
     }
 
     .sumrow{
-      margin-top:10px;
       padding-top:10px;
       border-top:1px solid rgba(255,255,255,.14);
       display:flex;
@@ -283,13 +292,13 @@
       letter-spacing:.04em;
       text-align:center;
       text-shadow: 0 2px 14px var(--glow);
-      margin: 2px 0 6px;
+      margin: 0;
     }
 
     .qr-wrap{
       display:flex;
       justify-content:center;
-      padding:6px 0 6px;
+      padding:2px 0 0;
     }
 
     .qr{
@@ -336,7 +345,6 @@
     }
 
     .cta{
-      margin-top:8px;
       display:flex;
       gap:10px;
       justify-content:center;
@@ -350,7 +358,6 @@
     }
 
     .warn{
-      margin-top:10px;
       font-size:12px;
       padding:10px 12px;
       border-radius:12px;
@@ -362,11 +369,12 @@
     }
 
     .fine{
-      margin-top:2px;
+      margin-top:10px;
       font-size:11px;
       color: rgba(239,233,223,.70);
       text-shadow: 0 2px 12px var(--glow);
       text-align:center;
+      padding-bottom:6px;
     }
   </style>
 </head>
@@ -391,8 +399,7 @@
         <div class="grid">
           <!-- LEFT: CART -->
           <div class="panel">
-            <div class="h">Cart</div>
-
+            <p class="h">Cart</p>
             <div class="cart" id="cart"></div>
 
             <div class="sumrow">
@@ -405,9 +412,9 @@
 
           <!-- RIGHT: PAY -->
           <div class="panel">
-            <div class="h">Scan to pay</div>
+            <p class="h">Scan to pay</p>
 
-            <div class="amount" id="amount">$0.00</div>
+            <p class="amount" id="amount">$0.00</p>
 
             <div class="qr-wrap">
               <img id="qr" class="qr" alt="PayPal QR code" src="./assets/lace-qr.png" />
