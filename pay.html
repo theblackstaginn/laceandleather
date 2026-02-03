@@ -3,20 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Lace & Leather — Pay</title>
+  <title>Lace &amp; Leather — Pay</title>
 
   <!-- IMPORTANT: bump this whenever you edit CSS -->
-  <link rel="stylesheet" href="./styles.css?v=PAY-002" />
+  <link rel="stylesheet" href="./styles.css?v=PAY-004" />
 </head>
 
 <body class="pay-page">
-  <body class="pay-page">
   <div class="bg" aria-hidden="true"></div>
-  <main class="pay-shell" aria-label="Checkout">
-    ...
+
   <main class="pay-shell" aria-label="Checkout">
     <section class="tablet-wrap" aria-label="Tablet checkout screen">
-      
       <!-- Screen overlay area (content lives here) -->
       <div class="tablet-screen">
         <header class="pay-head">
@@ -41,9 +38,7 @@
               <div class="pay-row pay-row-top">
                 <div>
                   <div class="pay-muted">Order ID</div>
-                  <div class="pay-id">
-                    <span id="orderId">—</span>
-                  </div>
+                  <div class="pay-id"><span id="orderId">—</span></div>
                 </div>
 
                 <div class="pay-right">
@@ -60,9 +55,7 @@
 
               <!-- CONFIRM -->
               <div class="pay-confirm-wrap">
-                <button class="pay-confirm-btn" id="confirmBtn" type="button">
-                  Confirm Order
-                </button>
+                <button class="pay-confirm-btn" id="confirmBtn" type="button">Confirm Order</button>
                 <div class="pay-confirm-status" id="confirmStatus" aria-live="polite"></div>
               </div>
 
@@ -85,9 +78,7 @@
                 Confirm your order to reveal the QR code.
               </div>
 
-              <div class="pay-note">
-                Open PayPal → Scan → Pay exact total.
-              </div>
+              <div class="pay-note">Open PayPal → Scan → Pay exact total.</div>
 
               <div class="pay-note pay-tiny">
                 Tip: if PayPal tries to “guess” the amount, ignore it — match the total shown on the left.
@@ -154,15 +145,6 @@
       return id;
     }
 
-    function escapeHtml(str){
-      return String(str)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-
     function calcSubtotal(cart){
       let subtotal = 0;
       for(const item of cart){
@@ -211,7 +193,25 @@
 
       $("orderId").textContent = loadOrderId();
 
-      // If cart is empty, QR should not be ready
+      if(hasItems){
+        for(const item of cart){
+          const name = String(item?.name ?? "Item");
+          const qty  = Math.max(1, Number(item?.qty ?? 1));
+          const price = Number(item?.price ?? 0);
+
+          const li = document.createElement("li");
+          li.className = "pay-item";
+          li.innerHTML = `
+            <div class="pay-item-name">${name}</div>
+            <div class="pay-item-meta">
+              <span class="pay-item-qty">x${qty}</span>
+              <span class="pay-item-price">${money(price * qty)}</span>
+            </div>
+          `;
+          list.appendChild(li);
+        }
+      }
+
       if(!hasItems){
         setQrReady(false);
         setConfirmStatus("", null);
@@ -232,7 +232,6 @@
       const orderId = loadOrderId();
       const subtotal = calcSubtotal(cart);
 
-      // Build a clean receipt payload
       const receipt = {
         orderId,
         createdAt: new Date().toISOString(),
@@ -256,8 +255,7 @@
           body: JSON.stringify(receipt)
         });
 
-        // Apps Script sometimes returns 200 with text
-        const text = await res.text();
+        await res.text();
 
         if(!res.ok){
           setConfirmStatus("Save failed. Try again.", "bad");
@@ -265,7 +263,6 @@
           return;
         }
 
-        // Success: reveal QR
         setConfirmStatus("Saved. Scan to pay.", "ok");
         setQrReady(true);
         setConfirmBusy(false);
@@ -281,8 +278,8 @@
     // =============================
     $("clearCartBtn").addEventListener("click", () => {
       saveCart([]);
-      newOrderId();           // fresh order id after wipe
-      setQrReady(false);      // hide QR again
+      newOrderId();
+      setQrReady(false);
       setConfirmStatus("", null);
       setConfirmBusy(false);
       render();
@@ -290,7 +287,6 @@
     });
 
     $("confirmBtn").addEventListener("click", () => {
-      // do not re-save if already ready
       if(document.body.classList.contains("qr-ready")){
         setConfirmStatus("Already saved. Scan to pay.", "ok");
         return;
