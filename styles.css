@@ -1067,3 +1067,6 @@ display:block;
 @media (max-width:768px){
 body.pay-page .pay-qr{ width:165px; }
 }
+/* === HARD PROOF: if this doesn't show, your pay rules aren't applying === */
+body.pay-page{ background:#ff00ff !important; }
+body.pay-page .pay-card{ outline:6px solid #00ff00 !important; }
