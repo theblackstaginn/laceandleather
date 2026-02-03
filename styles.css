@@ -1110,11 +1110,6 @@ body.pay-page .pay-qr{
   display:block;
 }
 
-/* Responsive */
-@media (max-width: 860px){
-  body.pay-page .pay-grid{ grid-template-columns:1fr; }
-  body.pay-page .pay-items{ max-height: 200px; }
-}
 /* =========================
    PAY PAGE — MOBILE TABLET BACKGROUND
    ========================= */
