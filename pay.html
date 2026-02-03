@@ -2,493 +2,151 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
   <title>Lace & Leather — Pay</title>
-  <meta name="theme-color" content="#0b0f14" />
-  <link rel="icon" href="./favicon.png" />
-  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <meta name="robots" content="noindex,nofollow" />
 
-  <style>
-    /* =========================
-       PAY PAGE (SELF-CONTAINED)
-       Nothing from styles.css touches this page.
-       ========================= */
+  <!-- Clean, readable font just for pay screen -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-    :root{
-      /* 👇 ONLY 4 NUMBERS YOU TUNE */
-      --cut-l: 7.1%;
-      --cut-r: 7.1%;
-      --cut-t: 15.9%;
-      --cut-b: 15.8%;
-
-      /* inner padding of the screen UI */
-      --ui-pad-x: 18px;
-      --ui-pad-y: 12px;
-
-      /* QR sizing cap */
-      --qr-max: 235px;     /* reduce if your QR still clips */
-    }
-
-    *{ box-sizing:border-box; }
-
-    html, body{
-      height:100%;
-      margin:0;
-      overflow:hidden; /* kill browser scrollbar */
-      background:#06070a;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      color:#0b0b0b;
-    }
-
-    /* Stage that always fits viewport */
-    .pay-stage{
-      height:100svh;
-      width:100vw;
-      display:grid;
-      place-items:center;
-      padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right))
-               max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
-    }
-
-    /* Tablet frame wrapper */
-    .tablet{
-      position:relative;
-      width:min(1280px, 98vw);
-      max-height: 94svh;
-      aspect-ratio: 16 / 9;
-      display:grid;
-      place-items:center;
-    }
-
-    /* The tablet image itself ALWAYS fits */
-    .tablet img{
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      display:block;
-      filter: drop-shadow(0 22px 60px rgba(0,0,0,.65));
-      user-select:none;
-      -webkit-user-drag:none;
-      pointer-events:none;
-    }
-
-    /* Screen cutout overlay (this is the “inside the tablet screen”) */
-    .screen{
-      position:absolute;
-      left: var(--cut-l);
-      right: var(--cut-r);
-      top: var(--cut-t);
-      bottom: var(--cut-b);
-
-      border-radius: 12px;
-      overflow:hidden;              /* hard clip: keeps scrollbars inside */
-      display:flex;
-      flex-direction:column;
-
-      /* subtle “glass” so text stays readable on bright tablet art */
-      background: rgba(255,255,255,.08);
-      backdrop-filter: blur(1px);
-    }
-
-    /* Header */
-    .header{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-
-      padding: 10px var(--ui-pad-x) 8px;
-      color:#0b0b0b;                /* black text */
-    }
-
-    .brand-title{
-      font-weight:900;
-      letter-spacing:.12em;
-      font-size:14px;
-      line-height:1.1;
-    }
-    .brand-sub{
-      margin-top:3px;
-      font-size:12px;
-      opacity:.9;
-    }
-
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-
-    .pill{
-      appearance:none;
-      border:1px solid rgba(0,0,0,.20);
-      background: rgba(255,255,255,.28);
-      color:#0b0b0b;
-      border-radius:999px;
-      padding:8px 12px;
-      cursor:pointer;
-      text-decoration:none;
-      font-weight:800;
-      font-size:12px;
-    }
-
-    /* ONLY SCROLLER — scrollbar stays INSIDE screen */
-    .scroll{
-      flex:1;
-      overflow:auto;
-      -webkit-overflow-scrolling: touch;
-      padding: var(--ui-pad-y) var(--ui-pad-x) calc(var(--ui-pad-y) + 2px);
-    }
-
-    /* Layout inside screen */
-    .grid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:12px;
-      align-items:start;
-      width:100%;
-      max-width:100%;
-    }
-
-    .card{
-      border:1px solid rgba(0,0,0,.16);
-      background: rgba(255,255,255,.22);
-      border-radius:14px;
-      padding:12px;
-      color:#0b0b0b; /* all text black */
-      min-width:0;
-    }
-
-    .h2{
-      margin:0 0 10px;
-      font-size:13px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      font-weight:900;
-    }
-
-    .cart{
-      display:grid;
-      gap:8px;
-      margin-bottom:10px;
-    }
-
-    .line{
-      border:1px solid rgba(0,0,0,.12);
-      background: rgba(255,255,255,.20);
-      border-radius:12px;
-      padding:10px;
-      min-width:0;
-    }
-    .line-name{ font-weight:900; font-size:13px; margin-bottom:2px; }
-    .line-meta{ font-size:12px; opacity:.9; }
-
-    .row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-top:10px;
-      font-size:12px;
-    }
-
-    .money{ font-weight:900; font-size:13px; }
-
-    .order{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      min-width:0;
-    }
-    .order-id{
-      font-weight:900;
-      letter-spacing:.08em;
-      font-size:12px;
-      white-space:nowrap;
-    }
-
-    .mini{
-      appearance:none;
-      border:1px solid rgba(0,0,0,.20);
-      background: rgba(255,255,255,.28);
-      color:#0b0b0b;
-      border-radius:999px;
-      padding:6px 10px;
-      cursor:pointer;
-      font-weight:900;
-      font-size:12px;
-      white-space:nowrap;
-    }
-
-    /* QR column */
-    .qr-top{
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-    }
-
-    .qr-label{
-      font-weight:900;
-      letter-spacing:.14em;
-      font-size:12px;
-      text-transform:uppercase;
-      opacity:.95;
-    }
-
-    .amount{
-      font-weight:900;
-      font-size: clamp(26px, 3.2vw, 44px);
-      line-height:1;
-    }
-
-    .qr-wrap{
-      border:1px solid rgba(0,0,0,.14);
-      background: rgba(255,255,255,.28);
-      border-radius:14px;
-      padding:10px;
-      display:grid;
-      place-items:center;
-      width:100%;
-      max-width:100%;
-    }
-
-    /* QR is capped so the full code is visible */
-    .qr{
-      width: min(var(--qr-max), 34vw);
-      max-width:100%;
-      height:auto;
-      object-fit:contain;
-      display:block;
-    }
-
-    .pay-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-
-    .cta, .ghost{
-      appearance:none;
-      border-radius:999px;
-      padding:10px 12px;
-      cursor:pointer;
-      font-weight:900;
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:#0b0b0b;
-      border:1px solid rgba(0,0,0,.20);
-      background: rgba(255,255,255,.28);
-    }
-    .ghost{ background: rgba(255,255,255,.18); }
-
-    .fine{
-      margin-top:10px;
-      font-size:12px;
-      opacity:.9;
-    }
-
-    .empty{
-      padding:8px 0;
-      font-size:13px;
-      opacity:.95;
-    }
-
-    /* Responsive stack */
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
-      :root{ --qr-max: 250px; }
-    }
-
-    /* Optional: debug outlines if you add ?debug=1 */
-    .debug .screen{ outline: 2px solid rgba(255,70,70,.9); }
-  </style>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
-<body>
-  <main class="pay-stage" id="stage">
-    <section class="tablet" aria-label="Tablet checkout">
+<body class="pay-page">
+  <main class="pay-shell">
+    <div class="tablet-wrap">
 
-      <!-- ✅ CHANGE THIS FILENAME if your tablet art is named differently -->
-      <img src="./assets/pay-tablet.png" alt="" aria-hidden="true" />
+      <!-- Desktop tablet -->
+      <img
+        class="tablet-img tablet-desktop"
+        src="./assets/tablet-web.png"
+        alt=""
+        aria-hidden="true"
+      />
 
-      <div class="screen" role="region" aria-label="Screen">
-        <header class="header">
+      <!-- Mobile tablet -->
+      <img
+        class="tablet-img tablet-mobile"
+        src="./assets/tablet-mobile.png"
+        alt=""
+        aria-hidden="true"
+      />
+
+      <!-- SCREEN (clipped to tablet interior) -->
+      <section class="tablet-screen">
+        <!-- HEADER -->
+        <header class="pay-head">
           <div>
-            <div class="brand-title">LACE &amp; LEATHER</div>
-            <div class="brand-sub">Cart + QR checkout (PayPal)</div>
+            <div class="pay-brand">LACE &amp; LEATHER</div>
+            <div class="pay-sub">Cart + QR checkout (PayPal)</div>
           </div>
-          <div class="actions">
-            <a class="pill" href="./index.html">Back</a>
-            <button class="pill" type="button" id="clearCartBtn">Clear cart</button>
+
+          <div class="pay-actions">
+            <a class="pay-btn" href="./index.html">Back</a>
+            <button class="pay-btn" id="clearCart">Clear cart</button>
           </div>
         </header>
 
-        <div class="scroll">
-          <div class="grid">
-            <section class="card" aria-label="Cart">
-              <h2 class="h2">Cart</h2>
+        <!-- SCROLLABLE CONTENT -->
+        <div class="pay-scroll">
+          <div class="pay-grid">
+            <!-- CART -->
+            <section class="pay-card">
+              <h2>CART</h2>
 
-              <div class="cart" id="cartList"></div>
+              <p class="pay-muted" id="emptyMsg">Cart is empty.</p>
 
-              <div class="row">
+              <div class="pay-row">
                 <span>Subtotal</span>
-                <span class="money" id="subtotal">$0.00</span>
+                <strong id="subtotal">$0.00</strong>
               </div>
 
-              <div class="row">
+              <div class="pay-row">
                 <span>Order ID</span>
-                <span class="order">
-                  <span class="order-id" id="orderId">—</span>
-                  <button class="mini" type="button" id="copyOrderBtn">Copy</button>
+                <span>
+                  <code id="orderId">—</code>
+                  <button class="pay-mini" id="copyOrder">Copy</button>
                 </span>
               </div>
 
-              <div class="fine">
+              <p class="pay-note">
                 This page replaces your cart modal. Review items, then scan/pay.
-              </div>
+              </p>
             </section>
 
-            <section class="card" aria-label="Scan to pay">
-              <div class="qr-top">
-                <div class="qr-label">Scan to pay</div>
-                <div class="amount" id="totalBig">$0.00</div>
+            <!-- QR -->
+            <section class="pay-card">
+              <div class="pay-row">
+                <h2>SCAN TO PAY</h2>
+                <strong class="pay-total" id="total">$0.00</strong>
               </div>
 
-              <div class="qr-wrap">
-                <img class="qr" src="./assets/lace-qr.png" alt="PayPal QR code" />
+              <div class="pay-qr-wrap">
+                <img
+                  src="./assets/lace-qr.png"
+                  class="pay-qr"
+                  alt="PayPal QR code"
+                />
               </div>
 
-              <div class="pay-actions">
-                <button class="cta" type="button" id="openPaypalBtn">Open PayPal</button>
-                <button class="ghost" type="button" id="paidBtn">I paid</button>
-              </div>
-
-              <div class="fine">
-                QR code uses the file <strong>assets/lace-qr.png</strong>.
-              </div>
+              <p class="pay-muted">
+                Open PayPal → Scan → Pay exact total.
+              </p>
             </section>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 
   <script>
     (() => {
-      "use strict";
-
-      // Debug outline with ?debug=1
-      const stage = document.getElementById("stage");
-      if (new URLSearchParams(location.search).get("debug") === "1") {
-        document.documentElement.classList.add("debug");
-      }
-
-      const CART_KEY  = "ll_cart";
+      const CART_KEY = "ll_cart";
       const ORDER_KEY = "ll_order_id";
 
-      // Optional PayPal.me handle (button opens it if set)
-      const PAYPAL_ME_HANDLE = ""; // e.g. "YourHandle"
+      const subtotalEl = document.getElementById("subtotal");
+      const totalEl = document.getElementById("total");
+      const orderEl = document.getElementById("orderId");
+      const emptyMsg = document.getElementById("emptyMsg");
 
-      const money = (n) =>
-        Number(n || 0).toLocaleString(undefined, { style:"currency", currency:"USD" });
+      const money = n =>
+        Number(n).toLocaleString(undefined, { style:"currency", currency:"USD" });
 
       const safeId = () =>
-        Math.random().toString(16).slice(2, 6).toUpperCase() + "-" +
-        Math.random().toString(16).slice(2, 6).toUpperCase();
+        Math.random().toString(16).slice(2,6).toUpperCase() + "-" +
+        Math.random().toString(16).slice(2,6).toUpperCase();
 
-      const ensureOrderId = () => {
-        let id = localStorage.getItem(ORDER_KEY);
-        if (!id || id === "—") {
-          id = safeId();
-          localStorage.setItem(ORDER_KEY, id);
-        }
-        return id;
+      const cart = (() => {
+        try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+        catch { return []; }
+      })();
+
+      let total = cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
+
+      subtotalEl.textContent = money(total);
+      totalEl.textContent = money(total);
+
+      if (!cart.length) emptyMsg.style.display = "block";
+      else emptyMsg.style.display = "none";
+
+      let oid = localStorage.getItem(ORDER_KEY);
+      if (!oid) {
+        oid = safeId();
+        localStorage.setItem(ORDER_KEY, oid);
+      }
+      orderEl.textContent = oid;
+
+      document.getElementById("copyOrder").onclick = () =>
+        navigator.clipboard.writeText(oid);
+
+      document.getElementById("clearCart").onclick = () => {
+        localStorage.removeItem(CART_KEY);
+        localStorage.removeItem(ORDER_KEY);
+        location.reload();
       };
-
-      const readCart = () => {
-        try {
-          const raw = localStorage.getItem(CART_KEY);
-          const arr = raw ? JSON.parse(raw) : [];
-          return Array.isArray(arr) ? arr : [];
-        } catch { return []; }
-      };
-
-      const writeCart = (arr) => localStorage.setItem(CART_KEY, JSON.stringify(arr || []));
-
-      const normalizeItem = (it) => {
-        if (typeof it === "string") return { name: it, price: 0, qty: 1 };
-        const name = it.name ?? it.title ?? "Item";
-        const price = Number(it.price ?? it.amount ?? 0);
-        const qty = Math.max(1, Number(it.qty ?? it.quantity ?? 1));
-        return { name, price, qty };
-      };
-
-      const calcSubtotal = (items) =>
-        items.reduce((sum, it) => sum + (Number(it.price||0) * Number(it.qty||1)), 0);
-
-      const esc = (s) =>
-        String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-
-      const cartList  = document.getElementById("cartList");
-      const subtotalEl= document.getElementById("subtotal");
-      const totalBigEl= document.getElementById("totalBig");
-      const orderIdEl = document.getElementById("orderId");
-
-      const render = () => {
-        const items = readCart().map(normalizeItem);
-        orderIdEl.textContent = ensureOrderId();
-
-        if (!items.length) {
-          cartList.innerHTML = `<div class="empty">Cart is empty.</div>`;
-          subtotalEl.textContent = money(0);
-          totalBigEl.textContent = money(0);
-          return;
-        }
-
-        const sub = calcSubtotal(items);
-        subtotalEl.textContent = money(sub);
-        totalBigEl.textContent = money(sub);
-
-        cartList.innerHTML = items.map(it => {
-          const meta = it.price ? `${money(it.price)} × ${it.qty}` : `× ${it.qty}`;
-          return `
-            <div class="line">
-              <div class="line-name">${esc(it.name)}</div>
-              <div class="line-meta">${esc(meta)}</div>
-            </div>
-          `;
-        }).join("");
-      };
-
-      document.getElementById("copyOrderBtn")?.addEventListener("click", async () => {
-        try { await navigator.clipboard.writeText(orderIdEl.textContent || ""); } catch {}
-      });
-
-      document.getElementById("clearCartBtn")?.addEventListener("click", () => {
-        writeCart([]);
-        render();
-      });
-
-      document.getElementById("openPaypalBtn")?.addEventListener("click", () => {
-        if (!PAYPAL_ME_HANDLE) {
-          alert("Set PAYPAL_ME_HANDLE in pay.html if you want this button to open PayPal.me.");
-          return;
-        }
-        window.open(`https://www.paypal.com/paypalme/${encodeURIComponent(PAYPAL_ME_HANDLE)}`, "_blank", "noopener,noreferrer");
-      });
-
-      document.getElementById("paidBtn")?.addEventListener("click", () => {
-        writeCart([]);
-        render();
-        alert("Got it. Cart cleared.");
-      });
-
-      render();
     })();
   </script>
 </body>
