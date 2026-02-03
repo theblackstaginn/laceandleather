@@ -1120,6 +1120,6 @@ body.pay-page .pay-qr{
    ========================= */
 @media (max-width: 768px){
   body.pay-page .bg{
-    background:url("./assets/lace-tablet-mobile.png") center top / cover no-repeat;
+    background:url("./assets/tablet-mobile.png") center top / cover no-repeat;
   }
 }
