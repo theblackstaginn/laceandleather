@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- IMPORTANT: bump this version any time you change CSS -->
+  <!-- bump version to bust cache -->
   <link rel="stylesheet" href="styles.css?v=20260203-2">
 </head>
 
@@ -40,14 +40,14 @@
       <section class="tablet-screen">
         <!-- HEADER -->
         <header class="pay-head">
-          <div>
+          <div class="pay-head-left">
             <div class="pay-brand">LACE &amp; LEATHER</div>
             <div class="pay-sub">Cart + QR checkout (PayPal)</div>
           </div>
 
           <div class="pay-actions">
             <a class="pay-btn" href="./index.html">Back</a>
-            <button class="pay-btn" id="clearCart">Clear cart</button>
+            <button class="pay-btn" id="clearCart" type="button">Clear cart</button>
           </div>
         </header>
 
@@ -67,9 +67,9 @@
 
               <div class="pay-row">
                 <span>Order ID</span>
-                <span>
+                <span class="pay-idline">
                   <code id="orderId">—</code>
-                  <button class="pay-mini" id="copyOrder">Copy</button>
+                  <button class="pay-mini" id="copyOrder" type="button">Copy</button>
                 </span>
               </div>
 
@@ -80,7 +80,7 @@
 
             <!-- QR -->
             <section class="pay-card">
-              <div class="pay-row">
+              <div class="pay-row pay-row-top">
                 <h2>SCAN TO PAY</h2>
                 <strong class="pay-total" id="total">$0.00</strong>
               </div>
@@ -104,26 +104,6 @@
   </main>
 
   <script>
-    // 🔥 KILL PWA CACHING FOR THIS PAY SCREEN
-    // If a service worker is caching styles.css, your edits won't show.
-    (async () => {
-      if (!("serviceWorker" in navigator)) return;
-
-      try {
-        const regs = await navigator.serviceWorker.getRegistrations();
-        await Promise.all(regs.map(r => r.unregister()));
-
-        if (window.caches) {
-          const keys = await caches.keys();
-          await Promise.all(keys.map(k => caches.delete(k)));
-        }
-      } catch (e) {
-        // silent: we don't want to break checkout UI
-      }
-    })();
-  </script>
-
-  <script>
     (() => {
       const CART_KEY = "ll_cart";
       const ORDER_KEY = "ll_order_id";
@@ -145,13 +125,12 @@
         catch { return []; }
       })();
 
-      let total = cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
+      const total = cart.reduce((s,i)=>s+(i.price||0)*(i.qty||1),0);
 
       subtotalEl.textContent = money(total);
       totalEl.textContent = money(total);
 
-      if (!cart.length) emptyMsg.style.display = "block";
-      else emptyMsg.style.display = "none";
+      emptyMsg.style.display = cart.length ? "none" : "block";
 
       let oid = localStorage.getItem(ORDER_KEY);
       if (!oid) {
