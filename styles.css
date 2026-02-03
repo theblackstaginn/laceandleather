@@ -490,7 +490,7 @@ p, h1, h2, h3, h4, h5, h6,
 }
 
 /* =========================
-   FOOTER (matches index.html)
+   FOOTER
    ========================= */
 .site-footer{
   padding: 12px 18px 18px;
@@ -675,7 +675,6 @@ p, h1, h2, h3, h4, h5, h6,
   position:relative;
   overflow:hidden;
 }
-.map-viewer{ display:block; }
 
 .viewer-img{
   width:100%;
@@ -849,13 +848,14 @@ p, h1, h2, h3, h4, h5, h6,
 
 /* =========================
    PAY PAGE (Tablet Checkout)
+   Clean + viewport-fit tablet + in-screen scroll + translucent cards
    ========================= */
 
 body.pay-page{
   background:#111;
   font-family:"Inter", system-ui, sans-serif;
   color:#000;
-  overflow:hidden;
+  overflow:hidden; /* no page scroll; only in-screen scroll */
 }
 
 .pay-shell{
@@ -863,19 +863,25 @@ body.pay-page{
   display:flex;
   align-items:center;
   justify-content:center;
+  padding: 10px; /* tiny guard so tablet never kisses edges */
 }
 
+/* Tablet wrapper MUST fit both width + height */
 .tablet-wrap{
   position:relative;
   width:100%;
-  max-width:1200px;
+
+  max-width: min(1200px, 96vw);
+  max-height: 92vh;
+
   aspect-ratio: 16 / 9;
 }
 
-/* Tablet images */
+/* Tablet images: always contained to wrapper */
 .tablet-img{
   width:100%;
-  height:auto;
+  height:100%;
+  object-fit:contain;
   display:block;
 }
 
@@ -884,112 +890,164 @@ body.pay-page{
 @media (max-width: 768px){
   .tablet-desktop{ display:none; }
   .tablet-mobile{ display:block; }
-  .tablet-wrap{ aspect-ratio: 9 / 16; }
+
+  .tablet-wrap{
+    aspect-ratio: 9 / 16;
+    max-height: 92vh;
+  }
 }
 
-/* SCREEN AREA — tuned to your tablet artwork */
+/* Screen area (inside bezel)
+   NOTE: right inset slightly larger to keep scrollbar INSIDE screen */
 .tablet-screen{
   position:absolute;
-  inset:7% 6% 10% 6%; /* pulls sides in slightly */
+  inset: 9% 8.8% 12% 8.2%;
   display:flex;
   flex-direction:column;
   overflow:hidden;
-  border-radius:14px;
+  border-radius:16px;
 }
 
-/* Header */
+/* Header (pulled in a hair) */
 .pay-head{
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
-  padding:12px 14px;
+  gap:12px;
+  padding: 12px 16px 10px;
+  color:#111; /* force black-ish text */
 }
 
-.pay-brand{ font-weight:700; letter-spacing:.08em; }
-.pay-sub{ font-size:13px; }
+.pay-brand{
+  font-weight:800;
+  letter-spacing:.10em;
+  font-size:14px;
+  color:#111;
+}
+.pay-sub{
+  font-size:12px;
+  color:#111;
+  opacity:.88;
+}
 
 .pay-actions{
   display:flex;
   gap:8px;
 }
 
+/* Buttons stay readable over parchment */
 .pay-btn{
-  background:#e6e6e6;
-  border:none;
+  background: rgba(255,255,255,.68);
+  border: 1px solid rgba(0,0,0,.18);
   border-radius:999px;
   padding:6px 10px;
   cursor:pointer;
-  font-size:13px;
+  font-size:12px;
   text-decoration:none;
-  color:#000;
+  color:#111;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
-/* Scrollable content */
+/* Scrollable content (scrollbar contained + padded away from bezel) */
 .pay-scroll{
   flex:1;
   overflow-y:auto;
-  padding:10px 14px;
+  padding: 10px 18px 14px 18px; /* extra right padding keeps scrollbar inside */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable both-edges;
+  color:#111;
 }
+
+/* Make scrollbar slim + unobtrusive (still visible) */
+.pay-scroll::-webkit-scrollbar{ width:10px; }
+.pay-scroll::-webkit-scrollbar-track{ background: rgba(0,0,0,.06); border-radius:999px; }
+.pay-scroll::-webkit-scrollbar-thumb{ background: rgba(0,0,0,.20); border-radius:999px; }
 
 /* Grid */
 .pay-grid{
   display:grid;
   grid-template-columns: 1fr 1fr;
-  gap:14px;
+  gap:16px;
+  padding: 6px; /* pulls cards off the screen edges */
 }
 
 @media (max-width: 768px){
   .pay-grid{ grid-template-columns:1fr; }
 }
 
-/* Cards */
+/* Cards: translucent (NOT solid white) */
 .pay-card{
-  background:rgba(255,255,255,.85);
+  background: rgba(255,255,255,.30);
+  border: 1px solid rgba(0,0,0,.14);
   border-radius:14px;
-  padding:12px;
+  padding:12px 12px 10px;
+  backdrop-filter: blur(8px) saturate(1.05);
+  -webkit-backdrop-filter: blur(8px) saturate(1.05);
+  color:#111;
 }
 
+/* Card headings */
 .pay-card h2{
   margin:0 0 8px;
-  font-size:14px;
-  letter-spacing:.08em;
+  font-size:12px;
+  letter-spacing:.12em;
+  color:#111;
 }
 
+/* Rows */
 .pay-row{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:10px;
   margin-bottom:6px;
+  color:#111;
 }
 
 .pay-muted{
-  font-size:13px;
-  opacity:.8;
+  font-size:12px;
+  color:#111;
+  opacity:.78;
 }
 
 .pay-note{
-  font-size:12px;
+  font-size:11px;
   margin-top:8px;
+  color:#111;
+  opacity:.86;
 }
 
 .pay-mini{
   margin-left:6px;
-  font-size:12px;
+  font-size:11px;
+  color:#111;
 }
 
-/* QR */
+/* Total */
+.pay-total{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:.02em;
+  color:#111;
+}
+
+/* QR: slightly smaller so full code fits */
 .pay-qr-wrap{
   display:flex;
   justify-content:center;
-  margin:10px 0;
+  align-items:center;
+  margin:10px 0 8px;
 }
 
 .pay-qr{
-  width:180px; /* smaller so full code fits */
-  max-width:100%;
+  width: 160px;
+  max-width: 100%;
   height:auto;
+  display:block;
 }
 
-.pay-total{
-  font-size:22px;
+/* Mobile QR + spacing guard */
+@media (max-width: 768px){
+  .pay-qr{ width: 175px; }
 }
