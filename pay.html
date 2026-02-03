@@ -3,343 +3,83 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-
   <title>Pay — Lace & Leather</title>
   <meta name="robots" content="noindex,nofollow" />
-
-  <style>
-    :root{
-      --text:#e7e2db;
-      --muted: rgba(231,226,219,.80);
-      --line: rgba(255,255,255,.12);
-      --shadow: 0 18px 48px rgba(0,0,0,.55);
-      --radius:18px;
-      --bgDim:.62;
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      color:var(--text);
-      font-family: ui-serif, Georgia, serif;
-      background:#06070a;
-      text-align:center;
-      overflow:auto;
-    }
-
-    .bg{
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      background:url("./assets/tablet-web.png") center / cover no-repeat;
-      filter:saturate(1.08) contrast(1.02) brightness(1.08);
-    }
-    .bg::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.06), transparent 60%),
-        radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.70) 100%),
-        linear-gradient(180deg, rgba(0,0,0,var(--bgDim)), rgba(0,0,0,var(--bgDim)));
-    }
-    @media (max-width: 768px){
-      .bg{ background:url("./assets/tablet-mobile.png") center top / cover no-repeat; }
-    }
-
-    .wrap{
-      min-height:100%;
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-      padding:18px;
-    }
-
-    .glass{
-      position:relative;
-      width:min(980px, 96vw);
-      padding:18px;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.08), transparent 42%),
-        linear-gradient(180deg, rgba(12,14,18,.10), rgba(12,14,18,.16));
-      backdrop-filter: blur(6px) saturate(1.03);
-      -webkit-backdrop-filter: blur(6px) saturate(1.03);
-      display:grid;
-      gap:14px;
-      margin: 22px 0 40px;
-    }
-
-    .top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .brand{
-      font-weight:700;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      opacity:.95;
-    }
-
-    .muted{ color:var(--muted); }
-
-    .btn{
-      appearance:none;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.22);
-      color:var(--text);
-      border-radius:999px;
-      padding:12px 16px;
-      cursor:pointer;
-      box-shadow: 0 12px 26px rgba(0,0,0,.40);
-      min-width: 180px;
-    }
-    .btn.primary{
-      border-color: rgba(255,255,255,.22);
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(0,0,0,.22));
-    }
-    .btn.small{ padding:10px 12px; min-width:unset; }
-    .btn:active{ transform: scale(.99); }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:14px;
-      align-items:start;
-    }
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
-    }
-
-    .panel{
-      border:1px solid rgba(255,255,255,.12);
-      border-radius: 16px;
-      background: rgba(0,0,0,.14);
-      padding:14px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.30);
-      display:grid;
-      gap:12px;
-    }
-
-    .h{
-      font-weight:700;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-size: 13px;
-      opacity:.92;
-    }
-
-    .amount{
-      font-size: clamp(46px, 6vw, 78px);
-      line-height:1;
-      letter-spacing:.06em;
-      text-shadow:0 0 14px rgba(0,0,0,.9);
-      margin-top:2px;
-    }
-
-    .qr-wrap{
-      display:flex;
-      justify-content:center;
-      padding:6px 0 2px;
-    }
-    .qr{
-      width:min(360px, 70vw);
-      height:auto;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      box-shadow:0 22px 54px rgba(0,0,0,.60);
-    }
-
-    .row{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      flex-wrap:wrap;
-      font-size:15px;
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.14);
-    }
-
-    .mini{
-      appearance:none;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(0,0,0,.20);
-      color:var(--text);
-      border-radius:999px;
-      padding:9px 12px;
-      cursor:pointer;
-    }
-
-    .warn{
-      font-size:14px;
-      opacity:.96;
-      padding:10px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(140, 20, 20, .16);
-      display:none;
-      text-shadow:0 0 8px rgba(0,0,0,.85);
-    }
-
-    /* Cart list */
-    .cart{
-      display:grid;
-      gap:10px;
-      text-align:left;
-    }
-
-    .item{
-      display:grid;
-      grid-template-columns: 1fr auto;
-      gap:10px;
-      padding:12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.12);
-    }
-
-    .item-title{
-      font-weight:700;
-      letter-spacing:.02em;
-    }
-    .item-sub{ font-size:13px; color:var(--muted); margin-top:2px; }
-
-    .controls{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      justify-content:flex-end;
-      flex-wrap:wrap;
-    }
-
-    .qty{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      border:1px solid rgba(255,255,255,.14);
-      border-radius:999px;
-      padding:8px 10px;
-      background: rgba(0,0,0,.12);
-    }
-
-    .qbtn{
-      width:36px;
-      height:36px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.20);
-      color:var(--text);
-      cursor:pointer;
-      font-weight:700;
-    }
-    .qbtn:active{ transform: scale(.99); }
-
-    .qtynum{
-      min-width: 20px;
-      text-align:center;
-      font-weight:700;
-    }
-
-    .sumrow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding-top:8px;
-      border-top:1px solid rgba(255,255,255,.12);
-    }
-
-    .fine{
-      font-size:13px;
-      opacity:.92;
-      max-width:860px;
-      margin:0 auto;
-      text-shadow:0 0 8px rgba(0,0,0,.85);
-    }
-  </style>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
-<body>
+<body class="pay-page">
   <div class="bg" aria-hidden="true"></div>
+  <div class="dust" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
 
-  <div class="wrap">
-    <section class="glass" aria-label="Payment screen">
-      <div class="top">
-        <div>
+  <main class="wrap pay-wrap">
+    <section class="glass pay-glass" aria-label="Payment screen">
+      <header class="pay-top">
+        <div class="pay-brand">
           <div class="brand">Lace &amp; Leather</div>
-          <div class="muted">Cart + QR checkout (PayPal)</div>
+          <div class="muted pay-sub">Cart + QR checkout (PayPal)</div>
         </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
-          <button class="btn small" type="button" id="backBtn">Back</button>
-          <button class="btn small" type="button" id="clearBtn">Clear cart</button>
+
+        <div class="pay-actions">
+          <button class="mini-btn" type="button" id="backBtn">Back</button>
+          <button class="mini-btn" type="button" id="clearBtn">Clear cart</button>
         </div>
-      </div>
+      </header>
 
-      <div class="grid">
-        <!-- LEFT: CART -->
-        <div class="panel">
-          <div class="h">Cart</div>
-          <div class="cart" id="cart"></div>
+      <section class="pay-grid">
+        <!-- LEFT -->
+        <div class="pay-panel" aria-label="Cart panel">
+          <div class="pay-h">Cart</div>
 
-          <div class="sumrow">
+          <div id="cart" class="pay-cart"></div>
+
+          <div class="pay-sumrow">
             <div class="muted">Subtotal</div>
             <strong id="subtotal">$0.00</strong>
           </div>
 
-          <div id="warn" class="warn"></div>
+          <div id="warn" class="pay-warn"></div>
         </div>
 
-        <!-- RIGHT: PAY -->
-        <div class="panel">
-          <div class="h">Scan to pay</div>
+        <!-- RIGHT -->
+        <div class="pay-panel" aria-label="Payment panel">
+          <div class="pay-h">Scan to pay</div>
 
-          <div class="amount" id="amount">$0.00</div>
+          <div class="pay-amount" id="amount">$0.00</div>
 
-          <div class="qr-wrap">
-            <img id="qr" class="qr" alt="PayPal QR code" />
+          <div class="pay-qrwrap">
+            <img id="qr" class="pay-qr" alt="PayPal QR code" />
           </div>
 
-          <div class="row">
+          <div class="pay-row">
             <span class="muted">Order ID</span>
-            <span class="pill">
+            <span class="pay-pill">
               <strong id="orderId">—</strong>
-              <button class="mini" type="button" id="copyOrder">Copy</button>
+              <button class="mini-btn" type="button" id="copyOrder">Copy</button>
             </span>
           </div>
 
-          <div class="row muted" style="font-size:13px;">
+          <div class="muted pay-note">
             In PayPal, paste the Order ID into the note.
           </div>
 
-          <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:6px;">
-            <button class="btn primary" type="button" id="openPaypal">Open PayPal on this device</button>
-            <button class="btn" type="button" id="paidBtn">I paid</button>
+          <div class="pay-ctas">
+            <button class="pay-btn" type="button" id="openPaypal">Open PayPal on this device</button>
+            <button class="mini-btn" type="button" id="paidBtn">I paid</button>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="fine muted">
+      <footer class="pay-fine muted">
         This page replaces your cart modal: edit quantities here, then scan/pay. Designed for a tablet at the counter.
-      </div>
+      </footer>
     </section>
-  </div>
+  </main>
 
   <script>
     (() => {
@@ -411,6 +151,11 @@
         return `${base}?utm_source=laceleatherarcane&utm_medium=tabletpay&utm_campaign=${encodeURIComponent(orderId)}`;
       };
 
+      const escapeHtml = (s) =>
+        String(s).replace(/[&<>"']/g, (c) => ({
+          "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+        }[c]));
+
       const render = () => {
         const cart = readCart();
         const total = subtotal(cart);
@@ -430,30 +175,28 @@
         }
 
         if (!cart.length) {
-          cartEl.innerHTML = `<div class="muted" style="padding:10px; text-align:center;">
-            No items yet.
-          </div>`;
+          cartEl.innerHTML = `<div class="muted pay-empty">No items yet.</div>`;
         } else {
           cart.forEach((it, idx) => {
-            const title = (it && it.title) ? String(it.title) : "Item";
+            const title = it && it.title ? String(it.title) : "Item";
             const price = Number(it && it.price) || 0;
             const qty = Math.max(1, Number(it && it.qty) || 1);
 
             const row = document.createElement("div");
-            row.className = "item";
+            row.className = "pay-item";
             row.innerHTML = `
-              <div>
-                <div class="item-title">${escapeHtml(title)}</div>
-                <div class="item-sub muted">${money(price)} each</div>
+              <div class="pay-item-left">
+                <div class="pay-item-title">${escapeHtml(title)}</div>
+                <div class="muted pay-item-sub">${money(price)} each</div>
               </div>
 
-              <div class="controls">
-                <div class="qty" aria-label="Quantity controls">
-                  <button class="qbtn" data-dec="${idx}" type="button" aria-label="Decrease quantity">−</button>
-                  <div class="qtynum" aria-label="Quantity">${qty}</div>
-                  <button class="qbtn" data-inc="${idx}" type="button" aria-label="Increase quantity">+</button>
+              <div class="pay-item-right">
+                <div class="pay-qty" aria-label="Quantity controls">
+                  <button class="qty-btn" data-dec="${idx}" type="button" aria-label="Decrease quantity">−</button>
+                  <div class="pay-qtynum" aria-label="Quantity">${qty}</div>
+                  <button class="qty-btn" data-inc="${idx}" type="button" aria-label="Increase quantity">+</button>
                 </div>
-                <button class="btn small" data-rm="${idx}" type="button">Remove</button>
+                <button class="remove-btn" data-rm="${idx}" type="button">Remove</button>
               </div>
             `;
             cartEl.appendChild(row);
@@ -466,7 +209,6 @@
           const qrUrl =
             "https://api.qrserver.com/v1/create-qr-code/?size=520x520&margin=10&data=" +
             encodeURIComponent(currentPayUrl);
-
           qrEl.src = qrUrl;
         } else {
           currentPayUrl = "";
@@ -474,12 +216,6 @@
         }
       };
 
-      const escapeHtml = (s) =>
-        s.replace(/[&<>"']/g, (c) => ({
-          "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
-        }[c]));
-
-      // Events
       document.addEventListener("click", (e) => {
         const cart = readCart();
 
@@ -527,16 +263,11 @@
       });
 
       $("paidBtn").addEventListener("click", () => {
-        // OPTIONAL: clear cart after payment confirmation:
-        // localStorage.removeItem(CART_KEY);
-        // localStorage.removeItem(ORDER_KEY);
-
         window.location.href = "./index.html";
       });
 
       $("clearBtn").addEventListener("click", () => {
         localStorage.removeItem(CART_KEY);
-        // keep order id or reset it—your choice. I reset it:
         localStorage.removeItem(ORDER_KEY);
         render();
       });
@@ -545,7 +276,6 @@
         window.location.href = "./index.html";
       });
 
-      // Init
       render();
     })();
   </script>
