@@ -18,7 +18,7 @@
         <header class="pay-head">
           <div class="pay-head-left">
             <div class="pay-brand">LACE &amp; LEATHER</div>
-            <div class="pay-sub">Review your cart, confirm, then scan to pay.</div>
+            <div class="pay-sub">Review cart, confirm, then scan/click to pay.</div>
           </div>
 
           <div class="pay-actions">
@@ -59,7 +59,7 @@
               <!-- CUSTOMER INFO -->
               <div class="pay-fields" aria-label="Receipt details">
                 <div class="pay-note pay-tiny" style="margin: 0 0 8px;">
-                  Optional: add an email for your receipt (sent after payment is confirmed).
+                  Optional: add an email for your receipt (sent after order is confirmed).
                 </div>
 
                 <label class="pay-field">
@@ -67,12 +67,15 @@
                   <input id="custEmail" type="email" autocomplete="email" inputmode="email"
                          placeholder="you@example.com" />
                 </label>
+                
 
                 <label class="pay-field">
                   <span class="pay-muted">Name</span>
                   <input id="custName" type="text" autocomplete="name" placeholder="Name" />
                 </label>
               </div>
+              <br>
+              <br>
 
               <!-- CONFIRM -->
               <div class="pay-confirm-wrap">
@@ -84,7 +87,7 @@
               </div>
 
               <div class="pay-note pay-tiny" id="confirmHint">
-                Confirm saves your receipt to our order log. QR appears after save.
+                Confirm adds you to our order log. QR/PP icon appear after save.
               </div>
             </section>
 
@@ -109,15 +112,17 @@
               </div>
 
               <div class="pay-qr-blocked" id="qrBlocked">
-                Confirm your order to reveal the QR code.
+                Confirm your order for QR code.
               </div>
 
               <div class="pay-note">Open PayPal → Scan → Pay exact total.</div>
 
               <div class="pay-note pay-tiny">
-                Tip: if PayPal tries to “guess” the amount, ignore it — match the total shown on the left.
+                Tip: If PayPal tries to “guess” the amount, match the total shown on receipt.
                 <br>
-                THANK YOU!
+                THANK YOU so MUCH!
+                <br>
+                People like you keep us going!
               </div>
             </section>
           </div>
