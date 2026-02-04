@@ -6,7 +6,7 @@
   <title>Lace &amp; Leather — Pay</title>
 
   <!-- IMPORTANT: bump this whenever you edit CSS -->
-  <link rel="stylesheet" href="./styles.css?v=PAY-008" />
+  <link rel="stylesheet" href="./styles.css?v=PAY-009" />
 </head>
 
 <body class="pay-page">
@@ -14,7 +14,6 @@
 
   <main class="pay-shell" aria-label="Checkout">
     <section class="tablet-wrap" aria-label="Tablet checkout screen">
-      <!-- Screen overlay area (content lives here) -->
       <div class="tablet-screen">
         <header class="pay-head">
           <div class="pay-head-left">
@@ -22,10 +21,6 @@
             <div class="pay-sub">Review your cart, confirm, then scan to pay.</div>
           </div>
 
-          <!-- =========================
-               L&L PNG BUTTONS (DROP-IN SECTION)
-               HEADER ACTIONS (Back left, Clear Cart right)
-               ========================= -->
           <div class="pay-actions">
             <a class="ll-btn" href="./index.html" aria-label="Back">
               <img src="./L&L-buttons/back.png" alt="Back" />
@@ -37,7 +32,6 @@
           </div>
         </header>
 
-        <!-- This is the ONLY scroll container -->
         <div class="pay-scroll" id="payScroll">
           <div class="pay-grid">
             <!-- LEFT: Cart -->
@@ -62,10 +56,7 @@
                 Cart is empty. Add items on the main page, then return here.
               </div>
 
-              <!-- =========================
-                   CUSTOMER INFO (OPTIONAL)
-                   Used to email receipt after PAID is clicked.
-                   ========================= -->
+              <!-- CUSTOMER INFO -->
               <div class="pay-fields" aria-label="Receipt details">
                 <div class="pay-note pay-tiny" style="margin: 0 0 8px;">
                   Optional: add an email for your receipt (sent after payment is confirmed).
@@ -85,9 +76,6 @@
 
               <!-- CONFIRM -->
               <div class="pay-confirm-wrap">
-                <!-- =========================
-                     CONFIRM BUTTON (PNG)
-                     ========================= -->
                 <button class="ll-btn" id="confirmBtn" type="button" aria-label="Confirm order">
                   <img src="./L&L-buttons/confirm-order.png" alt="Confirm order" />
                 </button>
@@ -104,30 +92,22 @@
             <section class="pay-card" aria-label="Payment">
               <h2>SCAN TO PAY</h2>
 
-              <!-- =========================
-                   QR AREA (with PayPal + PAID button under QR)
-                   Hidden until confirm succeeds
-                   ========================= -->
               <div class="pay-qr-wrap" id="qrWrap" style="display:none;">
                 <img class="pay-qr" src="./assets/lace-qr.png" alt="PayPal QR Code" />
 
-                <a
-                  class="ll-btn"
-                  href="https://www.paypal.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Open PayPal"
-                >
+                <a class="ll-btn"
+                   href="https://www.paypal.com/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Open PayPal">
                   <img src="./L&L-buttons/paypal.png" alt="PayPal" />
                 </a>
 
-                <!-- ADMIN: mark paid + reset (Option B) -->
                 <button class="ll-btn" id="paidBtn" type="button" aria-label="Mark paid">
                   <img src="./L&L-buttons/paid.png" alt="Paid" />
                 </button>
               </div>
 
-              <!-- Shown until confirm succeeds -->
               <div class="pay-qr-blocked" id="qrBlocked">
                 Confirm your order to reveal the QR code.
               </div>
@@ -153,18 +133,16 @@
     const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzQSkg_6m84LsodueoI9LN6VuXhuWpfRtYNlyzleZ_I0XghmU-ra49-Bmb4SaoSG8uI/exec";
 
     // Storage keys
-    const CART_KEY  = "ll_cart";        // array of {name, price, qty}
-    const ORDER_KEY = "ll_order_id";    // string
-    const LOCK_KEY  = "ll_cart_locked"; // "1" once confirmed
+    const CART_KEY  = "ll_cart";
+    const ORDER_KEY = "ll_order_id";
+    const LOCK_KEY  = "ll_cart_locked";
 
     // Receipt fields persist for a locked order
     const CUST_EMAIL_KEY = "ll_customer_email";
     const CUST_NAME_KEY  = "ll_customer_name";
 
-    // In-flight guard (prevents double-saves)
     let CONFIRM_IN_FLIGHT = false;
 
-    // Helpers
     const $ = (id) => document.getElementById(id);
 
     function money(n){
@@ -228,12 +206,8 @@
     // =============================
     // Customer info helpers
     // =============================
-    function getCustEmail(){
-      return (localStorage.getItem(CUST_EMAIL_KEY) || "").trim();
-    }
-    function getCustName(){
-      return (localStorage.getItem(CUST_NAME_KEY) || "").trim();
-    }
+    function getCustEmail(){ return (localStorage.getItem(CUST_EMAIL_KEY) || "").trim(); }
+    function getCustName(){  return (localStorage.getItem(CUST_NAME_KEY)  || "").trim(); }
     function setCustInfo(name, email){
       localStorage.setItem(CUST_NAME_KEY, (name || "").trim());
       localStorage.setItem(CUST_EMAIL_KEY, (email || "").trim());
@@ -252,17 +226,13 @@
     }
 
     // =============================
-    // UI state: QR hidden until confirm succeeds
+    // UI
     // =============================
     function setQrReady(isReady){
       document.body.classList.toggle("qr-ready", !!isReady);
       $("qrBlocked").style.display = isReady ? "none" : "block";
       $("qrWrap").style.display = isReady ? "flex" : "none";
-
-      // prevent wiping after confirm
       $("clearCartBtn").disabled = !!isReady;
-
-      // lock receipt inputs after confirm
       lockCustInputs(!!isReady);
     }
 
@@ -282,6 +252,29 @@
     }
 
     // =============================
+    // Better fetch parsing (handles non-JSON)
+    // =============================
+    async function fetchJsonOrText(url, options){
+      const res = await fetch(url, options);
+      const text = await res.text().catch(() => "");
+      let json = null;
+      try { json = text ? JSON.parse(text) : null; } catch { json = null; }
+      return { res, text, json };
+    }
+
+    function explainServerFailure_(label, packet){
+      const { res, json, text } = packet;
+      const status = `${res.status} ${res.statusText || ""}`.trim();
+      if (json && typeof json === "object") {
+        const msg = json.error || json.message || json.details || "Unknown server response";
+        return `${label} failed (${status}). ${msg}`;
+      }
+      // If Apps Script returned HTML or something else, show a short slice
+      const snippet = (text || "").replace(/\s+/g," ").slice(0, 120);
+      return `${label} failed (${status}). ${snippet || "Non-JSON response"}`;
+    }
+
+    // =============================
     // Render
     // =============================
     function render(){
@@ -298,7 +291,6 @@
 
       $("orderId").textContent = loadOrderId();
 
-      // If already confirmed (locked), show QR + status
       if (isCartLocked() && hasItems) {
         setQrReady(true);
         setConfirmStatus("Saved. Scan to pay.", "ok");
@@ -335,8 +327,7 @@
     }
 
     // =============================
-    // POST receipt to Google Sheet
-    // IMPORTANT: Use form POST (payload=<json>) to avoid CORS preflight.
+    // Confirm -> save receipt
     // =============================
     async function postReceipt(){
       if (CONFIRM_IN_FLIGHT) return;
@@ -349,14 +340,12 @@
         return;
       }
 
-      // If already confirmed, don't resave
       if (document.body.classList.contains("qr-ready") || isCartLocked()) {
         setConfirmStatus("Already saved. Scan to pay.", "ok");
         CONFIRM_IN_FLIGHT = false;
         return;
       }
 
-      // capture receipt info and persist it for this order
       const custEmail = ($("custEmail")?.value || "").trim();
       const custName  = ($("custName")?.value  || "").trim();
       setCustInfo(custName, custEmail);
@@ -388,22 +377,17 @@
         const body = new URLSearchParams();
         body.set("payload", JSON.stringify(payload));
 
-        const res = await fetch(ENDPOINT_URL, {
-          method: "POST",
-          body: body
-        });
+        const packet = await fetchJsonOrText(ENDPOINT_URL, { method:"POST", body });
+        const ok = packet.res.ok && packet.json && packet.json.ok === true;
 
-        const data = await res.json().catch(() => null);
-
-        if(!res.ok || !data || data.ok !== true){
-          setConfirmStatus("Save failed. Try again.", "bad");
+        if(!ok){
+          setConfirmStatus(explainServerFailure_("Save", packet), "bad");
           setConfirmBusy(false);
           CONFIRM_IN_FLIGHT = false;
           return;
         }
 
         setCartLocked(true);
-
         setConfirmStatus("Saved. Scan to pay.", "ok");
         setQrReady(true);
         setConfirmBusy(false);
@@ -417,9 +401,8 @@
     }
 
     // =============================
-    // MARK PAID (Option B): update existing row in Sheets
-    // then reset local state for next order
-    // Also passes customer email/name so Apps Script can email receipt.
+    // Paid -> update sheet + trigger emails + reset
+    // (now with: better errors + one retry)
     // =============================
     async function markPaidAndReset(){
       if (!document.body.classList.contains("qr-ready") || !isCartLocked()) {
@@ -434,7 +417,7 @@
       setConfirmBusy(true);
       setConfirmStatus("Marking paid…", null);
 
-      try{
+      async function attemptPaidOnce(){
         const body = new URLSearchParams();
         body.set("action", "paid");
         body.set("order_id", orderId);
@@ -442,16 +425,22 @@
         body.set("payment_method", "PayPal");
         body.set("customer_email", custEmail);
         body.set("customer_name", custName);
+        return fetchJsonOrText(ENDPOINT_URL, { method:"POST", body });
+      }
 
-        const res = await fetch(ENDPOINT_URL, {
-          method: "POST",
-          body: body
-        });
+      try{
+        let packet = await attemptPaidOnce();
+        let ok = packet.res.ok && packet.json && packet.json.ok === true;
 
-        const data = await res.json().catch(() => null);
+        // One retry (Apps Script sometimes hiccups)
+        if(!ok){
+          await new Promise(r => setTimeout(r, 900));
+          packet = await attemptPaidOnce();
+          ok = packet.res.ok && packet.json && packet.json.ok === true;
+        }
 
-        if(!res.ok || !data || data.ok !== true){
-          setConfirmStatus("Paid update failed.", "bad");
+        if(!ok){
+          setConfirmStatus(explainServerFailure_("Paid update", packet), "bad");
           setConfirmBusy(false);
           return;
         }
@@ -463,7 +452,7 @@
         clearCustInfo();
 
         setQrReady(false);
-        setConfirmStatus("Paid. Ready for next order.", "ok");
+        setConfirmStatus("Paid. Receipt sent (if email provided). Ready for next order.", "ok");
         setConfirmBusy(false);
 
         render();
@@ -507,7 +496,6 @@
       markPaidAndReset();
     });
 
-    // Persist receipt fields live (but don't clear them unless reset)
     window.addEventListener("input", (e) => {
       if (e.target && (e.target.id === "custEmail" || e.target.id === "custName")) {
         setCustInfo(($("custName")?.value || ""), ($("custEmail")?.value || ""));
@@ -517,10 +505,7 @@
     // Boot
     setQrReady(false);
     syncCustInputsFromStorage();
-
-    // If cart was previously locked, show QR immediately on load
     if (isCartLocked()) setQrReady(true);
-
     render();
 
     window.addEventListener("storage", (e) => {
