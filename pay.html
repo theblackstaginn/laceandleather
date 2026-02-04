@@ -6,7 +6,7 @@
   <title>Lace &amp; Leather — Pay</title>
 
   <!-- IMPORTANT: bump this whenever you edit CSS -->
-  <link rel="stylesheet" href="./styles.css?v=PAY-004" />
+  <link rel="stylesheet" href="./styles.css?v=PAY-005" />
 </head>
 
 <body class="pay-page">
@@ -202,6 +202,7 @@
     function setConfirmBusy(busy){
       $("confirmBtn").disabled = !!busy;
       $("confirmBtn").classList.toggle("busy", !!busy);
+      $("clearCartBtn").disabled = !!busy;
     }
 
     // =============================
@@ -249,7 +250,7 @@
 
     // =============================
     // POST receipt to Google Sheet
-    // (aligned with your Apps Script: order_id, total, customer, note, referrer, status)
+    // IMPORTANT: Use form POST (payload=<json>) to avoid CORS preflight.
     // =============================
     async function postReceipt(){
       const cart = loadCart();
@@ -261,22 +262,12 @@
       const orderId = loadOrderId();
       const subtotal = calcSubtotal(cart);
 
-      // items payload matches your script's expected "items"
       const items = cart.map(it => ({
         name: String(it?.name ?? "Item"),
         qty: Math.max(1, Number(it?.qty ?? 1)),
         price: Number(Number(it?.price ?? 0).toFixed(2))
       }));
 
-      // Build payload to match Code.gs normalization:
-      // - order_id
-      // - total
-      // - currency
-      // - items
-      // - customer { name, email }
-      // - note
-      // - referrer
-      // - status
       const payload = {
         order_id: orderId,
         total: Number(subtotal.toFixed(2)),
@@ -292,15 +283,20 @@
       setConfirmStatus("Saving receipt…", null);
 
       try{
+        // Form POST avoids preflight CORS checks with Apps Script
+        const body = new URLSearchParams();
+        body.set("payload", JSON.stringify(payload));
+
         const res = await fetch(ENDPOINT_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: body
+          // 🚫 no headers
+          // 🚫 no JSON content-type
         });
 
-        await res.text();
+        const data = await res.json().catch(() => null);
 
-        if(!res.ok){
+        if(!res.ok || !data || data.ok !== true){
           setConfirmStatus("Save failed. Try again.", "bad");
           setConfirmBusy(false);
           return;
