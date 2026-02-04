@@ -7,6 +7,63 @@
 
   <!-- IMPORTANT: bump this whenever you edit CSS -->
   <link rel="stylesheet" href="./styles.css?v=PAY-004" />
+
+  <!-- Pay-page button skins (inline so we don’t touch styles.css yet) -->
+  <style>
+    /* Image-button base */
+    .ll-img-btn{
+      display:inline-block;
+      width: 220px;           /* adjust if your PNGs are different */
+      height: 72px;           /* adjust if your PNGs are different */
+      border:0;
+      padding:0;
+      background: transparent;
+      background-repeat:no-repeat;
+      background-position:center;
+      background-size:contain;
+      cursor:pointer;
+      text-indent:-9999px;    /* keep text accessible */
+      overflow:hidden;
+      white-space:nowrap;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ll-img-btn:focus{
+      outline:2px solid rgba(255,255,255,.35);
+      outline-offset:4px;
+      border-radius:10px;
+    }
+
+    /* Specific skins */
+    .ll-back    { background-image:url("./L&L-buttons/back.png"); }
+    .ll-clear   { background-image:url("./L&L-buttons/clear-cart.png"); }
+    .ll-confirm { background-image:url("./L&L-buttons/confirm-order.png"); }
+    .ll-paypal  { background-image:url("./L&L-buttons/paypal.png"); }
+
+    /* Make header buttons not explode on small screens */
+    .pay-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    /* PayPal button sits under QR with tight spacing */
+    .paypal-under-qr{
+      display:none;           /* toggled by JS via setQrReady */
+      margin-top: 10px;
+      justify-content:center;
+    }
+
+    /* Slightly smaller on narrow phones */
+    @media (max-width: 420px){
+      .ll-img-btn{
+        width: 190px;
+        height: 64px;
+      }
+    }
+  </style>
 </head>
 
 <body class="pay-page">
@@ -23,8 +80,11 @@
           </div>
 
           <div class="pay-actions">
-            <a class="pay-btn" href="./index.html">Back</a>
-            <button class="pay-btn" id="clearCartBtn" type="button">Clear cart</button>
+            <!-- Back (image button) -->
+            <a class="ll-img-btn ll-back" id="backBtn" href="./index.html">Back</a>
+
+            <!-- Clear cart (image button) -->
+            <button class="ll-img-btn ll-clear" id="clearCartBtn" type="button">Clear cart</button>
           </div>
         </header>
 
@@ -55,7 +115,7 @@
 
               <!-- CONFIRM -->
               <div class="pay-confirm-wrap">
-                <button class="pay-confirm-btn" id="confirmBtn" type="button">Confirm Order</button>
+                <button class="ll-img-btn ll-confirm" id="confirmBtn" type="button">Confirm Order</button>
                 <div class="pay-confirm-status" id="confirmStatus" aria-live="polite"></div>
               </div>
 
@@ -71,6 +131,11 @@
               <!-- Hidden until confirm succeeds -->
               <div class="pay-qr-wrap" id="qrWrap">
                 <img class="pay-qr" src="./assets/lace-qr.png" alt="PayPal QR Code" />
+              </div>
+
+              <!-- PayPal button UNDER the QR (hidden until QR is revealed) -->
+              <div class="paypal-under-qr" id="paypalUnderQr" aria-label="Open PayPal">
+                <button class="ll-img-btn ll-paypal" id="paypalBtn" type="button">PayPal</button>
               </div>
 
               <!-- Shown until confirm succeeds -->
@@ -156,12 +221,36 @@
     }
 
     // =============================
+    // PayPal open helper
+    // =============================
+    function openPayPal(){
+      // 1) Try app deep link on mobile (best-effort)
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      if(isMobile){
+        // App scheme attempt (may or may not work depending on device/browser)
+        window.location.href = "paypal://";
+        // Fallback to web after a beat
+        setTimeout(() => {
+          window.location.href = "https://www.paypal.com/";
+        }, 700);
+        return;
+      }
+
+      // Desktop: open PayPal in a new tab
+      window.open("https://www.paypal.com/", "_blank", "noopener,noreferrer");
+    }
+
+    // =============================
     // UI state: QR hidden until confirm succeeds
     // =============================
     function setQrReady(isReady){
       document.body.classList.toggle("qr-ready", !!isReady);
       $("qrBlocked").style.display = isReady ? "none" : "block";
       $("qrWrap").style.display = isReady ? "flex" : "none";
+
+      // PayPal button appears directly under QR, at the same moment
+      $("paypalUnderQr").style.display = isReady ? "flex" : "none";
     }
 
     function setConfirmStatus(msg, kind){
@@ -292,6 +381,13 @@
         return;
       }
       postReceipt();
+    });
+
+    // PayPal button click
+    $("paypalBtn").addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openPayPal();
     });
 
     // Boot
