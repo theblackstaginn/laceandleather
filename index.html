@@ -1,4 +1,4 @@
-<!-- index.html (UPDATED: centered price + add-to-cart under each pack card) -->
+<!-- index.html (FULL — your exact structure preserved + missing MODALS + working CART wiring) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -164,17 +164,6 @@
     @media (max-width: 420px){
       .ll-add-btn{ width: 190px; height: 62px; }
     }
-
-    /* tiny, invisible status for screen readers (does not affect layout) */
-    .sr-live{
-      position:absolute;
-      width:1px;height:1px;
-      padding:0;margin:-1px;
-      overflow:hidden;
-      clip:rect(0,0,0,0);
-      white-space:nowrap;
-      border:0;
-    }
   </style>
 </head>
 
@@ -186,9 +175,6 @@
     <span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span>
   </div>
-
-  <!-- live region (safe, invisible) -->
-  <div id="uiLive" class="sr-live" aria-live="polite"></div>
 
   <main class="wrap">
     <header class="hero">
@@ -297,7 +283,6 @@
       </div>
     </section>
 
-    <!-- (Everything below unchanged from your working file) -->
     <!-- MAP COMMISSIONS -->
     <section id="maps" class="glass section section-maps" aria-label="Custom fantasy maps">
       <h2 class="h2">Custom Fantasy Maps</h2>
@@ -306,7 +291,7 @@
       </p>
 
       <div class="maps-grid" aria-label="Map examples">
-        <figure class="map-card" data-map="suneen">
+        <figure class="map-card" data-map="suneen" tabindex="0" role="button" aria-label="Preview map: Suneen Reef">
           <div class="map-thumb">
             <img src="./assets/maps/suneen-reef.png" alt="Fantasy map example — Suneen Reef" loading="lazy" />
           </div>
@@ -316,7 +301,7 @@
           </figcaption>
         </figure>
 
-        <figure class="map-card" data-map="whispering">
+        <figure class="map-card" data-map="whispering" tabindex="0" role="button" aria-label="Preview map: Whispering Bay">
           <div class="map-thumb">
             <img src="./assets/maps/whispering-bay.png" alt="Fantasy map example — Whispering Bay" loading="lazy" />
           </div>
@@ -382,57 +367,121 @@
   </main>
 
   <!-- =========================================================
-       MODALS (ADDED) — uses YOUR folder names + YOUR CSS hooks
-       commission-modal-assets/*
-       assets/x-button.PNG
-  ========================================================== -->
+       MODALS (Pack Preview + Map Preview + Commission Flow)
+       Matches your existing styles.css classes and repo filenames
+       ========================================================= -->
 
-  <!-- Commission Envelope Modal -->
-  <div id="commissionModal" class="modal" aria-hidden="true">
-    <div class="modal-backdrop" data-close="commission"></div>
+  <!-- PACK PREVIEW MODAL -->
+  <div class="modal" id="packModal" aria-hidden="true" role="dialog" aria-label="Pack preview">
+    <div class="modal-backdrop" data-close></div>
 
-    <div class="modal-panel commission-panel">
+    <div class="glass modal-panel" role="document">
+      <div class="modal-head">
+        <div class="modal-left">
+          <div>
+            <div class="modal-title" id="packModalTitle">Preview</div>
+            <div class="modal-sub muted" id="packModalSub">Tap any page to enlarge</div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <!-- Back (only shows in viewer mode via CSS) -->
+          <button class="wax-btn back-btn" type="button" id="packBackBtn" aria-label="Back to grid">
+            <img src="./assets/back-button.PNG" alt="Back" />
+          </button>
+
+          <!-- Close -->
+          <button class="wax-btn" type="button" data-close aria-label="Close">
+            <img src="./assets/x-button.PNG" alt="Close" />
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="collage" id="packCollage" aria-label="Pack collage"></div>
+
+        <div class="viewer" id="packViewer" aria-label="Viewer">
+          <div class="viewer-img" id="packViewerImg" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP PREVIEW MODAL -->
+  <div class="modal" id="mapModal" aria-hidden="true" role="dialog" aria-label="Map preview">
+    <div class="modal-backdrop" data-close></div>
+
+    <div class="glass modal-panel" role="document">
+      <div class="modal-head">
+        <div class="modal-left">
+          <div>
+            <div class="modal-title" id="mapModalTitle">Map Preview</div>
+            <div class="modal-sub muted" id="mapModalSub">Preview stays here</div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="wax-btn" type="button" data-close aria-label="Close">
+            <img src="./assets/x-button.PNG" alt="Close" />
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="viewer" style="display:block;">
+          <div class="viewer-img" id="mapViewerImg" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMISSION: ENVELOPE MODAL (full-screen style per CSS) -->
+  <div class="modal" id="commissionModal" aria-hidden="true" role="dialog" aria-label="Commission request">
+    <div class="modal-backdrop" data-close></div>
+
+    <div class="commission-panel" role="document">
       <div class="commission-inner">
         <div class="commission-bg" aria-hidden="true"></div>
 
-        <button class="commission-close wax-btn" type="button" data-close="commission" aria-label="Close">
-          <img src="./assets/x-button.PNG" alt="Close">
+        <button class="commission-close wax-btn" type="button" data-close aria-label="Close">
+          <img src="./assets/x-button.PNG" alt="Close" />
         </button>
 
-        <button id="openLetter" class="commission-envelope-btn" type="button" aria-label="Open envelope">
-          <img class="commission-envelope-img" src="./commission-modal-assets/envelope-closed.png" alt="Open envelope">
+        <button class="commission-envelope-btn" type="button" id="openLetter" aria-label="Open envelope">
+          <img class="commission-envelope-img" src="./commission-modal-assets/envelope-closed.png" alt="Envelope" />
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Commission Letter Modal -->
-  <div id="letterModal" class="modal" aria-hidden="true">
-    <div class="modal-backdrop" data-close="letter"></div>
+  <!-- COMMISSION: LETTER MODAL -->
+  <div class="modal" id="letterModal" aria-hidden="true" role="dialog" aria-label="Commission letter">
+    <div class="modal-backdrop" data-close></div>
 
-    <div class="modal-panel letter-panel glass" role="dialog" aria-modal="true" aria-label="Commission Letter">
+    <div class="glass modal-panel letter-panel" role="document">
       <div class="modal-head">
         <div class="modal-left">
           <div>
-            <div class="modal-title">Commission Request</div>
-            <div class="modal-sub">Read the letter, then request a slot.</div>
+            <div class="modal-title">Commission Letter</div>
+            <div class="modal-sub muted">Map slots open monthly</div>
           </div>
         </div>
 
-        <button class="wax-btn" type="button" data-close="letter" aria-label="Close">
-          <img src="./assets/x-button.PNG" alt="Close">
-        </button>
+        <div class="modal-actions">
+          <button class="wax-btn" type="button" data-close aria-label="Close">
+            <img src="./assets/x-button.PNG" alt="Close" />
+          </button>
+        </div>
       </div>
 
       <div class="letter-body">
         <div class="letter-bg" aria-hidden="true"></div>
 
-        <div class="letter-stack" aria-label="Letter">
-          <img class="letter-img" src="./commission-modal-assets/commission-letter.png" alt="Commission letter">
-
-          <!-- map-slot wired later (per your note) -->
-          <button class="map-slot-btn" id="mapSlotBtn" type="button" aria-label="Request a map slot">
-            <img src="./commission-modal-assets/map-slot-button.png" alt="Request a map slot">
+        <div class="letter-stack">
+          <img class="letter-img" src="./commission-modal-assets/commission-letter.png" alt="Commission letter" />
+          <!-- Map Slot button (wired later) -->
+          <button class="map-slot-btn" type="button" id="mapSlotBtn" aria-label="Request a map slot (wired later)">
+            <img src="./commission-modal-assets/map-slot-button.png" alt="Map Slot" />
           </button>
         </div>
       </div>
@@ -440,20 +489,21 @@
   </div>
 
   <!-- =========================================================
-       JS (ADDED) — cart + add-to-cart + commission modal wiring
-       DOES NOT change your structure.
-  ========================================================== -->
+       JS: Cart wiring + Pack preview + Map preview + Commission flow
+       Uses your pay.html keys exactly: ll_cart + ll_order_id
+       ========================================================= -->
   <script>
-    // ====== Cart storage (must match pay.html) ======
-    const CART_KEY = "ll_cart"; // array of {name, price, qty}
+    // -----------------------------
+    // Storage keys (MUST MATCH pay.html)
+    // -----------------------------
+    const CART_KEY  = "ll_cart";     // array of {name, price, qty}
+    const ORDER_KEY = "ll_order_id"; // string
 
-    const uiLive = document.getElementById("uiLive");
-    function announce(msg){
-      if(!uiLive) return;
-      uiLive.textContent = "";
-      // tiny delay helps SRs re-announce repeated messages
-      setTimeout(() => { uiLive.textContent = msg; }, 25);
-    }
+    // -----------------------------
+    // Helpers
+    // -----------------------------
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
     function safeParse(json, fallback){
       try { return JSON.parse(json) ?? fallback; } catch { return fallback; }
@@ -467,120 +517,249 @@
 
     function saveCart(cart){
       localStorage.setItem(CART_KEY, JSON.stringify(cart));
-      // let pay.html (and other tabs) know
-      window.dispatchEvent(new StorageEvent("storage", { key: CART_KEY }));
     }
 
-    // Product map (names should match what you want to see in pay.html)
-    const PRODUCTS = {
+    function genOrderId(){
+      const a = Math.random().toString(16).slice(2,6).toUpperCase();
+      const b = Math.random().toString(16).slice(2,6).toUpperCase();
+      return `${a}-${b}`;
+    }
+
+    function ensureOrderId(){
+      let id = localStorage.getItem(ORDER_KEY);
+      if(!id){
+        id = genOrderId();
+        localStorage.setItem(ORDER_KEY, id);
+      }
+      return id;
+    }
+
+    function addToCart(item){
+      // item: {name, price}
+      const cart = loadCart();
+      const existing = cart.find(x => String(x?.name) === item.name);
+      if(existing){
+        existing.qty = Math.max(1, Number(existing.qty || 1) + 1);
+      }else{
+        cart.push({ name: item.name, price: Number(item.price || 0), qty: 1 });
+      }
+      saveCart(cart);
+      ensureOrderId(); // keep order id stable once cart has items
+    }
+
+    // -----------------------------
+    // Product map (names shown on pay.html)
+    // -----------------------------
+    const PRODUCT = {
       grimoire: { name: "Grimoire Pages", price: 5.00 },
       mapmaker: { name: "Mapmaker Sheets", price: 5.00 },
       volone:   { name: "Light Aged Parchment — Vol. One", price: 5.00 }
     };
 
-    function addToCart(productKey){
-      const p = PRODUCTS[productKey];
-      if(!p) return;
+    // -----------------------------
+    // HOME BUTTONS
+    // -----------------------------
+    $("#cartBtn")?.addEventListener("click", () => {
+      // "Cart" takes them to pay screen (your flow)
+      window.location.href = "./pay.html";
+    });
 
-      const cart = loadCart();
-      const idx = cart.findIndex(it => String(it?.name) === p.name);
-
-      if(idx >= 0){
-        const qty = Math.max(1, Number(cart[idx].qty || 1)) + 1;
-        cart[idx].qty = qty;
-      }else{
-        cart.push({ name: p.name, price: Number(p.price.toFixed(2)), qty: 1 });
-      }
-
-      saveCart(cart);
-      announce(`${p.name} added to cart.`);
-    }
-
-    // ====== Wire Cart button to pay ======
-    const cartBtn = document.getElementById("cartBtn");
-    if(cartBtn){
-      cartBtn.addEventListener("click", () => {
-        window.location.href = "./pay.html";
-      });
-    }
-
-    // ====== Wire Add-to-cart buttons ======
-    document.querySelectorAll(".ll-add-btn[data-add]").forEach(btn => {
+    // Add-to-cart buttons (PNG)
+    $$("button.ll-add-btn[data-add]").forEach(btn => {
       btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation(); // prevents pack cover click from also firing
         const key = btn.getAttribute("data-add");
-        addToCart(key);
+        const p = PRODUCT[key];
+        if(!p) return;
+        addToCart(p);
+
+        // tiny, non-invasive feedback without new CSS
+        btn.blur();
       });
     });
 
-    // ====== Commission modals ======
-    const commissionModal = document.getElementById("commissionModal");
-    const letterModal = document.getElementById("letterModal");
-    const openCommission = document.getElementById("openCommission");
-    const openLetter = document.getElementById("openLetter");
+    // -----------------------------
+    // PACK PREVIEW MODAL
+    // -----------------------------
+    const packModal      = $("#packModal");
+    const packTitle      = $("#packModalTitle");
+    const packSub        = $("#packModalSub");
+    const packCollage    = $("#packCollage");
+    const packViewer     = $("#packViewer");
+    const packViewerImg  = $("#packViewerImg");
+    const packBackBtn    = $("#packBackBtn");
 
-    function openModal(modal){
-      if(!modal) return;
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden", "false");
+    const PACKS = {
+      grimoire: {
+        title: "Grimoire Pages",
+        sub: "Preview (12 pages)",
+        // repo shows grim-1.PNG ... grim-12.PNG (uppercase extension)
+        images: Array.from({length: 12}, (_,i)=> `./assets/grimoire/grim-${i+1}.PNG`)
+      },
+      mapmaker: {
+        title: "Mapmaker Sheets",
+        sub: "Preview (10 sheets)",
+        // repo shows map_3.png ... map_13.png (not 1..)
+        images: [
+          "./assets/mapmaker/map_3.png",
+          "./assets/mapmaker/map_4.png",
+          "./assets/mapmaker/map_5.png",
+          "./assets/mapmaker/map_6.png",
+          "./assets/mapmaker/map_7.png",
+          "./assets/mapmaker/map_8.png",
+          "./assets/mapmaker/map_9.png",
+          "./assets/mapmaker/map_10.png",
+          "./assets/mapmaker/map_12.png",
+          "./assets/mapmaker/map_13.png"
+        ]
+      },
+      volone: {
+        title: "Light Aged Parchment — Vol. One",
+        sub: "Preview (12 textures)",
+        // repo shows parchment-light_1.jpg ... parchment-light_12.jpg
+        images: Array.from({length: 12}, (_,i)=> `./assets/vol-one/parchment-light_${i+1}.jpg`)
+      }
+    };
+
+    function openModal(el){
+      el.classList.add("open");
+      el.setAttribute("aria-hidden", "false");
       document.documentElement.classList.add("no-scroll");
     }
 
-    function closeModal(modal){
-      if(!modal) return;
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden", "true");
-      // only remove no-scroll if BOTH are closed
-      const anyOpen = document.querySelector(".modal.open");
-      if(!anyOpen) document.documentElement.classList.remove("no-scroll");
+    function closeModal(el){
+      el.classList.remove("open");
+      el.setAttribute("aria-hidden", "true");
+      document.documentElement.classList.remove("no-scroll");
     }
 
-    if(openCommission){
-      openCommission.addEventListener("click", () => openModal(commissionModal));
+    function setPackModeViewer(isViewer){
+      packModal.classList.toggle("mode-viewer", !!isViewer);
     }
 
-    if(openLetter){
-      openLetter.addEventListener("click", () => {
-        closeModal(commissionModal);
-        openModal(letterModal);
+    function buildPackCollage(images){
+      packCollage.innerHTML = "";
+      images.forEach((src, idx) => {
+        const tile = document.createElement("button");
+        tile.type = "button";
+        tile.className = "tile";
+        tile.setAttribute("aria-label", `Open preview ${idx+1}`);
+        tile.innerHTML = `
+          <div class="tile-face" style="background-image:url('${src}')"></div>
+          <div class="tile-shield" aria-hidden="true"></div>
+        `;
+        tile.addEventListener("click", () => {
+          packViewerImg.style.backgroundImage = `url('${src}')`;
+          setPackModeViewer(true);
+        });
+        packCollage.appendChild(tile);
       });
     }
 
-    // Backdrops + close buttons
-    document.querySelectorAll("[data-close]").forEach(el => {
-      el.addEventListener("click", () => {
-        const which = el.getAttribute("data-close");
-        if(which === "commission") closeModal(commissionModal);
-        if(which === "letter") closeModal(letterModal);
-      });
-    });
-
-    // ESC closes topmost modal
-    window.addEventListener("keydown", (e) => {
-      if(e.key !== "Escape") return;
-      if(letterModal && letterModal.classList.contains("open")) return closeModal(letterModal);
-      if(commissionModal && commissionModal.classList.contains("open")) return closeModal(commissionModal);
-    });
-
-    // Map slot button wired later (per your plan)
-    const mapSlotBtn = document.getElementById("mapSlotBtn");
-    if(mapSlotBtn){
-      mapSlotBtn.addEventListener("click", () => {
-        announce("Map slot link will be wired next.");
-      });
-    }
-
-    // ====== Pack cover click: non-destructive placeholder ======
-    // You said previews must exist, but we do NOT have your preview file list here.
-    // This keeps your UI responsive without breaking structure.
-    document.querySelectorAll(".pack[data-pack]").forEach(btn => {
+    // Clicking a pack card opens preview modal
+    $$("button.pack[data-pack]").forEach(btn => {
       btn.addEventListener("click", () => {
         const key = btn.getAttribute("data-pack");
-        const title = PRODUCTS[key]?.name || "Pack";
-        announce(`${title} preview wiring next.`);
+        const def = PACKS[key];
+        if(!def) return;
+
+        packTitle.textContent = def.title;
+        packSub.textContent = def.sub;
+        buildPackCollage(def.images);
+
+        // start in grid mode
+        packViewerImg.style.backgroundImage = "";
+        setPackModeViewer(false);
+
+        openModal(packModal);
       });
     });
+
+    // Back button in viewer
+    packBackBtn?.addEventListener("click", () => {
+      setPackModeViewer(false);
+      packViewerImg.style.backgroundImage = "";
+    });
+
+    // -----------------------------
+    // MAP PREVIEW MODAL (simple viewer)
+    // -----------------------------
+    const mapModal     = $("#mapModal");
+    const mapModalTitle= $("#mapModalTitle");
+    const mapModalSub  = $("#mapModalSub");
+    const mapViewerImg = $("#mapViewerImg");
+
+    const MAPS = {
+      suneen: {
+        title: "Suneen Reef",
+        sub: "Preview stays here",
+        src: "./assets/maps/suneen-reef.png"
+      },
+      whispering: {
+        title: "Whispering Bay",
+        sub: "Preview stays here",
+        src: "./assets/maps/whispering-bay.png"
+      }
+    };
+
+    function openMap(key){
+      const def = MAPS[key];
+      if(!def) return;
+      mapModalTitle.textContent = def.title;
+      mapModalSub.textContent = def.sub;
+      mapViewerImg.style.backgroundImage = `url('${def.src}')`;
+      openModal(mapModal);
+    }
+
+    $$(".map-card[data-map]").forEach(card => {
+      const key = card.getAttribute("data-map");
+      card.addEventListener("click", () => openMap(key));
+      card.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          openMap(key);
+        }
+      });
+    });
+
+    // -----------------------------
+    // COMMISSION FLOW
+    // -----------------------------
+    const commissionModal = $("#commissionModal");
+    const letterModal     = $("#letterModal");
+    const openCommission  = $("#openCommission");
+    const openLetter      = $("#openLetter");
+
+    openCommission?.addEventListener("click", () => openModal(commissionModal));
+    openLetter?.addEventListener("click", () => {
+      closeModal(commissionModal);
+      openModal(letterModal);
+    });
+
+    // map slot button — wired later (do nothing for now)
+    $("#mapSlotBtn")?.addEventListener("click", () => {
+      // placeholder: wire to Google Doc later
+    });
+
+    // -----------------------------
+    // GLOBAL CLOSE HANDLERS
+    // -----------------------------
+    $$("[data-close]").forEach(el => {
+      el.addEventListener("click", () => {
+        // close whichever modal is currently open (closest)
+        const modal = el.closest(".modal");
+        if(modal) closeModal(modal);
+      });
+    });
+
+    // ESC closes topmost open modal
+    document.addEventListener("keydown", (e) => {
+      if(e.key !== "Escape") return;
+      const open = $$(".modal.open");
+      if(!open.length) return;
+      closeModal(open[open.length - 1]);
+    });
+
+    // Boot: ensure we have an order id only when needed (cart add triggers it)
   </script>
 </body>
 </html>
