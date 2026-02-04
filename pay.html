@@ -6,7 +6,7 @@
   <title>Lace &amp; Leather — Pay</title>
 
   <!-- IMPORTANT: bump this whenever you edit CSS -->
-  <link rel="stylesheet" href="./styles.css?v=PAY-007" />
+  <link rel="stylesheet" href="./styles.css?v=PAY-008" />
 </head>
 
 <body class="pay-page">
@@ -62,6 +62,27 @@
                 Cart is empty. Add items on the main page, then return here.
               </div>
 
+              <!-- =========================
+                   CUSTOMER INFO (OPTIONAL)
+                   Used to email receipt after PAID is clicked.
+                   ========================= -->
+              <div class="pay-fields" aria-label="Receipt details">
+                <div class="pay-note pay-tiny" style="margin: 0 0 8px;">
+                  Optional: add an email for your receipt (sent after payment is confirmed).
+                </div>
+
+                <label class="pay-field">
+                  <span class="pay-muted">Email (receipt)</span>
+                  <input id="custEmail" type="email" autocomplete="email" inputmode="email"
+                         placeholder="you@example.com" />
+                </label>
+
+                <label class="pay-field">
+                  <span class="pay-muted">Name</span>
+                  <input id="custName" type="text" autocomplete="name" placeholder="Name" />
+                </label>
+              </div>
+
               <!-- CONFIRM -->
               <div class="pay-confirm-wrap">
                 <!-- =========================
@@ -102,7 +123,6 @@
 
                 <!-- ADMIN: mark paid + reset (Option B) -->
                 <button class="ll-btn" id="paidBtn" type="button" aria-label="Mark paid">
-                  <!-- If you don't have this PNG yet, replace with text button temporarily -->
                   <img src="./L&L-buttons/paid.png" alt="Paid" />
                 </button>
               </div>
@@ -136,6 +156,10 @@
     const CART_KEY  = "ll_cart";        // array of {name, price, qty}
     const ORDER_KEY = "ll_order_id";    // string
     const LOCK_KEY  = "ll_cart_locked"; // "1" once confirmed
+
+    // Receipt fields persist for a locked order
+    const CUST_EMAIL_KEY = "ll_customer_email";
+    const CUST_NAME_KEY  = "ll_customer_name";
 
     // In-flight guard (prevents double-saves)
     let CONFIRM_IN_FLIGHT = false;
@@ -202,6 +226,32 @@
     }
 
     // =============================
+    // Customer info helpers
+    // =============================
+    function getCustEmail(){
+      return (localStorage.getItem(CUST_EMAIL_KEY) || "").trim();
+    }
+    function getCustName(){
+      return (localStorage.getItem(CUST_NAME_KEY) || "").trim();
+    }
+    function setCustInfo(name, email){
+      localStorage.setItem(CUST_NAME_KEY, (name || "").trim());
+      localStorage.setItem(CUST_EMAIL_KEY, (email || "").trim());
+    }
+    function clearCustInfo(){
+      localStorage.removeItem(CUST_NAME_KEY);
+      localStorage.removeItem(CUST_EMAIL_KEY);
+    }
+    function syncCustInputsFromStorage(){
+      if ($("custEmail")) $("custEmail").value = getCustEmail();
+      if ($("custName")) $("custName").value = getCustName();
+    }
+    function lockCustInputs(locked){
+      if ($("custEmail")) $("custEmail").disabled = !!locked;
+      if ($("custName")) $("custName").disabled = !!locked;
+    }
+
+    // =============================
     // UI state: QR hidden until confirm succeeds
     // =============================
     function setQrReady(isReady){
@@ -211,6 +261,9 @@
 
       // prevent wiping after confirm
       $("clearCartBtn").disabled = !!isReady;
+
+      // lock receipt inputs after confirm
+      lockCustInputs(!!isReady);
     }
 
     function setConfirmStatus(msg, kind){
@@ -225,6 +278,7 @@
       $("confirmBtn").classList.toggle("busy", !!busy);
       $("paidBtn").disabled = !!busy;
       $("clearCartBtn").disabled = !!busy || document.body.classList.contains("qr-ready");
+      lockCustInputs(!!busy || document.body.classList.contains("qr-ready"));
     }
 
     // =============================
@@ -274,6 +328,9 @@
         setQrReady(false);
         setConfirmStatus("", null);
         setConfirmBusy(false);
+        clearCustInfo();
+        syncCustInputsFromStorage();
+        lockCustInputs(false);
       }
     }
 
@@ -299,6 +356,11 @@
         return;
       }
 
+      // capture receipt info and persist it for this order
+      const custEmail = ($("custEmail")?.value || "").trim();
+      const custName  = ($("custName")?.value  || "").trim();
+      setCustInfo(custName, custEmail);
+
       const orderId = loadOrderId();
       const subtotal = calcSubtotal(cart);
 
@@ -313,7 +375,7 @@
         total: Number(subtotal.toFixed(2)),
         currency: "USD",
         items,
-        customer: { name: "", email: "" },
+        customer: { name: custName, email: custEmail },
         note: "",
         referrer: document.referrer || "",
         status: "new"
@@ -357,6 +419,7 @@
     // =============================
     // MARK PAID (Option B): update existing row in Sheets
     // then reset local state for next order
+    // Also passes customer email/name so Apps Script can email receipt.
     // =============================
     async function markPaidAndReset(){
       if (!document.body.classList.contains("qr-ready") || !isCartLocked()) {
@@ -365,6 +428,9 @@
       }
 
       const orderId = loadOrderId();
+      const custEmail = getCustEmail();
+      const custName  = getCustName();
+
       setConfirmBusy(true);
       setConfirmStatus("Marking paid…", null);
 
@@ -373,6 +439,9 @@
         body.set("action", "paid");
         body.set("order_id", orderId);
         body.set("paid_at", new Date().toISOString());
+        body.set("payment_method", "PayPal");
+        body.set("customer_email", custEmail);
+        body.set("customer_name", custName);
 
         const res = await fetch(ENDPOINT_URL, {
           method: "POST",
@@ -391,6 +460,7 @@
         setCartLocked(false);
         saveCart([]);
         newOrderId();
+        clearCustInfo();
 
         setQrReady(false);
         setConfirmStatus("Paid. Ready for next order.", "ok");
@@ -418,6 +488,7 @@
       newOrderId();
       setCartLocked(false);
       setQrReady(false);
+      clearCustInfo();
       setConfirmStatus("", null);
       setConfirmBusy(false);
       render();
@@ -436,8 +507,16 @@
       markPaidAndReset();
     });
 
+    // Persist receipt fields live (but don't clear them unless reset)
+    window.addEventListener("input", (e) => {
+      if (e.target && (e.target.id === "custEmail" || e.target.id === "custName")) {
+        setCustInfo(($("custName")?.value || ""), ($("custEmail")?.value || ""));
+      }
+    });
+
     // Boot
     setQrReady(false);
+    syncCustInputsFromStorage();
 
     // If cart was previously locked, show QR immediately on load
     if (isCartLocked()) setQrReady(true);
@@ -446,6 +525,7 @@
 
     window.addEventListener("storage", (e) => {
       if(e.key === CART_KEY || e.key === ORDER_KEY || e.key === LOCK_KEY) render();
+      if(e.key === CUST_EMAIL_KEY || e.key === CUST_NAME_KEY) syncCustInputsFromStorage();
     });
   </script>
 </body>
