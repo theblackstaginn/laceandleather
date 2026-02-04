@@ -164,6 +164,17 @@
     @media (max-width: 420px){
       .ll-add-btn{ width: 190px; height: 62px; }
     }
+
+    /* tiny, invisible status for screen readers (does not affect layout) */
+    .sr-live{
+      position:absolute;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
   </style>
 </head>
 
@@ -175,6 +186,9 @@
     <span></span><span></span><span></span><span></span>
     <span></span><span></span><span></span><span></span>
   </div>
+
+  <!-- live region (safe, invisible) -->
+  <div id="uiLive" class="sr-live" aria-live="polite"></div>
 
   <main class="wrap">
     <header class="hero">
@@ -367,10 +381,206 @@
     </footer>
   </main>
 
-  <!-- (MODALS + JS unchanged EXCEPT add-to-cart handler + product map) -->
-  <!-- Keep your existing modal HTML exactly as-is below this point -->
-  <!-- ... -->
-  <!-- If you want, paste your existing modal blocks + JS here from the last working file. -->
-  <!-- For safety, I'm leaving them out in this snippet, since your layout request is the pack-buy area. -->
+  <!-- =========================================================
+       MODALS (ADDED) — uses YOUR folder names + YOUR CSS hooks
+       commission-modal-assets/*
+       assets/x-button.PNG
+  ========================================================== -->
+
+  <!-- Commission Envelope Modal -->
+  <div id="commissionModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="commission"></div>
+
+    <div class="modal-panel commission-panel">
+      <div class="commission-inner">
+        <div class="commission-bg" aria-hidden="true"></div>
+
+        <button class="commission-close wax-btn" type="button" data-close="commission" aria-label="Close">
+          <img src="./assets/x-button.PNG" alt="Close">
+        </button>
+
+        <button id="openLetter" class="commission-envelope-btn" type="button" aria-label="Open envelope">
+          <img class="commission-envelope-img" src="./commission-modal-assets/envelope-closed.png" alt="Open envelope">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Commission Letter Modal -->
+  <div id="letterModal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="letter"></div>
+
+    <div class="modal-panel letter-panel glass" role="dialog" aria-modal="true" aria-label="Commission Letter">
+      <div class="modal-head">
+        <div class="modal-left">
+          <div>
+            <div class="modal-title">Commission Request</div>
+            <div class="modal-sub">Read the letter, then request a slot.</div>
+          </div>
+        </div>
+
+        <button class="wax-btn" type="button" data-close="letter" aria-label="Close">
+          <img src="./assets/x-button.PNG" alt="Close">
+        </button>
+      </div>
+
+      <div class="letter-body">
+        <div class="letter-bg" aria-hidden="true"></div>
+
+        <div class="letter-stack" aria-label="Letter">
+          <img class="letter-img" src="./commission-modal-assets/commission-letter.png" alt="Commission letter">
+
+          <!-- map-slot wired later (per your note) -->
+          <button class="map-slot-btn" id="mapSlotBtn" type="button" aria-label="Request a map slot">
+            <img src="./commission-modal-assets/map-slot-button.png" alt="Request a map slot">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       JS (ADDED) — cart + add-to-cart + commission modal wiring
+       DOES NOT change your structure.
+  ========================================================== -->
+  <script>
+    // ====== Cart storage (must match pay.html) ======
+    const CART_KEY = "ll_cart"; // array of {name, price, qty}
+
+    const uiLive = document.getElementById("uiLive");
+    function announce(msg){
+      if(!uiLive) return;
+      uiLive.textContent = "";
+      // tiny delay helps SRs re-announce repeated messages
+      setTimeout(() => { uiLive.textContent = msg; }, 25);
+    }
+
+    function safeParse(json, fallback){
+      try { return JSON.parse(json) ?? fallback; } catch { return fallback; }
+    }
+
+    function loadCart(){
+      const raw = localStorage.getItem(CART_KEY);
+      const cart = safeParse(raw, []);
+      return Array.isArray(cart) ? cart : [];
+    }
+
+    function saveCart(cart){
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      // let pay.html (and other tabs) know
+      window.dispatchEvent(new StorageEvent("storage", { key: CART_KEY }));
+    }
+
+    // Product map (names should match what you want to see in pay.html)
+    const PRODUCTS = {
+      grimoire: { name: "Grimoire Pages", price: 5.00 },
+      mapmaker: { name: "Mapmaker Sheets", price: 5.00 },
+      volone:   { name: "Light Aged Parchment — Vol. One", price: 5.00 }
+    };
+
+    function addToCart(productKey){
+      const p = PRODUCTS[productKey];
+      if(!p) return;
+
+      const cart = loadCart();
+      const idx = cart.findIndex(it => String(it?.name) === p.name);
+
+      if(idx >= 0){
+        const qty = Math.max(1, Number(cart[idx].qty || 1)) + 1;
+        cart[idx].qty = qty;
+      }else{
+        cart.push({ name: p.name, price: Number(p.price.toFixed(2)), qty: 1 });
+      }
+
+      saveCart(cart);
+      announce(`${p.name} added to cart.`);
+    }
+
+    // ====== Wire Cart button to pay ======
+    const cartBtn = document.getElementById("cartBtn");
+    if(cartBtn){
+      cartBtn.addEventListener("click", () => {
+        window.location.href = "./pay.html";
+      });
+    }
+
+    // ====== Wire Add-to-cart buttons ======
+    document.querySelectorAll(".ll-add-btn[data-add]").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation(); // prevents pack cover click from also firing
+        const key = btn.getAttribute("data-add");
+        addToCart(key);
+      });
+    });
+
+    // ====== Commission modals ======
+    const commissionModal = document.getElementById("commissionModal");
+    const letterModal = document.getElementById("letterModal");
+    const openCommission = document.getElementById("openCommission");
+    const openLetter = document.getElementById("openLetter");
+
+    function openModal(modal){
+      if(!modal) return;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.documentElement.classList.add("no-scroll");
+    }
+
+    function closeModal(modal){
+      if(!modal) return;
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      // only remove no-scroll if BOTH are closed
+      const anyOpen = document.querySelector(".modal.open");
+      if(!anyOpen) document.documentElement.classList.remove("no-scroll");
+    }
+
+    if(openCommission){
+      openCommission.addEventListener("click", () => openModal(commissionModal));
+    }
+
+    if(openLetter){
+      openLetter.addEventListener("click", () => {
+        closeModal(commissionModal);
+        openModal(letterModal);
+      });
+    }
+
+    // Backdrops + close buttons
+    document.querySelectorAll("[data-close]").forEach(el => {
+      el.addEventListener("click", () => {
+        const which = el.getAttribute("data-close");
+        if(which === "commission") closeModal(commissionModal);
+        if(which === "letter") closeModal(letterModal);
+      });
+    });
+
+    // ESC closes topmost modal
+    window.addEventListener("keydown", (e) => {
+      if(e.key !== "Escape") return;
+      if(letterModal && letterModal.classList.contains("open")) return closeModal(letterModal);
+      if(commissionModal && commissionModal.classList.contains("open")) return closeModal(commissionModal);
+    });
+
+    // Map slot button wired later (per your plan)
+    const mapSlotBtn = document.getElementById("mapSlotBtn");
+    if(mapSlotBtn){
+      mapSlotBtn.addEventListener("click", () => {
+        announce("Map slot link will be wired next.");
+      });
+    }
+
+    // ====== Pack cover click: non-destructive placeholder ======
+    // You said previews must exist, but we do NOT have your preview file list here.
+    // This keeps your UI responsive without breaking structure.
+    document.querySelectorAll(".pack[data-pack]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-pack");
+        const title = PRODUCTS[key]?.name || "Pack";
+        announce(`${title} preview wiring next.`);
+      });
+    });
+  </script>
 </body>
 </html>
