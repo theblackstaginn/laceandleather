@@ -249,6 +249,7 @@
 
     // =============================
     // POST receipt to Google Sheet
+    // (aligned with your Apps Script: order_id, total, customer, note, referrer, status)
     // =============================
     async function postReceipt(){
       const cart = loadCart();
@@ -260,17 +261,31 @@
       const orderId = loadOrderId();
       const subtotal = calcSubtotal(cart);
 
-      const receipt = {
-        orderId,
-        createdAt: new Date().toISOString(),
+      // items payload matches your script's expected "items"
+      const items = cart.map(it => ({
+        name: String(it?.name ?? "Item"),
+        qty: Math.max(1, Number(it?.qty ?? 1)),
+        price: Number(Number(it?.price ?? 0).toFixed(2))
+      }));
+
+      // Build payload to match Code.gs normalization:
+      // - order_id
+      // - total
+      // - currency
+      // - items
+      // - customer { name, email }
+      // - note
+      // - referrer
+      // - status
+      const payload = {
+        order_id: orderId,
+        total: Number(subtotal.toFixed(2)),
         currency: "USD",
-        subtotal: Number(subtotal.toFixed(2)),
-        items: cart.map(it => ({
-          name: String(it?.name ?? "Item"),
-          qty: Math.max(1, Number(it?.qty ?? 1)),
-          price: Number(Number(it?.price ?? 0).toFixed(2))
-        })),
-        userAgent: navigator.userAgent
+        items,
+        customer: { name: "", email: "" },
+        note: "",
+        referrer: document.referrer || "",
+        status: "new"
       };
 
       setConfirmBusy(true);
@@ -280,7 +295,7 @@
         const res = await fetch(ENDPOINT_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(receipt)
+          body: JSON.stringify(payload)
         });
 
         await res.text();
