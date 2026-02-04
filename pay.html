@@ -6,7 +6,7 @@
   <title>Lace &amp; Leather — Pay</title>
 
   <!-- IMPORTANT: bump this whenever you edit CSS -->
-  <link rel="stylesheet" href="./styles.css?v=PAY-006" />
+  <link rel="stylesheet" href="./styles.css?v=PAY-007" />
 </head>
 
 <body class="pay-page">
@@ -84,7 +84,7 @@
               <h2>SCAN TO PAY</h2>
 
               <!-- =========================
-                   QR AREA (with PayPal button under QR)
+                   QR AREA (with PayPal + PAID button under QR)
                    Hidden until confirm succeeds
                    ========================= -->
               <div class="pay-qr-wrap" id="qrWrap" style="display:none;">
@@ -99,6 +99,12 @@
                 >
                   <img src="./L&L-buttons/paypal.png" alt="PayPal" />
                 </a>
+
+                <!-- ADMIN: mark paid + reset (Option B) -->
+                <button class="ll-btn" id="paidBtn" type="button" aria-label="Mark paid">
+                  <!-- If you don't have this PNG yet, replace with text button temporarily -->
+                  <img src="./L&L-buttons/paid.png" alt="Paid" />
+                </button>
               </div>
 
               <!-- Shown until confirm succeeds -->
@@ -203,7 +209,7 @@
       $("qrBlocked").style.display = isReady ? "none" : "block";
       $("qrWrap").style.display = isReady ? "flex" : "none";
 
-      // Upgrade: prevent wiping/changing after confirm
+      // prevent wiping after confirm
       $("clearCartBtn").disabled = !!isReady;
     }
 
@@ -217,7 +223,7 @@
     function setConfirmBusy(busy){
       $("confirmBtn").disabled = !!busy;
       $("confirmBtn").classList.toggle("busy", !!busy);
-      // Clear cart is also disabled while saving (and also after confirm via setQrReady)
+      $("paidBtn").disabled = !!busy;
       $("clearCartBtn").disabled = !!busy || document.body.classList.contains("qr-ready");
     }
 
@@ -274,9 +280,6 @@
     // =============================
     // POST receipt to Google Sheet
     // IMPORTANT: Use form POST (payload=<json>) to avoid CORS preflight.
-    // Upgrades:
-    // - in-flight guard (double click safe)
-    // - lock cart after save (receipt = truth)
     // =============================
     async function postReceipt(){
       if (CONFIRM_IN_FLIGHT) return;
@@ -320,15 +323,12 @@
       setConfirmStatus("Saving receipt…", null);
 
       try{
-        // Form POST avoids preflight CORS checks with Apps Script
         const body = new URLSearchParams();
         body.set("payload", JSON.stringify(payload));
 
         const res = await fetch(ENDPOINT_URL, {
           method: "POST",
           body: body
-          // 🚫 no headers
-          // 🚫 no JSON content-type
         });
 
         const data = await res.json().catch(() => null);
@@ -340,7 +340,6 @@
           return;
         }
 
-        // Upgrade: lock cart after successful save
         setCartLocked(true);
 
         setConfirmStatus("Saved. Scan to pay.", "ok");
@@ -356,12 +355,62 @@
     }
 
     // =============================
+    // MARK PAID (Option B): update existing row in Sheets
+    // then reset local state for next order
+    // =============================
+    async function markPaidAndReset(){
+      if (!document.body.classList.contains("qr-ready") || !isCartLocked()) {
+        setConfirmStatus("Confirm first.", "bad");
+        return;
+      }
+
+      const orderId = loadOrderId();
+      setConfirmBusy(true);
+      setConfirmStatus("Marking paid…", null);
+
+      try{
+        const body = new URLSearchParams();
+        body.set("action", "paid");
+        body.set("order_id", orderId);
+        body.set("paid_at", new Date().toISOString());
+
+        const res = await fetch(ENDPOINT_URL, {
+          method: "POST",
+          body: body
+        });
+
+        const data = await res.json().catch(() => null);
+
+        if(!res.ok || !data || data.ok !== true){
+          setConfirmStatus("Paid update failed.", "bad");
+          setConfirmBusy(false);
+          return;
+        }
+
+        // Reset for next customer/order
+        setCartLocked(false);
+        saveCart([]);
+        newOrderId();
+
+        setQrReady(false);
+        setConfirmStatus("Paid. Ready for next order.", "ok");
+        setConfirmBusy(false);
+
+        render();
+        $("payScroll").scrollTo({ top: 0, behavior: "smooth" });
+
+      }catch(err){
+        setConfirmStatus("Network error (paid).", "bad");
+        setConfirmBusy(false);
+      }
+    }
+
+    // =============================
     // Events
     // =============================
     $("clearCartBtn").addEventListener("click", () => {
-      // Allow clear only if not locked
       if (isCartLocked() || document.body.classList.contains("qr-ready")) {
-        setConfirmStatus("Order is locked after save. Start a new order on the main page.", "bad");
+        setConfirmStatus("Order is locked after save. Use PAID to reset.", "bad");
         return;
       }
 
@@ -381,6 +430,10 @@
         return;
       }
       postReceipt();
+    });
+
+    $("paidBtn").addEventListener("click", () => {
+      markPaidAndReset();
     });
 
     // Boot
