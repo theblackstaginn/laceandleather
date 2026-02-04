@@ -1,4 +1,4 @@
-<!-- index.html (CLEAN + DUST + PACK/MAP MODALS + COMMISSION MODALS + SEO/SHARE/SCHEMA + PAY PAGE LINK) -->
+<!-- index.html (CLEAN + DUST + PACK/MAP MODALS + COMMISSION MODALS + SEO/SHARE/SCHEMA + PAY PAGE LINK + L&L BUTTONS + ADD TO CART) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -67,7 +67,7 @@
 
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Tiny inline style for HOME Cart/Pay buttons (no CSS file edits needed) -->
+  <!-- Inline UI wiring styles (no styles.css edits needed) -->
   <style>
     .cart-pay-row{
       display:flex;
@@ -75,13 +75,14 @@
       gap:14px;
       flex-wrap:wrap;
       margin-top: 14px;
+      align-items:center;
     }
 
-    /* Image-button base */
+    /* Image-button base (HOME) */
     .ll-home-btn{
       display:inline-block;
-      width: 230px;          /* tune if needed */
-      height: 74px;          /* tune if needed */
+      width: 230px;
+      height: 74px;
       border:0;
       padding:0;
       background: transparent;
@@ -121,6 +122,46 @@
 
     @media (max-width: 420px){
       .ll-home-btn{ width: 200px; height: 66px; }
+    }
+
+    /* ===== Pack wrappers + Add-to-Cart buttons ===== */
+    .pack-wrap{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .pack-buy{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 0 6px;
+    }
+    .pack-price{
+      font-size:14px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      opacity:.9;
+    }
+
+    .ll-add-btn{
+      display:inline-block;
+      width: 210px;
+      height: 68px;
+      border:0;
+      padding:0;
+      background: transparent url("./L&L-buttons/add-to-cart.png") center/contain no-repeat;
+      cursor:pointer;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .ll-add-btn:focus{
+      outline:2px solid rgba(255,255,255,.35);
+      outline-offset:4px;
+      border-radius:10px;
+    }
+    @media (max-width: 420px){
+      .ll-add-btn{ width: 190px; height: 62px; }
     }
   </style>
 </head>
@@ -200,44 +241,60 @@
     <!-- PRODUCTS / VOLUMES -->
     <section class="glass section" aria-label="Packs">
       <h2 class="h2">Browse Packs</h2>
-      <p class="muted">Tap a cover to preview the full set. (No downloads here — this is the front porch.)</p>
+      <p class="muted">Tap a cover to preview the full set. Add to cart to buy ($5 each).</p>
 
       <div class="packs">
         <!-- Grimoire Pages -->
-        <button class="pack" type="button" data-pack="grimoire">
-          <img src="./assets/grimoire/grim-thumb.png" alt="Grimoire pack preview" loading="lazy" />
-          <div class="pack-meta">
-            <div class="pack-title">Grimoire Pages</div>
-            <div class="pack-note muted">Click to preview all pages</div>
+        <div class="pack-wrap">
+          <button class="pack" type="button" data-pack="grimoire">
+            <img src="./assets/grimoire/grim-thumb.png" alt="Grimoire pack preview" loading="lazy" />
+            <div class="pack-meta">
+              <div class="pack-title">Grimoire Pages</div>
+              <div class="pack-note muted">Click to preview all pages</div>
+            </div>
+          </button>
+
+          <div class="pack-buy" aria-label="Buy Grimoire Pages">
+            <div class="pack-price muted">$5.00</div>
+            <button class="ll-add-btn" type="button" data-add="grimoire" aria-label="Add Grimoire Pages to cart"></button>
           </div>
-        </button>
+        </div>
 
         <!-- Mapmaker Sheets -->
-        <button class="pack" type="button" data-pack="mapmaker">
-          <img src="./assets/mapmaker/mapmaker-cover.png" alt="Mapmaker pack preview" loading="lazy" />
-          <div class="pack-meta">
-            <div class="pack-title">Mapmaker Sheets</div>
-            <div class="pack-note muted">Click to preview all sheets</div>
+        <div class="pack-wrap">
+          <button class="pack" type="button" data-pack="mapmaker">
+            <img src="./assets/mapmaker/mapmaker-cover.png" alt="Mapmaker pack preview" loading="lazy" />
+            <div class="pack-meta">
+              <div class="pack-title">Mapmaker Sheets</div>
+              <div class="pack-note muted">Click to preview all sheets</div>
+            </div>
+          </button>
+
+          <div class="pack-buy" aria-label="Buy Mapmaker Sheets">
+            <div class="pack-price muted">$5.00</div>
+            <button class="ll-add-btn" type="button" data-add="mapmaker" aria-label="Add Mapmaker Sheets to cart"></button>
           </div>
-        </button>
+        </div>
 
         <!-- Vol One -->
-        <button class="pack" type="button" data-pack="volone">
-          <img
-            src="./assets/vol-one/vol-1-thumbnail.png"
-            alt="Vol One light parchment preview"
-            loading="lazy"
-          />
-          <div class="pack-meta">
-            <div class="pack-title">Light Aged Parchment — Vol. One</div>
-            <div class="pack-note muted">Click to preview all textures</div>
-          </div>
-        </button>
-      </div>
+        <div class="pack-wrap">
+          <button class="pack" type="button" data-pack="volone">
+            <img
+              src="./assets/vol-one/vol-1-thumbnail.png"
+              alt="Vol One light parchment preview"
+              loading="lazy"
+            />
+            <div class="pack-meta">
+              <div class="pack-title">Light Aged Parchment — Vol. One</div>
+              <div class="pack-note muted">Click to preview all textures</div>
+            </div>
+          </button>
 
-      <!-- COMING SOON: Button section placeholder (we'll generate real add-to-cart buttons next) -->
-      <div style="margin-top:14px;" class="muted">
-        Buttons (Add to Cart) — <strong>coming soon</strong>.
+          <div class="pack-buy" aria-label="Buy Light Aged Parchment Vol One">
+            <div class="pack-price muted">$5.00</div>
+            <button class="ll-add-btn" type="button" data-add="volone" aria-label="Add Vol One to cart"></button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -265,7 +322,7 @@
           </div>
           <figcaption class="map-caption">
             <span class="map-name">Whispering Bay</span>
-            <span class="map-tagline">shadowed shores & hidden coves</span>
+            <span class="map-tagline">shadowed shores &amp; hidden coves</span>
           </figcaption>
         </figure>
       </div>
@@ -500,6 +557,13 @@
       const CART_KEY  = "ll_cart";
       const ORDER_KEY = "ll_order_id";
 
+      // ===== Products (canonical) =====
+      const PRODUCTS = {
+        volone:   { name: "Light Aged Parchment — Vol. One", price: 5.00 },
+        grimoire: { name: "Grimoire Pages",                   price: 5.00 },
+        mapmaker: { name: "Mapmaker Sheets",                  price: 5.00 }
+      };
+
       const safeId = () =>
         Math.random().toString(16).slice(2, 6).toUpperCase() + "-" +
         Math.random().toString(16).slice(2, 6).toUpperCase();
@@ -519,6 +583,28 @@
           const arr = raw ? JSON.parse(raw) : [];
           return Array.isArray(arr) ? arr : [];
         } catch { return []; }
+      };
+
+      const writeCart = (arr) => localStorage.setItem(CART_KEY, JSON.stringify(arr));
+
+      const addToCart = (key) => {
+        const p = PRODUCTS[key];
+        if (!p) return;
+
+        const cart = readCart();
+
+        const found = cart.find(x => String(x?.name) === p.name);
+        if (found) {
+          found.qty = Math.max(1, Number(found.qty || 1)) + 1;
+          found.price = Number(p.price);
+        } else {
+          cart.push({ name: p.name, price: Number(p.price), qty: 1 });
+        }
+
+        // ensure order id exists once cart has items
+        ensureOrderId();
+
+        writeCart(cart);
       };
 
       const goToPayPage = () => {
@@ -817,6 +903,22 @@
 
       // Click wiring
       document.addEventListener("click", (e) => {
+        // Add-to-cart buttons (must NOT trigger pack preview)
+        const addBtn = e.target.closest("[data-add]");
+        if (addBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const key = addBtn.getAttribute("data-add");
+          addToCart(key);
+
+          // tiny feedback
+          addBtn.style.filter = "brightness(1.12)";
+          setTimeout(() => (addBtn.style.filter = ""), 140);
+
+          return;
+        }
+
         // Packs
         const packBtn = e.target.closest(".pack");
         if (packBtn) {
