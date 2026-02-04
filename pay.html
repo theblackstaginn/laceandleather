@@ -6,7 +6,7 @@
   <title>Lace &amp; Leather — Pay</title>
 
   <!-- IMPORTANT: bump this whenever you edit CSS -->
-  <link rel="stylesheet" href="./styles.css?v=PAY-005" />
+  <link rel="stylesheet" href="./styles.css?v=PAY-006" />
 </head>
 
 <body class="pay-page">
@@ -129,6 +129,10 @@
     // Storage keys
     const CART_KEY  = "ll_cart";        // array of {name, price, qty}
     const ORDER_KEY = "ll_order_id";    // string
+    const LOCK_KEY  = "ll_cart_locked"; // "1" once confirmed
+
+    // In-flight guard (prevents double-saves)
+    let CONFIRM_IN_FLIGHT = false;
 
     // Helpers
     const $ = (id) => document.getElementById(id);
@@ -173,6 +177,14 @@
       return id;
     }
 
+    function setCartLocked(v){
+      localStorage.setItem(LOCK_KEY, v ? "1" : "0");
+    }
+
+    function isCartLocked(){
+      return localStorage.getItem(LOCK_KEY) === "1";
+    }
+
     function calcSubtotal(cart){
       let subtotal = 0;
       for(const item of cart){
@@ -190,6 +202,9 @@
       document.body.classList.toggle("qr-ready", !!isReady);
       $("qrBlocked").style.display = isReady ? "none" : "block";
       $("qrWrap").style.display = isReady ? "flex" : "none";
+
+      // Upgrade: prevent wiping/changing after confirm
+      $("clearCartBtn").disabled = !!isReady;
     }
 
     function setConfirmStatus(msg, kind){
@@ -202,7 +217,8 @@
     function setConfirmBusy(busy){
       $("confirmBtn").disabled = !!busy;
       $("confirmBtn").classList.toggle("busy", !!busy);
-      $("clearCartBtn").disabled = !!busy;
+      // Clear cart is also disabled while saving (and also after confirm via setQrReady)
+      $("clearCartBtn").disabled = !!busy || document.body.classList.contains("qr-ready");
     }
 
     // =============================
@@ -221,6 +237,12 @@
       emptyNote.style.display = hasItems ? "none" : "block";
 
       $("orderId").textContent = loadOrderId();
+
+      // If already confirmed (locked), show QR + status
+      if (isCartLocked() && hasItems) {
+        setQrReady(true);
+        setConfirmStatus("Saved. Scan to pay.", "ok");
+      }
 
       if(hasItems){
         for(const item of cart){
@@ -242,6 +264,7 @@
       }
 
       if(!hasItems){
+        setCartLocked(false);
         setQrReady(false);
         setConfirmStatus("", null);
         setConfirmBusy(false);
@@ -251,11 +274,25 @@
     // =============================
     // POST receipt to Google Sheet
     // IMPORTANT: Use form POST (payload=<json>) to avoid CORS preflight.
+    // Upgrades:
+    // - in-flight guard (double click safe)
+    // - lock cart after save (receipt = truth)
     // =============================
     async function postReceipt(){
+      if (CONFIRM_IN_FLIGHT) return;
+      CONFIRM_IN_FLIGHT = true;
+
       const cart = loadCart();
       if(!cart.length){
         setConfirmStatus("Cart is empty.", "bad");
+        CONFIRM_IN_FLIGHT = false;
+        return;
+      }
+
+      // If already confirmed, don't resave
+      if (document.body.classList.contains("qr-ready") || isCartLocked()) {
+        setConfirmStatus("Already saved. Scan to pay.", "ok");
+        CONFIRM_IN_FLIGHT = false;
         return;
       }
 
@@ -299,16 +336,22 @@
         if(!res.ok || !data || data.ok !== true){
           setConfirmStatus("Save failed. Try again.", "bad");
           setConfirmBusy(false);
+          CONFIRM_IN_FLIGHT = false;
           return;
         }
+
+        // Upgrade: lock cart after successful save
+        setCartLocked(true);
 
         setConfirmStatus("Saved. Scan to pay.", "ok");
         setQrReady(true);
         setConfirmBusy(false);
+        CONFIRM_IN_FLIGHT = false;
 
       }catch(err){
         setConfirmStatus("Network error. Try again.", "bad");
         setConfirmBusy(false);
+        CONFIRM_IN_FLIGHT = false;
       }
     }
 
@@ -316,8 +359,15 @@
     // Events
     // =============================
     $("clearCartBtn").addEventListener("click", () => {
+      // Allow clear only if not locked
+      if (isCartLocked() || document.body.classList.contains("qr-ready")) {
+        setConfirmStatus("Order is locked after save. Start a new order on the main page.", "bad");
+        return;
+      }
+
       saveCart([]);
       newOrderId();
+      setCartLocked(false);
       setQrReady(false);
       setConfirmStatus("", null);
       setConfirmBusy(false);
@@ -326,7 +376,7 @@
     });
 
     $("confirmBtn").addEventListener("click", () => {
-      if(document.body.classList.contains("qr-ready")){
+      if(document.body.classList.contains("qr-ready") || isCartLocked()){
         setConfirmStatus("Already saved. Scan to pay.", "ok");
         return;
       }
@@ -335,10 +385,14 @@
 
     // Boot
     setQrReady(false);
+
+    // If cart was previously locked, show QR immediately on load
+    if (isCartLocked()) setQrReady(true);
+
     render();
 
     window.addEventListener("storage", (e) => {
-      if(e.key === CART_KEY || e.key === ORDER_KEY) render();
+      if(e.key === CART_KEY || e.key === ORDER_KEY || e.key === LOCK_KEY) render();
     });
   </script>
 </body>
