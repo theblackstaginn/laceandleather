@@ -1,4 +1,4 @@
-<!-- index.html (FULL — your exact structure preserved + missing MODALS + working CART wiring) -->
+<!-- index.html (FULL — your exact structure preserved + Google Forms wired) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -479,8 +479,9 @@
 
         <div class="letter-stack">
           <img class="letter-img" src="./commission-modal-assets/commission-letter.png" alt="Commission letter" />
-          <!-- Map Slot button (wired later) -->
-          <button class="map-slot-btn" type="button" id="mapSlotBtn" aria-label="Request a map slot (wired later)">
+
+          <!-- Map Slot button (NOW WIRED to Google Form) -->
+          <button class="map-slot-btn" type="button" id="mapSlotBtn" aria-label="Request a map slot">
             <img src="./commission-modal-assets/map-slot-button.png" alt="Map Slot" />
           </button>
         </div>
@@ -491,8 +492,15 @@
   <!-- =========================================================
        JS: Cart wiring + Pack preview + Map preview + Commission flow
        Uses your pay.html keys exactly: ll_cart + ll_order_id
+       PLUS: wires your two Google Forms
        ========================================================= -->
   <script>
+    // -----------------------------
+    // Google Forms (YOUR LINKS)
+    // -----------------------------
+    const MAP_COMMISSION_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdIVLZ8Nc4GXj5fNdUfKc2dVX0Vo2flcQrCERJiPgeL6qHaOg/viewform?usp=header";
+    const CONFIRM_ORDER_FORM_URL  = "https://docs.google.com/forms/d/e/1FAIpQLSdvh4sgUyHin-EeEdrreMRES-Ah1KbDafmRfiDVcODj7ZKzPg/viewform?usp=header";
+
     // -----------------------------
     // Storage keys (MUST MATCH pay.html)
     // -----------------------------
@@ -534,6 +542,16 @@
       return id;
     }
 
+    function calcSubtotal(cart){
+      let subtotal = 0;
+      for(const item of cart){
+        const qty  = Math.max(1, Number(item?.qty ?? 1));
+        const price = Number(item?.price ?? 0);
+        subtotal += (price * qty);
+      }
+      return Number(subtotal.toFixed(2));
+    }
+
     function addToCart(item){
       // item: {name, price}
       const cart = loadCart();
@@ -566,13 +584,11 @@
 
     // Add-to-cart buttons (PNG)
     $$("button.ll-add-btn[data-add]").forEach(btn => {
-      btn.addEventListener("click", (e) => {
+      btn.addEventListener("click", () => {
         const key = btn.getAttribute("data-add");
         const p = PRODUCT[key];
         if(!p) return;
         addToCart(p);
-
-        // tiny, non-invasive feedback without new CSS
         btn.blur();
       });
     });
@@ -584,7 +600,6 @@
     const packTitle      = $("#packModalTitle");
     const packSub        = $("#packModalSub");
     const packCollage    = $("#packCollage");
-    const packViewer     = $("#packViewer");
     const packViewerImg  = $("#packViewerImg");
     const packBackBtn    = $("#packBackBtn");
 
@@ -592,13 +607,11 @@
       grimoire: {
         title: "Grimoire Pages",
         sub: "Preview (12 pages)",
-        // repo shows grim-1.PNG ... grim-12.PNG (uppercase extension)
         images: Array.from({length: 12}, (_,i)=> `./assets/grimoire/grim-${i+1}.PNG`)
       },
       mapmaker: {
         title: "Mapmaker Sheets",
         sub: "Preview (10 sheets)",
-        // repo shows map_3.png ... map_13.png (not 1..)
         images: [
           "./assets/mapmaker/map_3.png",
           "./assets/mapmaker/map_4.png",
@@ -615,7 +628,6 @@
       volone: {
         title: "Light Aged Parchment — Vol. One",
         sub: "Preview (12 textures)",
-        // repo shows parchment-light_1.jpg ... parchment-light_12.jpg
         images: Array.from({length: 12}, (_,i)=> `./assets/vol-one/parchment-light_${i+1}.jpg`)
       }
     };
@@ -655,7 +667,6 @@
       });
     }
 
-    // Clicking a pack card opens preview modal
     $$("button.pack[data-pack]").forEach(btn => {
       btn.addEventListener("click", () => {
         const key = btn.getAttribute("data-pack");
@@ -666,7 +677,6 @@
         packSub.textContent = def.sub;
         buildPackCollage(def.images);
 
-        // start in grid mode
         packViewerImg.style.backgroundImage = "";
         setPackModeViewer(false);
 
@@ -674,19 +684,18 @@
       });
     });
 
-    // Back button in viewer
     packBackBtn?.addEventListener("click", () => {
       setPackModeViewer(false);
       packViewerImg.style.backgroundImage = "";
     });
 
     // -----------------------------
-    // MAP PREVIEW MODAL (simple viewer)
+    // MAP PREVIEW MODAL
     // -----------------------------
-    const mapModal     = $("#mapModal");
-    const mapModalTitle= $("#mapModalTitle");
-    const mapModalSub  = $("#mapModalSub");
-    const mapViewerImg = $("#mapViewerImg");
+    const mapModal      = $("#mapModal");
+    const mapModalTitle = $("#mapModalTitle");
+    const mapModalSub   = $("#mapModalSub");
+    const mapViewerImg  = $("#mapViewerImg");
 
     const MAPS = {
       suneen: {
@@ -735,23 +744,66 @@
       openModal(letterModal);
     });
 
-    // map slot button — wired later (do nothing for now)
+    // Map Slot button -> opens Google Form (new tab)
     $("#mapSlotBtn")?.addEventListener("click", () => {
-      // placeholder: wire to Google Doc later
+      window.open(MAP_COMMISSION_FORM_URL, "_blank", "noopener,noreferrer");
     });
+
+    // -----------------------------
+    // Confirm Order Form helper (OPTIONAL use later)
+    // This DOES NOT run automatically here (pay.html handles confirm),
+    // but it gives you a clean function to call from pay.html if you want.
+    // -----------------------------
+    function buildConfirmOrderPrefillUrl(){
+      const cart = loadCart();
+      const orderId = ensureOrderId();
+      const subtotal = calcSubtotal(cart);
+
+      // NOTE: For prefill to work, you must replace these with your form entry IDs:
+      //   entry.1234567890 = Order ID
+      //   entry.2345678901 = Subtotal
+      //   entry.3456789012 = Items (text)
+      // Until you add entry IDs, this returns the base form URL.
+      const ENTRY = {
+        orderId: null,
+        subtotal: null,
+        items: null
+      };
+
+      const itemsText = cart.map(it => {
+        const name = String(it?.name ?? "Item");
+        const qty  = Math.max(1, Number(it?.qty ?? 1));
+        const price = Number(it?.price ?? 0);
+        return `${name} x${qty} — $${(price*qty).toFixed(2)}`;
+      }).join("\n");
+
+      const u = new URL(CONFIRM_ORDER_FORM_URL);
+
+      // Only append if you set entry IDs
+      if(ENTRY.orderId)  u.searchParams.set(ENTRY.orderId, orderId);
+      if(ENTRY.subtotal) u.searchParams.set(ENTRY.subtotal, subtotal.toFixed(2));
+      if(ENTRY.items)    u.searchParams.set(ENTRY.items, itemsText);
+
+      return u.toString();
+    }
+
+    // Expose helpers if you ever want to call from other scripts
+    window.LL_FORMS = {
+      MAP_COMMISSION_FORM_URL,
+      CONFIRM_ORDER_FORM_URL,
+      buildConfirmOrderPrefillUrl
+    };
 
     // -----------------------------
     // GLOBAL CLOSE HANDLERS
     // -----------------------------
     $$("[data-close]").forEach(el => {
       el.addEventListener("click", () => {
-        // close whichever modal is currently open (closest)
         const modal = el.closest(".modal");
         if(modal) closeModal(modal);
       });
     });
 
-    // ESC closes topmost open modal
     document.addEventListener("keydown", (e) => {
       if(e.key !== "Escape") return;
       const open = $$(".modal.open");
@@ -759,7 +811,7 @@
       closeModal(open[open.length - 1]);
     });
 
-    // Boot: ensure we have an order id only when needed (cart add triggers it)
+    // Boot: order id is created on first add-to-cart (not on page load)
   </script>
 </body>
 </html>
