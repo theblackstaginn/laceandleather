@@ -1,3 +1,4 @@
+<!-- pay.html (UPDATED: smaller buttons + Back & Clear Cart side-by-side + PayPal button under QR) -->
 <!doctype html>
 <html lang="en" class="pay-html">
 <head>
@@ -5,63 +6,63 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Lace &amp; Leather — Pay</title>
 
-  <!-- IMPORTANT: bump this whenever you edit CSS -->
   <link rel="stylesheet" href="./styles.css?v=PAY-004" />
 
-  <!-- Pay-page button skins (inline so we don’t touch styles.css yet) -->
+  <!-- Small override layer: shrink buttons + force Back/Clear inline + PayPal under QR -->
   <style>
-    /* Image-button base */
-    .ll-img-btn{
+    .pay-actions{
+      display:flex;
+      flex-direction:row;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:nowrap;
+    }
+
+    /* If these are still text buttons anywhere */
+    .pay-actions .pay-btn{
+      padding:8px 12px;
+      font-size:12px;
+      line-height:1;
+      border-radius:12px;
+    }
+
+    /* Confirm button smaller */
+    .pay-confirm-btn{
+      padding:10px 14px;
+      font-size:12px;
+      border-radius:12px;
+      min-height:auto;
+    }
+
+    /* QR area becomes a vertical stack (QR then PayPal button) */
+    .pay-qr-wrap{
+      flex-direction:column;
+      gap:10px;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* PayPal image button under QR */
+    .paypal-img-btn{
       display:inline-block;
-      width: 220px;           /* adjust if your PNGs are different */
-      height: 72px;           /* adjust if your PNGs are different */
+      width: 220px;
+      height: 70px;
       border:0;
       padding:0;
-      background: transparent;
-      background-repeat:no-repeat;
-      background-position:center;
-      background-size:contain;
+      background: transparent url("./L&L-buttons/paypal.png") center/contain no-repeat;
       cursor:pointer;
-      text-indent:-9999px;    /* keep text accessible */
-      overflow:hidden;
-      white-space:nowrap;
-      user-select:none;
+      text-decoration:none;
       -webkit-tap-highlight-color: transparent;
     }
-    .ll-img-btn:focus{
+    .paypal-img-btn:focus{
       outline:2px solid rgba(255,255,255,.35);
       outline-offset:4px;
       border-radius:10px;
     }
 
-    /* Specific skins */
-    .ll-back    { background-image:url("./L&L-buttons/back.png"); }
-    .ll-clear   { background-image:url("./L&L-buttons/clear-cart.png"); }
-    .ll-confirm { background-image:url("./L&L-buttons/confirm-order.png"); }
-    .ll-paypal  { background-image:url("./L&L-buttons/paypal.png"); }
-
-    /* Make header buttons not explode on small screens */
-    .pay-actions{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-
-    /* PayPal button sits under QR with tight spacing */
-    .paypal-under-qr{
-      display:none;           /* toggled by JS via setQrReady */
-      margin-top: 10px;
-      justify-content:center;
-    }
-
-    /* Slightly smaller on narrow phones */
     @media (max-width: 420px){
-      .ll-img-btn{
-        width: 190px;
-        height: 64px;
-      }
+      .paypal-img-btn{ width: 200px; height: 64px; }
     }
   </style>
 </head>
@@ -71,7 +72,6 @@
 
   <main class="pay-shell" aria-label="Checkout">
     <section class="tablet-wrap" aria-label="Tablet checkout screen">
-      <!-- Screen overlay area (content lives here) -->
       <div class="tablet-screen">
         <header class="pay-head">
           <div class="pay-head-left">
@@ -80,15 +80,11 @@
           </div>
 
           <div class="pay-actions">
-            <!-- Back (image button) -->
-            <a class="ll-img-btn ll-back" id="backBtn" href="./index.html">Back</a>
-
-            <!-- Clear cart (image button) -->
-            <button class="ll-img-btn ll-clear" id="clearCartBtn" type="button">Clear cart</button>
+            <a class="pay-btn" href="./index.html">Back</a>
+            <button class="pay-btn" id="clearCartBtn" type="button">Clear cart</button>
           </div>
         </header>
 
-        <!-- This is the ONLY scroll container -->
         <div class="pay-scroll" id="payScroll">
           <div class="pay-grid">
             <!-- LEFT: Cart -->
@@ -113,9 +109,8 @@
                 Cart is empty. Add items on the main page, then return here.
               </div>
 
-              <!-- CONFIRM -->
               <div class="pay-confirm-wrap">
-                <button class="ll-img-btn ll-confirm" id="confirmBtn" type="button">Confirm Order</button>
+                <button class="pay-confirm-btn" id="confirmBtn" type="button">Confirm Order</button>
                 <div class="pay-confirm-status" id="confirmStatus" aria-live="polite"></div>
               </div>
 
@@ -128,17 +123,20 @@
             <section class="pay-card" aria-label="Payment">
               <h2>SCAN TO PAY</h2>
 
-              <!-- Hidden until confirm succeeds -->
               <div class="pay-qr-wrap" id="qrWrap">
                 <img class="pay-qr" src="./assets/lace-qr.png" alt="PayPal QR Code" />
+
+                <!-- PayPal button appears under QR (since qrWrap is hidden until confirm) -->
+                <a
+                  class="paypal-img-btn"
+                  id="paypalOpenBtn"
+                  href="https://www.paypal.com/signin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open PayPal"
+                ></a>
               </div>
 
-              <!-- PayPal button UNDER the QR (hidden until QR is revealed) -->
-              <div class="paypal-under-qr" id="paypalUnderQr" aria-label="Open PayPal">
-                <button class="ll-img-btn ll-paypal" id="paypalBtn" type="button">PayPal</button>
-              </div>
-
-              <!-- Shown until confirm succeeds -->
               <div class="pay-qr-blocked" id="qrBlocked">
                 Confirm your order to reveal the QR code.
               </div>
@@ -158,16 +156,11 @@
   </main>
 
   <script>
-    // =============================
-    // CONFIG
-    // =============================
     const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzQSkg_6m84LsodueoI9LN6VuXhuWpfRtYNlyzleZ_I0XghmU-ra49-Bmb4SaoSG8uI/exec";
 
-    // Storage keys
-    const CART_KEY  = "ll_cart";        // array of {name, price, qty}
-    const ORDER_KEY = "ll_order_id";    // string
+    const CART_KEY  = "ll_cart";
+    const ORDER_KEY = "ll_order_id";
 
-    // Helpers
     const $ = (id) => document.getElementById(id);
 
     function money(n){
@@ -220,37 +213,10 @@
       return subtotal;
     }
 
-    // =============================
-    // PayPal open helper
-    // =============================
-    function openPayPal(){
-      // 1) Try app deep link on mobile (best-effort)
-      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-      if(isMobile){
-        // App scheme attempt (may or may not work depending on device/browser)
-        window.location.href = "paypal://";
-        // Fallback to web after a beat
-        setTimeout(() => {
-          window.location.href = "https://www.paypal.com/";
-        }, 700);
-        return;
-      }
-
-      // Desktop: open PayPal in a new tab
-      window.open("https://www.paypal.com/", "_blank", "noopener,noreferrer");
-    }
-
-    // =============================
-    // UI state: QR hidden until confirm succeeds
-    // =============================
     function setQrReady(isReady){
       document.body.classList.toggle("qr-ready", !!isReady);
       $("qrBlocked").style.display = isReady ? "none" : "block";
       $("qrWrap").style.display = isReady ? "flex" : "none";
-
-      // PayPal button appears directly under QR, at the same moment
-      $("paypalUnderQr").style.display = isReady ? "flex" : "none";
     }
 
     function setConfirmStatus(msg, kind){
@@ -265,9 +231,6 @@
       $("confirmBtn").classList.toggle("busy", !!busy);
     }
 
-    // =============================
-    // Render
-    // =============================
     function render(){
       const cart = loadCart();
       const list = $("cartList");
@@ -308,9 +271,6 @@
       }
     }
 
-    // =============================
-    // POST receipt to Google Sheet
-    // =============================
     async function postReceipt(){
       const cart = loadCart();
       if(!cart.length){
@@ -362,9 +322,6 @@
       }
     }
 
-    // =============================
-    // Events
-    // =============================
     $("clearCartBtn").addEventListener("click", () => {
       saveCart([]);
       newOrderId();
@@ -383,14 +340,6 @@
       postReceipt();
     });
 
-    // PayPal button click
-    $("paypalBtn").addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      openPayPal();
-    });
-
-    // Boot
     setQrReady(false);
     render();
 
