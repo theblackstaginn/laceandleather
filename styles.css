@@ -1418,3 +1418,36 @@ body.pay-page .bg::after{
   }
 
 }
+/* =========================================================
+   FORCE HOVER LIFT — CART / PAYPAD / ADD-TO-CART PNGs
+   Works even if you forgot .ll-btn on those buttons
+========================================================= */
+
+@media (hover:hover) and (pointer:fine){
+
+  /* When ANY clickable thing is hovered, lift these specific button images */
+  a:hover img[src*="add-to-cart"],
+  button:hover img[src*="add-to-cart"],
+  .pack:hover img[src*="add-to-cart"],
+  [role="button"]:hover img[src*="add-to-cart"],
+
+  a:hover img[src*="cart"],
+  button:hover img[src*="cart"],
+  [role="button"]:hover img[src*="cart"],
+
+  a:hover img[src*="paypad"],
+  button:hover img[src*="paypad"],
+  [role="button"]:hover img[src*="paypad"]{
+    transform: translateY(-3px) scale(1.02) !important;
+    filter:
+      drop-shadow(0 18px 34px rgba(0,0,0,.60))
+      drop-shadow(0 6px 10px rgba(0,0,0,.42)) !important;
+  }
+
+  /* Optional: if the image is inside a wrapper that ALSO needs the cursor */
+  img[src*="add-to-cart"],
+  img[src*="cart"],
+  img[src*="paypad"]{
+    cursor: pointer;
+  }
+}
