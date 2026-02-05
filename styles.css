@@ -1311,22 +1311,24 @@ body.pay-page .bg::after{
     gap: 8px;
   }
 
-  body.pay-page .pay-brand,
-  body.pay-page .pay-sub{
-    text-align: center;
-  }
+@media (max-width: 768px) and (orientation: portrait){
 
-  /* Stack buttons vertically */
-  body.pay-page .pay-actions{
+  /* Center header text */
+  body.pay-page .pay-head{
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    width: 100%;
+    text-align: center;
+    gap: 10px;
   }
 
-  /* Make sure buttons don’t stretch weirdly */
-  body.pay-page .pay-actions .ll-btn{
-    display: inline-flex;
+  /* Buttons side-by-side, centered */
+  body.pay-page .pay-actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
   }
 
 }
