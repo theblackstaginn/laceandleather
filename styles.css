@@ -1235,100 +1235,62 @@ body.pay-page .bg::after{
     radial-gradient(120% 120% at 50% 50%, transparent 62%, rgba(0,0,0,.38) 100%),
     linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.28));
 }
-
 /* =========================================================
-   PAY PAGE — MOBILE FIT FIX (PORTRAIT ONLY)
-   (Prevents desktop/web from getting trashed in narrow windows)
+PAY PAGE — MOBILE PORTRAIT OVERRIDES (single, clean block)
 ========================================================= */
 @media (max-width: 768px) and (orientation: portrait){
 
-  body.pay-page .tablet-wrap{
-    max-height: 94vh;
-    width: min(520px, 96vw);
-    aspect-ratio: 9 / 16;
-  }
-
-  body.pay-page .tablet-screen{
-    inset: 25% 13.5% 16% 13.5%;
-    border-radius: 14px;
-  }
-
-  body.pay-page .pay-head{
-    padding: 10px 12px 8px;
-    gap: 10px;
-  }
-
-  body.pay-page .pay-actions{
-    gap: 8px;
-  }
-
-  body.pay-page .pay-actions .ll-btn img{
-    height:36px;        /* slightly smaller on mobile */
-    max-width:150px;
-  }
-
-  body.pay-page .pay-confirm-wrap .ll-btn img{
-    height:44px;
-  }
-
-  body.pay-page #qrWrap .ll-btn img{
-    height:40px;
-  }
+/* Tablet canvas */
+body.pay-page .tablet-wrap{
+max-height: 94vh;
+width: min(520px, 96vw);
+aspect-ratio: 9 / 16;
 }
 
-/* =========================================================
-   PAY PAGE — WEB/LANDSCAPE LOCK
-========================================================= */
-@media (min-width: 769px), (orientation: landscape){
-  body.pay-page .tablet-wrap{
-    aspect-ratio: 16 / 9;
-    max-height: 96vh;
-    width: 100%;
-    max-width: min(1200px, 96vw);
-  }
+/* Screen window inside the bezel (THIS is your tuning knob) */
+body.pay-page .tablet-screen{
+inset: 24% 14% 18% 14%;
+border-radius: 14px;
 }
 
-@media (max-width: 768px) and (orientation: portrait){
-
-  body.pay-page .pay-grid{
-    grid-template-columns: 1fr;   /* ONE ROW */
-    gap: 14px;
-  }
-
-  body.pay-page .pay-card{
-    width: 100%;
-    max-width: none;
-  }
-
+/* Header: stacked + centered text */
+body.pay-page .pay-head{
+flex-direction: column;
+align-items: center;
+text-align: center;
+gap: 10px;
+padding: 10px 12px 8px;
 }
-@media (max-width: 768px) and (orientation: portrait){
 
-  /* Center header content */
-  body.pay-page .pay-head{
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 8px;
-  }
+/* Buttons: side-by-side, centered */
+body.pay-page .pay-actions{
+justify-content: center;
+gap: 12px;
+width: 100%;
+}
 
-@media (max-width: 768px) and (orientation: portrait){
+/* Make the pay layout 1 column on mobile */
+body.pay-page .pay-grid{
+grid-template-columns: 1fr;
+gap: 14px;
+}
 
-  /* Center header text */
-  body.pay-page .pay-head{
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
-  }
+body.pay-page .pay-card{
+width: 100%;
+max-width: none;
+}
 
-  /* Buttons side-by-side, centered */
-  body.pay-page .pay-actions{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-  }
+/* Button sizing */
+body.pay-page .pay-actions .ll-btn img{
+height: 36px;
+max-width: 150px;
+}
 
+body.pay-page .pay-confirm-wrap .ll-btn img{
+height: 44px;
+}
+
+body.pay-page #qrWrap .ll-btn img{
+height: 40px;
+}
 }
