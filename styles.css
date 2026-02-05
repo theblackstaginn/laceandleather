@@ -1312,3 +1312,23 @@ max-width: 180px;
 }
 
 }
+/* =========================
+   PAY PAGE — FORCE TABLET BACKGROUND
+   ========================= */
+body.pay-page .bg{
+  background-image: url("./assets/tablet-web.png") !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  background-color: #0b0c10 !important;
+  filter: brightness(1.35) contrast(1.06) saturate(1.05) !important;
+}
+
+/* Mobile portrait uses the mobile tablet art */
+@media (max-width: 768px) and (orientation: portrait){
+  body.pay-page .bg{
+    background-image: url("./assets/tablet-mobile.png") !important;
+    background-size: contain !important;
+    background-position: center center !important;
+  }
+}
