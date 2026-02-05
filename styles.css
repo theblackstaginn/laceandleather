@@ -975,9 +975,10 @@ body.pay-page .tablet-img{
 
 /* Default: web/landscape tablet-web.png */
 /* Screen region inside bezel (desktop/landscape default) */
+
 body.pay-page .tablet-screen{
   position:absolute;
-  inset: 20% 16% 20% 16%;
+  inset: 18% 14% 18% 14%;
   display:flex;
   flex-direction:column;
   overflow:hidden;
