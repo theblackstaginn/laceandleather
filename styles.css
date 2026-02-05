@@ -1287,3 +1287,17 @@ body.pay-page .bg::after{
     max-width: min(1200px, 96vw);
   }
 }
+
+@media (max-width: 768px) and (orientation: portrait){
+
+  body.pay-page .pay-grid{
+    grid-template-columns: 1fr;   /* ONE ROW */
+    gap: 14px;
+  }
+
+  body.pay-page .pay-card{
+    width: 100%;
+    max-width: none;
+  }
+
+}
