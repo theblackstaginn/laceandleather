@@ -1399,3 +1399,22 @@ body.pay-page .bg::after{
     radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.48) 100%),
     linear-gradient(180deg, rgba(0,0,0,.42), rgba(0,0,0,.42));
 }
+/* =========================================================
+   GLOBAL PNG BUTTON HOVER FIX — FORCE LIFT
+========================================================= */
+
+/* Desktop-only hover restore */
+@media (hover:hover) and (pointer:fine){
+
+  /* Any Lace & Leather PNG button */
+  .ll-btn:hover img,
+  .maps-btn:hover img,
+  .map-slot-btn:hover img,
+  .pack:hover .ll-btn img{
+    transform: translateY(-3px) scale(1.02) !important;
+    filter:
+      drop-shadow(0 18px 34px rgba(0,0,0,.60))
+      drop-shadow(0 6px 10px rgba(0,0,0,.42));
+  }
+
+}
