@@ -1355,3 +1355,31 @@ body.pay-page .bg{
 body.pay-page .bg{
   filter: brightness(1.82) contrast(1.05) saturate(1.06) !important;
 }
+/* =========================================================
+   HARD OVERRIDE: BRIGHTEN ALL BACKGROUNDS (DESKTOP + MOBILE)
+   Paste at VERY END of styles.css
+========================================================= */
+
+/* Front Porch / site-wide background (all breakpoints) */
+html body .bg{
+  filter: saturate(1.08) contrast(1.03) brightness(1.20) !important;
+}
+
+/* Mobile porch bg uses same brightness too */
+@media (max-width: 768px){
+  html body .bg{
+    filter: saturate(1.08) contrast(1.03) brightness(1.20) !important;
+  }
+}
+
+/* Pay page tablet art (web + mobile) */
+html body.pay-page .bg{
+  filter: brightness(1.65) contrast(1.05) saturate(1.06) !important;
+}
+
+/* Pay page mobile portrait explicitly (belt + suspenders) */
+@media (max-width: 768px) and (orientation: portrait){
+  html body.pay-page .bg{
+    filter: brightness(1.65) contrast(1.05) saturate(1.06) !important;
+  }
+}
