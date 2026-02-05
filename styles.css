@@ -1348,10 +1348,10 @@ body.pay-page .bg{
 
 /* Front porch / site-wide background */
 .bg{
-  filter: saturate(1.08) contrast(1.03) brightness(1.18) !important;
+  filter: saturate(1.08) contrast(1.03) brightness(1.23) !important;
 }
 
 /* Pay page tablet backgrounds (web + mobile) */
 body.pay-page .bg{
-  filter: brightness(1.60) contrast(1.05) saturate(1.06) !important;
+  filter: brightness(1.82) contrast(1.05) saturate(1.06) !important;
 }
