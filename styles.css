@@ -1292,12 +1292,19 @@ letter-spacing: .06em;
 }
 
 /* Make PayPal + Paid side-by-side on mobile */
+/* Mobile: stack PayPal + Paid vertically */
 body.pay-page #qrWrap{
-flex-direction: row !important;
-flex-wrap: wrap;
-justify-content: center;
-align-items: center;
-gap: 12px !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+/* Keep the "Open PayPal" line above the buttons */
+body.pay-page #qrWrap .pay-note.pay-tiny{
+  width: auto !important;
+  order: -1;
 }
 
 /* Put the "Open PayPal" line above the buttons */
