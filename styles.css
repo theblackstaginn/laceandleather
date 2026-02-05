@@ -1214,7 +1214,7 @@ aspect-ratio: 9 / 16;
 
 /* Screen window inside the bezel (your tuning knob) */
 body.pay-page .tablet-screen{
-inset: 25% 13.5% 18% 13.5%;
+inset: 25% 13.5% 19.5% 13.5%;
 border-radius: 14px;
 }
 
