@@ -968,15 +968,39 @@ body.pay-page .tablet-img{
 }
 
 /* Screen region inside bezel (desktop/landscape default) */
-body.pay-page .tablet-screen{
-  position:absolute;
-  inset: 28% 24% 28% 24%;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  border-radius:16px;
+/* =========================
+   PAY PAGE — SCREEN WINDOW FIT (override)
+   Adjusts the "glass" window to match the tablet art.
+   ========================= */
+
+/* Default: web/landscape tablet-web.png */
+body.pay-page{
+  --screenTop: 24%;
+  --screenSide: 18%;
+  --screenBottom: 22%;
 }
 
+body.pay-page .tablet-screen{
+  inset: var(--screenTop) var(--screenSide) var(--screenBottom) var(--screenSide);
+}
+
+/* Web/landscape lock (keep it consistent) */
+@media (min-width: 769px){
+  body.pay-page{
+    --screenTop: 24%;
+    --screenSide: 18%;
+    --screenBottom: 22%;
+  }
+}
+
+/* Mobile portrait tablet-mobile.png */
+@media (max-width: 768px) and (orientation: portrait){
+  body.pay-page{
+    --screenTop: 26%;
+    --screenSide: 10%;
+    --screenBottom: 18%;
+  }
+}
 /* Header */
 body.pay-page .pay-head{
   display:flex;
