@@ -1383,3 +1383,19 @@ html body.pay-page .bg{
     filter: brightness(1.65) contrast(1.05) saturate(1.06) !important;
   }
 }
+/* =========================================================
+   PAY PAGE WEB — BRIGHTNESS FIX (missing knob)
+========================================================= */
+
+/* Brighten tablet art itself */
+body.pay-page .bg{
+  filter: brightness(1.65) contrast(1.05) saturate(1.06) !important;
+}
+
+/* Lighten the dark overlay ONLY on pay page */
+body.pay-page .bg::after{
+  background:
+    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.48) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.42), rgba(0,0,0,.42));
+}
