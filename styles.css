@@ -1200,43 +1200,8 @@ body.pay-page .pay-qr{
 }
 
 /* =========================================================
-PAY PAGE BACKGROUND (tablet-web.png / tablet-mobile.png)
-Fix: stop "blown up" zoom/crop by using CONTAIN.
-========================================================= */
-
-body.pay-page .bg{
-  background-image: url("./assets/tablet-web.png");
-  background-position: center center;
-  background-repeat: no-repeat;
-
-  /* KEY: show the whole tablet, no cropping */
-  background-size: contain;
-
-  /* fill the leftover space nicely */
-  background-color: #0b0c10;
-
-  /* keep your brighten */
-  filter: brightness(1.35) contrast(1.06) saturate(1.05);
-}
-
-/* Mobile: you can still keep contain (most consistent) */
-@media (max-width: 768px){
-  body.pay-page .bg{
-    background-image: url("./assets/tablet-mobile.png");
-    background-size: contain;
-    background-position: center center;
-  }
-}
-
-/* Optional: lighten overlay ONLY on pay page */
-body.pay-page .bg::after{
-  background:
-    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
-    radial-gradient(120% 120% at 50% 50%, transparent 62%, rgba(0,0,0,.38) 100%),
-    linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.28));
-}
-/* =========================================================
-PAY PAGE — MOBILE PORTRAIT OVERRIDES (single, clean block)
+PAY PAGE — MOBILE PORTRAIT OVERRIDES (final, closed block)
+Goal: mobile shows PayPal + Paid + single "Open PayPal"
 ========================================================= */
 @media (max-width: 768px) and (orientation: portrait){
 
@@ -1247,7 +1212,7 @@ width: min(520px, 96vw);
 aspect-ratio: 9 / 16;
 }
 
-/* Screen window inside the bezel (THIS is your tuning knob) */
+/* Screen window inside the bezel (your tuning knob) */
 body.pay-page .tablet-screen{
 inset: 25% 13.5% 18% 13.5%;
 border-radius: 14px;
@@ -1269,12 +1234,11 @@ gap: 12px;
 width: 100%;
 }
 
-/* Make the pay layout 1 column on mobile */
+/* One column */
 body.pay-page .pay-grid{
 grid-template-columns: 1fr;
 gap: 14px;
 }
-
 body.pay-page .pay-card{
 width: 100%;
 max-width: none;
@@ -1285,12 +1249,66 @@ body.pay-page .pay-actions .ll-btn img{
 height: 36px;
 max-width: 150px;
 }
-
 body.pay-page .pay-confirm-wrap .ll-btn img{
 height: 44px;
 }
-
 body.pay-page #qrWrap .ll-btn img{
 height: 40px;
 }
+
+/* =========================
+MOBILE: remove QR visuals + QR-ish text
+Keep PayPal + Paid
+========================= */
+
+/* Hide the "SCAN TO PAY" section title on mobile */
+body.pay-page section.pay-card[aria-label="Payment"] > h2{
+display:none;
+}
+
+/* Hide the QR image only */
+body.pay-page #qrWrap .pay-qr{
+display:none !important;
+}
+
+/* Hide the long payment notes on mobile (keep it simple) */
+body.pay-page section.pay-card[aria-label="Payment"] .pay-note{
+display:none;
+}
+
+/* Re-enable just the small line inside qrWrap and force it to say "Open PayPal" */
+body.pay-page #qrWrap .pay-note.pay-tiny{
+display:block !important;
+text-align:center !important;
+margin: 6px 0 10px !important;
+opacity: .90;
+}
+
+/* If your tiny line still says "Or open PayPal!", this forces it visually */
+body.pay-page #qrWrap .pay-note.pay-tiny{
+font-size: 12px;
+font-weight: 800;
+letter-spacing: .06em;
+}
+
+/* Make PayPal + Paid side-by-side on mobile */
+body.pay-page #qrWrap{
+flex-direction: row !important;
+flex-wrap: wrap;
+justify-content: center;
+align-items: center;
+gap: 12px !important;
+}
+
+/* Put the "Open PayPal" line above the buttons */
+body.pay-page #qrWrap .pay-note.pay-tiny{
+width: 100%;
+order: -1;
+}
+
+/* Slightly reduce button max width to avoid overflow */
+body.pay-page #qrWrap .ll-btn img{
+max-width: 180px;
+}
+
 }
