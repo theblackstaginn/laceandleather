@@ -68,7 +68,8 @@ html.no-scroll body{ overflow:hidden; }
   z-index:-2;
   background:url("./assets/lace-bg.png") center / cover no-repeat;
   transform: translateZ(0);
-  filter:saturate(1.08) contrast(1.02) brightness(1.08);
+  /* BRIGHTER (global porch bg) */
+  filter:saturate(1.08) contrast(1.02) brightness(1.12);
 }
 
 .bg::after{
@@ -1291,7 +1292,6 @@ font-weight: 800;
 letter-spacing: .06em;
 }
 
-/* Make PayPal + Paid side-by-side on mobile */
 /* Mobile: stack PayPal + Paid vertically */
 body.pay-page #qrWrap{
   flex-direction: column !important;
@@ -1319,6 +1319,7 @@ max-width: 180px;
 }
 
 }
+
 /* =========================
    PAY PAGE — FORCE TABLET BACKGROUND
    ========================= */
@@ -1328,7 +1329,8 @@ body.pay-page .bg{
   background-repeat: no-repeat !important;
   background-size: contain !important;
   background-color: #0b0c10 !important;
-  filter: brightness(1.35) contrast(1.06) saturate(1.05) !important;
+  /* BRIGHTER (pay bg) */
+  filter: brightness(1.48) contrast(1.05) saturate(1.06) !important;
 }
 
 /* Mobile portrait uses the mobile tablet art */
