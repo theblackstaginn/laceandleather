@@ -1451,37 +1451,3 @@ body.pay-page .bg::after{
     cursor: pointer;
   }
 }
-/* =========================
-   iOS PWA / Standalone viewport fix (Pay screen)
-   ========================= */
-
-/* Make viewport units behave in iOS standalone */
-html, body { height: 100%; }
-@supports (-webkit-touch-callout: none) {
-  html { height: -webkit-fill-available; }
-  body { min-height: -webkit-fill-available; }
-}
-
-/* Use dynamic viewport + respect safe areas */
-.pay-page,
-.pay-html body.pay-page {
-  min-height: 100dvh; /* dynamic viewport (fixes standalone) */
-  padding-top: calc(env(safe-area-inset-top) + 14px);
-  padding-bottom: calc(env(safe-area-inset-bottom) + 14px);
-}
-
-/* Keep the tablet centered within the *usable* space */
-.pay-shell {
-  min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Prevent the tablet from being taller than the usable area */
-.tablet-wrap {
-  width: min(92vw, 460px);
-  max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 28px);
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-}
