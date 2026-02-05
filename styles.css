@@ -1301,3 +1301,32 @@ body.pay-page .bg::after{
   }
 
 }
+@media (max-width: 768px) and (orientation: portrait){
+
+  /* Center header content */
+  body.pay-page .pay-head{
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  body.pay-page .pay-brand,
+  body.pay-page .pay-sub{
+    text-align: center;
+  }
+
+  /* Stack buttons vertically */
+  body.pay-page .pay-actions{
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  /* Make sure buttons don’t stretch weirdly */
+  body.pay-page .pay-actions .ll-btn{
+    display: inline-flex;
+  }
+
+}
