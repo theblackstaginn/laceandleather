@@ -1451,3 +1451,18 @@ body.pay-page .bg::after{
     cursor: pointer;
   }
 }
+
+.btn-browse-buttons{
+  display:inline-block;
+  padding:12px 18px;
+  border-radius:12px;
+  text-decoration:none;
+  color:#f2efe8;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(2px);
+}
+
+.btn-browse-buttons:hover{
+  background:rgba(0,0,0,.48);
+}
