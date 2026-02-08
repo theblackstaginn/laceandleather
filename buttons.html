@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Fantasy Buttons & Stickers | Lace & Leather</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Fantasy buttons and stickers for scrapbooking, journals, RPGs, and digital design." />
+
+  <!-- Optional: your site fonts / global CSS -->
+  <!-- <link rel="stylesheet" href="/assets/styles.css" /> -->
+
+  <style>
+    /* =========================
+       PAGE BASE
+       ========================= */
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:#1a120d;
+      color:#eee;
+    }
+
+    main{
+      max-width:1200px;
+      margin:0 auto;
+      padding:24px 16px 48px;
+    }
+
+    h1{
+      font-size:22px;
+      margin:0 0 8px;
+      letter-spacing:.03em;
+    }
+
+    .page-sub{
+      font-size:14px;
+      opacity:.85;
+      max-width:720px;
+      margin-bottom:18px;
+    }
+
+    /* =========================
+       SLATE STAGE
+       ========================= */
+    .slate-stage{
+      position:relative;
+      border-radius:18px;
+      overflow:hidden;
+      isolation:isolate;
+    }
+
+    .stage-bg{
+      position:absolute;
+      inset:0;
+      z-index:0;
+      background:
+        url("/assets/slate-web.png") center / cover no-repeat,
+        url("/assets/oak-web.png") center / cover no-repeat;
+    }
+
+    @media (max-width:820px){
+      .stage-bg{
+        background:
+          url("/assets/slate-mobile.png") center / cover no-repeat,
+          url("/assets/oak-mobile.png") center / cover no-repeat;
+      }
+    }
+
+    .stage-inner{
+      position:relative;
+      z-index:1;
+      padding:16px;
+    }
+
+    /* =========================
+       SCROLL CONTAINER
+       ========================= */
+    .buttons-scroll{
+      background:rgba(0,0,0,.25);
+      border-radius:14px;
+      padding:14px;
+      max-height:min(65vh, 620px);
+      overflow-y:auto;
+      overflow-x:hidden;
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+      -webkit-overflow-scrolling:touch;
+    }
+
+    /* =========================
+       GRID
+       ========================= */
+    .buttons-grid{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:16px;
+    }
+
+    @media (max-width:1100px){
+      .buttons-grid{ grid-template-columns:repeat(3,1fr); }
+    }
+    @media (max-width:820px){
+      .buttons-grid{ grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:480px){
+      .buttons-grid{ grid-template-columns:1fr; }
+    }
+
+    /* =========================
+       TILE
+       ========================= */
+    .btn-tile{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+      padding:12px;
+      border-radius:14px;
+      background:rgba(0,0,0,.18);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+
+    .btn-main{
+      background:none;
+      border:0;
+      padding:0;
+      cursor:pointer;
+      width:100%;
+    }
+
+    .btn-img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius:12px;
+    }
+
+    .btn-cart{
+      background:none;
+      border:0;
+      padding:0;
+      cursor:pointer;
+      display:flex;
+      justify-content:center;
+      width:100%;
+    }
+
+    .cart-img{
+      width:52px;
+      height:auto;
+      opacity:.95;
+    }
+
+    .btn-tile.added{
+      animation:pulse .22s ease-out;
+    }
+
+    @keyframes pulse{
+      0%{ transform:scale(1); }
+      60%{ transform:scale(1.02); }
+      100%{ transform:scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+<main>
+
+  <h1>Fantasy Buttons & Stickers</h1>
+  <p class="page-sub">
+    These designs can be used as digital buttons, printable stickers, scrapbook elements,
+    journal accents, RPG assets, or decorative UI pieces.
+  </p>
+
+  <section class="slate-stage">
+    <div class="stage-bg" aria-hidden="true"></div>
+
+    <div class="stage-inner">
+      <div class="buttons-scroll">
+        <div id="buttonsGrid" class="buttons-grid"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  const BUTTON_DIR = "/buttons-stickers/";
+  const CART_ICON = "/assets/cart.png";
+
+  const FILES = [
+    "amber-bronze.png",
+    "amethyst-frame.png",
+    "amethyst-rectangle.png",
+    "blue-naut-wax.png",
+    "bronze-x-shield.png",
+    "emerald-oval.png",
+    "emerald-x.png",
+    "green-moon.png",
+    "grn-wax-book.png",
+    "lantern.png",
+    "moon-green.png",
+    "moon-parch-clean.png",
+    "purple-arrow.png",
+    "purple-wax-crystal.png",
+    "purple-x-shield.png",
+    "red-arrow.png",
+    "red-parch-arrow.png",
+    "red-stag.png",
+    "red-wax-feather.png",
+    "red-x-bronze.png",
+    "red-x-shield.png",
+    "red-x.png",
+    "ruby-plate.png",
+    "sapphire-arrow.png",
+    "sapphire-plate.png",
+    "skull-bronze-plate.png",
+    "skull-plate.png",
+    "skull.png",
+    "stag-plate.png",
+    "stag-red-wax.png",
+    "wax-green-book-2.png",
+    "wax-key.png",
+    "wax-skull.png"
+  ];
+
+  const grid = document.getElementById("buttonsGrid");
+
+  const titleFromFile = f =>
+    f.replace(/\.[^.]+$/, "")
+     .replace(/[-_]+/g," ")
+     .replace(/\b\w/g,m=>m.toUpperCase());
+
+  function addToCart(item){
+    if (window.addToCart) return window.addToCart(item);
+    if (window.cartAdd) return window.cartAdd(item.sku, item.title, item.src);
+
+    const key="ll_cart";
+    const cart=JSON.parse(localStorage.getItem(key)||"[]");
+    const hit=cart.find(x=>x.sku===item.sku);
+    hit ? hit.qty++ : cart.push({...item, qty:1});
+    localStorage.setItem(key,JSON.stringify(cart));
+  }
+
+  FILES.forEach(file=>{
+    const title = titleFromFile(file);
+    const src = BUTTON_DIR + file;
+
+    const tile = document.createElement("div");
+    tile.className="btn-tile";
+    tile.dataset.sku=file;
+
+    const main=document.createElement("button");
+    main.className="btn-main";
+    const img=document.createElement("img");
+    img.className="btn-img";
+    img.src=src;
+    img.alt=title;
+    main.appendChild(img);
+
+    const cart=document.createElement("button");
+    cart.className="btn-cart";
+    const cartImg=document.createElement("img");
+    cartImg.className="cart-img";
+    cartImg.src=CART_ICON;
+    cart.appendChild(cartImg);
+
+    const handler=()=>{
+      addToCart({sku:file,title,src});
+      tile.classList.remove("added");
+      void tile.offsetWidth;
+      tile.classList.add("added");
+    };
+
+    main.onclick=handler;
+    cart.onclick=(e)=>{e.stopPropagation();handler();};
+
+    tile.append(main,cart);
+    grid.appendChild(tile);
+  });
+})();
+</script>
+
+</body>
+</html>
