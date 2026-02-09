@@ -1,4 +1,4 @@
-<!-- index.html (FULL — your exact structure preserved + Google Forms wired) -->
+<!-- index.html (FULL — structure preserved + Google Forms wired + CART MODAL + banner + scrollbar match) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -184,6 +184,157 @@
       border:1px solid rgba(255,255,255,.10);
       box-shadow:0 18px 42px rgba(0,0,0,.55);
     }
+
+    /* =========================
+       CART MODAL (NEW)
+       ========================= */
+    #cartModal .modal-body{
+      /* keep cart usable even if styles.css changes */
+      max-height: min(70vh, 520px);
+      overflow:auto;
+      padding-bottom: 14px;
+    }
+
+    #cartModal .cart-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin: 6px 0 12px;
+    }
+
+    #cartModal .cart-empty{
+      padding: 10px 0;
+      text-align:center;
+      opacity: .9;
+    }
+
+    #cartModal .cart-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+
+    #cartModal .cart-left{
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    #cartModal .cart-name{
+      font-weight: 650;
+      letter-spacing: .01em;
+      line-height: 1.2;
+      margin: 0 0 6px;
+      word-break: break-word;
+    }
+
+    #cartModal .cart-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      font-size: 13px;
+      opacity: .9;
+    }
+
+    #cartModal .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+      letter-spacing: .02em;
+      white-space:nowrap;
+    }
+
+    #cartModal .cart-right{
+      flex: 0 0 auto;
+      text-align:right;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      align-items:flex-end;
+      min-width: 92px;
+    }
+
+    #cartModal .cart-line-total{
+      font-weight: 750;
+      letter-spacing: .02em;
+    }
+
+    #cartModal .cart-foot{
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    #cartModal .cart-total{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+      padding: 0 2px;
+    }
+
+    #cartModal .cart-actions{
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    #cartModal .cart-action-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:0;
+      padding:0;
+      background:transparent;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+      text-decoration:none;
+    }
+
+    #cartModal .cart-action-btn img{
+      width: 210px;
+      height:auto;
+      display:block;
+      border-radius: 12px;
+    }
+
+    @media (max-width: 420px){
+      #cartModal .cart-action-btn img{ width: 190px; }
+    }
+
+    /* =========================
+       CART MODAL — SCROLLBAR (match button-stickers)
+       ========================= */
+    #cartModal .modal-body{
+      scrollbar-gutter: stable both-edges;
+      scrollbar-color: rgba(255,255,255,.22) rgba(0,0,0,.35);
+    }
+    #cartModal .modal-body::-webkit-scrollbar{ width:10px; }
+    #cartModal .modal-body::-webkit-scrollbar-track{
+      background: rgba(0,0,0,.35);
+      border-radius: 999px;
+    }
+    #cartModal .modal-body::-webkit-scrollbar-thumb{
+      background: rgba(255,255,255,.18);
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.35);
+    }
+    #cartModal .modal-body::-webkit-scrollbar-thumb:hover{
+      background: rgba(255,255,255,.28);
+    }
   </style>
 </head>
 
@@ -206,10 +357,12 @@
         <p class="subtag">Aged parchment · ritual surfaces · dark elegance</p>
 
         <div class="cart-pay-row" aria-label="Cart and checkout">
+          <!-- NOW OPENS CART MODAL -->
           <button class="ll-home-btn ll-cart" type="button" id="cartBtn">
-            <span class="sr-only">Cart / Pay</span>
+            <span class="sr-only">Open Cart</span>
           </button>
 
+          <!-- Pay screen still available -->
           <a class="ll-home-btn ll-paypad" href="./pay.html" rel="noopener noreferrer">
             <span class="sr-only">Open Pay Screen</span>
           </a>
@@ -404,9 +557,52 @@
   </main>
 
   <!-- =========================================================
-       MODALS (Pack Preview + Map Preview + Commission Flow)
+       MODALS (Cart + Pack Preview + Map Preview + Commission Flow)
        Matches your existing styles.css classes and repo filenames
        ========================================================= -->
+
+  <!-- CART MODAL (NEW) -->
+  <div class="modal" id="cartModal" aria-hidden="true" role="dialog" aria-label="Cart">
+    <div class="modal-backdrop" data-close></div>
+
+    <div class="glass modal-panel" role="document">
+      <div class="modal-head">
+        <div class="modal-left">
+          <div>
+            <div class="modal-title">Cart</div>
+            <div class="modal-sub muted" id="cartSub">Review your items</div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="wax-btn" type="button" data-close aria-label="Close">
+            <img src="./assets/x-button.PNG" alt="Close" />
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="cart-list" id="cartList" aria-label="Cart items"></div>
+
+        <div class="cart-foot">
+          <div class="cart-total">
+            <span class="muted">Subtotal</span>
+            <strong id="cartSubtotal">$0.00</strong>
+          </div>
+
+          <div class="cart-actions" aria-label="Cart actions">
+            <button class="cart-action-btn" type="button" id="clearCartBtn" aria-label="Clear cart">
+              <img src="./assets/clear-cart.png" alt="Clear Cart" />
+            </button>
+
+            <a class="cart-action-btn" href="./pay.html" rel="noopener noreferrer" aria-label="Go to PayPad">
+              <img src="./assets/paypad.png" alt="PayPad" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- PACK PREVIEW MODAL -->
   <div class="modal" id="packModal" aria-hidden="true" role="dialog" aria-label="Pack preview">
@@ -600,6 +796,11 @@
       }
       saveCart(cart);
       ensureOrderId(); // keep order id stable once cart has items
+
+      // If cart modal is open, refresh it live
+      if($("#cartModal")?.classList.contains("open")){
+        renderCart();
+      }
     }
 
     // -----------------------------
@@ -612,14 +813,97 @@
     };
 
     // -----------------------------
-    // HOME BUTTONS
+    // Modal helpers (shared)
     // -----------------------------
+    function openModal(el){
+      el.classList.add("open");
+      el.setAttribute("aria-hidden", "false");
+      document.documentElement.classList.add("no-scroll");
+    }
+
+    function closeModal(el){
+      el.classList.remove("open");
+      el.setAttribute("aria-hidden", "true");
+      document.documentElement.classList.remove("no-scroll");
+    }
+
+    // -----------------------------
+    // CART MODAL (NEW)
+    // -----------------------------
+    const cartModal    = $("#cartModal");
+    const cartList     = $("#cartList");
+    const cartSubtotal = $("#cartSubtotal");
+    const cartSub      = $("#cartSub");
+    const clearCartBtn = $("#clearCartBtn");
+
+    function money(n){
+      return `$${Number(n || 0).toFixed(2)}`;
+    }
+
+    function renderCart(){
+      const cart = loadCart();
+      const subtotal = calcSubtotal(cart);
+
+      cartSubtotal.textContent = money(subtotal);
+
+      if(!cart.length){
+        cartSub.textContent = "Your cart is empty";
+        cartList.innerHTML = `<div class="cart-empty muted">No items yet. Add a pack to get started.</div>`;
+        return;
+      }
+
+      cartSub.textContent = "Review your items";
+
+      cartList.innerHTML = "";
+      cart.forEach(item => {
+        const name = String(item?.name ?? "Item");
+        const qty  = Math.max(1, Number(item?.qty ?? 1));
+        const price = Number(item?.price ?? 0);
+        const line = price * qty;
+
+        const row = document.createElement("div");
+        row.className = "cart-row";
+        row.innerHTML = `
+          <div class="cart-left">
+            <div class="cart-name">${name}</div>
+            <div class="cart-meta">
+              <span class="pill">Qty: ${qty}</span>
+              <span class="pill">Each: ${money(price)}</span>
+            </div>
+          </div>
+          <div class="cart-right">
+            <div class="cart-line-total">${money(line)}</div>
+          </div>
+        `;
+        cartList.appendChild(row);
+      });
+    }
+
+    function openCart(){
+      if(!cartModal) return;
+      renderCart();
+      openModal(cartModal);
+    }
+
+    function clearCart(){
+      localStorage.removeItem(CART_KEY);
+      localStorage.removeItem(ORDER_KEY);
+      renderCart();
+    }
+
     $("#cartBtn")?.addEventListener("click", () => {
-      // "Cart" takes them to pay screen (your flow)
-      window.location.href = "./pay.html";
+      // Cart now opens modal (no routing)
+      openCart();
     });
 
+    clearCartBtn?.addEventListener("click", () => {
+      clearCart();
+      clearCartBtn.blur();
+    });
+
+    // -----------------------------
     // Add-to-cart buttons (PNG)
+    // -----------------------------
     $$("button.ll-add-btn[data-add]").forEach(btn => {
       btn.addEventListener("click", () => {
         const key = btn.getAttribute("data-add");
@@ -668,18 +952,6 @@
         images: Array.from({length: 12}, (_,i)=> `./assets/vol-one/parchment-light_${i+1}.jpg`)
       }
     };
-
-    function openModal(el){
-      el.classList.add("open");
-      el.setAttribute("aria-hidden", "false");
-      document.documentElement.classList.add("no-scroll");
-    }
-
-    function closeModal(el){
-      el.classList.remove("open");
-      el.setAttribute("aria-hidden", "true");
-      document.documentElement.classList.remove("no-scroll");
-    }
 
     function setPackModeViewer(isViewer){
       packModal.classList.toggle("mode-viewer", !!isViewer);
@@ -788,19 +1060,12 @@
 
     // -----------------------------
     // Confirm Order Form helper (OPTIONAL use later)
-    // This DOES NOT run automatically here (pay.html handles confirm),
-    // but it gives you a clean function to call from pay.html if you want.
     // -----------------------------
     function buildConfirmOrderPrefillUrl(){
       const cart = loadCart();
       const orderId = ensureOrderId();
       const subtotal = calcSubtotal(cart);
 
-      // NOTE: For prefill to work, you must replace these with your form entry IDs:
-      //   entry.1234567890 = Order ID
-      //   entry.2345678901 = Subtotal
-      //   entry.3456789012 = Items (text)
-      // Until you add entry IDs, this returns the base form URL.
       const ENTRY = {
         orderId: null,
         subtotal: null,
@@ -816,7 +1081,6 @@
 
       const u = new URL(CONFIRM_ORDER_FORM_URL);
 
-      // Only append if you set entry IDs
       if(ENTRY.orderId)  u.searchParams.set(ENTRY.orderId, orderId);
       if(ENTRY.subtotal) u.searchParams.set(ENTRY.subtotal, subtotal.toFixed(2));
       if(ENTRY.items)    u.searchParams.set(ENTRY.items, itemsText);
@@ -824,7 +1088,6 @@
       return u.toString();
     }
 
-    // Expose helpers if you ever want to call from other scripts
     window.LL_FORMS = {
       MAP_COMMISSION_FORM_URL,
       CONFIRM_ORDER_FORM_URL,
