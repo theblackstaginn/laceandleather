@@ -6,13 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Fantasy buttons and stickers for scrapbooking, journals, RPGs, and digital design." />
 
+  <!-- Pulls in your global styles (needed for + pop CSS you’ll add there) -->
+  <link rel="stylesheet" href="styles.css" />
+
   <style>
+    /* =========================
+       L&L FONTS (match site)
+       ========================= */
+    @font-face{
+      font-family:"Cardinal";
+      src:url("./fonts/cardinal.ttf") format("truetype");
+      font-weight:normal;
+      font-style:normal;
+      font-display:swap;
+    }
+    @font-face{
+      font-family:"DarkAges";
+      src:url("./fonts/dark-ages.TTF") format("truetype");
+      font-weight:normal;
+      font-style:normal;
+      font-display:swap;
+    }
+
     /* =========================
        FIXED OAK BACKGROUND
        ========================= */
     body{
       margin:0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Cardinal", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       color:#eee;
       background:#000;
     }
@@ -39,9 +60,10 @@
     }
 
     h1{
+      font-family: "DarkAges", serif;
       font-size:22px;
       margin:0 0 6px;
-      letter-spacing:.04em;
+      letter-spacing:.06em;
       text-align:center;
     }
 
@@ -320,6 +342,40 @@
     ensureOrderId();
   }
 
+  /* =========================
+     “+” POP (uses styles.css)
+     ========================= */
+  function plusPopAt(x, y){
+    const wrap = document.createElement("div");
+    wrap.className = "ll-plus-pop";
+    wrap.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px)`;
+
+    const plus = document.createElement("span");
+    plus.className = "plus";
+    plus.textContent = "+";
+
+    wrap.appendChild(plus);
+    document.body.appendChild(wrap);
+
+    // Clean up after animation
+    window.setTimeout(() => wrap.remove(), 650);
+  }
+
+  function plusPopFromEventOrTile(e, tile){
+    // If we have real pointer coords, use them.
+    const cx = e && typeof e.clientX === "number" ? e.clientX : null;
+    const cy = e && typeof e.clientY === "number" ? e.clientY : null;
+
+    if(cx !== null && cy !== null){
+      plusPopAt(cx + 10, cy - 8);
+      return;
+    }
+
+    // Keyboard activation fallback: use tile center.
+    const r = tile.getBoundingClientRect();
+    plusPopAt(r.left + r.width * 0.75, r.top + r.height * 0.25);
+  }
+
   const grid = document.getElementById("buttonsGrid");
 
   FILES.forEach(file=>{
@@ -345,18 +401,23 @@
     cartImg.alt = "Add to cart";
     cartBtn.appendChild(cartImg);
 
-    const handler = () => {
+    const handler = (e) => {
       addToCart(title);
+
+      // visual feedback
       tile.classList.remove("added");
       void tile.offsetWidth;
       tile.classList.add("added");
+
+      // + feedback
+      plusPopFromEventOrTile(e, tile);
     };
 
-    main.onclick = handler;
-    cartBtn.onclick = (e) => {
+    main.addEventListener("click", handler);
+    cartBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      handler();
-    };
+      handler(e);
+    });
 
     tile.append(main, cartBtn);
     grid.appendChild(tile);
