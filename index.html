@@ -10,14 +10,27 @@
   <meta name="description" content="Digital parchment, aged textures, grimoire surfaces, overlays, and ritual map assets for TTRPG creators, designers, and bookbinders." />
   <link rel="canonical" href="https://laceleatherarcane.com/" />
 
+  <!-- ✅ SEO: index + snippet behavior -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
   <!-- Theme / PWA -->
   <meta name="theme-color" content="#0b0f14" />
   <link rel="manifest" href="./manifest.json" />
   <link rel="icon" href="./favicon.png" />
   <link rel="apple-touch-icon" href="./icon-192.png" />
 
+  <!-- ✅ Optional but standard: additional icons (won’t break anything if files exist) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png" />
+
   <!-- Pinterest domain verify -->
   <meta name="p:domain_verify" content="35ebca8082bfd2bfe5109b2afea18305" />
+
+  <!-- ✅ Performance hints (safe) -->
+  <link rel="preconnect" href="https://www.google.com" />
+  <link rel="preconnect" href="https://www.gstatic.com" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -59,6 +72,100 @@
       "url": "https://laceleatherarcane.com/",
       "name": "Lace & Leather",
       "publisher": { "@id": "https://laceleatherarcane.com/#organization" }
+    }
+  ]
+}
+  </script>
+
+  <!-- ✅ SEO: WebPage + Breadcrumbs + OfferCatalog (+ light FAQ) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://laceleatherarcane.com/#webpage",
+      "url": "https://laceleatherarcane.com/",
+      "name": "Digital Parchment Textures & Aged Paper Backgrounds | Lace & Leather",
+      "description": "Digital parchment, aged textures, grimoire surfaces, overlays, and ritual map assets for TTRPG creators, designers, and bookbinders.",
+      "isPartOf": { "@id": "https://laceleatherarcane.com/#website" },
+      "about": { "@id": "https://laceleatherarcane.com/#organization" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://laceleatherarcane.com/assets/og-cover.png"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://laceleatherarcane.com/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://laceleatherarcane.com/"
+        }
+      ]
+    },
+    {
+      "@type": "OfferCatalog",
+      "@id": "https://laceleatherarcane.com/#catalog",
+      "name": "Lace & Leather Digital Packs",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "Grimoire Pages",
+          "price": "5.00",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://laceleatherarcane.com/"
+        },
+        {
+          "@type": "Offer",
+          "name": "Mapmaker Sheets",
+          "price": "5.00",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://laceleatherarcane.com/"
+        },
+        {
+          "@type": "Offer",
+          "name": "Light Aged Parchment — Vol. One",
+          "price": "5.00",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://laceleatherarcane.com/"
+        },
+        {
+          "@type": "Offer",
+          "name": "Fantasy Buttons & Stickers",
+          "url": "https://laceleatherarcane.com/buttons.html",
+          "availability": "https://schema.org/InStock"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://laceleatherarcane.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are these files used for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the packs as printable pages, journal backgrounds, overlays, scrapbook elements, and TTRPG assets."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are the textures high-resolution?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Packs are delivered as high-resolution PNG/JPG files intended for print and digital workflows."
+          }
+        }
+      ]
     }
   ]
 }
