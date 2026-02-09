@@ -1,368 +1,674 @@
+<!-- buttons.html (FULL — fonts via styles.css + cart storage keys match + “+” pop + cart modal) -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Fantasy Buttons & Stickers | Lace & Leather</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Fantasy buttons and stickers for scrapbooking, journals, RPGs, and digital design." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
+  <title>Buttons & Stickers | Lace & Leather</title>
+  <meta name="description" content="Printable sticker sheets, scrapbook elements, RPG UI buttons, and digital assets." />
+  <link rel="canonical" href="https://laceleatherarcane.com/buttons.html" />
+
+  <!-- Theme / PWA -->
+  <meta name="theme-color" content="#0b0f14" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./favicon.png" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+
+  <!-- Your site CSS (contains your @font-face blocks) -->
+  <link rel="stylesheet" href="./styles.css?v=BTN-001" />
+
+  <!-- Page-local helpers (kept here so we don’t disturb your locked styles.css) -->
   <style>
-    /* =========================
-       FIXED OAK BACKGROUND
-       ========================= */
-    body{
+    /* Header row */
+    .btns-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin: 18px 0 8px;
+    }
+
+    .btns-title{
+      font-family: "Cinzel", serif;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
       margin:0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      color:#eee;
-      background:#000;
+      font-size: 18px;
     }
 
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      background:url("/assets/oak-web.png") center / cover no-repeat;
-      filter: brightness(1.05) contrast(1.05);
+    .btns-sub{
+      margin: 0 0 10px;
+      opacity:.9;
     }
 
-    @media (max-width:820px){
-      body::before{
-        background:url("/assets/oak-mobile.png") center / cover no-repeat;
-      }
+    /* Small top actions (cart + paypad) */
+    .btns-actions{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      justify-content:center;
     }
 
-    main{
-      max-width:1200px;
-      margin:0 auto;
-      padding:22px 16px 48px;
-    }
-
-    h1{
-      font-size:22px;
-      margin:0 0 6px;
-      letter-spacing:.04em;
-      text-align:center;
-    }
-
-    .page-sub{
-      font-size:14px;
-      opacity:.85;
-      max-width:760px;
-      margin:0 auto 18px;
-      text-align:center;
-    }
-
-    /* =========================
-       SLATE STAGE
-       ========================= */
-    .slate-stage{
+    .ll-mini-btn{
+      display:inline-block;
+      width: 210px;
+      height: 68px;
+      border:0;
+      padding:0;
+      background: transparent;
+      background-repeat:no-repeat;
+      background-position:center;
+      background-size:contain;
+      cursor:pointer;
+      text-decoration:none;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
       position:relative;
-      border-radius:18px;
-      overflow:hidden;
-      isolation:isolate;
-      box-shadow:0 18px 48px rgba(0,0,0,.6);
     }
-
-    .stage-bg{
+    .ll-mini-btn:focus{
+      outline:2px solid rgba(255,255,255,.35);
+      outline-offset:4px;
+      border-radius:10px;
+    }
+    .ll-mini-btn .sr-only{
       position:absolute;
-      inset:0;
-      z-index:0;
-      background:url("/assets/slate-web.png") center / cover no-repeat;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
     }
 
-    @media (max-width:820px){
-      .stage-bg{
-        background:url("/assets/slate-mobile.png") center / cover no-repeat;
-      }
+    .ll-mini-cart{ background-image:url("./L&L-buttons/cart.png"); }
+    .ll-mini-paypad{ background-image:url("./L&L-buttons/paypad.png"); }
+
+    @media (max-width: 420px){
+      .ll-mini-btn{ width: 190px; height: 62px; }
     }
 
-    .stage-inner{
-      position:relative;
-      z-index:1;
-      padding:16px;
+    /* Grid wrapper — assumes your buttons/stickers page already uses a scrollable area vibe */
+    .btns-shell{
+      margin-top: 10px;
     }
 
-    /* =========================
-       SCROLL CONTAINER (FIXED)
-       TRUE TRANSPARENT — no tint panel
-       ========================= */
-    .buttons-scroll{
-      background: transparent;            /* NO PANEL */
-      border-radius:14px;
-      padding:14px;
-      max-height:min(65vh, 620px);
-      overflow-y:auto;
-      -webkit-overflow-scrolling:touch;
-
-      box-shadow: none;                   /* KILL inset shading */
-      outline: none;                      /* no frame */
+    /* If your styles.css already defines your 4-col scroll section, keep it.
+       This is a safe fallback. */
+    .btns-scroll{
+      max-height: min(70vh, 560px);
+      overflow: auto;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.12);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
       scrollbar-gutter: stable both-edges;
-
-      /* Firefox scrollbar */
-      scrollbar-width: thin;
-      scrollbar-color: rgba(0,0,0,.55) transparent;
+      scrollbar-color: rgba(255,255,255,.22) rgba(0,0,0,.35);
+    }
+    .btns-scroll::-webkit-scrollbar{ width:10px; }
+    .btns-scroll::-webkit-scrollbar-track{
+      background: rgba(0,0,0,.35);
+      border-radius: 999px;
+    }
+    .btns-scroll::-webkit-scrollbar-thumb{
+      background: rgba(255,255,255,.18);
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.35);
+    }
+    .btns-scroll::-webkit-scrollbar-thumb:hover{
+      background: rgba(255,255,255,.28);
     }
 
-    /* WebKit scrollbar (Safari/Chrome/iOS) */
-    .buttons-scroll::-webkit-scrollbar{ width:10px; }
-    .buttons-scroll::-webkit-scrollbar-track{
-      background: transparent;            /* no white track */
-    }
-    .buttons-scroll::-webkit-scrollbar-thumb{
-      background: rgba(0,0,0,.45);        /* dark subtle thumb */
-      border-radius:999px;
-      border: 2px solid rgba(255,255,255,.10); /* slight edge so it reads on slate */
-    }
-    .buttons-scroll::-webkit-scrollbar-thumb:hover{
-      background: rgba(0,0,0,.60);
-    }
-
-    /* =========================
-       GRID
-       ========================= */
-    .buttons-grid{
+    .btns-grid{
       display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:16px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    @media (max-width: 980px){
+      .btns-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px){
+      .btns-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    @media (max-width:1100px){
-      .buttons-grid{ grid-template-columns:repeat(3,1fr); }
-    }
-    @media (max-width:820px){
-      .buttons-grid{ grid-template-columns:repeat(2,1fr); }
-    }
-    @media (max-width:480px){
-      .buttons-grid{ grid-template-columns:1fr; }
-    }
-
-    /* =========================
-       TILE
-       COMPLETELY TRANSPARENT
-       ========================= */
-    .btn-tile{
+    /* Card buttons (generic) */
+    .btn-card{
       display:flex;
       flex-direction:column;
-      align-items:center;
       gap:10px;
-      padding:12px;
-      border-radius:14px;
-
-      background: transparent;
-      box-shadow: none;
-      border: none;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.04);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
     }
 
-    .btn-main{
-      background:none;
-      border:0;
-      padding:0;
-      cursor:pointer;
-      width:100%;
+    .btn-thumb{
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
-    .btn-img{
-      width:100%;
-      height:auto;
+    .btn-thumb img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display:block;
-      border-radius:12px;
     }
 
-    .btn-cart{
-      background:none;
-      border:0;
-      padding:0;
-      cursor:pointer;
+    .btn-meta{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width: 0;
+    }
+
+    .btn-name{
+      font-family: "Cinzel", serif;
+      font-weight: 700;
+      letter-spacing: .03em;
+      margin:0;
+      font-size: 14px;
+      line-height: 1.2;
+      word-break: break-word;
+    }
+
+    .btn-price{
+      font-size: 13px;
+      opacity:.9;
+      margin:0;
+    }
+
+    .btn-add{
+      width: 100%;
+      height: 62px;
+      border: 0;
+      padding: 0;
+      background: transparent url("./L&L-buttons/add-to-cart.png") center/contain no-repeat;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-add:focus{
+      outline:2px solid rgba(255,255,255,.35);
+      outline-offset:4px;
+      border-radius:10px;
+    }
+
+    /* Cart modal small CSS (safe + self-contained) */
+    #cartModal .modal-body{
+      max-height: min(70vh, 520px);
+      overflow:auto;
+      padding-bottom: 14px;
+
+      /* match the scroll look */
+      scrollbar-gutter: stable both-edges;
+      scrollbar-color: rgba(255,255,255,.22) rgba(0,0,0,.35);
+    }
+    #cartModal .modal-body::-webkit-scrollbar{ width:10px; }
+    #cartModal .modal-body::-webkit-scrollbar-track{
+      background: rgba(0,0,0,.35);
+      border-radius: 999px;
+    }
+    #cartModal .modal-body::-webkit-scrollbar-thumb{
+      background: rgba(255,255,255,.18);
+      border-radius: 999px;
+      border: 2px solid rgba(0,0,0,.35);
+    }
+    #cartModal .modal-body::-webkit-scrollbar-thumb:hover{
+      background: rgba(255,255,255,.28);
+    }
+
+    #cartModal .cart-list{ display:flex; flex-direction:column; gap:10px; margin: 6px 0 12px; }
+    #cartModal .cart-empty{ padding: 10px 0; text-align:center; opacity: .9; }
+    #cartModal .cart-row{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+    #cartModal .cart-left{ min-width:0; flex:1 1 auto; }
+    #cartModal .cart-name{
+      font-weight: 650;
+      letter-spacing: .01em;
+      line-height: 1.2;
+      margin: 0 0 6px;
+      word-break: break-word;
+    }
+    #cartModal .cart-meta{ display:flex; flex-wrap:wrap; gap:8px; font-size: 13px; opacity:.9; }
+    #cartModal .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.08);
+      letter-spacing: .02em;
+      white-space:nowrap;
+    }
+    #cartModal .cart-right{
+      flex:0 0 auto;
+      text-align:right;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      align-items:flex-end;
+      min-width: 92px;
+    }
+    #cartModal .cart-line-total{ font-weight: 750; letter-spacing: .02em; }
+    #cartModal .cart-foot{
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    #cartModal .cart-total{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:12px;
+      padding: 0 2px;
+    }
+    #cartModal .cart-actions{
       display:flex;
       justify-content:center;
-      width:100%;
+      gap:14px;
+      flex-wrap:wrap;
+      align-items:center;
     }
-
-    .cart-img{
-      width:52px;
-      height:auto;
-    }
-
-    .btn-tile.added{
-      animation:pulse .22s ease-out;
-    }
-
-    @keyframes pulse{
-      0%{ transform:scale(1); }
-      60%{ transform:scale(1.02); }
-      100%{ transform:scale(1); }
-    }
-
-    /* =========================
-       CLOSE (X) BUTTON
-       ========================= */
-    .close-btn{
-      position:fixed;
-      top:14px;
-      right:14px;
-      z-index:10;
-      background:none;
+    #cartModal .cart-action-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       border:0;
+      padding:0;
+      background:transparent;
       cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+      text-decoration:none;
     }
-
-    .close-btn img{
-      width:44px;
+    #cartModal .cart-action-btn img{
+      width: 210px;
       height:auto;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.6));
+      display:block;
+      border-radius: 12px;
+    }
+    @media (max-width: 420px){
+      #cartModal .cart-action-btn img{ width: 190px; }
     }
   </style>
 </head>
 
 <body>
+  <div class="bg" aria-hidden="true"></div>
 
-<button class="close-btn" onclick="location.href='/'" aria-label="Back to home">
-  <img src="/assets/x-button.PNG" alt="Close" />
-</button>
+  <div class="dust" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
 
-<main>
-  <h1>Fantasy Buttons & Stickers</h1>
-  <p class="page-sub">
-    Use these as printable stickers, scrapbook elements, journal accents,
-    RPG UI buttons, or decorative digital assets.
-  </p>
+  <main class="wrap">
+    <header class="btns-head">
+      <div>
+        <p class="btns-title">Buttons &amp; Stickers</p>
+        <p class="btns-sub muted">Printable sticker sheets · scrapbook elements · RPG UI buttons · digital assets</p>
+      </div>
 
-  <section class="slate-stage">
-    <div class="stage-bg" aria-hidden="true"></div>
+      <div class="btns-actions" aria-label="Cart and PayPad">
+        <button class="ll-mini-btn ll-mini-cart" type="button" id="cartBtn">
+          <span class="sr-only">Open Cart</span>
+        </button>
 
-    <div class="stage-inner">
-      <div class="buttons-scroll">
-        <div id="buttonsGrid" class="buttons-grid"></div>
+        <a class="ll-mini-btn ll-mini-paypad" href="./pay.html" rel="noopener noreferrer">
+          <span class="sr-only">Open Pay Screen</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- The scroll/grid area -->
+    <section class="btns-shell glass section" aria-label="Browse buttons and stickers">
+      <h2 class="h2">Check out our NEW buttons &amp; stickers!</h2>
+      <p class="muted">Tap Add to Cart to collect items. Open Cart to review.</p>
+
+      <div class="btns-scroll" aria-label="Scrollable items">
+        <div class="btns-grid" id="btnGrid" aria-label="Button and sticker items">
+          <!--
+            Replace these demo cards with your real inventory.
+            Each card needs:
+              data-name="Item Name"
+              data-price="5.00"
+          -->
+
+          <div class="btn-card" data-name="Amethyst Frame" data-price="1.00">
+            <div class="btn-thumb">
+              <img src="./buttons-stickers/amethyst-frame.png" alt="Amethyst Frame" loading="lazy">
+            </div>
+            <div class="btn-meta">
+              <p class="btn-name">Amethyst Frame</p>
+              <p class="btn-price muted">$1.00</p>
+            </div>
+            <button class="btn-add" type="button" aria-label="Add Amethyst Frame to cart"></button>
+          </div>
+
+          <div class="btn-card" data-name="Green Moon" data-price="1.00">
+            <div class="btn-thumb">
+              <img src="./buttons-stickers/green-moon.png" alt="Green Moon" loading="lazy">
+            </div>
+            <div class="btn-meta">
+              <p class="btn-name">Green Moon</p>
+              <p class="btn-price muted">$1.00</p>
+            </div>
+            <button class="btn-add" type="button" aria-label="Add Green Moon to cart"></button>
+          </div>
+
+          <div class="btn-card" data-name="Grim Wax Book" data-price="1.00">
+            <div class="btn-thumb">
+              <img src="./buttons-stickers/grim-wax-book.png" alt="Grim Wax Book" loading="lazy">
+            </div>
+            <div class="btn-meta">
+              <p class="btn-name">Grim Wax Book</p>
+              <p class="btn-price muted">$1.00</p>
+            </div>
+            <button class="btn-add" type="button" aria-label="Add Grim Wax Book to cart"></button>
+          </div>
+
+          <div class="btn-card" data-name="Moon Parch Clean" data-price="1.00">
+            <div class="btn-thumb">
+              <img src="./buttons-stickers/moon-parch-clean.png" alt="Moon Parch Clean" loading="lazy">
+            </div>
+            <div class="btn-meta">
+              <p class="btn-name">Moon Parch Clean</p>
+              <p class="btn-price muted">$1.00</p>
+            </div>
+            <button class="btn-add" type="button" aria-label="Add Moon Parch Clean to cart"></button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <p class="footer-sub">
+        Website by
+        <a href="https://blackstagweb.com" rel="noopener noreferrer">Black Stag Web Studio</a>
+      </p>
+      <div class="footer-inner">
+        <div class="brand">Lace &amp; Leather</div>
+        <div class="muted">Buttons &amp; stickers · packs · digital assets</div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- CART MODAL -->
+  <div class="modal" id="cartModal" aria-hidden="true" role="dialog" aria-label="Cart">
+    <div class="modal-backdrop" data-close></div>
+
+    <div class="glass modal-panel" role="document">
+      <div class="modal-head">
+        <div class="modal-left">
+          <div>
+            <div class="modal-title">Cart</div>
+            <div class="modal-sub muted" id="cartSub">Review your items</div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="wax-btn" type="button" data-close aria-label="Close">
+            <img src="./assets/x-button.PNG" alt="Close" />
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="cart-list" id="cartList" aria-label="Cart items"></div>
+
+        <div class="cart-foot">
+          <div class="cart-total">
+            <span class="muted">Subtotal</span>
+            <strong id="cartSubtotal">$0.00</strong>
+          </div>
+
+          <div class="cart-actions" aria-label="Cart actions">
+            <!-- FIXED PATHS: these live in /L&L-buttons -->
+            <button class="cart-action-btn" type="button" id="clearCartBtn" aria-label="Clear cart">
+              <img src="./L&L-buttons/clear-cart.png" alt="Clear Cart" />
+            </button>
+
+            <a class="cart-action-btn" href="./pay.html" rel="noopener noreferrer" aria-label="Go to PayPad">
+              <img src="./L&L-buttons/paypad.png" alt="PayPad" />
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
-</main>
+  </div>
 
-<script>
-(function(){
-  const BUTTON_DIR = "/buttons-stickers/";
-  const CART_ICON = "/assets/cart.png";
-  const PRICE_PER_BUTTON = 1.00;
+  <script>
+    // -----------------------------
+    // Storage keys (MUST MATCH pay.html + index.html)
+    // -----------------------------
+    const CART_KEY  = "ll_cart";     // array of {name, price, qty}
+    const ORDER_KEY = "ll_order_id"; // string
 
-  const FILES = [
-    "amber-bronze.png",
-    "amethyst-frame.png",
-    "amethyst-rectangle.png",
-    "emerald-oval.png",
-    "emerald-x.png",
-    "green-moon.png",
-    "grn-wax-book.png",
-    "lantern.png",
-    "moon-green.png",
-    "moon-parch-clean.png",
-    "purple-arrow.png",
-    "purple-wax-crystal.png",
-    "purple-x-shield.png",
-    "red-arrow.png",
-    "red-parch-arrow.png",
-    "red-stag.png",
-    "red-wax-feather.png",
-    "red-x-bronze.png",
-    "red-x-shield.png",
-    "red-x.png",
-    "ruby-plate.png",
-    "sapphire-arrow.png",
-    "sapphire-plate.png",
-    "skull-bronze-plate.png",
-    "skull-plate.png",
-    "skull.png",
-    "stag-plate.png",
-    "stag-red-wax.png",
-    "wax-green-book-2.png",
-    "wax-key.png",
-    "wax-skull.png"
-  ];
+    // -----------------------------
+    // Helpers
+    // -----------------------------
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
-  const CART_KEY = "ll_cart";
-  const ORDER_KEY = "ll_order_id";
-
-  function titleFromFile(f){
-    return f.replace(/\.[^.]+$/, "")
-            .replace(/[-_]+/g," ")
-            .replace(/\b\w/g,m=>m.toUpperCase());
-  }
-
-  function loadCart(){
-    try{
-      return JSON.parse(localStorage.getItem(CART_KEY)) || [];
-    }catch{
-      return [];
+    function safeParse(json, fallback){
+      try { return JSON.parse(json) ?? fallback; } catch { return fallback; }
     }
-  }
 
-  function saveCart(cart){
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-  }
+    function loadCart(){
+      const raw = localStorage.getItem(CART_KEY);
+      const cart = safeParse(raw, []);
+      return Array.isArray(cart) ? cart : [];
+    }
 
-  function ensureOrderId(){
-    if(!localStorage.getItem(ORDER_KEY)){
+    function saveCart(cart){
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    function genOrderId(){
       const a = Math.random().toString(16).slice(2,6).toUpperCase();
       const b = Math.random().toString(16).slice(2,6).toUpperCase();
-      localStorage.setItem(ORDER_KEY, `${a}-${b}`);
+      return `${a}-${b}`;
     }
-  }
 
-  function addToCart(name){
-    const cart = loadCart();
-    const hit = cart.find(x => x.name === name);
-    if(hit){
-      hit.qty += 1;
-    }else{
-      cart.push({ name, price: PRICE_PER_BUTTON, qty: 1 });
+    function ensureOrderId(){
+      let id = localStorage.getItem(ORDER_KEY);
+      if(!id){
+        id = genOrderId();
+        localStorage.setItem(ORDER_KEY, id);
+      }
+      return id;
     }
-    saveCart(cart);
-    ensureOrderId();
-  }
 
-  const grid = document.getElementById("buttonsGrid");
+    function calcSubtotal(cart){
+      let subtotal = 0;
+      for(const item of cart){
+        const qty  = Math.max(1, Number(item?.qty ?? 1));
+        const price = Number(item?.price ?? 0);
+        subtotal += (price * qty);
+      }
+      return Number(subtotal.toFixed(2));
+    }
 
-  FILES.forEach(file=>{
-    const title = titleFromFile(file);
-    const src = BUTTON_DIR + file;
+    function addToCart(item){
+      const cart = loadCart();
+      const existing = cart.find(x => String(x?.name) === item.name);
+      if(existing){
+        existing.qty = Math.max(1, Number(existing.qty || 1) + 1);
+      }else{
+        cart.push({ name: item.name, price: Number(item.price || 0), qty: 1 });
+      }
+      saveCart(cart);
+      ensureOrderId();
 
-    const tile = document.createElement("div");
-    tile.className = "btn-tile";
+      // If cart modal is open, refresh live
+      if($("#cartModal")?.classList.contains("open")){
+        renderCart();
+      }
+    }
 
-    const main = document.createElement("button");
-    main.className = "btn-main";
-    const img = document.createElement("img");
-    img.className = "btn-img";
-    img.src = src;
-    img.alt = title;
-    main.appendChild(img);
+    function money(n){
+      return `$${Number(n || 0).toFixed(2)}`;
+    }
 
-    const cartBtn = document.createElement("button");
-    cartBtn.className = "btn-cart";
-    const cartImg = document.createElement("img");
-    cartImg.className = "cart-img";
-    cartImg.src = CART_ICON;
-    cartImg.alt = "Add to cart";
-    cartBtn.appendChild(cartImg);
+    // -----------------------------
+    // Modal helpers
+    // -----------------------------
+    function openModal(el){
+      el.classList.add("open");
+      el.setAttribute("aria-hidden", "false");
+      document.documentElement.classList.add("no-scroll");
+    }
 
-    const handler = () => {
-      addToCart(title);
-      tile.classList.remove("added");
-      void tile.offsetWidth;
-      tile.classList.add("added");
-    };
+    function closeModal(el){
+      el.classList.remove("open");
+      el.setAttribute("aria-hidden", "true");
+      document.documentElement.classList.remove("no-scroll");
+    }
 
-    main.onclick = handler;
-    cartBtn.onclick = (e) => {
-      e.stopPropagation();
-      handler();
-    };
+    // -----------------------------
+    // “+” Pop helper (visual feedback)
+    // CSS is in styles.css (.ll-plus-pop)
+    // -----------------------------
+    function llPopPlusAt(el){
+      const rect = el?.getBoundingClientRect?.();
+      const x = rect ? (rect.left + rect.width/2) : (window.innerWidth/2);
+      const y = rect ? (rect.top + rect.height/2) : (window.innerHeight/2);
 
-    tile.append(main, cartBtn);
-    grid.appendChild(tile);
-  });
-})();
-</script>
+      const wrap = document.createElement("div");
+      wrap.className = "ll-plus-pop";
+      wrap.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px)`;
 
+      const plus = document.createElement("span");
+      plus.className = "plus";
+      plus.textContent = "+";
+
+      wrap.appendChild(plus);
+      document.body.appendChild(wrap);
+
+      setTimeout(() => wrap.remove(), 650);
+    }
+
+    // -----------------------------
+    // CART MODAL wiring
+    // -----------------------------
+    const cartModal    = $("#cartModal");
+    const cartList     = $("#cartList");
+    const cartSubtotal = $("#cartSubtotal");
+    const cartSub      = $("#cartSub");
+    const clearCartBtn = $("#clearCartBtn");
+
+    function renderCart(){
+      const cart = loadCart();
+      const subtotal = calcSubtotal(cart);
+
+      cartSubtotal.textContent = money(subtotal);
+
+      if(!cart.length){
+        cartSub.textContent = "Your cart is empty";
+        cartList.innerHTML = `<div class="cart-empty muted">No items yet. Add something to get started.</div>`;
+        return;
+      }
+
+      cartSub.textContent = "Review your items";
+      cartList.innerHTML = "";
+
+      cart.forEach(item => {
+        const name = String(item?.name ?? "Item");
+        const qty  = Math.max(1, Number(item?.qty ?? 1));
+        const price = Number(item?.price ?? 0);
+        const line = price * qty;
+
+        const row = document.createElement("div");
+        row.className = "cart-row";
+        row.innerHTML = `
+          <div class="cart-left">
+            <div class="cart-name">${name}</div>
+            <div class="cart-meta">
+              <span class="pill">Qty: ${qty}</span>
+              <span class="pill">Each: ${money(price)}</span>
+            </div>
+          </div>
+          <div class="cart-right">
+            <div class="cart-line-total">${money(line)}</div>
+          </div>
+        `;
+        cartList.appendChild(row);
+      });
+    }
+
+    function openCart(){
+      if(!cartModal) return;
+      renderCart();
+      openModal(cartModal);
+    }
+
+    function clearCart(){
+      localStorage.removeItem(CART_KEY);
+      localStorage.removeItem(ORDER_KEY);
+      renderCart();
+    }
+
+    $("#cartBtn")?.addEventListener("click", openCart);
+
+    clearCartBtn?.addEventListener("click", () => {
+      clearCart();
+      clearCartBtn.blur();
+    });
+
+    // -----------------------------
+    // INVENTORY WIRING (generic)
+    // Any .btn-card with data-name + data-price will work.
+    // -----------------------------
+    $$(".btn-card").forEach(card => {
+      const name = card.getAttribute("data-name");
+      const price = Number(card.getAttribute("data-price") || 0);
+      const addBtn = card.querySelector(".btn-add");
+
+      addBtn?.addEventListener("click", () => {
+        if(!name) return;
+        addToCart({ name, price });
+        llPopPlusAt(addBtn);
+        addBtn.blur();
+      });
+    });
+
+    // -----------------------------
+    // GLOBAL CLOSE HANDLERS
+    // -----------------------------
+    $$("[data-close]").forEach(el => {
+      el.addEventListener("click", () => {
+        const modal = el.closest(".modal");
+        if(modal) closeModal(modal);
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key !== "Escape") return;
+      const open = $$(".modal.open");
+      if(!open.length) return;
+      closeModal(open[open.length - 1]);
+    });
+  </script>
 </body>
 </html>
