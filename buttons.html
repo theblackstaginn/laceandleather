@@ -84,41 +84,38 @@
     }
 
     /* =========================
-       SCROLL CONTAINER (UPDATED)
-       Darker, richer, less "white"
+       SCROLL CONTAINER (FIXED)
+       TRUE TRANSPARENT — no tint panel
        ========================= */
     .buttons-scroll{
+      background: transparent;            /* NO PANEL */
       border-radius:14px;
       padding:14px;
       max-height:min(65vh, 620px);
       overflow-y:auto;
       -webkit-overflow-scrolling:touch;
 
-      /* darker + depth */
-      background: transparent;
-      box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,.08),
-        inset 0 14px 26px rgba(0,0,0,.45),
-        inset 0 -18px 30px rgba(0,0,0,.55);
-
-      /* scrollbar (Firefox) */
+      box-shadow: none;                   /* KILL inset shading */
+      outline: none;                      /* no frame */
       scrollbar-gutter: stable both-edges;
-      scrollbar-color: rgba(255,255,255,.22) rgba(0,0,0,.35);
+
+      /* Firefox scrollbar */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,.55) transparent;
     }
 
-    /* scrollbar (WebKit: Safari/Chrome/iOS) */
+    /* WebKit scrollbar (Safari/Chrome/iOS) */
     .buttons-scroll::-webkit-scrollbar{ width:10px; }
     .buttons-scroll::-webkit-scrollbar-track{
-      background: rgba(0,0,0,.35);
-      border-radius: 999px;
+      background: transparent;            /* no white track */
     }
     .buttons-scroll::-webkit-scrollbar-thumb{
-      background: rgba(255,255,255,.18);
-      border-radius: 999px;
-      border: 2px solid rgba(0,0,0,.35);
+      background: rgba(0,0,0,.45);        /* dark subtle thumb */
+      border-radius:999px;
+      border: 2px solid rgba(255,255,255,.10); /* slight edge so it reads on slate */
     }
     .buttons-scroll::-webkit-scrollbar-thumb:hover{
-      background: rgba(255,255,255,.28);
+      background: rgba(0,0,0,.60);
     }
 
     /* =========================
@@ -141,8 +138,8 @@
     }
 
     /* =========================
-       TILE (UPDATED)
-       Completely transparent "cards"
+       TILE
+       COMPLETELY TRANSPARENT
        ========================= */
     .btn-tile{
       display:flex;
@@ -152,7 +149,6 @@
       padding:12px;
       border-radius:14px;
 
-      /* make the card itself invisible */
       background: transparent;
       box-shadow: none;
       border: none;
