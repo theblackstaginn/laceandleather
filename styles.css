@@ -1,5 +1,7 @@
 /* styles.css (FULL)
    Lace & Leather — Front Porch + Pay Screen
+   CLEANED: removed conflicting overrides, made tablet bg fill viewport,
+   mounted PayPad overlay correctly, and added a single, reliable alignment knob.
 */
 
 /* =========================
@@ -39,8 +41,21 @@
   --shadow: 0 18px 48px rgba(0,0,0,.50);
 
   --bgDim:.58;
-
   --h2: clamp(22px, 2.6vw, 30px);
+
+  /* =========================
+     PAYPAD ALIGNMENT KNOBS
+     (One place to tune the screen window)
+     ========================= */
+  /* Desktop/landscape */
+  --payTop: 24%;
+  --payRight: 23%;
+  --payBottom: 24%;
+  --payLeft: 18.5%;
+
+  /* Pixel nudge (use to slide left/right without redoing percents) */
+  --payShiftX: 0px;   /* negative = move LEFT */
+  --payShiftY: 0px;   /* negative = move UP */
 }
 
 *{ box-sizing:border-box; }
@@ -68,8 +83,7 @@ html.no-scroll body{ overflow:hidden; }
   z-index:-2;
   background:url("./assets/lace-bg.png") center / cover no-repeat;
   transform: translateZ(0);
-  /* BRIGHTER (global porch bg) */
-  filter:saturate(1.08) contrast(1.02) brightness(1.12);
+  filter:saturate(1.08) contrast(1.03) brightness(1.20);
 }
 
 .bg::after{
@@ -85,6 +99,7 @@ html.no-scroll body{ overflow:hidden; }
 @media (max-width: 768px){
   .bg{
     background:url("./assets/lace-mobile-bg.png") center top / cover no-repeat;
+    filter:saturate(1.08) contrast(1.03) brightness(1.20);
   }
 }
 
@@ -98,7 +113,6 @@ html.no-scroll body{ overflow:hidden; }
   pointer-events:none;
   overflow:hidden;
 }
-
 .dust span{
   position:absolute;
   border-radius:50%;
@@ -106,7 +120,6 @@ html.no-scroll body{ overflow:hidden; }
   animation: dustFloat 24s linear infinite, dustColor 6s ease-in-out infinite;
   will-change: transform, opacity, background;
 }
-
 /* positions for 12 */
 .dust span:nth-child(1){  top:12%; left:18%; --i:1; }
 .dust span:nth-child(2){  top:28%; left:72%; --i:2; }
@@ -132,7 +145,6 @@ html.no-scroll body{ overflow:hidden; }
   animation-duration:28s, 8s;
   animation-delay: calc(-1s * var(--i)), calc(-1s * var(--i));
 }
-
 /* mid specks */
 .dust span:nth-child(2),
 .dust span:nth-child(5),
@@ -144,7 +156,6 @@ html.no-scroll body{ overflow:hidden; }
   animation-duration:24s, 6s;
   animation-delay: calc(-1.5s * var(--i)), calc(-1s * var(--i));
 }
-
 /* larger foreground motes */
 .dust span:nth-child(3),
 .dust span:nth-child(6),
@@ -200,14 +211,12 @@ html.no-scroll body{ overflow:hidden; }
   backdrop-filter: blur(6px) saturate(1.03);
   -webkit-backdrop-filter: blur(6px) saturate(1.03);
 }
-
 .section{ padding:18px 18px 16px; }
 
 /* =========================
    HERO
    ========================= */
 .hero{ padding:18px; }
-
 .brand-title{
   font-family: "Cardinal", serif;
   font-size: clamp(2.2rem, 5vw, 3.1rem);
@@ -215,14 +224,12 @@ html.no-scroll body{ overflow:hidden; }
   margin-bottom: 16px;
   text-shadow:0 0 12px rgba(0,0,0,.85);
 }
-
 .hero-inner{
   display:grid;
   place-items:center;
   gap:10px;
   padding: 14px 10px;
 }
-
 .logo{
   width:min(380px, 82vw);
   height:auto;
@@ -240,7 +247,6 @@ html.no-scroll body{ overflow:hidden; }
   margin:0 0 10px;
   text-shadow:0 0 10px rgba(0,0,0,.9);
 }
-
 .tagline{
   margin:0;
   font-size:19px;
@@ -269,7 +275,6 @@ p, h1, h2, h3, h4, h5, h6,
   grid-template-columns: repeat(4, 1fr);
   gap:12px;
 }
-
 .creation-grid img{
   width:100%;
   height:160px;
@@ -278,7 +283,6 @@ p, h1, h2, h3, h4, h5, h6,
   border:1px solid rgba(255,255,255,.10);
   filter: drop-shadow(0 12px 20px rgba(0,0,0,.45));
 }
-
 .shop-line{
   margin:18px 0 6px;
   font-size:14px;
@@ -297,7 +301,6 @@ p, h1, h2, h3, h4, h5, h6,
   margin:22px 0 6px;
   flex-wrap:wrap;
 }
-
 .seal{
   display:inline-flex;
   align-items:center;
@@ -305,7 +308,6 @@ p, h1, h2, h3, h4, h5, h6,
   text-decoration:none;
   padding:0;
 }
-
 .seal img{
   width:96px;
   height:auto;
@@ -318,7 +320,6 @@ p, h1, h2, h3, h4, h5, h6,
   transition: transform .18s ease, filter .18s ease;
   transform: translateY(0);
 }
-
 .seal:hover img,
 .seal:focus-visible img{
   transform: translateY(-2px);
@@ -326,7 +327,6 @@ p, h1, h2, h3, h4, h5, h6,
     drop-shadow(0 14px 26px rgba(0,0,0,.55))
     drop-shadow(0 4px 6px rgba(0,0,0,.4));
 }
-
 .seal:active img{ transform: translateY(0) scale(.96); }
 
 /* =========================
@@ -338,7 +338,6 @@ p, h1, h2, h3, h4, h5, h6,
   grid-template-columns: repeat(3, 1fr);
   gap:14px;
 }
-
 .pack{
   display:grid;
   gap:10px;
@@ -353,7 +352,6 @@ p, h1, h2, h3, h4, h5, h6,
   transform: translateY(0);
   transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
 }
-
 .pack img{
   width:100%;
   height:200px;
@@ -362,22 +360,18 @@ p, h1, h2, h3, h4, h5, h6,
   border:1px solid rgba(255,255,255,.10);
   filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
 }
-
 .pack-meta{ display:grid; gap:3px; }
-
 .pack-title{
   font-family:"Cardinal", serif;
   font-size:18px;
   letter-spacing:.06em;
   text-shadow:0 0 8px rgba(0,0,0,.9);
 }
-
 .pack-note{
   font-family:"DarkAges", ui-serif, Georgia, serif;
   font-size:15px;
   text-shadow:0 0 6px rgba(0,0,0,.9);
 }
-
 .pack:hover{
   transform: translateY(-2px);
   border-color: rgba(255,255,255,.18);
@@ -392,7 +386,6 @@ p, h1, h2, h3, h4, h5, h6,
    MAP COMMISSIONS
    ========================= */
 .section-maps{ margin-top:4px; }
-
 .maps-grid{
   margin:18px 0 14px;
   display:flex;
@@ -400,13 +393,11 @@ p, h1, h2, h3, h4, h5, h6,
   justify-content:center;
   gap:16px;
 }
-
 .map-card{
   margin:0;
   max-width:320px;
   cursor:pointer;
 }
-
 .map-thumb img{
   width:100%;
   height:auto;
@@ -414,9 +405,7 @@ p, h1, h2, h3, h4, h5, h6,
   border:1px solid rgba(255,255,255,.12);
   filter: drop-shadow(0 12px 22px rgba(0,0,0,.48));
 }
-
 .map-caption{ margin-top:6px; font-size:13px; }
-
 .map-name{
   display:block;
   font-family:"Cardinal", serif;
@@ -424,13 +413,11 @@ p, h1, h2, h3, h4, h5, h6,
   letter-spacing:.06em;
   text-shadow:0 0 8px rgba(0,0,0,.9);
 }
-
 .map-tagline{
   display:block;
   font-size:15px;
   text-shadow:0 0 6px rgba(0,0,0,.9);
 }
-
 .maps-copy{
   max-width:720px;
   margin:0 auto 16px;
@@ -439,7 +426,6 @@ p, h1, h2, h3, h4, h5, h6,
   font-size:16px;
   text-shadow:0 0 8px rgba(0,0,0,.8);
 }
-
 .maps-ward{
   margin:2px auto 10px;
   max-width:620px;
@@ -447,7 +433,6 @@ p, h1, h2, h3, h4, h5, h6,
   opacity:.86;
   text-shadow:0 0 6px rgba(0,0,0,.85);
 }
-
 .maps-btn{
   display:inline-block;
   padding:0;
@@ -455,7 +440,6 @@ p, h1, h2, h3, h4, h5, h6,
   background:transparent;
   cursor:pointer;
 }
-
 .wax-seal-img{
   width:260px;
   max-width:80vw;
@@ -474,7 +458,6 @@ p, h1, h2, h3, h4, h5, h6,
   text-align:left;
   color: rgba(231,226,219,.92);
 }
-
 .section-copy h2{
   font-family:"Cardinal", serif;
   letter-spacing:.06em;
@@ -482,7 +465,6 @@ p, h1, h2, h3, h4, h5, h6,
   margin: 0 0 10px;
   text-align:center;
 }
-
 .section-copy p{
   margin: 0 0 12px;
   line-height:1.7;
@@ -497,14 +479,12 @@ p, h1, h2, h3, h4, h5, h6,
   padding: 12px 18px 18px;
   text-align:center;
 }
-
 .footer-sub{
   margin: 0 0 10px;
   font-size: 13px;
   color: rgba(231,226,219,.78);
   text-shadow:0 0 8px rgba(0,0,0,.85);
 }
-
 .footer-sub a{
   color: rgba(250,230,180,.90);
   text-decoration: none;
@@ -513,13 +493,11 @@ p, h1, h2, h3, h4, h5, h6,
 .footer-sub a:hover{
   border-bottom-color: rgba(250,230,180,.45);
 }
-
 .footer-inner{
   display:grid;
   gap:4px;
   text-align:center;
 }
-
 .brand{
   font-family:"Cardinal", serif;
   letter-spacing:.05em;
@@ -714,7 +692,6 @@ p, h1, h2, h3, h4, h5, h6,
   box-shadow:none;
   overflow:hidden;
 }
-
 .commission-inner{
   position:relative;
   width:100%;
@@ -724,21 +701,18 @@ p, h1, h2, h3, h4, h5, h6,
   justify-content:center;
   overflow:hidden;
 }
-
 .commission-bg{
   position:absolute;
   inset:0;
   background:url("./commission-modal-assets/modal-bg.png") center / cover no-repeat;
   z-index:-1;
 }
-
 .commission-close{
   position:absolute;
   top:14px;
   right:16px;
   z-index:2;
 }
-
 .commission-envelope-btn{
   appearance:none;
   border:none;
@@ -746,7 +720,6 @@ p, h1, h2, h3, h4, h5, h6,
   padding:0;
   cursor:pointer;
 }
-
 .commission-envelope-img{
   width:min(640px, 90vw);
   height:auto;
@@ -760,7 +733,6 @@ p, h1, h2, h3, h4, h5, h6,
 .letter-panel{
   max-height:min(90vh, 900px);
 }
-
 .letter-body{
   position:relative;
   overflow:auto;
@@ -768,7 +740,6 @@ p, h1, h2, h3, h4, h5, h6,
   -webkit-overflow-scrolling: touch;
   padding:18px;
 }
-
 .letter-bg{
   position:absolute;
   inset:0;
@@ -776,20 +747,17 @@ p, h1, h2, h3, h4, h5, h6,
   opacity:0.9;
   z-index:-1;
 }
-
 .letter-stack{
   position:relative;
   display:inline-block;
   margin:0 auto;
 }
-
 .letter-img{
   width:min(720px, 92vw);
   height:auto;
   display:block;
   filter:drop-shadow(0 18px 34px rgba(0,0,0,.85));
 }
-
 .map-slot-btn{
   position:absolute;
   left:50%;
@@ -801,7 +769,6 @@ p, h1, h2, h3, h4, h5, h6,
   padding:0;
   cursor:pointer;
 }
-
 .map-slot-btn img{
   width:clamp(220px, 42vw, 320px);
   height:auto;
@@ -811,7 +778,6 @@ p, h1, h2, h3, h4, h5, h6,
     drop-shadow(0 4px 6px rgba(0,0,0,.5));
   transition:transform .16s ease, filter .16s ease;
 }
-
 .map-slot-btn:hover img{
   transform:translateX(-0.5px) translateY(-1px);
   filter:
@@ -821,8 +787,6 @@ p, h1, h2, h3, h4, h5, h6,
 .map-slot-btn:active img{
   transform:translateX(0) translateY(0) scale(.97);
 }
-
-/* map-slot mobile tweak */
 @media (max-width: 520px){
   .map-slot-btn{ bottom: 1.5%; }
   .map-slot-btn img{ width: clamp(190px, 60vw, 250px); }
@@ -830,7 +794,6 @@ p, h1, h2, h3, h4, h5, h6,
 
 /* =========================
    L&L PNG UI BUTTONS (Unified)
-   Apply .ll-btn to <a> or <button>, with an <img> inside.
    ========================= */
 .ll-btn{
   display:inline-flex;
@@ -845,25 +808,19 @@ p, h1, h2, h3, h4, h5, h6,
   -webkit-tap-highlight-color: transparent;
   text-decoration:none;
 }
-
 .ll-btn img{
   display:block;
   width:auto;
   height:auto;
   object-fit:contain;
-
-  /* keep the "bronze plate" crisp */
   filter:
     drop-shadow(0 10px 18px rgba(0,0,0,.42))
     drop-shadow(0 2px 4px rgba(0,0,0,.30));
-
   transform: translateY(0) scale(1);
   transition:
     transform .16s ease,
     filter .16s ease;
 }
-
-/* Hover / focus (desktop + keyboard) */
 @media (hover:hover) and (pointer:fine){
   .ll-btn:hover img{
     transform: translateY(-2px) scale(1.01);
@@ -872,23 +829,17 @@ p, h1, h2, h3, h4, h5, h6,
       drop-shadow(0 5px 8px rgba(0,0,0,.38));
   }
 }
-
-/* Keyboard focus ring (clean) */
 .ll-btn:focus-visible{
   outline: 2px solid rgba(250,230,180,.45);
   outline-offset: 5px;
   border-radius: 12px;
 }
-
-/* Press */
 .ll-btn:active img{
   transform: translateY(0) scale(.97);
   filter:
     drop-shadow(0 10px 18px rgba(0,0,0,.40))
     drop-shadow(0 2px 4px rgba(0,0,0,.30));
 }
-
-/* Disabled (for confirm busy state, etc.) */
 .ll-btn[disabled]{
   cursor:not-allowed;
   opacity:.65;
@@ -910,7 +861,6 @@ p, h1, h2, h3, h4, h5, h6,
   .map-card{ max-width:none; }
   .section-copy p{ text-align:left; }
 }
-
 @media (max-width: 420px){
   .creation-grid img{ height: 140px; }
   .seal img{ max-height:80px; width:auto; }
@@ -918,13 +868,41 @@ p, h1, h2, h3, h4, h5, h6,
 }
 
 /* =========================================================
-   PAY PAGE (Tablet Checkout) — CLEAN + STABLE
+   PAY PAGE (Tablet Checkout) — AUTHORITATIVE
+   Tablet bg = viewport cover (tablet-web / tablet-mobile)
+   PayPad overlay = paypad-web / paypad-mobile
+   UI screen = inset window tied to PayPad with one knob
 ========================================================= */
 
 body.pay-page{
   background:#111;
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  overflow:hidden; /* ONLY the in-tablet screen scrolls */
+  overflow:hidden; /* ONLY the in-screen scrolls */
+}
+
+/* Pay page gets its own background art */
+body.pay-page .bg{
+  background-image: url("./assets/tablet-web.png");
+  background-size: cover;              /* FILL viewport */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color:#0b0c10;
+  filter: brightness(1.65) contrast(1.05) saturate(1.06);
+}
+body.pay-page .bg::after{
+  background:
+    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.48) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.42), rgba(0,0,0,.42));
+}
+
+/* Pay page bg switches on mobile portrait */
+@media (max-width: 768px) and (orientation: portrait){
+  body.pay-page .bg{
+    background-image: url("./assets/tablet-mobile.png");
+    background-size: cover;
+    background-position: center center;
+  }
 }
 
 /* Stop porch text centering ONLY where it causes damage */
@@ -943,48 +921,56 @@ body.pay-page h4, body.pay-page h5, body.pay-page h6{
   text-shadow:none;
 }
 
-/* less wasted space */
+/* Center the whole PayPad rig on screen */
 body.pay-page .pay-shell{
   min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display:grid;
+  place-items:center;
   padding: clamp(4px, 1vh, 10px);
 }
 
-/* tablet container */
+/* The PayPad container (this is where we mount the overlay art) */
 body.pay-page .tablet-wrap{
   position:relative;
-  width:100%;
-  max-width:min(1200px, 96vw);
-  max-height:96vh;
-  aspect-ratio:16 / 9;
+  width: min(1200px, 96vw);
+  max-height: 96vh;
+  aspect-ratio: 16 / 9;
+  isolation:isolate;
 }
 
+/* If you still have <img class="tablet-img"> in HTML, keep it harmless */
 body.pay-page .tablet-img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  display:block;
+  display:none; /* tablet art is now the background */
 }
 
-/* Screen region inside bezel (desktop/landscape default) */
-/* =========================
-   PAY PAGE — SCREEN WINDOW FIT (override)
-   Adjusts the "glass" window to match the tablet art.
-   ========================= */
+/* PayPad overlay art (web) */
+body.pay-page .tablet-wrap::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: url("./assets/paypad-web.png") center center / contain no-repeat;
+  pointer-events:none;
+  z-index:0;
+}
 
-/* Default: web/landscape tablet-web.png */
-/* Screen region inside bezel (desktop/landscape default) */
-
+/* UI window inside PayPad (THIS is what you tune) */
 body.pay-page .tablet-screen{
   position:absolute;
-  inset: 24% 23% 24% 18.5%;
+  top: var(--payTop);
+  right: var(--payRight);
+  bottom: var(--payBottom);
+  left: var(--payLeft);
+
+  transform: translate(var(--payShiftX), var(--payShiftY));
+
   display:flex;
   flex-direction:column;
   overflow:hidden;
   border-radius:16px;
+
+  z-index:2; /* above PayPad art */
 }
+
 /* Header */
 body.pay-page .pay-head{
   display:flex;
@@ -1009,7 +995,7 @@ body.pay-page .pay-sub{
   color:#111;
 }
 
-/* Header actions: back left, clear right, side-by-side */
+/* Header actions */
 body.pay-page .pay-actions{
   display:flex;
   align-items:center;
@@ -1018,18 +1004,17 @@ body.pay-page .pay-actions{
   flex-wrap:nowrap;
 }
 
-/* === PAY PAGE: size ALL PNG buttons so nothing explodes === */
+/* Button sizes (stable) */
 body.pay-page .pay-actions .ll-btn img{
-  height:40px;           /* header buttons smaller */
+  height:40px;
   max-width:160px;
 }
-
 body.pay-page .pay-confirm-wrap .ll-btn img{
-  height:48px;           /* confirm slightly larger */
+  height:48px;
   max-width:220px;
 }
 
-/* QR area: stack QR + PayPal button */
+/* QR wrap */
 body.pay-page #qrWrap{
   flex-direction:column;
   align-items:center;
@@ -1070,9 +1055,7 @@ body.pay-page .pay-grid{
   align-items:start;
 }
 
-/* =========================
-   PAY CARDS — FULLY TRANSPARENT
-   ========================= */
+/* Cards transparent */
 body.pay-page .pay-card{
   width:min(360px, 100%);
   margin:0 auto;
@@ -1082,12 +1065,10 @@ body.pay-page .pay-card{
   backdrop-filter:none;
   -webkit-backdrop-filter:none;
   padding:0;
-
   color:#111;
   font-size:15px;
   font-weight:600;
 }
-
 body.pay-page .pay-card h2{
   margin:0 0 8px;
   font-size:15px;
@@ -1104,15 +1085,12 @@ body.pay-page .pay-row{
   gap:10px;
   margin-bottom:8px;
 }
-
 body.pay-page .pay-row-top{ align-items:flex-end; }
-
 body.pay-page .pay-muted{
   font-size:13px;
   font-weight:700;
   opacity:.78;
 }
-
 body.pay-page .pay-id{
   display:flex;
   align-items:center;
@@ -1120,9 +1098,7 @@ body.pay-page .pay-id{
   font-size:13px;
   font-weight:800;
 }
-
 body.pay-page .pay-right{ text-align:right; }
-
 body.pay-page .pay-total{
   font-size:22px;
   font-weight:900;
@@ -1136,12 +1112,10 @@ body.pay-page .pay-items{
   margin: 8px 0 12px;
   display:grid;
   gap:6px;
-
   max-height: 230px;
   overflow:auto;
   padding-right:6px;
 }
-
 body.pay-page .pay-items::-webkit-scrollbar{ width:8px; }
 body.pay-page .pay-items::-webkit-scrollbar-thumb{
   background: rgba(0,0,0,.18);
@@ -1154,18 +1128,15 @@ body.pay-page .pay-item{
   align-items:flex-start;
   gap:10px;
   padding:7px 9px;
-
   border:1px solid rgba(0,0,0,.10);
   border-radius:10px;
   background: rgba(255,255,255,.08);
 }
-
 body.pay-page .pay-item-name{
   font-size:13px;
   font-weight:900;
   line-height:1.2;
 }
-
 body.pay-page .pay-item-meta{
   display:flex;
   gap:10px;
@@ -1173,7 +1144,6 @@ body.pay-page .pay-item-meta{
   white-space:nowrap;
   font-weight:800;
 }
-
 body.pay-page .pay-item-qty{ opacity:.72; }
 body.pay-page .pay-item-price{ font-weight:900; }
 
@@ -1183,7 +1153,6 @@ body.pay-page .pay-note{
   opacity:.86;
   margin-top:10px;
 }
-
 body.pay-page .pay-tiny{ opacity:.78; }
 
 /* QR */
@@ -1201,212 +1170,149 @@ body.pay-page .pay-qr{
 }
 
 /* =========================================================
-PAY PAGE — MOBILE PORTRAIT OVERRIDES (final, closed block)
-Goal: mobile shows PayPal + Paid + single "Open PayPal"
+   PAY PAGE — MOBILE PORTRAIT OVERRIDES
 ========================================================= */
 @media (max-width: 768px) and (orientation: portrait){
 
-/* Tablet canvas */
-body.pay-page .tablet-wrap{
-max-height: 94vh;
-width: min(520px, 96vw);
-aspect-ratio: 9 / 16;
-}
-
-/* Screen window inside the bezel (your tuning knob) */
-body.pay-page .tablet-screen{
-inset: 24% 26% 24% 16%;
-border-radius: 14px;
-}
-
-/* Header: stacked + centered text */
-body.pay-page .pay-head{
-flex-direction: column;
-align-items: center;
-text-align: center;
-gap: 10px;
-padding: 10px 12px 8px;
-}
-
-/* Buttons: side-by-side, centered */
-body.pay-page .pay-actions{
-justify-content: center;
-gap: 12px;
-width: 100%;
-}
-
-/* One column */
-body.pay-page .pay-grid{
-grid-template-columns: 1fr;
-gap: 14px;
-}
-body.pay-page .pay-card{
-width: 100%;
-max-width: none;
-}
-
-/* Button sizing */
-body.pay-page .pay-actions .ll-btn img{
-height: 36px;
-max-width: 150px;
-}
-body.pay-page .pay-confirm-wrap .ll-btn img{
-height: 44px;
-}
-body.pay-page #qrWrap .ll-btn img{
-height: 40px;
-}
-
-/* =========================
-MOBILE: remove QR visuals + QR-ish text
-Keep PayPal + Paid
-========================= */
-
-/* Hide the "SCAN TO PAY" section title on mobile */
-body.pay-page section.pay-card[aria-label="Payment"] > h2{
-display:none;
-}
-
-/* Hide the QR image only */
-body.pay-page #qrWrap .pay-qr{
-display:none !important;
-}
-
-/* Hide the long payment notes on mobile (keep it simple) */
-body.pay-page section.pay-card[aria-label="Payment"] .pay-note{
-display:none;
-}
-
-/* Re-enable just the small line inside qrWrap and force it to say "Open PayPal" */
-body.pay-page #qrWrap .pay-note.pay-tiny{
-display:block !important;
-text-align:center !important;
-margin: 6px 0 10px !important;
-opacity: .90;
-}
-
-/* If your tiny line still says "Or open PayPal!", this forces it visually */
-body.pay-page #qrWrap .pay-note.pay-tiny{
-font-size: 12px;
-font-weight: 800;
-letter-spacing: .06em;
-}
-
-/* Mobile: stack PayPal + Paid vertically */
-body.pay-page #qrWrap{
-  flex-direction: column !important;
-  flex-wrap: nowrap !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 12px !important;
-}
-
-/* Keep the "Open PayPal" line above the buttons */
-body.pay-page #qrWrap .pay-note.pay-tiny{
-  width: auto !important;
-  order: -1;
-}
-
-/* Put the "Open PayPal" line above the buttons */
-body.pay-page #qrWrap .pay-note.pay-tiny{
-width: 100%;
-order: -1;
-}
-
-/* Slightly reduce button max width to avoid overflow */
-body.pay-page #qrWrap .ll-btn img{
-max-width: 180px;
-}
-
-}
-
-/* =========================
-   PAY PAGE — FORCE TABLET BACKGROUND
-   ========================= */
-body.pay-page .bg{
-  background-image: url("./assets/tablet-web.png") !important;
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-  background-size: contain !important;
-  background-color: #0b0c10 !important;
-  /* BRIGHTER (pay bg) */
-  filter: brightness(1.48) contrast(1.05) saturate(1.06) !important;
-}
-
-/* Mobile portrait uses the mobile tablet art */
-@media (max-width: 768px) and (orientation: portrait){
-  body.pay-page .bg{
-    background-image: url("./assets/tablet-mobile.png") !important;
-    background-size: contain !important;
-    background-position: center center !important;
+  /* Portrait rig */
+  body.pay-page .tablet-wrap{
+    max-height: 94vh;
+    width: min(520px, 96vw);
+    aspect-ratio: 9 / 16;
   }
-}
-/* =========================================================
-   GLOBAL BACKGROUND BRIGHTNESS PATCH
-   (Non-destructive – overrides visuals only)
-========================================================= */
 
-/* Front porch / site-wide background */
-.bg{
-  filter: saturate(1.08) contrast(1.03) brightness(1.23) !important;
-}
+  /* PayPad overlay art (mobile) */
+  body.pay-page .tablet-wrap::before{
+    background-image: url("./assets/paypad-mobile.png");
+    background-position: center center;
+    background-size: contain;
+  }
 
-/* Pay page tablet backgrounds (web + mobile) */
-body.pay-page .bg{
-  filter: brightness(1.82) contrast(1.05) saturate(1.06) !important;
-}
-/* =========================================================
-   HARD OVERRIDE: BRIGHTEN ALL BACKGROUNDS (DESKTOP + MOBILE)
-   Paste at VERY END of styles.css
-========================================================= */
+  /* Portrait tuning knobs (separate from desktop) */
+  :root{
+    --payTop: 24%;
+    --payRight: 26%;
+    --payBottom: 24%;
+    --payLeft: 16%;
+    --payShiftX: 0px;
+    --payShiftY: 0px;
+  }
 
-/* Front Porch / site-wide background (all breakpoints) */
-html body .bg{
-  filter: saturate(1.08) contrast(1.03) brightness(1.20) !important;
-}
+  /* Header stacked */
+  body.pay-page .pay-head{
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 10px 12px 8px;
+  }
 
-/* Mobile porch bg uses same brightness too */
-@media (max-width: 768px){
-  html body .bg{
-    filter: saturate(1.08) contrast(1.03) brightness(1.20) !important;
+  body.pay-page .pay-actions{
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  /* One column grid */
+  body.pay-page .pay-grid{
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  body.pay-page .pay-card{
+    width: 100%;
+    max-width: none;
+  }
+
+  /* Button sizing */
+  body.pay-page .pay-actions .ll-btn img{
+    height: 36px;
+    max-width: 150px;
+  }
+  body.pay-page .pay-confirm-wrap .ll-btn img{
+    height: 44px;
+  }
+  body.pay-page #qrWrap .ll-btn img{
+    height: 40px;
+  }
+
+  /* Mobile: simplify payment section */
+  body.pay-page section.pay-card[aria-label="Payment"] > h2{
+    display:none;
+  }
+  body.pay-page #qrWrap .pay-qr{
+    display:none !important;
+  }
+  body.pay-page section.pay-card[aria-label="Payment"] .pay-note{
+    display:none;
+  }
+  body.pay-page #qrWrap .pay-note.pay-tiny{
+    display:block !important;
+    text-align:center !important;
+    margin: 6px 0 10px !important;
+    opacity: .90;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .06em;
+    width: 100%;
+    order: -1;
+  }
+
+  body.pay-page #qrWrap{
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+  body.pay-page #qrWrap .ll-btn img{
+    max-width: 180px;
   }
 }
 
-/* Pay page tablet art (web + mobile) */
-html body.pay-page .bg{
-  filter: brightness(1.65) contrast(1.05) saturate(1.06) !important;
-}
-
-/* Pay page mobile portrait explicitly (belt + suspenders) */
-@media (max-width: 768px) and (orientation: portrait){
-  html body.pay-page .bg{
-    filter: brightness(1.65) contrast(1.05) saturate(1.06) !important;
-  }
-}
 /* =========================================================
-   PAY PAGE WEB — BRIGHTNESS FIX (missing knob)
+   BUTTONS PAGE — TRANSPARENT TILES + DARKER SCROLLER
 ========================================================= */
-
-/* Brighten tablet art itself */
-body.pay-page .bg{
-  filter: brightness(1.65) contrast(1.05) saturate(1.06) !important;
-}
-
-/* Lighten the dark overlay ONLY on pay page */
-body.pay-page .bg::after{
+.buttons-scroll{
   background:
-    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
-    radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.48) 100%),
-    linear-gradient(180deg, rgba(0,0,0,.42), rgba(0,0,0,.42));
+    linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.68));
+  border-radius:16px;
+  padding:16px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.04),
+    inset 0 10px 22px rgba(0,0,0,.45),
+    inset 0 -10px 22px rgba(0,0,0,.55);
 }
+.btn-tile{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  padding:8px;
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+}
+.buttons-grid{ gap:14px; }
+.buttons-scroll::-webkit-scrollbar{ width:10px; }
+.buttons-scroll::-webkit-scrollbar-track{
+  background:rgba(0,0,0,.35);
+  border-radius:999px;
+}
+.buttons-scroll::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,.18);
+  border-radius:999px;
+}
+.buttons-scroll::-webkit-scrollbar-thumb:hover{
+  background:rgba(255,255,255,.28);
+}
+
 /* =========================================================
    GLOBAL PNG BUTTON HOVER FIX — FORCE LIFT
 ========================================================= */
-
-/* Desktop-only hover restore */
 @media (hover:hover) and (pointer:fine){
-
-  /* Any Lace & Leather PNG button */
   .ll-btn:hover img,
   .maps-btn:hover img,
   .map-slot-btn:hover img,
@@ -1416,16 +1322,12 @@ body.pay-page .bg::after{
       drop-shadow(0 18px 34px rgba(0,0,0,.60))
       drop-shadow(0 6px 10px rgba(0,0,0,.42));
   }
-
 }
+
 /* =========================================================
    FORCE HOVER LIFT — CART / PAYPAD / ADD-TO-CART PNGs
-   Works even if you forgot .ll-btn on those buttons
 ========================================================= */
-
 @media (hover:hover) and (pointer:fine){
-
-  /* When ANY clickable thing is hovered, lift these specific button images */
   a:hover img[src*="add-to-cart"],
   button:hover img[src*="add-to-cart"],
   .pack:hover img[src*="add-to-cart"],
@@ -1444,7 +1346,6 @@ body.pay-page .bg::after{
       drop-shadow(0 6px 10px rgba(0,0,0,.42)) !important;
   }
 
-  /* Optional: if the image is inside a wrapper that ALSO needs the cursor */
   img[src*="add-to-cart"],
   img[src*="cart"],
   img[src*="paypad"]{
@@ -1462,61 +1363,8 @@ body.pay-page .bg::after{
   border:1px solid rgba(255,255,255,.12);
   backdrop-filter: blur(2px);
 }
-
 .btn-browse-buttons:hover{
   background:rgba(0,0,0,.48);
-}
-
-/* =========================================================
-   BUTTONS PAGE — TRANSPARENT TILES + DARKER SCROLLER
-   (This fixes: "button cards not transparent" + "scroller too white")
-   Safe: only affects buttons.html classes.
-========================================================= */
-
-.buttons-scroll{
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.68));
-  border-radius:16px;
-  padding:16px;
-  overflow-y:auto;
-  overflow-x:hidden;
-  -webkit-overflow-scrolling:touch;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.04),
-    inset 0 10px 22px rgba(0,0,0,.45),
-    inset 0 -10px 22px rgba(0,0,0,.55);
-}
-
-/* fully transparent "cards" (no tile background, no border, no glow) */
-.btn-tile{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-  padding:8px;
-  background:transparent !important;
-  border:none !important;
-  box-shadow:none !important;
-}
-
-/* Optional: tighten grid spacing a bit so it feels less "boxy" */
-.buttons-grid{
-  gap:14px;
-}
-
-/* Dark, subtle scrollbar */
-.buttons-scroll::-webkit-scrollbar{ width:10px; }
-.buttons-scroll::-webkit-scrollbar-track{
-  background:rgba(0,0,0,.35);
-  border-radius:999px;
-}
-.buttons-scroll::-webkit-scrollbar-thumb{
-  background:rgba(255,255,255,.18);
-  border-radius:999px;
-}
-.buttons-scroll::-webkit-scrollbar-thumb:hover{
-  background:rgba(255,255,255,.28);
 }
 
 /* =========================
@@ -1530,10 +1378,9 @@ body.pay-page .bg::after{
   z-index: 99999;
   pointer-events: none;
 }
-
 .ll-plus-pop .plus{
   display: inline-block;
-  font-family: "Cinzel", serif; /* swap to "Cardinal" if you want */
+  font-family: "Cinzel", serif;
   font-weight: 700;
   font-size: 18px;
   line-height: 1;
@@ -1545,117 +1392,8 @@ body.pay-page .bg::after{
   transform: translateY(8px) scale(.85);
   animation: llPlusPop 520ms ease-out forwards;
 }
-
 @keyframes llPlusPop{
   0%   { opacity: 0; transform: translateY(10px) scale(.80); }
   35%  { opacity: 1; transform: translateY(0px)  scale(1.10); }
   100% { opacity: 0; transform: translateY(-14px) scale(1.00); }
 }
-/* =========================================================
-   PAY PAGE — Tablet fills viewport + PayPad overlay layer
-   Paste at VERY END of styles.css
-========================================================= */
-
-/* 1) Tablet art becomes the full-viewport background */
-html body.pay-page .bg{
-  background-image: url("./assets/tablet-web.png") !important;
-  background-size: cover !important;          /* FILL viewport */
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-  background-color: #0b0c10 !important;
-
-  /* keep your brightening */
-  filter: brightness(1.65) contrast(1.05) saturate(1.06) !important;
-}
-
-/* Mobile portrait uses tablet-mobile as full-viewport background */
-@media (max-width: 768px) and (orientation: portrait){
-  html body.pay-page .bg{
-    background-image: url("./assets/tablet-mobile.png") !important;
-    background-size: cover !important;        /* FILL viewport */
-    background-position: center center !important;
-  }
-}
-
-/* Keep the pay page overlay lighter (your knob, but scoped safely) */
-html body.pay-page .bg::after{
-  background:
-    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
-    radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.48) 100%),
-    linear-gradient(180deg, rgba(0,0,0,.42), rgba(0,0,0,.42));
-}
-
-/* 2) PayPad becomes a centered overlay layer inside the wrap */
-html body.pay-page .tablet-wrap{
-  position: relative;
-  isolation: isolate; /* ensures z-index behaves */
-}
-
-/* PayPad art (web) */
-html body.pay-page .tablet-wrap::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("./assets/paypad-web.png") center center / contain no-repeat;
-  pointer-events: none;
-  z-index: 0; /* behind the UI */
-}
-
-/* PayPad art (mobile portrait) */
-@media (max-width: 768px) and (orientation: portrait){
-  html body.pay-page .tablet-wrap::before{
-    background-image: url("./assets/paypad-mobile.png");
-    background-position: center center;
-    background-size: contain;
-  }
-}
-
-/* 3) UI layer sits above PayPad art */
-html body.pay-page .tablet-screen{
-  z-index: 1;
-}
-
-/* Optional: if anything ends up click-blocked, force UI above all */
-html body.pay-page .tablet-screen,
-html body.pay-page .pay-scroll,
-html body.pay-page .pay-head{
-  position: relative;
-  z-index: 2;
-}
-/* =========================================================
-   PAY PAGE — AUTHORITATIVE MOUNT (FINAL)
-   Tablet bg = viewport cover
-   PayPad overlay = contain
-   UI inset = tied to PayPad
-   Paste at VERY END of styles.css
-========================================================= */
-
-/* 0) Make sure pay page layout cannot drift */
-html body.pay-page{
-  margin: 0;
-  overflow: hidden;
-}
-
-/* 1) Tablet PNG = full viewport background (fills screen) */
-html body.pay-page .bg{
-  background-image: url("./assets/tablet-web.png") !important;
-  background-size: cover !important;
-  background-position: center center !important;
-  background-repeat: no-repeat !important;
-  background-color: #0b0c10 !important;
-}
-
-/* Mobile portrait tablet bg */
-@media (max-width: 768px) and (orientation: portrait){
-  html body.pay-page .bg{
-    background-image: url("./assets/tablet-mobile.png") !important;
-    background-size: cover !important;
-    background-position: center center !important;
-  }
-}
-
-/* Keep your pay overlay lighter, but scoped only to pay page */
-html body.pay-page .bg::after{
-  background:
-    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
-    radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,
