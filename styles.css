@@ -1622,3 +1622,40 @@ html body.pay-page .pay-head{
   position: relative;
   z-index: 2;
 }
+/* =========================================================
+   PAY PAGE — AUTHORITATIVE MOUNT (FINAL)
+   Tablet bg = viewport cover
+   PayPad overlay = contain
+   UI inset = tied to PayPad
+   Paste at VERY END of styles.css
+========================================================= */
+
+/* 0) Make sure pay page layout cannot drift */
+html body.pay-page{
+  margin: 0;
+  overflow: hidden;
+}
+
+/* 1) Tablet PNG = full viewport background (fills screen) */
+html body.pay-page .bg{
+  background-image: url("./assets/tablet-web.png") !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-color: #0b0c10 !important;
+}
+
+/* Mobile portrait tablet bg */
+@media (max-width: 768px) and (orientation: portrait){
+  html body.pay-page .bg{
+    background-image: url("./assets/tablet-mobile.png") !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+}
+
+/* Keep your pay overlay lighter, but scoped only to pay page */
+html body.pay-page .bg::after{
+  background:
+    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,
