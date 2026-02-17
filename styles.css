@@ -1551,3 +1551,74 @@ body.pay-page .bg::after{
   35%  { opacity: 1; transform: translateY(0px)  scale(1.10); }
   100% { opacity: 0; transform: translateY(-14px) scale(1.00); }
 }
+/* =========================================================
+   PAY PAGE — Tablet fills viewport + PayPad overlay layer
+   Paste at VERY END of styles.css
+========================================================= */
+
+/* 1) Tablet art becomes the full-viewport background */
+html body.pay-page .bg{
+  background-image: url("./assets/tablet-web.png") !important;
+  background-size: cover !important;          /* FILL viewport */
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-color: #0b0c10 !important;
+
+  /* keep your brightening */
+  filter: brightness(1.65) contrast(1.05) saturate(1.06) !important;
+}
+
+/* Mobile portrait uses tablet-mobile as full-viewport background */
+@media (max-width: 768px) and (orientation: portrait){
+  html body.pay-page .bg{
+    background-image: url("./assets/tablet-mobile.png") !important;
+    background-size: cover !important;        /* FILL viewport */
+    background-position: center center !important;
+  }
+}
+
+/* Keep the pay page overlay lighter (your knob, but scoped safely) */
+html body.pay-page .bg::after{
+  background:
+    radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.48) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.42), rgba(0,0,0,.42));
+}
+
+/* 2) PayPad becomes a centered overlay layer inside the wrap */
+html body.pay-page .tablet-wrap{
+  position: relative;
+  isolation: isolate; /* ensures z-index behaves */
+}
+
+/* PayPad art (web) */
+html body.pay-page .tablet-wrap::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("./assets/paypad-web.png") center center / contain no-repeat;
+  pointer-events: none;
+  z-index: 0; /* behind the UI */
+}
+
+/* PayPad art (mobile portrait) */
+@media (max-width: 768px) and (orientation: portrait){
+  html body.pay-page .tablet-wrap::before{
+    background-image: url("./assets/paypad-mobile.png");
+    background-position: center center;
+    background-size: contain;
+  }
+}
+
+/* 3) UI layer sits above PayPad art */
+html body.pay-page .tablet-screen{
+  z-index: 1;
+}
+
+/* Optional: if anything ends up click-blocked, force UI above all */
+html body.pay-page .tablet-screen,
+html body.pay-page .pay-scroll,
+html body.pay-page .pay-head{
+  position: relative;
+  z-index: 2;
+}
