@@ -49,9 +49,9 @@
      ========================= */
   /* Desktop/landscape */
   --payTop: 22%;
-  --payRight: 14%;
-  --payBottom: 14%;
-  --payLeft: 12%;
+  --payRight: 15%;
+  --payBottom: 12%;
+  --payLeft: 14%;
 
   /* Pixel nudge (use to slide left/right without redoing percents) */
   --payShiftX: 0px;   /* negative = move LEFT */
