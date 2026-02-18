@@ -1198,9 +1198,9 @@ body.pay-page .pay-qr{
   /* Portrait tuning knobs (separate from desktop) */
   :root{
     --payTop: 26%;
-    --payRight: 18%;
-    --payBottom: 22%;
-    --payLeft: 14%;
+    --payRight: 114%;
+    --payBottom: 18%;
+    --payLeft: 11%;
     --payShiftX: 0px;
     --payShiftY: 0px;
   }
