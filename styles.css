@@ -1623,45 +1623,33 @@ body.pay-page .pay-qr{
   border-radius: 14px;
 }
 
-/* Responsive: single column */
-@media (max-width: 720px){
-  .ll-project-btns{
-    grid-template-columns: 1fr;
-  }
-  .ll-project-btns a:nth-child(5){
-    grid-column: auto;
-  }
-  .ll-project-btn img{
-    width: min(560px, 100%);
-  }
-}
 /* =========================
-   PATCH: In the Wild buttons — sane size
+   PATCH: "In the Wild" PNG buttons — force sane sizing
+   (targets the section, not your button classes)
    ========================= */
-.ll-project-btn img{
-  width: 100%;
-  max-width: 340px;   /* <- main knob (try 300–360) */
-  height: auto;
+.ll-projects img{
+  width: 100% !important;
+  max-width: 360px !important;   /* main knob */
+  height: auto !important;
+  display: block;
 }
 
-/* make the centered last button match, not dominate */
-.ll-project-btns a:nth-child(5) .ll-project-btn img,
-.ll-project-btns a:nth-child(5) img{
-  max-width: 360px;
+/* tighten grid spacing a bit */
+.ll-projects .ll-project-grid{
+  gap: 12px !important;
+  padding: 12px !important;
 }
 
-/* tighten the panel so it doesn’t look like a billboard */
-.ll-project-btns{
-  gap: 10px;
-  padding: 12px;
+/* keep links from stretching weird */
+.ll-projects .ll-project-grid a{
+  display: grid !important;
+  place-items: center !important;
+  padding: 10px !important;
 }
 
-/* mobile: even smaller */
+/* mobile: smaller */
 @media (max-width: 720px){
-  .ll-project-btn img{
-    max-width: 300px;
-  }
-  .ll-project-btns a:nth-child(5) img{
-    max-width: 320px;
+  .ll-projects img{
+    max-width: 300px !important;
   }
 }
