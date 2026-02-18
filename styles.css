@@ -1461,12 +1461,12 @@ body.pay-page .pay-qr{
 
 /* Grid of domains */
 .ll-project-grid{
-  width: min(980px, 100%);
+  width: min(720px, 92%);   /* was 980 */
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  padding: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px;
   border-radius: var(--ll-wild-radius);
   border: 1px solid var(--ll-wild-border);
   background:
