@@ -103,6 +103,13 @@ html.no-scroll body{ overflow:hidden; }
   }
 }
 
+.seo-product-list{
+  position:absolute;
+  left:-9999px;
+  height:1px;
+  overflow:hidden;
+}
+
 /* =========================
    DUST PARTICLES (12 spans)
    ========================= */
