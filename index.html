@@ -1,4 +1,4 @@
-<!-- index.html (FULL — structure preserved + SEO pack detail links + catalog URLs updated) -->
+<!-- index.html (FULL UPDATED) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,29 +10,23 @@
   <meta name="description" content="Digital parchment, aged textures, grimoire surfaces, overlays, and ritual map assets for TTRPG creators, designers, and bookbinders." />
   <link rel="canonical" href="https://laceleatherarcane.com/" />
 
-  <!-- ✅ SEO: index + snippet behavior -->
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-  <!-- Theme / PWA -->
   <meta name="theme-color" content="#0b0f14" />
   <link rel="manifest" href="./manifest.json" />
   <link rel="icon" href="./favicon.png" />
   <link rel="apple-touch-icon" href="./icon-192.png" />
 
-  <!-- ✅ Optional but standard: additional icons (won’t break anything if files exist) -->
   <link rel="icon" type="image/png" sizes="32x32" href="./favicon.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
   <link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png" />
 
-  <!-- Pinterest domain verify -->
   <meta name="p:domain_verify" content="35ebca8082bfd2bfe5109b2afea18305" />
 
-  <!-- ✅ Performance hints (safe) -->
   <link rel="preconnect" href="https://www.google.com" />
   <link rel="preconnect" href="https://www.gstatic.com" />
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Lace & Leather" />
   <meta property="og:title" content="Digital Parchment Textures & Aged Paper Backgrounds | Lace & Leather" />
@@ -42,13 +36,11 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Digital Parchment Textures & Aged Paper Backgrounds | Lace & Leather" />
   <meta name="twitter:description" content="Digital parchment, aged textures, grimoire surfaces, overlays, and ritual map assets for TTRPG creators, designers, and bookbinders." />
   <meta name="twitter:image" content="https://laceleatherarcane.com/assets/og-cover.png" />
 
-  <!-- Structured Data (Organization + WebSite) -->
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -77,7 +69,6 @@
 }
   </script>
 
-  <!-- ✅ SEO: WebPage + Breadcrumbs + OfferCatalog (+ light FAQ) -->
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -173,7 +164,6 @@
 
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Inline UI wiring styles (no styles.css edits needed) -->
   <style>
     .cart-pay-row{
       display:flex;
@@ -184,7 +174,6 @@
       align-items:center;
     }
 
-    /* Image-button base (HOME) */
     .ll-home-btn{
       display:inline-block;
       width: 230px;
@@ -202,7 +191,6 @@
       position:relative;
     }
 
-    /* Keep text accessible but not visible */
     .ll-home-btn .sr-only{
       position:absolute;
       width:1px;height:1px;
@@ -226,7 +214,6 @@
       .ll-home-btn{ width: 200px; height: 66px; }
     }
 
-    /* ===== Packs: price + button centered UNDER card (sketch style) ===== */
     .pack-wrap{
       display:flex;
       flex-direction:column;
@@ -272,9 +259,6 @@
       .ll-add-btn{ width: 190px; height: 62px; }
     }
 
-    /* =========================
-       PACK DETAILS LINKS (SEO)
-       ========================= */
     .pack-details{
       display:inline-block;
       margin-top: 2px;
@@ -289,9 +273,6 @@
       border-bottom-color: rgba(250,230,180,.45);
     }
 
-    /* =========================
-       BUTTON BANNER (HOME SECTION)
-       ========================= */
     .buttons-banner-link{
       display:block;
       width:100%;
@@ -309,11 +290,7 @@
       box-shadow:0 18px 42px rgba(0,0,0,.55);
     }
 
-    /* =========================
-       CART MODAL (NEW)
-       ========================= */
     #cartModal .modal-body{
-      /* keep cart usable even if styles.css changes */
       max-height: min(70vh, 520px);
       overflow:auto;
       padding-bottom: 14px;
@@ -439,9 +416,6 @@
       #cartModal .cart-action-btn img{ width: 190px; }
     }
 
-    /* =========================
-       CART MODAL — SCROLLBAR (match button-stickers)
-       ========================= */
     #cartModal .modal-body{
       scrollbar-gutter: stable both-edges;
       scrollbar-color: rgba(255,255,255,.22) rgba(0,0,0,.35);
@@ -481,12 +455,10 @@
         <p class="subtag">Aged parchment · ritual surfaces · dark elegance</p>
 
         <div class="cart-pay-row" aria-label="Cart and checkout">
-          <!-- NOW OPENS CART MODAL -->
           <button class="ll-home-btn ll-cart" type="button" id="cartBtn">
             <span class="sr-only">Open Cart</span>
           </button>
 
-          <!-- Pay screen still available -->
           <a class="ll-home-btn ll-paypad" href="./pay.html" rel="noopener noreferrer">
             <span class="sr-only">Open Pay Screen</span>
           </a>
@@ -495,7 +467,7 @@
         <section id="process" class="glass section" aria-label="Process">
           <h2 class="h2">Process</h2>
           <p class="muted">
-            Built like a workshop: stains, fibers, and surface wear — curated so your text stays legible.
+            Built like a workshop: stains, fibers, and surface wear, curated so your text stays legible.
           </p>
 
           <div class="creation-grid" aria-label="Creation photos">
@@ -533,52 +505,52 @@
       <p class="muted">Tap a cover to preview the full set. Add to cart to buy ($5 each).</p>
 
       <div class="packs">
+        <!-- GRIMOIRE -->
         <div class="pack-wrap">
-          <button class="pack" type="button" data-pack="grimoire">
+          <button class="pack" type="button" data-pack="grimoire" aria-label="Preview Grimoire Pages">
             <img src="./assets/grimoire/grim-thumb.png" alt="Grimoire pack preview" loading="lazy" />
             <div class="pack-meta">
               <div class="pack-title">Grimoire Pages</div>
               <div class="pack-note muted">Click to preview all pages</div>
-              <!-- SEO: crawlable pack page -->
-              <a class="pack-details" href="./grimoire-pages.html">Details</a>
             </div>
           </button>
 
           <div class="pack-buy" aria-label="Buy Grimoire Pages">
+            <a class="pack-details" href="./grimoire-pages.html">Details</a>
             <div class="pack-price muted">$5.00</div>
             <button class="ll-add-btn" type="button" data-add="grimoire" aria-label="Add Grimoire Pages to cart"></button>
           </div>
         </div>
 
+        <!-- MAPMAKER -->
         <div class="pack-wrap">
-          <button class="pack" type="button" data-pack="mapmaker">
+          <button class="pack" type="button" data-pack="mapmaker" aria-label="Preview Mapmaker Sheets">
             <img src="./assets/mapmaker/mapmaker-cover.png" alt="Mapmaker pack preview" loading="lazy" />
             <div class="pack-meta">
               <div class="pack-title">Mapmaker Sheets</div>
               <div class="pack-note muted">Click to preview all sheets</div>
-              <!-- SEO: crawlable pack page -->
-              <a class="pack-details" href="./mapmaker-sheets.html">Details</a>
             </div>
           </button>
 
           <div class="pack-buy" aria-label="Buy Mapmaker Sheets">
+            <a class="pack-details" href="./mapmaker-sheets.html">Details</a>
             <div class="pack-price muted">$5.00</div>
             <button class="ll-add-btn" type="button" data-add="mapmaker" aria-label="Add Mapmaker Sheets to cart"></button>
           </div>
         </div>
 
+        <!-- VOL ONE -->
         <div class="pack-wrap">
-          <button class="pack" type="button" data-pack="volone">
+          <button class="pack" type="button" data-pack="volone" aria-label="Preview Light Aged Parchment Vol One">
             <img src="./assets/vol-one/vol-1-thumbnail.png" alt="Vol One light parchment preview" loading="lazy" />
             <div class="pack-meta">
               <div class="pack-title">Light Aged Parchment — Vol. One</div>
               <div class="pack-note muted">Click to preview all textures</div>
-              <!-- SEO: crawlable pack page -->
-              <a class="pack-details" href="./light-aged-parchment-vol-1.html">Details</a>
             </div>
           </button>
 
           <div class="pack-buy" aria-label="Buy Light Aged Parchment Vol One">
+            <a class="pack-details" href="./light-aged-parchment-vol-1.html">Details</a>
             <div class="pack-price muted">$5.00</div>
             <button class="ll-add-btn" type="button" data-add="volone" aria-label="Add Vol One to cart"></button>
           </div>
@@ -586,9 +558,6 @@
       </div>
     </section>
 
-    <!-- =========================
-         BUTTONS / STICKERS (NEW SECTION)
-         ========================= -->
     <section class="glass section" aria-label="Buttons and stickers">
       <h2 class="h2">Check out our NEW buttons &amp; stickers!</h2>
       <p class="muted">Printable sticker sheets · scrapbook elements · RPG UI buttons · digital assets</p>
@@ -603,7 +572,6 @@
       </a>
     </section>
 
-    <!-- MAP COMMISSIONS -->
     <section id="maps" class="glass section section-maps" aria-label="Custom fantasy maps">
       <h2 class="h2">Custom Fantasy Maps</h2>
       <p class="muted">
@@ -634,7 +602,7 @@
 
       <div class="maps-copy">
         <p>
-          Islands, regions, and towns illustrated on aged parchment with custom coastlines, labels, and compasses —
+          Islands, regions, and towns illustrated on aged parchment with custom coastlines, labels, and compasses,
           tuned for print and digital campaigns alike.
         </p>
         <p><strong>Deliverables:</strong> High-resolution PNG/JPG, print-ready at 300 DPI, optional transparent background.</p>
@@ -670,7 +638,7 @@
       <p>
         If you need believable, high-detail parchment that prints cleanly and works
         with layered designs, these <strong>digital textures</strong> were built for you.
-        No stock-photo noise, no fake grunge — just consistent, archival-feeling pages that make your work look like it has a history.
+        No stock-photo noise, no fake grunge, just consistent, archival-feeling pages that make your work look like it has a history.
       </p>
     </section>
 
@@ -686,12 +654,7 @@
     </footer>
   </main>
 
-  <!-- =========================================================
-       MODALS (Cart + Pack Preview + Map Preview + Commission Flow)
-       Matches your existing styles.css classes and repo filenames
-       ========================================================= -->
-
-  <!-- CART MODAL (NEW) -->
+  <!-- CART MODAL -->
   <div class="modal" id="cartModal" aria-hidden="true" role="dialog" aria-label="Cart">
     <div class="modal-backdrop" data-close></div>
 
@@ -722,12 +685,10 @@
 
           <div class="cart-actions" aria-label="Cart actions">
             <button class="cart-action-btn" type="button" id="clearCartBtn" aria-label="Clear cart">
-              <!-- FIXED PATH -->
               <img src="./L&L-buttons/clear-cart.png" alt="Clear Cart" />
             </button>
 
             <a class="cart-action-btn" href="./pay.html" rel="noopener noreferrer" aria-label="Go to PayPad">
-              <!-- FIXED PATH -->
               <img src="./L&L-buttons/paypad.png" alt="PayPad" />
             </a>
           </div>
@@ -750,12 +711,10 @@
         </div>
 
         <div class="modal-actions">
-          <!-- Back (only shows in viewer mode via CSS) -->
           <button class="wax-btn back-btn" type="button" id="packBackBtn" aria-label="Back to grid">
             <img src="./assets/back-button.PNG" alt="Back" />
           </button>
 
-          <!-- Close -->
           <button class="wax-btn" type="button" data-close aria-label="Close">
             <img src="./assets/x-button.PNG" alt="Close" />
           </button>
@@ -800,7 +759,7 @@
     </div>
   </div>
 
-  <!-- COMMISSION: ENVELOPE MODAL (full-screen style per CSS) -->
+  <!-- COMMISSION: ENVELOPE MODAL -->
   <div class="modal" id="commissionModal" aria-hidden="true" role="dialog" aria-label="Commission request">
     <div class="modal-backdrop" data-close></div>
 
@@ -845,7 +804,6 @@
         <div class="letter-stack">
           <img class="letter-img" src="./commission-modal-assets/commission-letter.png" alt="Commission letter" />
 
-          <!-- Map Slot button (NOW WIRED to Google Form) -->
           <button class="map-slot-btn" type="button" id="mapSlotBtn" aria-label="Request a map slot">
             <img src="./commission-modal-assets/map-slot-button.png" alt="Map Slot" />
           </button>
@@ -854,27 +812,13 @@
     </div>
   </div>
 
-  <!-- =========================================================
-       JS: Cart wiring + Pack preview + Map preview + Commission flow
-       Uses your pay.html keys exactly: ll_cart + ll_order_id
-       PLUS: wires your two Google Forms
-       ========================================================= -->
   <script>
-    // -----------------------------
-    // Google Forms (YOUR LINKS)
-    // -----------------------------
     const MAP_COMMISSION_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdIVLZ8Nc4GXj5fNdUfKc2dVX0Vo2flcQrCERJiPgeL6qHaOg/viewform?usp=header";
     const CONFIRM_ORDER_FORM_URL  = "https://docs.google.com/forms/d/e/1FAIpQLSdvh4sgUyHin-EeEdrreMRES-Ah1KbDafmRfiDVcODj7ZKzPg/viewform?usp=header";
 
-    // -----------------------------
-    // Storage keys (MUST MATCH pay.html)
-    // -----------------------------
-    const CART_KEY  = "ll_cart";     // array of {name, price, qty}
-    const ORDER_KEY = "ll_order_id"; // string
+    const CART_KEY  = "ll_cart";
+    const ORDER_KEY = "ll_order_id";
 
-    // -----------------------------
-    // Helpers
-    // -----------------------------
     const $ = (sel, root=document) => root.querySelector(sel);
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
@@ -918,7 +862,6 @@
     }
 
     function addToCart(item){
-      // item: {name, price}
       const cart = loadCart();
       const existing = cart.find(x => String(x?.name) === item.name);
       if(existing){
@@ -927,26 +870,19 @@
         cart.push({ name: item.name, price: Number(item.price || 0), qty: 1 });
       }
       saveCart(cart);
-      ensureOrderId(); // keep order id stable once cart has items
+      ensureOrderId();
 
-      // If cart modal is open, refresh it live
       if($("#cartModal")?.classList.contains("open")){
         renderCart();
       }
     }
 
-    // -----------------------------
-    // Product map (names shown on pay.html)
-    // -----------------------------
     const PRODUCT = {
       grimoire: { name: "Grimoire Pages", price: 5.00 },
       mapmaker: { name: "Mapmaker Sheets", price: 5.00 },
       volone:   { name: "Light Aged Parchment — Vol. One", price: 5.00 }
     };
 
-    // -----------------------------
-    // Modal helpers (shared)
-    // -----------------------------
     function openModal(el){
       el.classList.add("open");
       el.setAttribute("aria-hidden", "false");
@@ -959,9 +895,6 @@
       document.documentElement.classList.remove("no-scroll");
     }
 
-    // -----------------------------
-    // CART MODAL (NEW)
-    // -----------------------------
     const cartModal    = $("#cartModal");
     const cartList     = $("#cartList");
     const cartSubtotal = $("#cartSubtotal");
@@ -985,8 +918,8 @@
       }
 
       cartSub.textContent = "Review your items";
-
       cartList.innerHTML = "";
+
       cart.forEach(item => {
         const name = String(item?.name ?? "Item");
         const qty  = Math.max(1, Number(item?.qty ?? 1));
@@ -1023,19 +956,13 @@
       renderCart();
     }
 
-    $("#cartBtn")?.addEventListener("click", () => {
-      // Cart now opens modal (no routing)
-      openCart();
-    });
+    $("#cartBtn")?.addEventListener("click", () => openCart());
 
     clearCartBtn?.addEventListener("click", () => {
       clearCart();
       clearCartBtn.blur();
     });
 
-    // -----------------------------
-    // Add-to-cart buttons (PNG)
-    // -----------------------------
     $$("button.ll-add-btn[data-add]").forEach(btn => {
       btn.addEventListener("click", () => {
         const key = btn.getAttribute("data-add");
@@ -1046,9 +973,6 @@
       });
     });
 
-    // -----------------------------
-    // PACK PREVIEW MODAL
-    // -----------------------------
     const packModal      = $("#packModal");
     const packTitle      = $("#packModalTitle");
     const packSub        = $("#packModalSub");
@@ -1130,9 +1054,6 @@
       packViewerImg.style.backgroundImage = "";
     });
 
-    // -----------------------------
-    // MAP PREVIEW MODAL
-    // -----------------------------
     const mapModal      = $("#mapModal");
     const mapModalTitle = $("#mapModalTitle");
     const mapModalSub   = $("#mapModalSub");
@@ -1171,9 +1092,6 @@
       });
     });
 
-    // -----------------------------
-    // COMMISSION FLOW
-    // -----------------------------
     const commissionModal = $("#commissionModal");
     const letterModal     = $("#letterModal");
     const openCommission  = $("#openCommission");
@@ -1185,24 +1103,16 @@
       openModal(letterModal);
     });
 
-    // Map Slot button -> opens Google Form (new tab)
     $("#mapSlotBtn")?.addEventListener("click", () => {
       window.open(MAP_COMMISSION_FORM_URL, "_blank", "noopener,noreferrer");
     });
 
-    // -----------------------------
-    // Confirm Order Form helper (OPTIONAL use later)
-    // -----------------------------
     function buildConfirmOrderPrefillUrl(){
       const cart = loadCart();
       const orderId = ensureOrderId();
       const subtotal = calcSubtotal(cart);
 
-      const ENTRY = {
-        orderId: null,
-        subtotal: null,
-        items: null
-      };
+      const ENTRY = { orderId: null, subtotal: null, items: null };
 
       const itemsText = cart.map(it => {
         const name = String(it?.name ?? "Item");
@@ -1212,7 +1122,6 @@
       }).join("\n");
 
       const u = new URL(CONFIRM_ORDER_FORM_URL);
-
       if(ENTRY.orderId)  u.searchParams.set(ENTRY.orderId, orderId);
       if(ENTRY.subtotal) u.searchParams.set(ENTRY.subtotal, subtotal.toFixed(2));
       if(ENTRY.items)    u.searchParams.set(ENTRY.items, itemsText);
@@ -1226,9 +1135,6 @@
       buildConfirmOrderPrefillUrl
     };
 
-    // -----------------------------
-    // GLOBAL CLOSE HANDLERS
-    // -----------------------------
     $$("[data-close]").forEach(el => {
       el.addEventListener("click", () => {
         const modal = el.closest(".modal");
@@ -1243,7 +1149,10 @@
       closeModal(open[open.length - 1]);
     });
 
-    // Boot: order id is created on first add-to-cart (not on page load)
+    /* Safety net: ensure Details links never trigger preview click */
+    $$("a.pack-details").forEach(a => {
+      a.addEventListener("click", (e) => e.stopPropagation());
+    });
   </script>
 </body>
 </html>
