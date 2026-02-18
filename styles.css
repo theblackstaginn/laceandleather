@@ -1197,10 +1197,10 @@ body.pay-page .pay-qr{
 
   /* Portrait tuning knobs (separate from desktop) */
   :root{
-    --payTop: 24%;
-    --payRight: 26%;
-    --payBottom: 24%;
-    --payLeft: 16%;
+    --payTop: 26%;
+    --payRight: 18%;
+    --payBottom: 22%;
+    --payLeft: 14%;
     --payShiftX: 0px;
     --payShiftY: 0px;
   }
