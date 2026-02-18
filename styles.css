@@ -1199,7 +1199,7 @@ body.pay-page .pay-qr{
   :root{
     --payTop: 26%;
     --payRight: 10%;
-    --payBottom: 16%;
+    --payBottom: 18%;
     --payLeft: 8%;
     --payShiftX: 0px;
     --payShiftY: 0px;
