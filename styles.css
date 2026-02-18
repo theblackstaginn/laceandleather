@@ -48,10 +48,10 @@
      (One place to tune the screen window)
      ========================= */
   /* Desktop/landscape */
-  --payTop: 24%;
-  --payRight: 23%;
-  --payBottom: 24%;
-  --payLeft: 18.5%;
+  --payTop: 22%;
+  --payRight: 20%;
+  --payBottom: 20%;
+  --payLeft: 16%;
 
   /* Pixel nudge (use to slide left/right without redoing percents) */
   --payShiftX: 0px;   /* negative = move LEFT */
