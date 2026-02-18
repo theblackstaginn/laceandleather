@@ -1404,3 +1404,129 @@ body.pay-page .pay-qr{
   35%  { opacity: 1; transform: translateY(0px)  scale(1.10); }
   100% { opacity: 0; transform: translateY(-14px) scale(1.00); }
 }
+
+/* =========================
+   L&L — “In the Wild” section
+   Drop this near your section styles
+   ========================= */
+
+/* Tokens (safe defaults if you don’t have these) */
+:root{
+  --ll-wild-ink: rgba(231,226,219,.92);
+  --ll-wild-muted: rgba(231,226,219,.72);
+
+  /* parchment glass vibe */
+  --ll-wild-panelA: rgba(12,14,18,.22);
+  --ll-wild-panelB: rgba(12,14,18,.34);
+  --ll-wild-line: rgba(250,230,180,.18);
+  --ll-wild-border: rgba(255,255,255,.10);
+
+  --ll-wild-radius: 18px;
+  --ll-wild-shadow: 0 18px 44px rgba(0,0,0,.55);
+}
+
+/* Section shell */
+.ll-projects{
+  margin-top: 14px;
+}
+
+.ll-projects .wrap{
+  padding-top: 10px;
+}
+
+/* Title + intro */
+.ll-projects h2{
+  font-family: "Cardinal", serif;
+  letter-spacing: .08em;
+  margin: 0 0 8px;
+  text-shadow: 0 0 10px rgba(0,0,0,.85);
+}
+
+.ll-projects-intro{
+  margin: 0 auto 14px;
+  max-width: 820px;
+  color: var(--ll-wild-muted);
+  font-size: 15px;
+  text-shadow: 0 0 8px rgba(0,0,0,.75);
+}
+
+/* Rule lines */
+.ll-projects-rules{
+  width: min(760px, 92%);
+  height: 1px;
+  margin: 14px auto;
+  background: linear-gradient(90deg, transparent, var(--ll-wild-line), transparent);
+  opacity: .95;
+}
+
+/* Grid of domains */
+.ll-project-grid{
+  width: min(980px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--ll-wild-radius);
+  border: 1px solid var(--ll-wild-border);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), transparent 45%),
+    linear-gradient(180deg, var(--ll-wild-panelA), var(--ll-wild-panelB));
+  box-shadow: var(--ll-wild-shadow);
+  backdrop-filter: blur(8px) saturate(1.02);
+  -webkit-backdrop-filter: blur(8px) saturate(1.02);
+}
+
+/* Each link card */
+.ll-project-grid a{
+  display: grid;
+  place-items: center;
+  padding: 14px 12px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--ll-wild-ink);
+  font-family: "DarkAges", ui-serif, Georgia, serif;
+  letter-spacing: .04em;
+  border: 1px solid rgba(255,255,255,.10);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), transparent 60%),
+    rgba(0,0,0,.16);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.03),
+    0 10px 22px rgba(0,0,0,.35);
+  transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
+}
+
+@media (hover:hover) and (pointer:fine){
+  .ll-project-grid a:hover{
+    transform: translateY(-2px);
+    border-color: rgba(250,230,180,.22);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.08), transparent 60%),
+      rgba(0,0,0,.14);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,.04),
+      0 16px 34px rgba(0,0,0,.50);
+  }
+  .ll-project-grid a:active{
+    transform: translateY(0) scale(.99);
+  }
+}
+
+/* Optional tiny sublabel inside the card if you add <span> */
+.ll-project-grid a span{
+  display:block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(231,226,219,.70);
+  letter-spacing: .08em;
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .ll-project-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px){
+  .ll-project-grid{ grid-template-columns: 1fr; }
+  .ll-project-grid a{ padding: 13px 12px; }
+}
