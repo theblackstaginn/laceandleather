@@ -1635,3 +1635,33 @@ body.pay-page .pay-qr{
     width: min(560px, 100%);
   }
 }
+/* =========================
+   PATCH: In the Wild buttons — sane size
+   ========================= */
+.ll-project-btn img{
+  width: 100%;
+  max-width: 340px;   /* <- main knob (try 300–360) */
+  height: auto;
+}
+
+/* make the centered last button match, not dominate */
+.ll-project-btns a:nth-child(5) .ll-project-btn img,
+.ll-project-btns a:nth-child(5) img{
+  max-width: 360px;
+}
+
+/* tighten the panel so it doesn’t look like a billboard */
+.ll-project-btns{
+  gap: 10px;
+  padding: 12px;
+}
+
+/* mobile: even smaller */
+@media (max-width: 720px){
+  .ll-project-btn img{
+    max-width: 300px;
+  }
+  .ll-project-btns a:nth-child(5) img{
+    max-width: 320px;
+  }
+}
