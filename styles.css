@@ -1716,3 +1716,17 @@ body.pay-page .pay-qr{
   background: rgba(0,0,0,.12);
   box-shadow: 0 14px 28px rgba(0,0,0,.45);
 }
+/* =========================
+   USE CASE BUTTON — CENTER
+   ========================= */
+.use-case-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:12px;
+}
+
+.use-case-wrap .ll-home-btn{
+  margin:0 auto;
+  display:inline-block;
+}
