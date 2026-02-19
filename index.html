@@ -78,7 +78,7 @@
       "@id": "https://laceleatherarcane.com/#webpage",
       "url": "https://laceleatherarcane.com/",
       "name": "Digital Parchment Textures & Aged Paper Backgrounds | Lace & Leather",
-      "description": "Digital parchment, aged textures, grimoire surfaces, overlays, and ritual map assets for TTRPG creators, designers, and bookbinders.",
+      "description": "Digital parchment, grimoire surfaces, overlays, and ritual map assets for TTRPG creators, designers, and bookbinders.",
       "isPartOf": { "@id": "https://laceleatherarcane.com/#website" },
       "about": { "@id": "https://laceleatherarcane.com/#organization" },
       "primaryImageOfPage": {
@@ -210,8 +210,23 @@
     .ll-cart{ background-image:url("./L&L-buttons/cart.png"); }
     .ll-paypad{ background-image:url("./L&L-buttons/paypad.png"); }
 
+    /* USE CASE BUTTON (NEW) */
+    .ll-usecase{
+      background-image:url("./use-case/use-btn.png");
+    }
+    .usecase-row{
+      display:flex;
+      justify-content:center;
+      margin-top: 10px;
+    }
+    .usecase-row .ll-home-btn{
+      width: 320px;
+      height: 74px;
+    }
+
     @media (max-width: 420px){
       .ll-home-btn{ width: 200px; height: 66px; }
+      .usecase-row .ll-home-btn{ width: 280px; height: 66px; }
     }
 
     .pack-wrap{
@@ -433,6 +448,45 @@
     #cartModal .modal-body::-webkit-scrollbar-thumb:hover{
       background: rgba(255,255,255,.28);
     }
+
+    /* USE CASE MODAL (NEW) */
+    #useCaseModal .usecase-grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 520px){
+      #useCaseModal .usecase-grid{
+        grid-template-columns: 1fr;
+      }
+    }
+
+    #useCaseModal figure{
+      margin: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 14px 34px rgba(0,0,0,.45);
+    }
+
+    #useCaseModal img{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    #useCaseModal figcaption{
+      padding: 10px 10px 11px;
+      font-size: 13px;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      color: rgba(250,230,180,.88);
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.20);
+    }
   </style>
 </head>
 
@@ -462,6 +516,13 @@
           <a class="ll-home-btn ll-paypad" href="./pay.html" rel="noopener noreferrer">
             <span class="sr-only">Open Pay Screen</span>
           </a>
+        </div>
+
+        <!-- USE CASE BUTTON (NEW) -->
+        <div class="usecase-row" aria-label="Use cases">
+          <button class="ll-home-btn ll-usecase" type="button" id="useCaseBtn">
+            <span class="sr-only">How Creators Use This</span>
+          </button>
         </div>
 
         <section id="process" class="glass section" aria-label="Process">
@@ -641,37 +702,37 @@
         No stock-photo noise, no fake grunge, just consistent, archival-feeling pages that make your work look like it has a history.
       </p>
     </section>
-    
+
     <section class="ll-projects" aria-label="In the Wild">
-  <div class="wrap">
-    <h2>In the Wild</h2>
-    <p class="ll-projects-intro">
-      Lace &amp; Leather textures and button assets are used across these live builds.
-    </p>
+      <div class="wrap">
+        <h2>In the Wild</h2>
+        <p class="ll-projects-intro">
+          Lace &amp; Leather textures and button assets are used across these live builds.
+        </p>
 
-    <div class="ll-project-btns" role="list" aria-label="Live sites using Lace &amp; Leather assets">
-      <a class="ll-project-btn" role="listitem" href="https://blackstagweb.com" target="_blank" rel="noopener noreferrer" aria-label="Open blackstagweb.com">
-        <img src="./project-btns/bsw-btn.png" alt="blackstagweb.com" loading="lazy" />
-      </a>
+        <div class="ll-project-btns" role="list" aria-label="Live sites using Lace &amp; Leather assets">
+          <a class="ll-project-btn" role="listitem" href="https://blackstagweb.com" target="_blank" rel="noopener noreferrer" aria-label="Open blackstagweb.com">
+            <img src="./project-btns/bsw-btn.png" alt="blackstagweb.com" loading="lazy" />
+          </a>
 
-      <a class="ll-project-btn" role="listitem" href="https://leafdeli.com" target="_blank" rel="noopener noreferrer" aria-label="Open leafdeli.com">
-        <img src="./project-btns/leaf-btn.png" alt="leafdeli.com" loading="lazy" />
-      </a>
+          <a class="ll-project-btn" role="listitem" href="https://leafdeli.com" target="_blank" rel="noopener noreferrer" aria-label="Open leafdeli.com">
+            <img src="./project-btns/leaf-btn.png" alt="leafdeli.com" loading="lazy" />
+          </a>
 
-      <a class="ll-project-btn" role="listitem" href="https://southernpresswashing.com" target="_blank" rel="noopener noreferrer" aria-label="Open southernpresswashing.com">
-        <img src="./project-btns/spw-btn.png" alt="southernpresswashing.com" loading="lazy" />
-      </a>
+          <a class="ll-project-btn" role="listitem" href="https://southernpresswashing.com" target="_blank" rel="noopener noreferrer" aria-label="Open southernpresswashing.com">
+            <img src="./project-btns/spw-btn.png" alt="southernpresswashing.com" loading="lazy" />
+          </a>
 
-      <a class="ll-project-btn" role="listitem" href="https://blackstagfusionbbq.com" target="_blank" rel="noopener noreferrer" aria-label="Open blackstagfusionbbq.com">
-        <img src="./project-btns/bbq-btn.png" alt="blackstagfusionbbq.com" loading="lazy" />
-      </a>
+          <a class="ll-project-btn" role="listitem" href="https://blackstagfusionbbq.com" target="_blank" rel="noopener noreferrer" aria-label="Open blackstagfusionbbq.com">
+            <img src="./project-btns/bbq-btn.png" alt="blackstagfusionbbq.com" loading="lazy" />
+          </a>
 
-      <a class="ll-project-btn" role="listitem" href="https://www.blackstaginn.com" target="_blank" rel="noopener noreferrer" aria-label="Open blackstaginn.com">
-        <img src="./project-btns/bsi-btn.png" alt="blackstaginn.com" loading="lazy" />
-      </a>
-    </div>
-  </div>
-</section>
+          <a class="ll-project-btn" role="listitem" href="https://www.blackstaginn.com" target="_blank" rel="noopener noreferrer" aria-label="Open blackstaginn.com">
+            <img src="./project-btns/bsi-btn.png" alt="blackstaginn.com" loading="lazy" />
+          </a>
+        </div>
+      </div>
+    </section>
 
     <footer class="site-footer">
       <p class="footer-sub">
@@ -684,6 +745,62 @@
       </div>
     </footer>
   </main>
+
+  <!-- USE CASE MODAL (NEW) -->
+  <div class="modal" id="useCaseModal" aria-hidden="true" role="dialog" aria-label="How creators use this">
+    <div class="modal-backdrop" data-close></div>
+
+    <div class="glass modal-panel" role="document">
+      <div class="modal-head">
+        <div class="modal-left">
+          <div>
+            <div class="modal-title">How Creators Use This</div>
+            <div class="modal-sub muted">Real workflows across print and digital builds</div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="wax-btn" type="button" data-close aria-label="Close">
+            <img src="./assets/x-button.PNG" alt="Close" />
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="usecase-grid" aria-label="Use case images">
+          <figure>
+            <img src="./use-case/map-layout.png" alt="Map design workflow using parchment textures" loading="lazy" />
+            <figcaption>Map design</figcaption>
+          </figure>
+
+          <figure>
+            <img src="./use-case/rpg-handout.png" alt="RPG handout printable layout using parchment textures" loading="lazy" />
+            <figcaption>RPG handouts</figcaption>
+          </figure>
+
+          <figure>
+            <img src="./use-case/tarot-template.png" alt="Tarot card template workflow using parchment textures" loading="lazy" />
+            <figcaption>Tarot layouts</figcaption>
+          </figure>
+
+          <figure>
+            <img src="./use-case/journal-page.png" alt="Journal page printable design using parchment textures" loading="lazy" />
+            <figcaption>Journals</figcaption>
+          </figure>
+
+          <figure>
+            <img src="./use-case/book-cover.png" alt="Book cover design mockup using parchment textures" loading="lazy" />
+            <figcaption>Book covers</figcaption>
+          </figure>
+
+          <figure>
+            <img src="./use-case/website-cover.png" alt="Website hero design using parchment textures" loading="lazy" />
+            <figcaption>Web design</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- CART MODAL -->
   <div class="modal" id="cartModal" aria-hidden="true" role="dialog" aria-label="Cart">
@@ -1002,6 +1119,15 @@
         addToCart(p);
         btn.blur();
       });
+    });
+
+    /* USE CASE MODAL WIRING (NEW) */
+    const useCaseBtn   = $("#useCaseBtn");
+    const useCaseModal = $("#useCaseModal");
+    useCaseBtn?.addEventListener("click", () => {
+      if(!useCaseModal) return;
+      openModal(useCaseModal);
+      useCaseBtn.blur();
     });
 
     const packModal      = $("#packModal");
