@@ -107,32 +107,74 @@
         {
           "@type": "Offer",
           "name": "Grimoire Pages",
+          "description": "Printable grimoire-style digital pages for journaling, scrapbooking, book arts, and TTRPG handouts.",
           "price": "5.00",
           "priceCurrency": "USD",
+          "priceValidUntil": "2027-12-31",
           "availability": "https://schema.org/InStock",
-          "url": "https://laceleatherarcane.com/grimoire-pages.html"
+          "url": "https://laceleatherarcane.com/grimoire-pages.html",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "USD" },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
+              "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+            "merchantReturnLink": "https://laceleatherarcane.com/refunds.html"
+          }
         },
         {
           "@type": "Offer",
           "name": "Mapmaker Sheets",
+          "description": "Digital parchment sheets and printable assets for fantasy mapmaking, worldbuilding, and campaign journals.",
           "price": "5.00",
           "priceCurrency": "USD",
+          "priceValidUntil": "2027-12-31",
           "availability": "https://schema.org/InStock",
-          "url": "https://laceleatherarcane.com/mapmaker-sheets.html"
+          "url": "https://laceleatherarcane.com/mapmaker-sheets.html",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "USD" },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
+              "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+            "merchantReturnLink": "https://laceleatherarcane.com/refunds.html"
+          }
         },
         {
           "@type": "Offer",
-          "name": "Light Aged Parchment — Vol. One",
+          "name": "Light Aged Parchment - Vol. One",
+          "description": "High-resolution aged parchment textures for print and digital layouts, built for legibility and layered design.",
           "price": "5.00",
           "priceCurrency": "USD",
+          "priceValidUntil": "2027-12-31",
           "availability": "https://schema.org/InStock",
-          "url": "https://laceleatherarcane.com/light-aged-parchment-vol-1.html"
-        },
-        {
-          "@type": "Offer",
-          "name": "Fantasy Buttons & Stickers",
-          "url": "https://laceleatherarcane.com/buttons.html",
-          "availability": "https://schema.org/InStock"
+          "url": "https://laceleatherarcane.com/light-aged-parchment-vol-1.html",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "USD" },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
+              "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+            "merchantReturnLink": "https://laceleatherarcane.com/refunds.html"
+          }
         }
       ]
     },
@@ -605,7 +647,7 @@
           <button class="pack" type="button" data-pack="volone" aria-label="Preview Light Aged Parchment Vol One">
             <img src="./assets/vol-one/vol-1-thumbnail.png" alt="Vol One light parchment preview" loading="lazy" />
             <div class="pack-meta">
-              <div class="pack-title">Light Aged Parchment — Vol. One</div>
+              <div class="pack-title">Light Aged Parchment - Vol. One</div>
               <div class="pack-note muted">Click to preview all textures</div>
             </div>
           </button>
@@ -642,7 +684,7 @@
       <div class="maps-grid" aria-label="Map examples">
         <figure class="map-card" data-map="suneen" tabindex="0" role="button" aria-label="Preview map: Suneen Reef">
           <div class="map-thumb">
-            <img src="./assets/maps/suneen-reef.png" alt="Fantasy map example — Suneen Reef" loading="lazy" />
+            <img src="./assets/maps/suneen-reef.png" alt="Fantasy map example - Suneen Reef" loading="lazy" />
           </div>
           <figcaption class="map-caption">
             <span class="map-name">Suneen Reef</span>
@@ -652,7 +694,7 @@
 
         <figure class="map-card" data-map="whispering" tabindex="0" role="button" aria-label="Preview map: Whispering Bay">
           <div class="map-thumb">
-            <img src="./assets/maps/whispering-bay.png" alt="Fantasy map example — Whispering Bay" loading="lazy" />
+            <img src="./assets/maps/whispering-bay.png" alt="Fantasy map example - Whispering Bay" loading="lazy" />
           </div>
           <figcaption class="map-caption">
             <span class="map-name">Whispering Bay</span>
@@ -733,23 +775,30 @@
         </div>
       </div>
     </section>
-    
+
     <div class="use-case-wrap">
-  <a class="ll-home-btn" href="./use-case.html" aria-label="See how creators use Lace & Leather">
-    <img src="./use-case/use-btn.png"
-         alt="How Creators Use This"
-         style="width:100%; height:auto; display:block;" />
-  </a>
-</div>
+      <a class="ll-home-btn" href="./use-case.html" aria-label="See how creators use Lace & Leather">
+        <img src="./use-case/use-btn.png"
+             alt="How Creators Use This"
+             style="width:100%; height:auto; display:block;" />
+      </a>
+    </div>
 
     <footer class="site-footer">
       <p class="footer-sub">
         Website by
         <a href="https://blackstagweb.com" rel="noopener noreferrer">Black Stag Web Studio</a>
       </p>
+
       <div class="footer-inner">
         <div class="brand">Lace &amp; Leather</div>
         <div class="muted">Digital texture packs · PNG/JPG · Instant delivery via shop links</div>
+
+        <div class="footer-links" style="margin-top:10px;">
+          <a href="./refunds.html" class="muted" style="text-decoration:none; border-bottom:1px solid rgba(255,255,255,.16);">
+            Digital Delivery and Refunds
+          </a>
+        </div>
       </div>
     </footer>
   </main>
@@ -1036,7 +1085,7 @@
     const PRODUCT = {
       grimoire: { name: "Grimoire Pages", price: 5.00 },
       mapmaker: { name: "Mapmaker Sheets", price: 5.00 },
-      volone:   { name: "Light Aged Parchment — Vol. One", price: 5.00 }
+      volone:   { name: "Light Aged Parchment - Vol. One", price: 5.00 }
     };
 
     function openModal(el){
@@ -1168,7 +1217,7 @@
         ]
       },
       volone: {
-        title: "Light Aged Parchment — Vol. One",
+        title: "Light Aged Parchment - Vol. One",
         sub: "Preview (12 textures)",
         images: Array.from({length: 12}, (_,i)=> `./assets/vol-one/parchment-light_${i+1}.jpg`)
       }
@@ -1283,7 +1332,7 @@
         const name = String(it?.name ?? "Item");
         const qty  = Math.max(1, Number(it?.qty ?? 1));
         const price = Number(it?.price ?? 0);
-        return `${name} x${qty} — $${(price*qty).toFixed(2)}`;
+        return `${name} x${qty} - $${(price*qty).toFixed(2)}`;
       }).join("\n");
 
       const u = new URL(CONFIRM_ORDER_FORM_URL);
