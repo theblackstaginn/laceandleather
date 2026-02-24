@@ -175,6 +175,30 @@
             "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
             "merchantReturnLink": "https://laceleatherarcane.com/refunds.html"
           }
+        },
+        {
+          "@type": "Offer",
+          "name": "Smithy Textures",
+          "description": "A rugged parchment texture set with workshop wear, soot, and material grain. Built for legibility and layered design.",
+          "price": "5.00",
+          "priceCurrency": "USD",
+          "priceValidUntil": "2027-12-31",
+          "availability": "https://schema.org/InStock",
+          "url": "https://laceleatherarcane.com/smithy-textures.html",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "USD" },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" },
+              "transitTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 0, "unitCode": "DAY" }
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+            "merchantReturnLink": "https://laceleatherarcane.com/refunds.html"
+          }
         }
       ]
     },
@@ -608,22 +632,6 @@
       <p class="muted">Tap a cover to preview the full set. Add to cart to buy ($5 each).</p>
 
       <div class="packs">
-        <!-- SMITHY (NEW) -->
-<div class="pack-wrap">
-  <button class="pack" type="button" data-pack="smithy" aria-label="Preview Smithy Textures">
-    <img src="./assets/smithy/smithy-cover.png" alt="Smithy textures pack preview" loading="lazy" />
-    <div class="pack-meta">
-      <div class="pack-title">Smithy Textures</div>
-      <div class="pack-note muted">Click to preview all textures</div>
-    </div>
-  </button>
-
-  <div class="pack-buy" aria-label="Buy Smithy Textures">
-    <a class="pack-details" href="./smithy-textures.html">Details</a>
-    <div class="pack-price muted">$5.00</div>
-    <button class="ll-add-btn" type="button" data-add="smithy" aria-label="Add Smithy Textures to cart"></button>
-  </div>
-</div>
         <!-- GRIMOIRE -->
         <div class="pack-wrap">
           <button class="pack" type="button" data-pack="grimoire" aria-label="Preview Grimoire Pages">
@@ -672,6 +680,23 @@
             <a class="pack-details" href="./light-aged-parchment-vol-1.html">Details</a>
             <div class="pack-price muted">$5.00</div>
             <button class="ll-add-btn" type="button" data-add="volone" aria-label="Add Vol One to cart"></button>
+          </div>
+        </div>
+
+        <!-- SMITHY (NEW) -->
+        <div class="pack-wrap">
+          <button class="pack" type="button" data-pack="smithy" aria-label="Preview Smithy Textures">
+            <img src="./assets/smithy/smithy-cover.png" alt="Smithy textures pack preview" loading="lazy" />
+            <div class="pack-meta">
+              <div class="pack-title">Smithy Textures</div>
+              <div class="pack-note muted">Click to preview all textures</div>
+            </div>
+          </button>
+
+          <div class="pack-buy" aria-label="Buy Smithy Textures">
+            <a class="pack-details" href="./smithy-textures.html">Details</a>
+            <div class="pack-price muted">$5.00</div>
+            <button class="ll-add-btn" type="button" data-add="smithy" aria-label="Add Smithy Textures to cart"></button>
           </div>
         </div>
       </div>
@@ -1101,7 +1126,8 @@
     const PRODUCT = {
       grimoire: { name: "Grimoire Pages", price: 5.00 },
       mapmaker: { name: "Mapmaker Sheets", price: 5.00 },
-      volone:   { name: "Light Aged Parchment - Vol. One", price: 5.00 }
+      volone:   { name: "Light Aged Parchment - Vol. One", price: 5.00 },
+      smithy:   { name: "Smithy Textures", price: 5.00 }
     };
 
     function openModal(el){
@@ -1236,6 +1262,11 @@
         title: "Light Aged Parchment - Vol. One",
         sub: "Preview (12 textures)",
         images: Array.from({length: 12}, (_,i)=> `./assets/vol-one/parchment-light_${i+1}.jpg`)
+      },
+      smithy: {
+        title: "Smithy Textures",
+        sub: "Preview (12 textures)",
+        images: Array.from({length: 12}, (_,i)=> `./assets/smithy/smithy-${i+1}.png`)
       }
     };
 
