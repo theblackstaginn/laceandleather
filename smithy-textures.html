@@ -1,133 +1,381 @@
+<!-- smithy-textures.html (FULL) -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <title>Smithy Textures | Lace & Leather</title>
-  <meta name="description" content="Forge-worn parchment texture pack: 12 high-resolution sheets built for legibility and layered design." />
+  <title>Smithy Textures | Lace &amp; Leather</title>
 
+  <meta name="description" content="Smithy Textures: 12 forge-worn parchment sheets for TTRPG creators, designers, and bookbinders. High-resolution, print-ready." />
   <link rel="canonical" href="https://laceleatherarcane.com/smithy-textures.html" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
-  <meta name="theme-color" content="#0b0f14" />
 
-  <meta property="og:type" content="product" />
-  <meta property="og:site_name" content="Lace & Leather" />
-  <meta property="og:title" content="Smithy Textures | Lace & Leather" />
-  <meta property="og:description" content="Forge-worn parchment texture pack: 12 high-resolution sheets built for legibility and layered design." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lace &amp; Leather" />
+  <meta property="og:title" content="Smithy Textures | Lace &amp; Leather" />
+  <meta property="og:description" content="12 forge-worn parchment sheets. High-resolution, print-ready textures for creators." />
   <meta property="og:url" content="https://laceleatherarcane.com/smithy-textures.html" />
   <meta property="og:image" content="https://laceleatherarcane.com/assets/smithy/smithy-cover.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Smithy Textures | Lace & Leather" />
-  <meta name="twitter:description" content="Forge-worn parchment texture pack: 12 high-resolution sheets built for legibility and layered design." />
+  <meta name="twitter:title" content="Smithy Textures | Lace &amp; Leather" />
+  <meta name="twitter:description" content="12 forge-worn parchment sheets. High-resolution, print-ready textures for creators." />
   <meta name="twitter:image" content="https://laceleatherarcane.com/assets/smithy/smithy-cover.png" />
 
   <link rel="stylesheet" href="styles.css" />
 
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Product",
-    "name":"Smithy Textures",
-    "description":"Forge-worn parchment texture pack: 12 high-resolution sheets built for legibility and layered design.",
-    "image":"https://laceleatherarcane.com/assets/smithy/smithy-cover.png",
-    "brand":{"@type":"Brand","name":"Lace & Leather"},
-    "offers":{
-      "@type":"Offer",
-      "price":"5.00",
-      "priceCurrency":"USD",
-      "availability":"https://schema.org/InStock",
-      "url":"https://laceleatherarcane.com/smithy-textures.html"
-    }
-  }
-  </script>
-
   <style>
-    /* page-specific, small and safe */
-    .details-hero{
-      display:grid;
-      gap:14px;
-      padding:18px;
+    /* Page shell (mirrors your detail-page vibe) */
+    body{
+      margin:0;
+      background:#06070a;
+      color:#e7e2db;
+      font-family:"DarkAges", ui-serif, Georgia, serif;
+      text-align:center;
+      overflow-x:hidden;
     }
-    .details-top{
+
+    .bg{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      background:url("./assets/lace-bg.png") center / cover no-repeat;
+      transform: translateZ(0);
+      filter:saturate(1.08) contrast(1.03) brightness(1.20);
+    }
+    .bg::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(120% 90% at 50% 12%, rgba(255,255,255,.06), transparent 60%),
+        radial-gradient(120% 120% at 50% 50%, transparent 55%, rgba(0,0,0,.66) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.58), rgba(0,0,0,.58));
+    }
+
+    .wrap{
+      width: min(1100px, calc(100% - 32px));
+      margin: 22px auto 40px;
       display:grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap:14px;
+      gap:16px;
+    }
+
+    .crumbs{
+      text-align:left;
+      font-size:14px;
+      opacity:.9;
+      margin: 0 0 10px;
+    }
+    .crumbs a{
+      color: rgba(250,230,180,.90);
+      text-decoration:none;
+      border-bottom:1px solid rgba(250,230,180,.22);
+    }
+    .crumbs a:hover{
+      border-bottom-color: rgba(250,230,180,.45);
+    }
+
+    .glass{
+      position:relative;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), transparent 42%),
+        linear-gradient(180deg, rgba(12,14,18,.10), rgba(12,14,18,.16));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      box-shadow: 0 18px 48px rgba(0,0,0,.50);
+      backdrop-filter: blur(6px) saturate(1.03);
+      -webkit-backdrop-filter: blur(6px) saturate(1.03);
+      overflow:hidden;
+    }
+
+    .detail-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 14px;
       align-items:stretch;
     }
-    .details-cover{
-      width:100%;
-      height:100%;
-      min-height: 260px;
+
+    .hero-card{
       border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.12);
       overflow:hidden;
-      box-shadow: 0 18px 40px rgba(0,0,0,.55);
-    }
-    .details-cover img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .details-buy{
-      border-radius:16px;
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.12);
-      padding:14px;
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 16px 34px rgba(0,0,0,.45);
+      display:grid;
+      place-items:center;
+    }
+    .hero-card img{
+      width:100%;
+      height:auto;
+      display:block;
+      object-fit:cover;
+    }
+
+    .info{
+      padding: 12px 12px 14px;
       display:grid;
       gap:10px;
-      box-shadow: 0 18px 40px rgba(0,0,0,.55);
-      align-content:start;
-    }
-    .details-buy .price{
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-size:14px;
-      opacity:.92;
-    }
-    .details-buy .bullets{
       text-align:left;
-      max-width: 560px;
-      margin: 0 auto;
-      padding-left: 18px;
-      line-height: 1.55;
     }
-    .details-actions{
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top: 6px;
-    }
-    .back-home{
-      display:inline-block;
-      text-decoration:none;
-      color: rgba(250,230,180,.90);
-      border-bottom: 1px solid rgba(250,230,180,.22);
-      letter-spacing:.04em;
-      text-transform:uppercase;
-      font-size:13px;
-    }
-    .back-home:hover{ border-bottom-color: rgba(250,230,180,.45); }
-
-    .preview-note{
+    .title{
+      font-family:"Cardinal", serif;
+      letter-spacing:.10em;
+      font-size: clamp(22px, 3.2vw, 30px);
       margin: 0;
-      opacity:.86;
-      font-size:14px;
+      text-shadow: 0 0 10px rgba(0,0,0,.85);
+      text-align:left;
+    }
+    .sub{
+      margin:0;
+      opacity:.92;
+      line-height:1.55;
+      text-align:left;
     }
 
-    /* Make collage tiles look good on this page even if the global ones change */
-    #smithyCollage .tile-face{
-      background-size: cover;
-      background-position: center;
+    .bullets{
+      margin: 8px 0 6px;
+      padding-left: 18px;
+      display:grid;
+      gap:6px;
+      text-align:left;
+    }
+    .bullets li{
+      line-height:1.45;
+    }
+
+    .btn-row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-start;
+      margin-top: 4px;
+    }
+
+    .btn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.24);
+      color:#e7e2db;
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-family:"DarkAges", ui-serif, Georgia, serif;
+      letter-spacing:.04em;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 140px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+      transition: transform .16s ease, background .16s ease, border-color .16s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,.18);
+      border-color: rgba(250,230,180,.22);
+    }
+    .btn:active{
+      transform: translateY(0) scale(.99);
+    }
+
+    .related{
+      margin-top: 8px;
+      display:grid;
+      gap:8px;
+    }
+    .related-title{
+      font-family:"Cardinal", serif;
+      letter-spacing:.06em;
+      margin: 0;
+      font-size: 16px;
+      opacity:.95;
+      text-align:left;
+    }
+    .related a{
+      text-decoration:none;
+    }
+    .related .btn{
+      width:100%;
+      justify-content:flex-start;
+    }
+
+    /* Preview strip */
+    .preview{
+      padding: 12px 14px 14px;
+      display:grid;
+      gap:10px;
+    }
+    .preview h2{
+      font-family:"Cardinal", serif;
+      letter-spacing:.08em;
+      margin: 0;
+      font-size: 18px;
+      text-shadow: 0 0 10px rgba(0,0,0,.85);
+    }
+    .preview p{
+      margin:0;
+      opacity:.82;
+      font-size: 14px;
+    }
+
+    .thumbs{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+      align-items:stretch;
+    }
+    .thumb{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      border-radius: 14px;
+      overflow:hidden;
+      cursor:pointer;
+      padding:0;
+      box-shadow: 0 14px 28px rgba(0,0,0,.35);
+      transition: transform .16s ease, border-color .16s ease;
+    }
+    .thumb:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.16);
+    }
+    .thumb:active{
+      transform: translateY(0) scale(.99);
+    }
+    .thumb img{
+      width:100%;
+      height: 130px;
+      object-fit: cover;
+      display:block;
+    }
+
+    /* Modal viewer */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      z-index: 80;
+    }
+    .modal.open{ display:block; }
+
+    .modal-backdrop{
+      position:absolute;
+      inset:0;
+      background: rgba(0,0,0,.70);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .modal-panel{
+      position:absolute;
+      left:50%;
+      top:50%;
+      transform: translate(-50%, -50%);
+      width: min(980px, calc(100% - 28px));
+      max-height: min(86vh, 920px);
+      overflow:hidden;
+    }
+
+    .modal-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 12px 10px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .modal-title{
+      font-family:"Cardinal", serif;
+      letter-spacing:.08em;
+      font-size:18px;
+      text-shadow:0 0 10px rgba(0,0,0,.9);
+      margin:0;
+      text-align:left;
+    }
+    .modal-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .wax-btn{
+      appearance:none;
+      border:none;
+      background:transparent;
+      padding:0;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .wax-btn img{
+      width:52px;
+      height:52px;
+      display:block;
+      object-fit:contain;
+      filter:
+        drop-shadow(0 10px 18px rgba(0,0,0,.45))
+        drop-shadow(0 2px 4px rgba(0,0,0,.35));
+      transition: transform .16s ease, filter .16s ease;
+    }
+    .wax-btn:hover img{
+      transform: translateY(-1px);
+      filter:
+        drop-shadow(0 14px 26px rgba(0,0,0,.55))
+        drop-shadow(0 4px 6px rgba(0,0,0,.4));
+    }
+    .wax-btn:active img{ transform: translateY(0) scale(.97); }
+
+    .modal-body{
+      padding: 12px;
+      overflow:auto;
+      max-height: calc(86vh - 64px);
+      -webkit-overflow-scrolling: touch;
+    }
+    .viewer{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+      overflow:hidden;
+      box-shadow: 0 18px 42px rgba(0,0,0,.45);
+    }
+    .viewer img{
+      width:100%;
+      height:auto;
+      display:block;
+      object-fit: contain;
+      background: rgba(0,0,0,.10);
+    }
+
+    .footer{
+      opacity:.85;
+      font-size: 13px;
+      padding: 14px 10px 2px;
+    }
+    .footer a{
+      color: rgba(250,230,180,.90);
+      text-decoration:none;
+      border-bottom:1px solid rgba(250,230,180,.22);
+    }
+    .footer a:hover{
+      border-bottom-color: rgba(250,230,180,.45);
     }
 
     @media (max-width: 980px){
-      .details-top{ grid-template-columns: 1fr; }
-      .details-cover{ min-height: 220px; }
+      .detail-grid{ grid-template-columns: 1fr; }
+      .thumbs{ grid-template-columns: repeat(2, 1fr); }
+      .thumb img{ height: 150px; }
+      .info{ text-align:left; }
+      .title, .sub, .bullets, .related-title{ text-align:left; }
+    }
+
+    @media (max-width: 520px){
+      .thumbs{ grid-template-columns: 1fr; }
+      .thumb img{ height: 170px; }
+      .btn-row{ justify-content:center; }
+      .info, .title, .sub, .bullets, .related-title{ text-align:center; }
+      .related .btn{ justify-content:center; }
     }
   </style>
 </head>
@@ -135,65 +383,61 @@
 <body>
   <div class="bg" aria-hidden="true"></div>
 
-  <div class="dust" aria-hidden="true">
-    <span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span>
-  </div>
-
   <main class="wrap">
-    <section class="glass section details-hero" aria-label="Smithy Textures details">
-      <h1 class="brand-title" style="margin:0;">Smithy Textures</h1>
-      <p class="tagline" style="margin:0;">Forge-worn parchment sheets built for legibility.</p>
-      <p class="subtag" style="margin:0;">12 textures · high resolution · clean center values</p>
+    <div class="crumbs">
+      <a href="./">Home</a> / Smithy Textures
+    </div>
 
-      <div class="details-top">
-        <div class="details-cover" aria-label="Cover">
+    <section class="glass" aria-label="Smithy Textures details">
+      <div class="detail-grid">
+        <!-- Left: cover -->
+        <div class="hero-card" aria-label="Smithy cover">
           <img src="./assets/smithy/smithy-cover.png" alt="Smithy Textures cover" />
         </div>
 
-        <div class="details-buy" aria-label="Buy panel">
-          <div class="h2" style="margin:0;">Pack Includes</div>
+        <!-- Right: copy -->
+        <div class="info" aria-label="Smithy pack info">
+          <h1 class="title">Smithy Textures</h1>
+          <p class="sub">
+            Digital parchment pack • $5 • 12 textures
+          </p>
+
           <ul class="bullets">
-            <li>12 forge-worn parchment textures (PNG)</li>
-            <li>Built to layer cleanly with text and ink</li>
-            <li>Uniform texture behavior with restrained wear</li>
-            <li>Works for print layouts, journals, RPG handouts, covers</li>
+            <li>12 forge-worn parchment sheets</li>
+            <li>Built for legibility and layered design</li>
+            <li>Great for TTRPG handouts, journals, maps, and book pages</li>
+            <li>Instant delivery through shop links</li>
           </ul>
 
-          <div class="price muted">$5.00</div>
-
-          <div class="details-actions">
-            <button class="ll-add-btn" type="button" id="addSmithyBtn" aria-label="Add Smithy Textures to cart"></button>
-            <a class="ll-home-btn ll-paypad" href="./pay.html" rel="noopener noreferrer" aria-label="Open Pay Screen">
-              <span class="sr-only">Open Pay Screen</span>
-            </a>
+          <div class="btn-row" aria-label="Purchase links">
+            <!-- Replace these links if you want specific product URLs -->
+            <a class="btn" href="https://payhip.com/LaceLeather65" target="_blank" rel="noopener noreferrer">Buy on Payhip</a>
+            <a class="btn" href="https://www.etsy.com/shop/laceLeatherArcane" target="_blank" rel="noopener noreferrer">Buy on Etsy</a>
+            <a class="btn" href="./" rel="noopener noreferrer">Preview on homepage</a>
           </div>
 
-          <div style="display:grid; gap:8px; margin-top:6px;">
-            <a class="back-home" href="./index.html">Back to home</a>
-            <a class="back-home" href="./refunds.html">Digital Delivery and Refunds</a>
+          <div class="related" aria-label="Related packs">
+            <p class="related-title">Related packs</p>
+            <a href="./grimoire-pages.html"><span class="btn">Grimoire Pages</span></a>
+            <a href="./mapmaker-sheets.html"><span class="btn">Mapmaker Sheets</span></a>
+            <a href="./light-aged-parchment-vol-1.html"><span class="btn">Light Aged Parchment Vol. One</span></a>
           </div>
         </div>
       </div>
-    </section>
 
-    <section class="glass section" aria-label="Preview">
-      <h2 class="h2">Preview</h2>
-      <p class="preview-note muted">Tap a texture to enlarge.</p>
+      <!-- Preview -->
+      <div class="preview" aria-label="Preview">
+        <h2>Preview</h2>
+        <p>Tap a texture to enlarge</p>
 
-      <div class="collage" id="smithyCollage" aria-label="Smithy textures preview grid"></div>
-    </section>
+        <div class="thumbs" id="thumbs" aria-label="Smithy preview thumbnails"></div>
 
-    <footer class="site-footer">
-      <p class="footer-sub">
-        Website by <a href="https://blackstagweb.com" rel="noopener noreferrer">Black Stag Web Studio</a>
-      </p>
-      <div class="footer-inner">
-        <div class="brand">Lace &amp; Leather</div>
-        <div class="muted">Digital texture packs · Instant delivery via shop links</div>
+        <div class="footer">
+          <a href="./">Back to Lace &amp; Leather</a>
+          <div style="margin-top:6px;">Digital texture packs · PNG · Instant delivery via shop links</div>
+        </div>
       </div>
-    </footer>
+    </section>
   </main>
 
   <!-- VIEWER MODAL -->
@@ -202,13 +446,7 @@
 
     <div class="glass modal-panel" role="document">
       <div class="modal-head">
-        <div class="modal-left">
-          <div>
-            <div class="modal-title" id="viewerTitle">Smithy Textures</div>
-            <div class="modal-sub muted" id="viewerSub">Tap any page to enlarge</div>
-          </div>
-        </div>
-
+        <h3 class="modal-title" id="viewerTitle">Preview</h3>
         <div class="modal-actions">
           <button class="wax-btn" type="button" data-close aria-label="Close">
             <img src="./assets/x-button.PNG" alt="Close" />
@@ -217,129 +455,64 @@
       </div>
 
       <div class="modal-body">
-        <div class="viewer" style="display:block;">
-          <div class="viewer-img" id="viewerImg" aria-hidden="true"></div>
+        <div class="viewer">
+          <img id="viewerImg" src="" alt="Texture preview" />
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    /* =========================
-       Smithy Textures wiring
-       Fixes blank tiles by using the exact real filenames:
-       ./assets/smithy/smithy-1.png ... smithy-12.png
-    ========================= */
-
-    const CART_KEY = "ll_cart";
-    const ORDER_KEY = "ll_order_id";
-
-    const $ = (sel, root=document) => root.querySelector(sel);
+    const $  = (sel, root=document) => root.querySelector(sel);
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
-    function safeParse(json, fallback){
-      try { return JSON.parse(json) ?? fallback; } catch { return fallback; }
-    }
-    function loadCart(){
-      const raw = localStorage.getItem(CART_KEY);
-      const cart = safeParse(raw, []);
-      return Array.isArray(cart) ? cart : [];
-    }
-    function saveCart(cart){
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    }
-    function genOrderId(){
-      const a = Math.random().toString(16).slice(2,6).toUpperCase();
-      const b = Math.random().toString(16).slice(2,6).toUpperCase();
-      return `${a}-${b}`;
-    }
-    function ensureOrderId(){
-      let id = localStorage.getItem(ORDER_KEY);
-      if(!id){
-        id = genOrderId();
-        localStorage.setItem(ORDER_KEY, id);
-      }
-      return id;
-    }
+    const thumbsEl = $("#thumbs");
+    const modal = $("#viewerModal");
+    const viewerImg = $("#viewerImg");
+    const viewerTitle = $("#viewerTitle");
 
-    function addToCart(item){
-      const cart = loadCart();
-      const existing = cart.find(x => String(x?.name) === item.name);
-      if(existing){
-        existing.qty = Math.max(1, Number(existing.qty || 1) + 1);
-      }else{
-        cart.push({ name: item.name, price: Number(item.price || 0), qty: 1 });
-      }
-      saveCart(cart);
-      ensureOrderId();
-    }
-
-    const PRODUCT = { name: "Smithy Textures", price: 5.00 };
-
-    $("#addSmithyBtn")?.addEventListener("click", () => {
-      addToCart(PRODUCT);
-      $("#addSmithyBtn").blur();
-    });
-
-    // Modal helpers (same behavior as your main site)
-    function openModal(el){
-      el.classList.add("open");
-      el.setAttribute("aria-hidden", "false");
-      document.documentElement.classList.add("no-scroll");
-    }
-    function closeModal(el){
-      el.classList.remove("open");
-      el.setAttribute("aria-hidden", "true");
-      document.documentElement.classList.remove("no-scroll");
-    }
-
-    // Close handlers
-    $$("[data-close]").forEach(el => {
-      el.addEventListener("click", () => {
-        const modal = el.closest(".modal");
-        if(modal) closeModal(modal);
-      });
-    });
-    document.addEventListener("keydown", (e) => {
-      if(e.key !== "Escape") return;
-      const open = $$(".modal.open");
-      if(!open.length) return;
-      closeModal(open[open.length - 1]);
-    });
-
-    // Build correct image list (hyphen names)
     const SMITHY_IMAGES = Array.from({ length: 12 }, (_, i) => `./assets/smithy/smithy-${i + 1}.png`);
 
-    const collage = $("#smithyCollage");
-    const viewerModal = $("#viewerModal");
-    const viewerImg = $("#viewerImg");
-    const viewerSub = $("#viewerSub");
-
-    function openViewer(src, idx){
-      viewerImg.style.backgroundImage = `url('${src}')`;
-      viewerSub.textContent = `Preview (${idx + 1} of ${SMITHY_IMAGES.length})`;
-      openModal(viewerModal);
+    function openModal(){
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.documentElement.classList.add("no-scroll");
+    }
+    function closeModal(){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.documentElement.classList.remove("no-scroll");
+      viewerImg.src = "";
     }
 
-    function buildCollage(){
-      if(!collage) return;
-      collage.innerHTML = "";
-
+    function buildThumbs(){
+      thumbsEl.innerHTML = "";
       SMITHY_IMAGES.forEach((src, idx) => {
-        const tile = document.createElement("button");
-        tile.type = "button";
-        tile.className = "tile";
-        tile.setAttribute("aria-label", `Open Smithy preview ${idx + 1}`);
-        tile.innerHTML = `
-          <div class="tile-face" style="background-image:url('${src}')"></div>
-          <div class="tile-shield" aria-hidden="true"></div>
-        `;
-        tile.addEventListener("click", () => openViewer(src, idx));
-        collage.appendChild(tile);
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "thumb";
+        btn.setAttribute("aria-label", `Open smithy texture ${idx + 1}`);
+        btn.innerHTML = `<img src="${src}" alt="Smithy texture ${idx + 1}" loading="lazy" />`;
+        btn.addEventListener("click", () => {
+          viewerTitle.textContent = `Smithy Texture ${idx + 1}`;
+          viewerImg.src = src;
+          viewerImg.alt = `Smithy texture ${idx + 1} enlarged`;
+          openModal();
+        });
+        thumbsEl.appendChild(btn);
       });
     }
 
-    buildCollage();
+    buildThumbs();
+
+    $$("[data-close]").forEach(el => {
+      el.addEventListener("click", () => closeModal());
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key !== "Escape") return;
+      if(modal.classList.contains("open")) closeModal();
+    });
   </script>
 </body>
 </html>
