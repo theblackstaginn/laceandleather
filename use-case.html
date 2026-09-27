@@ -319,21 +319,12 @@
     </div>
   </div>
 
+  <script src="./site.js"></script>
   <script>
     const $ = (sel, root=document) => root.querySelector(sel);
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
-    function openModal(el){
-      el.classList.add("open");
-      el.setAttribute("aria-hidden", "false");
-      document.documentElement.classList.add("no-scroll");
-    }
-
-    function closeModal(el){
-      el.classList.remove("open");
-      el.setAttribute("aria-hidden", "true");
-      document.documentElement.classList.remove("no-scroll");
-    }
+    const { openModal } = window.LaceLeatherUI;
 
     const useCaseModal = $("#useCaseModal");
     const ucViewerImg  = $("#ucViewerImg");
@@ -360,19 +351,6 @@
       btn.addEventListener("click", () => openUseCase(btn.getAttribute("data-uc")));
     });
 
-    $$("[data-close]").forEach(el => {
-      el.addEventListener("click", () => {
-        const modal = el.closest(".modal");
-        if(modal) closeModal(modal);
-      });
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if(e.key !== "Escape") return;
-      const open = $$(".modal.open");
-      if(!open.length) return;
-      closeModal(open[open.length - 1]);
-    });
   </script>
 </body>
 </html>
