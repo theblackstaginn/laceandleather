@@ -852,7 +852,7 @@ p, h1, h2, h3, h4, h5, h6,
   opacity:.65;
 }
 .ll-btn[disabled] img{
-  transform:none !important;
+  transform:none;
   filter: drop-shadow(0 8px 14px rgba(0,0,0,.35));
 }
 
@@ -1277,54 +1277,14 @@ body.pay-page .pay-qr{
 }
 
 /* =========================================================
-   BUTTONS PAGE — TRANSPARENT TILES + DARKER SCROLLER
-========================================================= */
-.buttons-scroll{
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.68));
-  border-radius:16px;
-  padding:16px;
-  overflow-y:auto;
-  overflow-x:hidden;
-  -webkit-overflow-scrolling:touch;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.04),
-    inset 0 10px 22px rgba(0,0,0,.45),
-    inset 0 -10px 22px rgba(0,0,0,.55);
-}
-.btn-tile{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:10px;
-  padding:8px;
-  background:transparent !important;
-  border:none !important;
-  box-shadow:none !important;
-}
-.buttons-grid{ gap:14px; }
-.buttons-scroll::-webkit-scrollbar{ width:10px; }
-.buttons-scroll::-webkit-scrollbar-track{
-  background:rgba(0,0,0,.35);
-  border-radius:999px;
-}
-.buttons-scroll::-webkit-scrollbar-thumb{
-  background:rgba(255,255,255,.18);
-  border-radius:999px;
-}
-.buttons-scroll::-webkit-scrollbar-thumb:hover{
-  background:rgba(255,255,255,.28);
-}
-
-/* =========================================================
-   GLOBAL PNG BUTTON HOVER FIX — FORCE LIFT
+   PNG BUTTON HOVER
 ========================================================= */
 @media (hover:hover) and (pointer:fine){
   .ll-btn:hover img,
   .maps-btn:hover img,
   .map-slot-btn:hover img,
   .pack:hover .ll-btn img{
-    transform: translateY(-3px) scale(1.02) !important;
+    transform: translateY(-3px) scale(1.02);
     filter:
       drop-shadow(0 18px 34px rgba(0,0,0,.60))
       drop-shadow(0 6px 10px rgba(0,0,0,.42));
@@ -1332,7 +1292,7 @@ body.pay-page .pay-qr{
 }
 
 /* =========================================================
-   FORCE HOVER LIFT — CART / PAYPAD / ADD-TO-CART PNGs
+   CART / PAYPAD / ADD-TO-CART HOVER
 ========================================================= */
 @media (hover:hover) and (pointer:fine){
   a:hover img[src*="add-to-cart"],
@@ -1347,10 +1307,10 @@ body.pay-page .pay-qr{
   a:hover img[src*="paypad"],
   button:hover img[src*="paypad"],
   [role="button"]:hover img[src*="paypad"]{
-    transform: translateY(-3px) scale(1.02) !important;
+    transform: translateY(-3px) scale(1.02);
     filter:
       drop-shadow(0 18px 34px rgba(0,0,0,.60))
-      drop-shadow(0 6px 10px rgba(0,0,0,.42)) !important;
+      drop-shadow(0 6px 10px rgba(0,0,0,.42));
   }
 
   img[src*="add-to-cart"],
@@ -1597,85 +1557,6 @@ body.pay-page .pay-qr{
 }
 
 /* =========================================================
-   USE CASE MODAL — FIX (giant X + missing content)
-   Safe overrides only. Paste at VERY bottom of styles.css
-========================================================= */
-
-/* If your modal id is different, change #useCaseModal to match */
-#useCaseModal.modal{
-  z-index: 80; /* above everything */
-}
-
-/* Make the panel reliably visible and scrollable */
-#useCaseModal .modal-panel{
-  width: min(1040px, calc(100% - 28px));
-  max-height: min(86vh, 920px);
-  overflow: hidden;
-}
-
-#useCaseModal .modal-body{
-  padding: 16px;
-  overflow: auto;
-  max-height: calc(86vh - 64px);
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Kill the "giant X" problem even if you didn't use .wax-btn */
-#useCaseModal button[data-close] img,
-#useCaseModal .usecase-close img,
-#useCaseModal .modal-actions img{
-  width: 52px !important;
-  height: 52px !important;
-  max-width: 52px !important;
-  max-height: 52px !important;
-  object-fit: contain !important;
-}
-
-/* Grid for the 6 use-case images */
-#useCaseModal .usecase-grid{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  align-items: start;
-}
-
-@media (max-width: 980px){
-  #useCaseModal .usecase-grid{
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (max-width: 560px){
-  #useCaseModal .usecase-grid{
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Make images actually show and look consistent */
-#useCaseModal .usecase-grid img{
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.12);
-  box-shadow: 0 14px 28px rgba(0,0,0,.45);
-}
-/* =========================
-   USE CASE BUTTON — CENTER
-   ========================= */
-.use-case-wrap{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  margin-top:12px;
-}
-
-.use-case-wrap .ll-home-btn{
-  margin:0 auto;
-  display:inline-block;
-}
-
-/* =========================================================
    PRODUCT DETAIL PAGES
    Shared by Grimoire, Mapmaker, and Light Aged Parchment
 ========================================================= */
@@ -1782,5 +1663,50 @@ body.pay-page .pay-qr{
 @media (max-width:980px){
   .product-hero{
     grid-template-columns:1fr;
+  }
+}
+
+
+/* =========================================================
+   GLOBAL ACCESSIBILITY & MOTION
+========================================================= */
+
+:where(
+  a[href],
+  button,
+  input,
+  select,
+  textarea,
+  [tabindex]:not([tabindex="-1"])
+):focus-visible{
+  outline:2px solid rgba(250,230,180,.72);
+  outline-offset:4px;
+}
+
+:where(
+  button,
+  a[href],
+  [role="button"]
+){
+  -webkit-tap-highlight-color:transparent;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto !important;
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    transition-delay:0s !important;
+  }
+
+  .dust{
+    display:none;
+  }
+
+  .ll-plus-pop{
+    display:none;
   }
 }
