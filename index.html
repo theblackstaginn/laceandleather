@@ -1055,6 +1055,8 @@
     </div>
   </div>
 
+  <script src="./catalog.js"></script>
+  <script src="./site.js"></script>
   <script>
     const MAP_COMMISSION_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdIVLZ8Nc4GXj5fNdUfKc2dVX0Vo2flcQrCERJiPgeL6qHaOg/viewform?usp=header";
     const CONFIRM_ORDER_FORM_URL  = "https://docs.google.com/forms/d/e/1FAIpQLSdvh4sgUyHin-EeEdrreMRES-Ah1KbDafmRfiDVcODj7ZKzPg/viewform?usp=header";
@@ -1072,7 +1074,7 @@
     function loadCart(){
       const raw = localStorage.getItem(CART_KEY);
       const cart = safeParse(raw, []);
-      return Array.isArray(cart) ? cart : [];
+      return window.LaceLeatherCatalog.normalizeCart(cart);
     }
 
     function saveCart(cart){
@@ -1106,11 +1108,11 @@
 
     function addToCart(item){
       const cart = loadCart();
-      const existing = cart.find(x => String(x?.name) === item.name);
+      const existing = cart.find(x => x.id === item.id);
       if(existing){
         existing.qty = Math.max(1, Number(existing.qty || 1) + 1);
       }else{
-        cart.push({ name: item.name, price: Number(item.price || 0), qty: 1 });
+        cart.push({ id: item.id, name: item.name, price: item.price, qty: 1 });
       }
       saveCart(cart);
       ensureOrderId();
@@ -1120,24 +1122,8 @@
       }
     }
 
-    const PRODUCT = {
-      grimoire: { name: "Grimoire Pages", price: 5.00 },
-      mapmaker: { name: "Mapmaker Sheets", price: 5.00 },
-      volone:   { name: "Light Aged Parchment - Vol. One", price: 5.00 },
-      smithy:   { name: "Smithy Textures", price: 5.00 }
-    };
-
-    function openModal(el){
-      el.classList.add("open");
-      el.setAttribute("aria-hidden", "false");
-      document.documentElement.classList.add("no-scroll");
-    }
-
-    function closeModal(el){
-      el.classList.remove("open");
-      el.setAttribute("aria-hidden", "true");
-      document.documentElement.classList.remove("no-scroll");
-    }
+    const PRODUCT = window.LACE_LEATHER_PRODUCTS;
+    const { openModal, closeModal } = window.LaceLeatherUI;
 
     const cartModal    = $("#cartModal");
     const cartList     = $("#cartList");
@@ -1157,7 +1143,11 @@
 
       if(!cart.length){
         cartSub.textContent = "Your cart is empty";
-        cartList.innerHTML = `<div class="cart-empty muted">No items yet. Add a pack to get started.</div>`;
+        cartList.replaceChildren();
+        const empty = document.createElement("div");
+        empty.className = "cart-empty muted";
+        empty.textContent = "No items yet. Add a pack to get started.";
+        cartList.appendChild(empty);
         return;
       }
 
@@ -1410,20 +1400,6 @@
       CONFIRM_ORDER_FORM_URL,
       buildConfirmOrderPrefillUrl
     };
-
-    $$("[data-close]").forEach(el => {
-      el.addEventListener("click", () => {
-        const modal = el.closest(".modal");
-        if(modal) closeModal(modal);
-      });
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if(e.key !== "Escape") return;
-      const open = $$(".modal.open");
-      if(!open.length) return;
-      closeModal(open[open.length - 1]);
-    });
 
     /* Safety net: ensure Details links never trigger preview click */
     $$("a.pack-details").forEach(a => {
