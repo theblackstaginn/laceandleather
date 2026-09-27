@@ -664,19 +664,19 @@
 }
   </script>
 
-  <!-- Pulls in your global styles (needed for + pop CSS you’ll add there) -->
+  <!-- Shared site styles, followed by page-specific styles. -->
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="./buttons.css" />
 </head>
 
 <body>
 
-<button class="close-btn" onclick="location.href='/'" aria-label="Back to home">
-  <img src="/assets/x-button.PNG" alt="Close" />
+<button type="button" class="close-btn" onclick="location.href='/'" aria-label="Back to home">
+  <img decoding="async" src="/assets/x-button.PNG" alt="Close" />
 </button>
 
 <main>
-  <!-- HEADER NOW ON ITS OWN GLASS PANEL -->
+  <!-- Page header -->
   <section class="header-glass">
     <h1>Fantasy Buttons & Stickers</h1>
     <p class="page-sub">
