@@ -4,9 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Lace &amp; Leather — Pay</title>
-  <meta name="robots" content="noindex, nofollow">
-
-  <!-- ✅ SEO -->
+<!-- ✅ SEO -->
   <meta name="description" content="Secure checkout for Lace &amp; Leather. Review your cart, confirm your order, then scan or open PayPal to pay." />
   <link rel="canonical" href="https://laceleatherarcane.com/pay.html" />
   <meta name="robots" content="noindex, follow, noarchive, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -18,15 +16,13 @@
   <meta property="og:title" content="Lace &amp; Leather — Pay" />
   <meta property="og:description" content="Review your cart, confirm your order, then scan or open PayPal to pay." />
   <meta property="og:url" content="https://laceleatherarcane.com/pay.html" />
-  <meta property="og:image" content="https://laceleatherarcane.com/assets/og-cover.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:image" content="https://laceleatherarcane.com/assets/l&l_logo.png" />
 
   <!-- ✅ Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Lace &amp; Leather — Pay" />
   <meta name="twitter:description" content="Review your cart, confirm your order, then scan or open PayPal to pay." />
-  <meta name="twitter:image" content="https://laceleatherarcane.com/assets/og-cover.png" />
+  <meta name="twitter:image" content="https://laceleatherarcane.com/assets/l&l_logo.png" />
 
   <!-- ✅ Structured Data: WebPage (minimal, safe) -->
   <script type="application/ld+json">
@@ -349,13 +345,24 @@
 
           const li = document.createElement("li");
           li.className = "pay-item";
-          li.innerHTML = `
-            <div class="pay-item-name">${name}</div>
-            <div class="pay-item-meta">
-              <span class="pay-item-qty">x${qty}</span>
-              <span class="pay-item-price">${money(price * qty)}</span>
-            </div>
-          `;
+
+          const nameEl = document.createElement("div");
+          nameEl.className = "pay-item-name";
+          nameEl.textContent = name;
+
+          const meta = document.createElement("div");
+          meta.className = "pay-item-meta";
+
+          const qtyEl = document.createElement("span");
+          qtyEl.className = "pay-item-qty";
+          qtyEl.textContent = `x${qty}`;
+
+          const priceEl = document.createElement("span");
+          priceEl.className = "pay-item-price";
+          priceEl.textContent = money(price * qty);
+
+          meta.append(qtyEl, priceEl);
+          li.append(nameEl, meta);
           list.appendChild(li);
         }
       }

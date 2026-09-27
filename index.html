@@ -1,4 +1,3 @@
-<!-- index.html (FULL UPDATED) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -32,14 +31,12 @@
   <meta property="og:title" content="Digital Parchment Textures & Aged Paper Backgrounds | Lace & Leather" />
   <meta property="og:description" content="Digital parchment, aged textures, grimoire surfaces, overlays, and ritual map assets for TTRPG creators, designers, and bookbinders." />
   <meta property="og:url" content="https://laceleatherarcane.com/" />
-  <meta property="og:image" content="https://laceleatherarcane.com/assets/og-cover.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:image" content="https://laceleatherarcane.com/assets/l&l_logo.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Digital Parchment Textures & Aged Paper Backgrounds | Lace & Leather" />
   <meta name="twitter:description" content="Digital parchment, aged textures, grimoire surfaces, overlays, and ritual map assets for TTRPG creators, designers, and bookbinders." />
-  <meta name="twitter:image" content="https://laceleatherarcane.com/assets/og-cover.png" />
+  <meta name="twitter:image" content="https://laceleatherarcane.com/assets/l&l_logo.png" />
 
   <script type="application/ld+json">
 {
@@ -83,7 +80,7 @@
       "about": { "@id": "https://laceleatherarcane.com/#organization" },
       "primaryImageOfPage": {
         "@type": "ImageObject",
-        "url": "https://laceleatherarcane.com/assets/og-cover.png"
+        "url": "https://laceleatherarcane.com/assets/l&l_logo.png"
       },
       "inLanguage": "en-US"
     },
@@ -1175,18 +1172,36 @@
 
         const row = document.createElement("div");
         row.className = "cart-row";
-        row.innerHTML = `
-          <div class="cart-left">
-            <div class="cart-name">${name}</div>
-            <div class="cart-meta">
-              <span class="pill">Qty: ${qty}</span>
-              <span class="pill">Each: ${money(price)}</span>
-            </div>
-          </div>
-          <div class="cart-right">
-            <div class="cart-line-total">${money(line)}</div>
-          </div>
-        `;
+
+        const left = document.createElement("div");
+        left.className = "cart-left";
+
+        const nameEl = document.createElement("div");
+        nameEl.className = "cart-name";
+        nameEl.textContent = name;
+
+        const meta = document.createElement("div");
+        meta.className = "cart-meta";
+
+        const qtyEl = document.createElement("span");
+        qtyEl.className = "pill";
+        qtyEl.textContent = `Qty: ${qty}`;
+
+        const eachEl = document.createElement("span");
+        eachEl.className = "pill";
+        eachEl.textContent = `Each: ${money(price)}`;
+
+        const right = document.createElement("div");
+        right.className = "cart-right";
+
+        const lineTotal = document.createElement("div");
+        lineTotal.className = "cart-line-total";
+        lineTotal.textContent = money(line);
+
+        meta.append(qtyEl, eachEl);
+        left.append(nameEl, meta);
+        right.appendChild(lineTotal);
+        row.append(left, right);
         cartList.appendChild(row);
       });
     }
