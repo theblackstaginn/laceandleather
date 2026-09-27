@@ -48,7 +48,7 @@
     }
 
     /* =========================
-       HEADER GLASS PANEL (NEW)
+       HEADER GLASS PANEL
        ========================= */
     .header-glass{
       max-width: 820px;
@@ -114,7 +114,7 @@
     }
 
     /* =========================
-       SCROLL CONTAINER (FIXED)
+       SCROLL CONTAINER
        TRUE TRANSPARENT — no tint panel
        ========================= */
     .buttons-scroll{
