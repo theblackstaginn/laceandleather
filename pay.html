@@ -167,6 +167,7 @@
     </section>
   </main>
 
+  <script src="./catalog.js"></script>
   <script>
     // =============================
     // CONFIG
@@ -204,7 +205,7 @@
     function loadCart(){
       const raw = localStorage.getItem(CART_KEY);
       const cart = safeParse(raw, []);
-      return Array.isArray(cart) ? cart : [];
+      return window.LaceLeatherCatalog.normalizeCart(cart);
     }
 
     function saveCart(cart){
@@ -406,9 +407,10 @@
       const subtotal = calcSubtotal(cart);
 
       const items = cart.map(it => ({
-        name: String(it?.name ?? "Item"),
-        qty: Math.max(1, Number(it?.qty ?? 1)),
-        price: Number(Number(it?.price ?? 0).toFixed(2))
+        id: it.id,
+        name: it.name,
+        qty: Math.max(1, Number(it.qty ?? 1)),
+        price: Number(it.price.toFixed(2))
       }));
 
       const payload = {

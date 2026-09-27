@@ -462,8 +462,9 @@
     </div>
   </div>
 
+  <script src="./site.js"></script>
   <script>
-    const $  = (sel, root=document) => root.querySelector(sel);
+    const $ = (sel, root=document) => root.querySelector(sel);
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
     const thumbsEl = $("#thumbs");
@@ -474,16 +475,12 @@
     const SMITHY_IMAGES = Array.from({ length: 12 }, (_, i) => `./assets/smithy/smithy-${i + 1}.png`);
 
     function openModal(){
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden", "false");
-      document.documentElement.classList.add("no-scroll");
+      window.LaceLeatherUI.openModal(modal);
     }
-    function closeModal(){
-      modal.classList.remove("open");
-      modal.setAttribute("aria-hidden", "true");
-      document.documentElement.classList.remove("no-scroll");
+
+    modal.addEventListener("ll:modal-closed", () => {
       viewerImg.src = "";
-    }
+    });
 
     function buildThumbs(){
       thumbsEl.innerHTML = "";
@@ -505,14 +502,6 @@
 
     buildThumbs();
 
-    $$("[data-close]").forEach(el => {
-      el.addEventListener("click", () => closeModal());
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if(e.key !== "Escape") return;
-      if(modal.classList.contains("open")) closeModal();
-    });
   </script>
 </body>
 </html>
