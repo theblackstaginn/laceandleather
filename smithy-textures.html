@@ -38,7 +38,7 @@
       <div class="detail-grid">
         <!-- Left: cover -->
         <div class="hero-card" aria-label="Smithy cover">
-          <img src="./assets/smithy/smithy-cover.png" alt="Smithy Textures cover" />
+          <img decoding="async" src="./assets/smithy/smithy-cover.png" alt="Smithy Textures cover" />
         </div>
 
         <!-- Right: copy -->
@@ -95,14 +95,14 @@
         <h3 class="modal-title" id="viewerTitle">Preview</h3>
         <div class="modal-actions">
           <button class="wax-btn" type="button" data-close aria-label="Close">
-            <img src="./assets/x-button.PNG" alt="Close" />
+            <img decoding="async" src="./assets/x-button.PNG" alt="Close" />
           </button>
         </div>
       </div>
 
       <div class="modal-body">
         <div class="viewer">
-          <img id="viewerImg" src="" alt="Texture preview" />
+          <img decoding="async" id="viewerImg" src="" alt="Texture preview" />
         </div>
       </div>
     </div>
@@ -135,7 +135,7 @@
         btn.type = "button";
         btn.className = "thumb";
         btn.setAttribute("aria-label", `Open smithy texture ${idx + 1}`);
-        btn.innerHTML = `<img src="${src}" alt="Smithy texture ${idx + 1}" loading="lazy" />`;
+        btn.innerHTML = `<img decoding="async" src="${src}" alt="Smithy texture ${idx + 1}" loading="lazy" />`;
         btn.addEventListener("click", () => {
           viewerTitle.textContent = `Smithy Texture ${idx + 1}`;
           viewerImg.src = src;
