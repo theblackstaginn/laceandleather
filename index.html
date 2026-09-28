@@ -1074,7 +1074,12 @@
     function loadCart(){
       const raw = localStorage.getItem(CART_KEY);
       const cart = safeParse(raw, []);
-      return window.LaceLeatherCatalog.normalizeCart(cart);
+
+      if(window.LaceLeatherCatalog?.normalizeCart){
+        return window.LaceLeatherCatalog.normalizeCart(cart);
+      }
+
+      return Array.isArray(cart) ? cart : [];
     }
 
     function saveCart(cart){
@@ -1108,7 +1113,10 @@
 
     function addToCart(item){
       const cart = loadCart();
-      const existing = cart.find(x => x.id === item.id);
+      const existing = cart.find(x =>
+        (item.id && x?.id === item.id)
+        || String(x?.name ?? "") === item.name
+      );
       if(existing){
         existing.qty = Math.max(1, Number(existing.qty || 1) + 1);
       }else{
@@ -1122,8 +1130,59 @@
       }
     }
 
-    const PRODUCT = window.LACE_LEATHER_PRODUCTS;
-    const { openModal, closeModal } = window.LaceLeatherUI;
+    const PRODUCT = window.LACE_LEATHER_PRODUCTS || {
+      grimoire: { id: "grimoire", name: "Grimoire Pages", price: 5.00 },
+      mapmaker: { id: "mapmaker", name: "Mapmaker Sheets", price: 5.00 },
+      volone:   { id: "volone", name: "Light Aged Parchment - Vol. One", price: 5.00 },
+      smithy:   { id: "smithy", name: "Smithy Textures", price: 5.00 }
+    };
+
+    const sharedUI = window.LaceLeatherUI;
+
+    function openModal(el){
+      if(!el) return;
+
+      if(sharedUI?.openModal){
+        sharedUI.openModal(el);
+        return;
+      }
+
+      el.classList.add("open");
+      el.setAttribute("aria-hidden", "false");
+      document.documentElement.classList.add("no-scroll");
+    }
+
+    function closeModal(el){
+      if(!el) return;
+
+      if(sharedUI?.closeModal){
+        sharedUI.closeModal(el);
+        return;
+      }
+
+      el.classList.remove("open");
+      el.setAttribute("aria-hidden", "true");
+
+      if(!$(".modal.open").length){
+        document.documentElement.classList.remove("no-scroll");
+      }
+    }
+
+    if(!sharedUI){
+      $("[data-close]").forEach(el => {
+        el.addEventListener("click", () => {
+          const modal = el.closest(".modal");
+          if(modal) closeModal(modal);
+        });
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if(e.key !== "Escape") return;
+        const open = $(".modal.open");
+        if(!open.length) return;
+        closeModal(open[open.length - 1]);
+      });
+    }
 
     const cartModal    = $("#cartModal");
     const cartList     = $("#cartList");
