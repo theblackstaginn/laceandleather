@@ -733,11 +733,11 @@
   </section>
 </main>
 
+<script src="./catalog.js"></script>
 <script>
 (function(){
   const BUTTON_DIR = "/buttons-stickers/";
   const CART_ICON = "/assets/cart.png";
-  const PRICE_PER_BUTTON = 1.00;
 
   const FILES = [
     "amber-bronze.png",
@@ -802,14 +802,29 @@
     }
   }
 
-  function addToCart(name){
-    const cart = loadCart();
-    const hit = cart.find(x => x.name === name);
+  function addToCart(product){
+    if(!product) return;
+
+    const cart = window.LaceLeatherCatalog
+      ? window.LaceLeatherCatalog.normalizeCart(loadCart())
+      : loadCart();
+
+    const hit = cart.find(x =>
+      (product.id && x?.id === product.id)
+      || String(x?.name || "") === product.name
+    );
+
     if(hit){
-      hit.qty += 1;
+      hit.qty = Math.min(99, Math.max(1, Number(hit.qty || 1) + 1));
     }else{
-      cart.push({ name, price: PRICE_PER_BUTTON, qty: 1 });
+      cart.push({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        qty: 1
+      });
     }
+
     saveCart(cart);
     ensureOrderId();
   }
@@ -853,6 +868,17 @@
   FILES.forEach(file=>{
     const title = titleFromFile(file);
     const src = BUTTON_DIR + file;
+    const productId = "button-" + file.replace(/\.png$/i, "");
+    const product = window.LaceLeatherCatalog
+      ? (
+          window.LaceLeatherCatalog.get(productId)
+          || window.LaceLeatherCatalog.findByName(title)
+        )
+      : {
+          id: productId,
+          name: title,
+          price: 1.00
+        };
 
     const tile = document.createElement("div");
     tile.className = "btn-tile";
@@ -874,7 +900,7 @@
     cartBtn.appendChild(cartImg);
 
     const handler = (e) => {
-      addToCart(title);
+      addToCart(product);
 
       // visual feedback
       tile.classList.remove("added");
