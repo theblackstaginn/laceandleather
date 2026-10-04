@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Lace &amp; Leather — Pay</title>
 <!-- ✅ SEO -->
-  <meta name="description" content="Secure checkout for Lace &amp; Leather. Review your cart, confirm your order, then scan or open PayPal to pay." />
+  <meta name="description" content="Lace &amp; Leather checkout. Review your cart, confirm your order, pay with PayPal, then submit payment for verification." />
   <link rel="canonical" href="https://laceleatherarcane.com/pay.html" />
   <meta name="robots" content="noindex, follow, noarchive, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -14,14 +14,14 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Lace &amp; Leather" />
   <meta property="og:title" content="Lace &amp; Leather — Pay" />
-  <meta property="og:description" content="Review your cart, confirm your order, then scan or open PayPal to pay." />
+  <meta property="og:description" content="Review your cart, confirm your order, pay with PayPal, then submit payment for verification." />
   <meta property="og:url" content="https://laceleatherarcane.com/pay.html" />
   <meta property="og:image" content="https://laceleatherarcane.com/assets/l&l_logo.png" />
 
   <!-- ✅ Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Lace &amp; Leather — Pay" />
-  <meta name="twitter:description" content="Review your cart, confirm your order, then scan or open PayPal to pay." />
+  <meta name="twitter:description" content="Review your cart, confirm your order, pay with PayPal, then submit payment for verification." />
   <meta name="twitter:image" content="https://laceleatherarcane.com/assets/l&l_logo.png" />
 
   <!-- ✅ Structured Data: WebPage (minimal, safe) -->
@@ -32,7 +32,7 @@
   "@id": "https://laceleatherarcane.com/pay.html#webpage",
   "url": "https://laceleatherarcane.com/pay.html",
   "name": "Lace & Leather — Pay",
-  "description": "Secure checkout for Lace & Leather. Review your cart, confirm your order, then scan or open PayPal to pay.",
+  "description": "Lace & Leather checkout. Review your cart, confirm your order, pay with PayPal, then submit payment for verification.",
   "isPartOf": { "@id": "https://laceleatherarcane.com/#website" },
   "about": { "@id": "https://laceleatherarcane.com/#organization" },
   "inLanguage": "en-US"
@@ -41,6 +41,34 @@
 
   <!-- IMPORTANT: bump this whenever you edit CSS -->
   <link rel="stylesheet" href="./styles.css?v=PAY-009" />
+
+  <style>
+    /* Section 1 payment-state hardening: customer reports payment; only the owner verifies it. */
+    body.pay-page .payment-submitted-btn{
+      border:1px solid rgba(64,39,20,.62);
+      border-radius:10px;
+      background:linear-gradient(180deg, rgba(238,216,167,.96), rgba(184,145,82,.96));
+      color:#24170d;
+      padding:10px 16px;
+      min-height:44px;
+      font:inherit;
+      font-weight:900;
+      letter-spacing:.06em;
+      line-height:1.1;
+      box-shadow:0 5px 12px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.42);
+    }
+    body.pay-page .payment-submitted-btn:hover{
+      transform:translateY(-1px);
+    }
+    body.pay-page .payment-submitted-btn:active{
+      transform:translateY(1px);
+    }
+    body.pay-page .payment-submitted-btn:disabled{
+      cursor:not-allowed;
+      opacity:.58;
+      transform:none;
+    }
+  </style>
 </head>
 
 <body class="pay-page">
@@ -52,7 +80,7 @@
         <header class="pay-head">
           <div class="pay-head-left">
             <div class="pay-brand">LACE &amp; LEATHER</div>
-            <div class="pay-sub">Review cart, confirm, then scan/click to pay.</div>
+            <div class="pay-sub">Review cart, confirm, pay, then submit payment for verification.</div>
           </div>
 
           <div class="pay-actions">
@@ -93,7 +121,7 @@
               <!-- CUSTOMER INFO -->
               <div class="pay-fields" aria-label="Receipt details">
                 <div class="pay-note pay-tiny" style="margin: 0 0 8px;">
-                  Provide email for your receipt (sent after order is confirmed).
+                  Provide email for your receipt (sent after payment is verified).
                 </div>
 
                 <label class="pay-field">
@@ -141,16 +169,16 @@
                   <img decoding="async" src="./L&L-buttons/paypal.png" alt="PayPal" />
                 </a>
 
-                <button class="ll-btn" id="paidBtn" type="button" aria-label="Mark paid">
-  <img decoding="async" src="./L&L-buttons/paid.png" alt="Paid" />
-</button>
+                <button class="payment-submitted-btn" id="paidBtn" type="button" aria-label="I sent payment">
+                  I SENT PAYMENT
+                </button>
               </div>
 
               <div class="pay-qr-blocked" id="qrBlocked">
                 Confirm order for QR code/PayPal link.
               </div>
 
-              <div class="pay-note">Open PayPal → Scan → Pay exact total.</div>
+              <div class="pay-note">Open PayPal → pay the exact total → return here and tap <strong>I SENT PAYMENT</strong>. We verify the payment before marking the order paid.</div>
 
               <div class="pay-note pay-tiny">
                 Tip: If PayPal tries to “guess” the amount, match the total shown on receipt.
@@ -458,62 +486,56 @@
     // Paid -> update sheet + trigger emails + reset
     // (now with: better errors + one retry)
     // =============================
-    async function markPaidAndReset(){
+    async function submitPaymentForVerification(){
       if (!document.body.classList.contains("qr-ready") || !isCartLocked()) {
         setConfirmStatus("Confirm first.", "bad");
         return;
       }
 
       const orderId = loadOrderId();
-      const custEmail = getCustEmail();
-      const custName  = getCustName();
 
       setConfirmBusy(true);
-      setConfirmStatus("Marking paid…", null);
+      setConfirmStatus("Submitting payment for verification…", null);
 
-      async function attemptPaidOnce(){
+      async function attemptSubmitOnce(){
         const body = new URLSearchParams();
-        body.set("action", "paid");
+        body.set("action", "payment_submitted");
         body.set("order_id", orderId);
-        body.set("paid_at", new Date().toISOString());
-        body.set("payment_method", "PayPal");
-        body.set("customer_email", custEmail);
-        body.set("customer_name", custName);
         return fetchJsonOrText(ENDPOINT_URL, { method:"POST", body });
       }
 
       try{
-        let packet = await attemptPaidOnce();
+        let packet = await attemptSubmitOnce();
         let ok = packet.res.ok && packet.json && packet.json.ok === true;
 
-        // One retry (Apps Script sometimes hiccups)
+        // One retry is safe because the backend is idempotent.
         if(!ok){
           await new Promise(r => setTimeout(r, 900));
-          packet = await attemptPaidOnce();
+          packet = await attemptSubmitOnce();
           ok = packet.res.ok && packet.json && packet.json.ok === true;
         }
 
         if(!ok){
-          setConfirmStatus(explainServerFailure_("Paid update", packet), "bad");
+          setConfirmStatus(explainServerFailure_("Payment submission", packet), "bad");
           setConfirmBusy(false);
           return;
         }
 
-        // Reset for next customer/order
+        // Customer is finished. Actual PAID status is owner-verified in the Sheet.
         setCartLocked(false);
         saveCart([]);
         newOrderId();
         clearCustInfo();
 
         setQrReady(false);
-        setConfirmStatus("Paid. Receipt sent (if email provided). Ready for next order.", "ok");
+        setConfirmStatus("Payment submitted for verification. Your receipt will be sent after we confirm the PayPal payment.", "ok");
         setConfirmBusy(false);
 
         render();
         $("payScroll").scrollTo({ top: 0, behavior: "smooth" });
 
       }catch(err){
-        setConfirmStatus("Network error (paid).", "bad");
+        setConfirmStatus("Network error while submitting payment for verification.", "bad");
         setConfirmBusy(false);
       }
     }
@@ -523,7 +545,7 @@
     // =============================
     $("clearCartBtn").addEventListener("click", () => {
       if (isCartLocked() || document.body.classList.contains("qr-ready")) {
-        setConfirmStatus("Order is locked after save. Use PAID to reset.", "bad");
+        setConfirmStatus("Order is locked after save. Complete payment, then use I SENT PAYMENT.", "bad");
         return;
       }
 
@@ -547,7 +569,7 @@
     });
 
     $("paidBtn").addEventListener("click", () => {
-      markPaidAndReset();
+      submitPaymentForVerification();
     });
 
     window.addEventListener("input", (e) => {
