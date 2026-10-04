@@ -324,24 +324,108 @@
     // =============================
     // Better fetch parsing (handles non-JSON)
     // =============================
-    async function fetchJsonOrText(url, options){
-      const res = await fetch(url, options);
-      const text = await res.text().catch(() => "");
-      let json = null;
-      try { json = text ? JSON.parse(text) : null; } catch { json = null; }
-      return { res, text, json };
+    function bridgeNonce_(){
+      if (window.crypto?.randomUUID) {
+        return window.crypto.randomUUID();
+      }
+
+      return (
+        Date.now().toString(36)
+        + "-"
+        + Math.random().toString(36).slice(2)
+        + "-"
+        + Math.random().toString(36).slice(2)
+      );
     }
 
-    function explainServerFailure_(label, packet){
-      const { res, json, text } = packet;
-      const status = `${res.status} ${res.statusText || ""}`.trim();
+    function postToAppsScript_(params){
+      return new Promise((resolve, reject) => {
+        const nonce = bridgeNonce_();
+        const frameName = "llAppsScriptBridge_" + nonce.replace(/[^a-zA-Z0-9_-]/g, "");
+        const iframe = document.createElement("iframe");
+        const form = document.createElement("form");
+        let settled = false;
+
+        iframe.name = frameName;
+        iframe.title = "Order service";
+        iframe.hidden = true;
+        iframe.setAttribute("aria-hidden", "true");
+
+        form.method = "POST";
+        form.action = ENDPOINT_URL;
+        form.target = frameName;
+        form.acceptCharset = "UTF-8";
+        form.hidden = true;
+
+        const fields = {
+          ...params,
+          transport: "iframe",
+          bridge_nonce: nonce
+        };
+
+        Object.entries(fields).forEach(([name, value]) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = name;
+          input.value = String(value ?? "");
+          form.appendChild(input);
+        });
+
+        const cleanup = () => {
+          window.removeEventListener("message", onMessage);
+          window.clearTimeout(timeoutId);
+          form.remove();
+          window.setTimeout(() => iframe.remove(), 0);
+        };
+
+        const finish = (fn, value) => {
+          if (settled) return;
+          settled = true;
+          cleanup();
+          fn(value);
+        };
+
+        const onMessage = (event) => {
+          const data = event?.data;
+
+          if (
+            !data
+            || data.source !== "lace-leather-appscript"
+            || data.nonce !== nonce
+          ) {
+            return;
+          }
+
+          finish(resolve, data.payload);
+        };
+
+        const timeoutId = window.setTimeout(() => {
+          finish(
+            reject,
+            new Error("Order service did not respond.")
+          );
+        }, 20000);
+
+        window.addEventListener("message", onMessage);
+        document.body.appendChild(iframe);
+        document.body.appendChild(form);
+
+        form.submit();
+      });
+    }
+
+    function explainBridgeFailure_(label, json){
       if (json && typeof json === "object") {
-        const msg = json.error || json.message || json.details || "Unknown server response";
-        return `${label} failed (${status}). ${msg}`;
+        const msg =
+          json.details
+          || json.error
+          || json.message
+          || "Unknown server response";
+
+        return `${label} failed. ${msg}`;
       }
-      // If Apps Script returned HTML or something else, show a short slice
-      const snippet = (text || "").replace(/\s+/g," ").slice(0, 120);
-      return `${label} failed (${status}). ${snippet || "Non-JSON response"}`;
+
+      return `${label} failed. Unknown server response.`;
     }
 
     // =============================
@@ -456,14 +540,14 @@
       setConfirmStatus("Saving receipt…", null);
 
       try{
-        const body = new URLSearchParams();
-        body.set("payload", JSON.stringify(payload));
+        const json = await postToAppsScript_({
+          payload: JSON.stringify(payload)
+        });
 
-        const packet = await fetchJsonOrText(ENDPOINT_URL, { method:"POST", body });
-        const ok = packet.res.ok && packet.json && packet.json.ok === true;
+        const ok = json && json.ok === true;
 
         if(!ok){
-          setConfirmStatus(explainServerFailure_("Save", packet), "bad");
+          setConfirmStatus(explainBridgeFailure_("Save", json), "bad");
           setConfirmBusy(false);
           CONFIRM_IN_FLIGHT = false;
           return;
@@ -498,25 +582,25 @@
       setConfirmStatus("Submitting payment for verification…", null);
 
       async function attemptSubmitOnce(){
-        const body = new URLSearchParams();
-        body.set("action", "payment_submitted");
-        body.set("order_id", orderId);
-        return fetchJsonOrText(ENDPOINT_URL, { method:"POST", body });
+        return postToAppsScript_({
+          action: "payment_submitted",
+          order_id: orderId
+        });
       }
 
       try{
-        let packet = await attemptSubmitOnce();
-        let ok = packet.res.ok && packet.json && packet.json.ok === true;
+        let json = await attemptSubmitOnce();
+        let ok = json && json.ok === true;
 
         // One retry is safe because the backend is idempotent.
         if(!ok){
           await new Promise(r => setTimeout(r, 900));
-          packet = await attemptSubmitOnce();
-          ok = packet.res.ok && packet.json && packet.json.ok === true;
+          json = await attemptSubmitOnce();
+          ok = json && json.ok === true;
         }
 
         if(!ok){
-          setConfirmStatus(explainServerFailure_("Payment submission", packet), "bad");
+          setConfirmStatus(explainBridgeFailure_("Payment submission", json), "bad");
           setConfirmBusy(false);
           return;
         }
