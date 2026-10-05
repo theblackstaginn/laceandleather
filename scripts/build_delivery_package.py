@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Builds customer-ready Lace & Leather digital delivery packages.
 import argparse
 import json
 import re
