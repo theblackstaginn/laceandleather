@@ -1,0 +1,86 @@
+name: Build Lace and Leather delivery packages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/build_delivery_package.py"
+      - "assets/grimoire/**"
+      - "assets/mapmaker/**"
+      - "assets/vol-one/**"
+      - "assets/smithy/**"
+      - "buttons-stickers/**"
+      - ".github/workflows/build-delivery-packages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build ${{ matrix.product }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        product:
+          - grimoire
+          - mapmaker
+          - volone
+          - smithy
+          - button-amber-bronze
+          - button-amethyst-frame
+          - button-amethyst-rectangle
+          - button-emerald-oval
+          - button-emerald-x
+          - button-green-moon
+          - button-grn-wax-book
+          - button-lantern
+          - button-moon-green
+          - button-moon-parch-clean
+          - button-purple-arrow
+          - button-purple-wax-crystal
+          - button-purple-x-shield
+          - button-red-arrow
+          - button-red-parch-arrow
+          - button-red-stag
+          - button-red-wax-feather
+          - button-red-x-bronze
+          - button-red-x-shield
+          - button-red-x
+          - button-ruby-plate
+          - button-sapphire-arrow
+          - button-sapphire-plate
+          - button-skull-bronze-plate
+          - button-skull-plate
+          - button-skull
+          - button-stag-plate
+          - button-stag-red-wax
+          - button-wax-green-book-2
+          - button-wax-key
+          - button-wax-skull
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Build package
+        run: python scripts/build_delivery_package.py --product "${{ matrix.product }}" --out "delivery/${{ matrix.product }}"
+
+      - name: Upload customer-ready package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ll-${{ matrix.product }}
+          path: delivery/${{ matrix.product }}/
+          if-no-files-found: error
+          compression-level: 6
+          retention-days: 30
