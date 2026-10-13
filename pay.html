@@ -335,8 +335,9 @@
                 </label>
 
                 <label class="pay-field">
-                  <span class="pay-muted">Name <span aria-hidden="true">·</span> optional</span>
-                  <input id="custName" type="text" autocomplete="name" placeholder="Name" />
+                  <span class="pay-muted">Venmo handle <span aria-hidden="true">·</span> required</span>
+                  <input id="venmoHandle" type="text" autocomplete="off" autocapitalize="none"
+                         spellcheck="false" placeholder="@username" required />
                 </label>
               </div>
 
@@ -369,8 +370,8 @@
                 </a>
 
                 <p class="pay-payment-help">
-                  Venmo opens separately so this checkout stays here. Send the exact total above, then return and tap the button below.
-                  We verify the payment before sending the receipt and digital delivery.
+                  Venmo opens separately so this checkout stays here. Send the exact total above from the Venmo account matching the handle you entered, then return and tap the button below.
+                  We verify the handle and payment before sending the receipt and digital delivery.
                 </p>
 
                 <button class="payment-submitted-btn" id="paidBtn" type="button">
@@ -385,7 +386,7 @@
             <h2>Payment submitted</h2>
             <p>
               Thanks! Order <strong id="completeOrderId">—</strong> is now waiting for verification.
-              Your receipt and digital delivery will be sent after the Venmo payment is confirmed.
+              We’ll match the Venmo handle you entered to the payment. Your receipt and digital delivery will be sent after it is confirmed.
             </p>
             <div class="pay-complete-actions">
               <a class="pay-secondary-btn" href="./index.html">BACK TO SHOP</a>
@@ -404,7 +405,7 @@
     const ORDER_KEY = "ll_order_id";
     const LOCK_KEY = "ll_cart_locked";
     const CUST_EMAIL_KEY = "ll_customer_email";
-    const CUST_NAME_KEY = "ll_customer_name";
+    const VENMO_HANDLE_KEY = "ll_venmo_handle";
     const LAST_SUBMISSION_KEY = "ll_last_payment_submission";
 
     let actionInFlight = false;
@@ -471,18 +472,27 @@
       }, 0);
     }
 
-    function setCustomerInfo(name, email){
-      localStorage.setItem(CUST_NAME_KEY, String(name || "").trim());
+    function normalizeVenmoHandle(value){
+      const raw = String(value || "").trim();
+
+      if(!raw) return "";
+      if(/\s/.test(raw)) return raw;
+
+      return raw.startsWith("@") ? raw : "@" + raw;
+    }
+
+    function setCustomerInfo(handle, email){
+      localStorage.setItem(VENMO_HANDLE_KEY, normalizeVenmoHandle(handle));
       localStorage.setItem(CUST_EMAIL_KEY, String(email || "").trim());
     }
 
     function clearCustomerInfo(){
-      localStorage.removeItem(CUST_NAME_KEY);
+      localStorage.removeItem(VENMO_HANDLE_KEY);
       localStorage.removeItem(CUST_EMAIL_KEY);
     }
 
     function syncCustomerInputs(){
-      $("custName").value = localStorage.getItem(CUST_NAME_KEY) || "";
+      $("venmoHandle").value = localStorage.getItem(VENMO_HANDLE_KEY) || "";
       $("custEmail").value = localStorage.getItem(CUST_EMAIL_KEY) || "";
     }
 
@@ -497,7 +507,7 @@
       $("continueBtn").disabled = !!busy || isLocked() || !loadCart().length;
       $("paidBtn").disabled = !!busy;
       $("clearCartBtn").disabled = !!busy || isLocked();
-      $("custName").disabled = !!busy || isLocked();
+      $("venmoHandle").disabled = !!busy || isLocked();
       $("custEmail").disabled = !!busy || isLocked();
     }
 
@@ -507,7 +517,7 @@
       $("paymentTotal").textContent = money(subtotal(loadCart()));
       $("continueBtn").disabled = !!ready || !loadCart().length;
       $("clearCartBtn").disabled = !!ready;
-      $("custName").disabled = !!ready;
+      $("venmoHandle").disabled = !!ready;
       $("custEmail").disabled = !!ready;
     }
 
@@ -750,6 +760,32 @@
       return true;
     }
 
+    function validVenmoHandle(){
+      const input = $("venmoHandle");
+      const raw = input.value.trim();
+
+      input.setCustomValidity("");
+
+      if(!raw){
+        input.setCustomValidity("Enter the Venmo handle you will use to send payment.");
+      }else if(/\s/.test(raw)){
+        input.setCustomValidity("Venmo handles cannot contain spaces.");
+      }else if(raw.replace(/^@/, "").length < 2){
+        input.setCustomValidity("Enter your full Venmo handle.");
+      }else if(raw.length > 65){
+        input.setCustomValidity("That Venmo handle is too long.");
+      }
+
+      if(!input.checkValidity()){
+        input.reportValidity();
+        setStatus("Enter the Venmo handle you will use to send payment.", "bad");
+        return false;
+      }
+
+      input.value = normalizeVenmoHandle(raw);
+      return true;
+    }
+
     async function saveOrder(){
       if(actionInFlight || isLocked()) return;
 
@@ -760,10 +796,11 @@
       }
 
       if(!validEmail()) return;
+      if(!validVenmoHandle()) return;
 
-      const name = $("custName").value.trim();
+      const venmoHandle = normalizeVenmoHandle($("venmoHandle").value);
       const email = $("custEmail").value.trim();
-      setCustomerInfo(name, email);
+      setCustomerInfo(venmoHandle, email);
 
       const orderId = getOrderId();
       const total = subtotal(cart);
@@ -779,8 +816,8 @@
         total:Number(total.toFixed(2)),
         currency:"USD",
         items,
-        customer:{name,email},
-        note:"",
+        customer:{name:venmoHandle,email},
+        note:`Venmo handle: ${venmoHandle}`,
         referrer:document.referrer || "",
         status:"new"
       };
@@ -904,14 +941,17 @@
     });
 
     window.addEventListener("input", event => {
-      if(event.target?.id === "custEmail" || event.target?.id === "custName"){
-        setCustomerInfo($("custName").value, $("custEmail").value);
+      if(event.target?.id === "custEmail" || event.target?.id === "venmoHandle"){
+        if(event.target?.id === "venmoHandle"){
+          event.target.setCustomValidity("");
+        }
+        setCustomerInfo($("venmoHandle").value, $("custEmail").value);
       }
     });
 
     window.addEventListener("storage", event => {
       if([CART_KEY, ORDER_KEY, LOCK_KEY].includes(event.key)) render();
-      if([CUST_EMAIL_KEY, CUST_NAME_KEY].includes(event.key)) syncCustomerInputs();
+      if([CUST_EMAIL_KEY, VENMO_HANDLE_KEY].includes(event.key)) syncCustomerInputs();
     });
 
     syncCustomerInputs();
