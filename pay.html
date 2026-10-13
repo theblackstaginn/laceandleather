@@ -632,7 +632,12 @@
 
         const onMessage = event => {
           const data = event?.data;
-          if(!data || data.source !== "lace-leather-appscript" || data.nonce !== nonce){
+          if(
+            event.source !== iframe.contentWindow
+            || !data
+            || data.source !== "lace-leather-appscript"
+            || data.nonce !== nonce
+          ){
             return;
           }
           finish(resolve, data.payload);
