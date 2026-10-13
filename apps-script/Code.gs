@@ -517,7 +517,7 @@ const currency = "USD";
 const itemsJson = JSON.stringify(items);
 
 const customer = payload.customer || {};
-const custName = normalizeVenmoHandle_(
+const custName = safeStr_(
 customer.name || payload.customer_name || payload.name
 );
 const custEmail = safeStr_(
@@ -528,13 +528,6 @@ if (!isEmail_(custEmail)) {
 return jsonResponse_({
 ok: false,
 error: "Invalid customer email"
-});
-}
-
-if (!isValidVenmoHandle_(custName)) {
-return jsonResponse_({
-ok: false,
-error: "Invalid Venmo handle"
 });
 }
 
@@ -962,15 +955,27 @@ order_id: orderId
 const rowIndex = rows[0];
 const rowObj = readOrderRow_(sheet, col, rowIndex);
 
-if (
-rowObj.status !== "payment_submitted"
-&& rowObj.paid !== true
-) {
+if (rowObj.paid === true || rowObj.status === "paid") {
 return jsonResponse_({
-ok: false,
-error: "Payment has not been submitted yet.",
-order_id: orderId
+ok: true,
+already_paid: true,
+order: ownerOrderView_(rowObj)
 });
+}
+
+const venmoHandle = normalizeVenmoHandle_(
+e && e.parameter && e.parameter.venmo_handle
+? e.parameter.venmo_handle
+: ""
+);
+
+if (venmoHandle && isValidVenmoHandle_(venmoHandle)) {
+setCellIf_(
+sheet,
+rowIndex,
+col.customer_name,
+venmoHandle
+);
 }
 
 return jsonResponse_(
