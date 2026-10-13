@@ -81,7 +81,7 @@ html.no-scroll body{ overflow:hidden; }
   position:fixed;
   inset:0;
   z-index:-2;
-  background:url("./assets/lace-bg.png") center / cover no-repeat;
+  background:url("./assets/lace-bg.webp") center / cover no-repeat;
   transform: translateZ(0);
   filter:saturate(1.08) contrast(1.03) brightness(1.20);
 }
@@ -98,7 +98,7 @@ html.no-scroll body{ overflow:hidden; }
 
 @media (max-width: 768px){
   .bg{
-    background:url("./assets/lace-mobile-bg.png") center top / cover no-repeat;
+    background:url("./assets/lace-mobile-bg.webp") center top / cover no-repeat;
     filter:saturate(1.08) contrast(1.03) brightness(1.20);
   }
 }
@@ -711,7 +711,7 @@ p, h1, h2, h3, h4, h5, h6,
 .commission-bg{
   position:absolute;
   inset:0;
-  background:url("./commission-modal-assets/modal-bg.png") center / cover no-repeat;
+  background:url("./commission-modal-assets/modal-bg.webp") center / cover no-repeat;
   z-index:-1;
 }
 .commission-close{
@@ -750,7 +750,7 @@ p, h1, h2, h3, h4, h5, h6,
 .letter-bg{
   position:absolute;
   inset:0;
-  background:url("./commission-modal-assets/modal-bg.png") center / cover no-repeat;
+  background:url("./commission-modal-assets/modal-bg.webp") center / cover no-repeat;
   opacity:0.9;
   z-index:-1;
 }
@@ -889,7 +889,7 @@ body.pay-page{
 
 /* Pay page gets its own background art */
 body.pay-page .bg{
-  background-image: url("./assets/tablet-web.png");
+  background-image: url("./assets/tablet-web.webp");
   background-size: cover;              /* FILL viewport */
   background-position: center center;
   background-repeat: no-repeat;
@@ -906,7 +906,7 @@ body.pay-page .bg::after{
 /* Pay page bg switches on mobile portrait */
 @media (max-width: 768px) and (orientation: portrait){
   body.pay-page .bg{
-    background-image: url("./assets/tablet-mobile.png");
+    background-image: url("./assets/tablet-mobile.webp");
     background-size: cover;
     background-position: center center;
   }
@@ -955,7 +955,7 @@ body.pay-page .tablet-wrap::before{
   content:"";
   position:absolute;
   inset:0;
-  background: url("./assets/paypad-web.png") center center / contain no-repeat;
+  background: url("./assets/paypad-web.webp") center center / contain no-repeat;
   pointer-events:none;
   z-index:0;
 }
@@ -1190,7 +1190,7 @@ body.pay-page .pay-qr{
 
   /* PayPad overlay art (mobile) */
   body.pay-page .tablet-wrap::before{
-    background-image: url("./assets/paypad-mobile.png");
+    background-image: url("./assets/paypad-mobile.webp");
     background-position: center center;
     background-size: contain;
   }

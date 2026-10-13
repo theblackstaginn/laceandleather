@@ -12,7 +12,7 @@
       position:fixed;
       inset:0;
       z-index:-2;
-      background:url("./assets/lace-bg.png") center / cover no-repeat;
+      background:url("./assets/lace-bg.webp") center / cover no-repeat;
       transform: translateZ(0);
       filter:saturate(1.08) contrast(1.03) brightness(1.20);
     }
