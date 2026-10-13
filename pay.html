@@ -174,10 +174,41 @@
       letter-spacing:.06em;
     }
 
-    body.pay-page .pay-qr{
-      width:142px;
-      max-width:52vw;
-      height:auto;
+    body.pay-page .pay-venmo-btn{
+      width:min(330px, 100%);
+      min-height:68px;
+      box-sizing:border-box;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:4px;
+      border:1px solid rgba(25,89,150,.38);
+      border-radius:15px;
+      padding:13px 20px;
+      background:linear-gradient(180deg, #3d95ce, #2785c2);
+      color:#fff;
+      text-decoration:none;
+      box-shadow:0 8px 18px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.25);
+      font-size:19px;
+      font-weight:950;
+      letter-spacing:.055em;
+      line-height:1.05;
+      text-align:center;
+      transition:transform .14s ease, box-shadow .14s ease;
+    }
+
+    body.pay-page .pay-venmo-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 11px 24px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.28);
+    }
+
+    body.pay-page .pay-venmo-btn small{
+      display:block;
+      font-size:12px;
+      font-weight:850;
+      letter-spacing:.04em;
+      opacity:.94;
     }
 
     body.pay-page .pay-payment-help{
@@ -240,12 +271,7 @@
         display:block !important;
       }
 
-      body.pay-page #qrWrap .pay-qr{
-        display:block !important;
-      }
-
-      body.pay-page section.pay-card[aria-label="Payment"] .pay-note,
-      body.pay-page #qrWrap .pay-note{
+      body.pay-page section.pay-card[aria-label="Payment"] .pay-note{
         display:block !important;
       }
 
@@ -331,22 +357,21 @@
                 <div class="pay-note">We save the order first so your payment can be matched correctly.</div>
               </div>
 
-              <div class="pay-payment-panel" id="qrWrap" hidden>
+              <div class="pay-payment-panel" id="paymentPanel" hidden>
                 <div class="pay-muted">Pay this exact total</div>
                 <div class="pay-amount" id="paymentTotal">$0.00</div>
 
-                <img decoding="async" class="pay-qr" src="./assets/lace-qr.webp" alt="Lace and Leather PayPal QR code" />
-
-                <a class="ll-btn"
-                   href="https://www.paypal.com/"
+                <a class="pay-venmo-btn"
+                   href="https://venmo.com/u/blackstagweb"
                    target="_blank"
                    rel="noopener noreferrer"
-                   aria-label="Open PayPal">
-                  <img decoding="async" src="./L&L-buttons/paypal.webp" alt="Open PayPal" />
+                   aria-label="Pay Black Stag Web Design with Venmo">
+                  PAY WITH VENMO
+                  <small>@blackstagweb</small>
                 </a>
 
                 <p class="pay-payment-help">
-                  Send the exact total in PayPal. When you are finished, return here and tap the button below.
+                  Venmo opens separately so this checkout stays here. Send the exact total above, then return and tap the button below.
                   We verify the payment before sending the receipt and digital delivery.
                 </p>
 
@@ -362,7 +387,7 @@
             <h2>Payment submitted</h2>
             <p>
               Thanks! Order <strong id="completeOrderId">—</strong> is now waiting for verification.
-              Your receipt and digital delivery will be sent after the PayPal payment is confirmed.
+              Your receipt and digital delivery will be sent after the Venmo payment is confirmed.
             </p>
             <div class="pay-complete-actions">
               <a class="pay-secondary-btn" href="./index.html">BACK TO SHOP</a>
@@ -480,7 +505,7 @@
 
     function showPaymentReady(ready){
       $("paymentBlocked").hidden = !!ready;
-      $("qrWrap").hidden = !ready;
+      $("paymentPanel").hidden = !ready;
       $("paymentTotal").textContent = money(subtotal(loadCart()));
       $("continueBtn").disabled = !!ready || !loadCart().length;
       $("clearCartBtn").disabled = !!ready;
