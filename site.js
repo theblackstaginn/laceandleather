@@ -2,6 +2,78 @@
   const previousFocus =
     new WeakMap();
 
+  let lockedScrollX = 0;
+  let lockedScrollY = 0;
+  let bodyStyleBeforeLock = null;
+
+  function lockPageScroll() {
+    lockedScrollX =
+      window.scrollX
+      || window.pageXOffset
+      || 0;
+
+    lockedScrollY =
+      window.scrollY
+      || window.pageYOffset
+      || 0;
+
+    bodyStyleBeforeLock = {
+      position:
+        document.body.style.position,
+      top:
+        document.body.style.top,
+      left:
+        document.body.style.left,
+      right:
+        document.body.style.right,
+      width:
+        document.body.style.width
+    };
+
+    document.body.style.position =
+      "fixed";
+    document.body.style.top =
+      `-${lockedScrollY}px`;
+    document.body.style.left =
+      `-${lockedScrollX}px`;
+    document.body.style.right =
+      "0";
+    document.body.style.width =
+      "100%";
+
+    document.documentElement
+      .classList.add(
+        "no-scroll"
+      );
+  }
+
+  function unlockPageScroll() {
+    document.documentElement
+      .classList.remove(
+        "no-scroll"
+      );
+
+    if (bodyStyleBeforeLock) {
+      document.body.style.position =
+        bodyStyleBeforeLock.position;
+      document.body.style.top =
+        bodyStyleBeforeLock.top;
+      document.body.style.left =
+        bodyStyleBeforeLock.left;
+      document.body.style.right =
+        bodyStyleBeforeLock.right;
+      document.body.style.width =
+        bodyStyleBeforeLock.width;
+    }
+
+    window.scrollTo(
+      lockedScrollX,
+      lockedScrollY
+    );
+
+    bodyStyleBeforeLock = null;
+  }
+
   const focusableSelector = [
     "a[href]",
     "button:not([disabled])",
@@ -53,16 +125,18 @@
       );
     }
 
+    const isFirstOpenModal =
+      getOpenModals().length === 0;
+
+    if (isFirstOpenModal) {
+      lockPageScroll();
+    }
+
     modal.classList.add("open");
     modal.setAttribute(
       "aria-hidden",
       "false"
     );
-
-    document.documentElement
-      .classList.add(
-        "no-scroll"
-      );
 
     requestAnimationFrame(() => {
       const focusable =
@@ -100,10 +174,7 @@
     if (
       !getOpenModals().length
     ) {
-      document.documentElement
-        .classList.remove(
-          "no-scroll"
-        );
+      unlockPageScroll();
     }
 
     modal.dispatchEvent(
