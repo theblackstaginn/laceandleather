@@ -153,6 +153,10 @@
       text-align:center;
     }
 
+    body.pay-page #paymentCard{
+      scroll-margin-top:14px;
+    }
+
     body.pay-page .pay-payment-panel[hidden],
     body.pay-page .pay-blocked[hidden],
     body.pay-page .pay-complete[hidden]{
@@ -178,13 +182,15 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      width:min(220px, 62vw);
+      width:min(100%, 380px);
       padding:0;
       border:0;
       background:transparent;
       box-shadow:none;
       text-decoration:none;
       cursor:pointer;
+      -webkit-tap-highlight-color:transparent;
+      filter:drop-shadow(0 10px 16px rgba(0,0,0,.26));
       transition:transform .14s ease, filter .14s ease;
     }
 
@@ -366,7 +372,7 @@
                    target="_blank"
                    rel="noopener noreferrer"
                    aria-label="Pay Black Stag Web Design with Venmo">
-                  <img decoding="async" src="./assets/venmo-ll.webp?v=LL-20261013-3" alt="Pay with Venmo — @blackstagweb" />
+                  <img decoding="async" src="./assets/pay-with-venmo.webp?v=LL-20261013-4" alt="Pay with Venmo — @blackstagweb" />
                 </a>
 
                 <p class="pay-payment-help">
@@ -840,7 +846,7 @@
         showPaymentReady(true);
         setStatus("Order saved. Complete payment in Step 2.", "ok");
         setBusy(false);
-        $("paymentCard").scrollIntoView({behavior:"smooth", block:"nearest"});
+        $("paymentCard").scrollIntoView({behavior:"smooth", block:"start"});
       }catch{
         const verified = await waitForStatus_(orderId, ["new","payment_submitted","paid"]);
 
@@ -849,7 +855,7 @@
           showPaymentReady(true);
           setStatus("Order saved. Complete payment in Step 2.", "ok");
           setBusy(false);
-          $("paymentCard").scrollIntoView({behavior:"smooth", block:"nearest"});
+          $("paymentCard").scrollIntoView({behavior:"smooth", block:"start"});
           return;
         }
 
