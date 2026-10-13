@@ -1356,7 +1356,7 @@
       }
     }
 
-    $("button.ll-add-btn[data-add]").forEach(btn => {
+    $$("button.ll-add-btn[data-add]").forEach(btn => {
       btn.addEventListener("click", () => {
         const key = btn.getAttribute("data-add");
         const p = PRODUCT[key];
