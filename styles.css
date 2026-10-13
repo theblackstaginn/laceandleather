@@ -739,6 +739,17 @@ p, h1, h2, h3, h4, h5, h6,
    ========================= */
 .letter-panel{
   max-height:min(90vh, 900px);
+  overflow:hidden;
+  isolation:isolate;
+}
+.letter-panel::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:url("./commission-modal-assets/modal-bg.webp") center / cover no-repeat;
+  opacity:.9;
 }
 .letter-body{
   position:relative;
@@ -746,23 +757,24 @@ p, h1, h2, h3, h4, h5, h6,
   max-height: calc(90vh - 64px);
   -webkit-overflow-scrolling: touch;
   padding:18px;
+  text-align:center;
 }
 .letter-bg{
-  position:absolute;
-  inset:0;
-  background:url("./commission-modal-assets/modal-bg.webp") center / cover no-repeat;
-  opacity:0.9;
-  z-index:-1;
+  display:none;
 }
 .letter-stack{
   position:relative;
-  display:inline-block;
+  display:block;
+  width:min(720px, 100%);
+  max-width:100%;
   margin:0 auto;
 }
 .letter-img{
-  width:min(720px, 92vw);
+  width:100%;
+  max-width:720px;
   height:auto;
   display:block;
+  margin:0 auto;
   filter:drop-shadow(0 18px 34px rgba(0,0,0,.85));
 }
 .map-slot-btn{
