@@ -399,10 +399,11 @@
 
   <script src="./catalog.js?v=LL-20261013-2"></script>
   <script>
-    const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzQSkg_6m84LsodueoI9LN6VuXhuWpfRtYNlyzleZ_I0XghmU-ra49-Bmb4SaoSG8uI/exec";
+    const ORDER_API_URL = "https://lpjpuedylongafgqbwjh.supabase.co/functions/v1/lace-leather-orders";
 
     const CART_KEY = "ll_cart";
     const ORDER_KEY = "ll_order_id";
+    const CHECKOUT_TOKEN_KEY = "ll_checkout_token";
     const LOCK_KEY = "ll_cart_locked";
     const CUST_EMAIL_KEY = "ll_customer_email";
     const VENMO_HANDLE_KEY = "ll_venmo_handle";
@@ -454,6 +455,28 @@
       const id = genOrderId();
       localStorage.setItem(ORDER_KEY, id);
       return id;
+    }
+
+    function getCheckoutToken(orderId = getOrderId()){
+      const saved = safeParse(localStorage.getItem(CHECKOUT_TOKEN_KEY), null);
+      if(saved?.orderId === orderId && saved?.token){
+        return saved.token;
+      }
+
+      const token = window.crypto?.randomUUID
+        ? window.crypto.randomUUID()
+        : [
+            Date.now().toString(16),
+            Math.random().toString(16).slice(2),
+            Math.random().toString(16).slice(2)
+          ].join("-");
+
+      localStorage.setItem(CHECKOUT_TOKEN_KEY, JSON.stringify({orderId, token}));
+      return token;
+    }
+
+    function resetCheckoutToken(){
+      localStorage.removeItem(CHECKOUT_TOKEN_KEY);
     }
 
     function setLocked(value){
@@ -609,118 +632,54 @@
       }
     }
 
-    function bridgeNonce_(){
-      if(window.crypto?.randomUUID){
-        return window.crypto.randomUUID();
-      }
-      return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
-    }
-
-    function postToAppsScript_(params){
-      return new Promise((resolve, reject) => {
-        const nonce = bridgeNonce_();
-        const frameName = "llBridge_" + nonce.replace(/[^a-zA-Z0-9_-]/g, "");
-        const iframe = document.createElement("iframe");
-        const form = document.createElement("form");
-        let settled = false;
-
-        iframe.name = frameName;
-        iframe.hidden = true;
-        iframe.title = "Order service";
-        iframe.setAttribute("aria-hidden", "true");
-
-        form.method = "POST";
-        form.action = ENDPOINT_URL;
-        form.target = frameName;
-        form.acceptCharset = "UTF-8";
-        form.hidden = true;
-
-        const fields = {
-          ...params,
-          transport:"iframe",
-          bridge_nonce:nonce
-        };
-
-        Object.entries(fields).forEach(([name, value]) => {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = name;
-          input.value = String(value ?? "");
-          form.appendChild(input);
-        });
-
-        const cleanup = () => {
-          window.removeEventListener("message", onMessage);
-          window.clearTimeout(timeoutId);
-          form.remove();
-          window.setTimeout(() => iframe.remove(), 0);
-        };
-
-        const finish = (fn, value) => {
-          if(settled) return;
-          settled = true;
-          cleanup();
-          fn(value);
-        };
-
-        const onMessage = event => {
-          const data = event?.data;
-          if(
-            event.source !== iframe.contentWindow
-            || !data
-            || data.source !== "lace-leather-appscript"
-            || data.nonce !== nonce
-          ){
-            return;
-          }
-          finish(resolve, data.payload);
-        };
-
-        const timeoutId = window.setTimeout(() => {
-          finish(reject, new Error("Order service did not respond."));
-        }, 6000);
-
-        window.addEventListener("message", onMessage);
-        document.body.append(iframe, form);
-        form.submit();
+    async function orderApi_(body){
+      const response = await fetch(ORDER_API_URL, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(body)
       });
+
+      const json = await response.json().catch(() => ({}));
+      if(!response.ok && json?.ok !== true){
+        const error = new Error(json?.error || "Order service request failed.");
+        error.payload = json;
+        throw error;
+      }
+
+      return json;
     }
 
-    function getOrderStatus_(orderId){
-      return new Promise((resolve, reject) => {
-        const callbackName = "llOrderStatus_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2);
-        const script = document.createElement("script");
-        let settled = false;
+    async function postToAppsScript_(params){
+      if(params?.payload){
+        const order = safeParse(params.payload, null);
+        if(!order) return {ok:false,error:"invalid_order_payload"};
 
-        const cleanup = () => {
-          window.clearTimeout(timeoutId);
-          try{ delete window[callbackName]; }catch{}
-          script.remove();
-        };
+        const orderId = String(order.order_id || getOrderId());
+        order.checkout_token = getCheckoutToken(orderId);
 
-        const finish = (fn, value) => {
-          if(settled) return;
-          settled = true;
-          cleanup();
-          fn(value);
-        };
+        return orderApi_({
+          action:"create",
+          order
+        });
+      }
 
-        window[callbackName] = data => finish(resolve, data);
-        script.onerror = () => finish(reject, new Error("Order status check failed."));
+      if(params?.action === "payment_submitted"){
+        const orderId = String(params.order_id || getOrderId());
+        return orderApi_({
+          action:"payment_submitted",
+          order_id:orderId,
+          checkout_token:getCheckoutToken(orderId)
+        });
+      }
 
-        const timeoutId = window.setTimeout(() => {
-          finish(reject, new Error("Order status check timed out."));
-        }, 6000);
+      return {ok:false,error:"unsupported_action"};
+    }
 
-        const url = new URL(ENDPOINT_URL);
-        url.searchParams.set("action", "order_status");
-        url.searchParams.set("order_id", orderId);
-        url.searchParams.set("callback", callbackName);
-        url.searchParams.set("_", String(Date.now()));
-
-        script.src = url.toString();
-        script.async = true;
-        document.head.appendChild(script);
+    async function getOrderStatus_(orderId){
+      return orderApi_({
+        action:"order_status",
+        order_id:orderId,
+        checkout_token:getCheckoutToken(orderId)
       });
     }
 
@@ -866,6 +825,7 @@
 
       setLocked(false);
       saveCart([]);
+      resetCheckoutToken();
       resetOrderId();
       clearCustomerInfo();
 
