@@ -175,40 +175,39 @@
     }
 
     body.pay-page .pay-venmo-btn{
-      width:min(330px, 100%);
-      min-height:68px;
-      box-sizing:border-box;
-      display:flex;
-      flex-direction:column;
+      display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:4px;
-      border:1px solid rgba(25,89,150,.38);
-      border-radius:15px;
-      padding:13px 20px;
-      background:linear-gradient(180deg, #3d95ce, #2785c2);
-      color:#fff;
+      width:min(220px, 62vw);
+      padding:0;
+      border:0;
+      background:transparent;
+      box-shadow:none;
       text-decoration:none;
-      box-shadow:0 8px 18px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.25);
-      font-size:19px;
-      font-weight:950;
-      letter-spacing:.055em;
-      line-height:1.05;
-      text-align:center;
-      transition:transform .14s ease, box-shadow .14s ease;
+      cursor:pointer;
+      transition:transform .14s ease, filter .14s ease;
+    }
+
+    body.pay-page .pay-venmo-btn img{
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:contain;
     }
 
     body.pay-page .pay-venmo-btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 11px 24px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.28);
+      transform:translateY(-2px) scale(1.015);
+      filter:drop-shadow(0 10px 14px rgba(0,0,0,.28));
     }
 
-    body.pay-page .pay-venmo-btn small{
-      display:block;
-      font-size:12px;
-      font-weight:850;
-      letter-spacing:.04em;
-      opacity:.94;
+    body.pay-page .pay-venmo-btn:active{
+      transform:translateY(0) scale(.98);
+    }
+
+    body.pay-page .pay-venmo-btn:focus-visible{
+      outline:2px solid rgba(91,148,207,.70);
+      outline-offset:6px;
+      border-radius:18px;
     }
 
     body.pay-page .pay-payment-help{
@@ -366,8 +365,7 @@
                    target="_blank"
                    rel="noopener noreferrer"
                    aria-label="Pay Black Stag Web Design with Venmo">
-                  PAY WITH VENMO
-                  <small>@blackstagweb</small>
+                  <img decoding="async" src="data:image/webp;base64,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[...truncated...]" alt="Pay with Venmo — @blackstagweb" />
                 </a>
 
                 <p class="pay-payment-help">
