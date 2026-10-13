@@ -319,6 +319,8 @@
 
     .ll-add-btn{
       display:inline-block;
+      position:relative;
+      overflow:visible;
       width: 210px;
       height: 68px;
       border:0;
@@ -327,6 +329,53 @@
       cursor:pointer;
       user-select:none;
       -webkit-tap-highlight-color: transparent;
+    }
+
+    .cart-plus-burst{
+      position:absolute;
+      left:50%;
+      top:48%;
+      z-index:4;
+      pointer-events:none;
+      color:#f2d08a;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:30px;
+      font-weight:900;
+      line-height:1;
+      text-shadow:
+        0 2px 2px rgba(0,0,0,.85),
+        0 0 10px rgba(221,163,72,.60);
+      transform:translate(-50%, -50%) scale(.55);
+      animation:ll-cart-plus .62s cubic-bezier(.18,.72,.22,1) forwards;
+    }
+
+    .ll-cart.cart-bump{
+      animation:ll-cart-bump .34s ease-out;
+    }
+
+    @keyframes ll-cart-plus{
+      0%{
+        opacity:0;
+        transform:translate(-50%, -42%) scale(.55);
+      }
+      22%{
+        opacity:1;
+        transform:translate(-50%, -62%) scale(1.08);
+      }
+      100%{
+        opacity:0;
+        transform:translate(-50%, -150%) scale(1.34) rotate(8deg);
+      }
+    }
+
+    @keyframes ll-cart-bump{
+      0%,100%{ transform:scale(1); }
+      45%{ transform:scale(1.055); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .cart-plus-burst{ display:none; }
+      .ll-cart.cart-bump{ animation:none; }
     }
     .ll-add-btn:focus{
       outline:2px solid rgba(255,255,255,.35);
@@ -549,6 +598,15 @@
       color: rgba(250,230,180,.88);
       border-top: 1px solid rgba(255,255,255,.08);
       background: rgba(0,0,0,.20);
+    }
+
+    /* Crop only the parchment texture previews enough to hide their baked-in white margins. */
+    #packModal.preview-crop .tile-face,
+    #packModal.preview-crop .viewer-img{
+      aspect-ratio:2 / 3;
+      background-size:108% auto;
+      background-position:center;
+      background-color:#120f0d;
     }
   </style>
   <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"570203b21402b6698caff30be98f0ebc"})});</script>
@@ -1279,12 +1337,32 @@
       clearCartBtn.blur();
     });
 
-    $$("button.ll-add-btn[data-add]").forEach(btn => {
+    function playAddToCartAnimation(btn){
+      const plus = document.createElement("span");
+      plus.className = "cart-plus-burst";
+      plus.setAttribute("aria-hidden", "true");
+      plus.textContent = "+";
+      btn.appendChild(plus);
+      plus.addEventListener("animationend", () => plus.remove(), {once:true});
+
+      const cartButton = $("#cartBtn");
+      if(cartButton){
+        cartButton.classList.remove("cart-bump");
+        void cartButton.offsetWidth;
+        cartButton.classList.add("cart-bump");
+        cartButton.addEventListener("animationend", () => {
+          cartButton.classList.remove("cart-bump");
+        }, {once:true});
+      }
+    }
+
+    $("button.ll-add-btn[data-add]").forEach(btn => {
       btn.addEventListener("click", () => {
         const key = btn.getAttribute("data-add");
         const p = PRODUCT[key];
         if(!p) return;
         addToCart(p);
+        playAddToCartAnimation(btn);
         btn.blur();
       });
     });
@@ -1370,6 +1448,10 @@
 
         packTitle.textContent = def.title;
         packSub.textContent = def.sub;
+
+        const cropTextureMargins = key === "volone" || key === "smithy";
+        packModal.classList.toggle("preview-crop", cropTextureMargins);
+
         buildPackCollage(def.images);
 
         packViewerImg.style.backgroundImage = "";
