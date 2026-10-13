@@ -65,7 +65,7 @@ body{
   margin:0;
   background:#06070a;
   color:var(--text);
-  font-family:"DarkAges", ui-serif, Georgia, serif;
+  font-family:"Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
   font-size:16px;
   overflow-x:hidden;
   text-align:center;
@@ -375,7 +375,7 @@ p, h1, h2, h3, h4, h5, h6,
   text-shadow:0 0 8px rgba(0,0,0,.9);
 }
 .pack-note{
-  font-family:"DarkAges", ui-serif, Georgia, serif;
+  font-family:"Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
   font-size:15px;
   text-shadow:0 0 6px rgba(0,0,0,.9);
 }
@@ -1454,7 +1454,7 @@ body.pay-page .pay-qr{
     inset 0 0 0 1px rgba(255,255,255,.03),
     0 10px 22px rgba(0,0,0,.35);
   color:var(--ll-wild-ink);
-  font-family:"DarkAges", ui-serif, Georgia, serif;
+  font-family:"Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
   letter-spacing:.04em;
   text-decoration:none;
   transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
