@@ -153,6 +153,10 @@
       text-align:center;
     }
 
+    body.pay-page #paymentCard{
+      scroll-margin-top:14px;
+    }
+
     body.pay-page .pay-payment-panel[hidden],
     body.pay-page .pay-blocked[hidden],
     body.pay-page .pay-complete[hidden]{
@@ -842,7 +846,7 @@
         showPaymentReady(true);
         setStatus("Order saved. Complete payment in Step 2.", "ok");
         setBusy(false);
-        $("paymentCard").scrollIntoView({behavior:"smooth", block:"nearest"});
+        $("paymentCard").scrollIntoView({behavior:"smooth", block:"start"});
       }catch{
         const verified = await waitForStatus_(orderId, ["new","payment_submitted","paid"]);
 
@@ -851,7 +855,7 @@
           showPaymentReady(true);
           setStatus("Order saved. Complete payment in Step 2.", "ok");
           setBusy(false);
-          $("paymentCard").scrollIntoView({behavior:"smooth", block:"nearest"});
+          $("paymentCard").scrollIntoView({behavior:"smooth", block:"start"});
           return;
         }
 
