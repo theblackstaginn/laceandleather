@@ -1,9 +1,11 @@
+# Registration nudge: 2026-10-13
 name: Lace & Leather WebP audit pass
 
 on:
   push:
     paths:
       - ".github/workflows/webp-audit-pass.yml"
+      - "scripts/webp_sitewide_pass.py"
   workflow_dispatch:
 
 permissions:
