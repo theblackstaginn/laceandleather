@@ -3,70 +3,255 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Lace &amp; Leather — Pay</title>
-<!-- ✅ SEO -->
-  <meta name="description" content="Lace &amp; Leather checkout. Review your cart, confirm your order, pay with PayPal, then submit payment for verification." />
+  <title>Lace &amp; Leather — Checkout</title>
+
+  <meta name="description" content="Lace & Leather checkout. Review your order, continue to payment, then submit payment for verification." />
   <link rel="canonical" href="https://laceleatherarcane.com/pay.html" />
-  <meta name="robots" content="noindex, follow, noarchive, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="robots" content="noindex, follow, noarchive" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-  <!-- ✅ Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Lace &amp; Leather" />
-  <meta property="og:title" content="Lace &amp; Leather — Pay" />
-  <meta property="og:description" content="Review your cart, confirm your order, pay with PayPal, then submit payment for verification." />
+  <meta property="og:site_name" content="Lace & Leather" />
+  <meta property="og:title" content="Lace & Leather — Checkout" />
+  <meta property="og:description" content="Review your order, continue to payment, then submit payment for verification." />
   <meta property="og:url" content="https://laceleatherarcane.com/pay.html" />
   <meta property="og:image" content="https://laceleatherarcane.com/assets/l&l_logo.webp" />
 
-  <!-- ✅ Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Lace &amp; Leather — Pay" />
-  <meta name="twitter:description" content="Review your cart, confirm your order, pay with PayPal, then submit payment for verification." />
+  <meta name="twitter:title" content="Lace & Leather — Checkout" />
+  <meta name="twitter:description" content="Review your order, continue to payment, then submit payment for verification." />
   <meta name="twitter:image" content="https://laceleatherarcane.com/assets/l&l_logo.webp" />
 
-  <!-- ✅ Structured Data: WebPage (minimal, safe) -->
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://laceleatherarcane.com/pay.html#webpage",
-  "url": "https://laceleatherarcane.com/pay.html",
-  "name": "Lace & Leather — Pay",
-  "description": "Lace & Leather checkout. Review your cart, confirm your order, pay with PayPal, then submit payment for verification.",
-  "isPartOf": { "@id": "https://laceleatherarcane.com/#website" },
-  "about": { "@id": "https://laceleatherarcane.com/#organization" },
-  "inLanguage": "en-US"
-}
-  </script>
-
-  <!-- IMPORTANT: bump this whenever you edit CSS -->
-  <link rel="stylesheet" href="./styles.css?v=PAY-009" />
+  <link rel="stylesheet" href="./styles.css?v=PAY-010" />
 
   <style>
-    /* Section 1 payment-state hardening: customer reports payment; only the owner verifies it. */
-    body.pay-page .payment-submitted-btn{
-      border:1px solid rgba(64,39,20,.62);
-      border-radius:10px;
-      background:linear-gradient(180deg, rgba(238,216,167,.96), rgba(184,145,82,.96));
-      color:#24170d;
-      padding:10px 16px;
-      min-height:44px;
+    body.pay-page .pay-step{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin:0 0 8px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      opacity:.82;
+    }
+
+    body.pay-page .pay-step-num{
+      display:grid;
+      place-items:center;
+      width:24px;
+      height:24px;
+      border-radius:999px;
+      border:1px solid rgba(64,39,20,.35);
+      background:rgba(255,255,255,.18);
+    }
+
+    body.pay-page .pay-primary-btn,
+    body.pay-page .payment-submitted-btn,
+    body.pay-page .pay-secondary-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      border-radius:11px;
+      padding:11px 16px;
       font:inherit;
       font-weight:900;
-      letter-spacing:.06em;
+      letter-spacing:.055em;
       line-height:1.1;
-      box-shadow:0 5px 12px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.42);
+      cursor:pointer;
+      transition:transform .14s ease, opacity .14s ease, box-shadow .14s ease;
     }
-    body.pay-page .payment-submitted-btn:hover{
+
+    body.pay-page .pay-primary-btn,
+    body.pay-page .payment-submitted-btn{
+      border:1px solid rgba(64,39,20,.62);
+      background:linear-gradient(180deg, rgba(238,216,167,.98), rgba(184,145,82,.98));
+      color:#24170d;
+      box-shadow:0 5px 12px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.45);
+    }
+
+    body.pay-page .pay-secondary-btn{
+      border:1px solid rgba(64,39,20,.35);
+      background:rgba(255,255,255,.16);
+      color:#24170d;
+      text-decoration:none;
+    }
+
+    body.pay-page .pay-primary-btn:hover,
+    body.pay-page .payment-submitted-btn:hover,
+    body.pay-page .pay-secondary-btn:hover{
       transform:translateY(-1px);
     }
-    body.pay-page .payment-submitted-btn:active{
-      transform:translateY(1px);
-    }
-    body.pay-page .payment-submitted-btn:disabled{
+
+    body.pay-page .pay-primary-btn:disabled,
+    body.pay-page .payment-submitted-btn:disabled,
+    body.pay-page .pay-secondary-btn[aria-disabled="true"]{
       cursor:not-allowed;
-      opacity:.58;
+      opacity:.56;
       transform:none;
+    }
+
+    body.pay-page .pay-fields{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    body.pay-page .pay-field{
+      display:grid;
+      gap:5px;
+    }
+
+    body.pay-page .pay-field input{
+      width:100%;
+      min-height:42px;
+      box-sizing:border-box;
+      border:1px solid rgba(64,39,20,.28);
+      border-radius:9px;
+      padding:9px 10px;
+      background:rgba(255,255,255,.34);
+      color:#1c130c;
+      font:inherit;
+      font-weight:700;
+    }
+
+    body.pay-page .pay-field input:focus{
+      outline:2px solid rgba(135,93,43,.34);
+      outline-offset:1px;
+    }
+
+    body.pay-page .pay-action-stack{
+      display:grid;
+      gap:8px;
+      margin-top:12px;
+    }
+
+    body.pay-page .pay-status{
+      min-height:20px;
+      margin-top:8px;
+      font-size:12px;
+      font-weight:800;
+      line-height:1.35;
+    }
+
+    body.pay-page .pay-status.ok{ color:#315f32; }
+    body.pay-page .pay-status.bad{ color:#8b2c26; }
+
+    body.pay-page .pay-amount{
+      margin:4px 0 2px;
+      font-size:28px;
+      font-weight:950;
+      letter-spacing:.01em;
+    }
+
+    body.pay-page .pay-payment-panel{
+      display:grid;
+      gap:10px;
+      justify-items:center;
+      text-align:center;
+    }
+
+    body.pay-page .pay-payment-panel[hidden],
+    body.pay-page .pay-blocked[hidden],
+    body.pay-page .pay-complete[hidden]{
+      display:none !important;
+    }
+
+    body.pay-page .pay-blocked{
+      min-height:190px;
+      display:grid;
+      place-items:center;
+      align-content:center;
+      gap:8px;
+      text-align:center;
+      opacity:.72;
+    }
+
+    body.pay-page .pay-blocked strong{
+      font-size:15px;
+      letter-spacing:.06em;
+    }
+
+    body.pay-page .pay-qr{
+      width:142px;
+      max-width:52vw;
+      height:auto;
+    }
+
+    body.pay-page .pay-payment-help{
+      max-width:310px;
+      margin:0;
+      font-size:12px;
+      line-height:1.45;
+      font-weight:750;
+      opacity:.82;
+    }
+
+    body.pay-page .pay-complete{
+      width:min(620px,100%);
+      margin:0 auto;
+      padding:20px 16px;
+      text-align:center;
+      color:#111;
+    }
+
+    body.pay-page .pay-complete-mark{
+      width:54px;
+      height:54px;
+      margin:0 auto 10px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      background:rgba(93,127,75,.18);
+      border:2px solid rgba(56,98,49,.52);
+      font-size:28px;
+      font-weight:900;
+    }
+
+    body.pay-page .pay-complete h2{
+      margin:0 0 8px;
+      font-size:22px;
+      letter-spacing:.05em;
+    }
+
+    body.pay-page .pay-complete p{
+      max-width:520px;
+      margin:0 auto 12px;
+      line-height:1.5;
+      font-weight:700;
+    }
+
+    body.pay-page .pay-complete-actions{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    @media (max-width:768px) and (orientation:portrait){
+      body.pay-page .pay-grid{
+        gap:18px;
+      }
+
+      body.pay-page section.pay-card[aria-label="Payment"] > h2{
+        display:block !important;
+      }
+
+      body.pay-page #qrWrap .pay-qr{
+        display:block !important;
+      }
+
+      body.pay-page section.pay-card[aria-label="Payment"] .pay-note,
+      body.pay-page #qrWrap .pay-note{
+        display:block !important;
+      }
+
+      body.pay-page .pay-actions .ll-btn img{
+        height:34px;
+      }
     }
   </style>
 </head>
@@ -75,16 +260,16 @@
   <div class="bg" aria-hidden="true"></div>
 
   <main class="pay-shell" aria-label="Checkout">
-    <section class="tablet-wrap" aria-label="Tablet checkout screen">
+    <section class="tablet-wrap" aria-label="Lace and Leather checkout">
       <div class="tablet-screen">
         <header class="pay-head">
           <div class="pay-head-left">
             <div class="pay-brand">LACE &amp; LEATHER</div>
-            <div class="pay-sub">Review cart, confirm, pay, then submit payment for verification.</div>
+            <div class="pay-sub">Review your order, continue to payment, then tell us when it is sent.</div>
           </div>
 
           <div class="pay-actions">
-            <a class="ll-btn" href="./index.html" aria-label="Back">
+            <a class="ll-btn" href="./index.html" aria-label="Back to shop">
               <img decoding="async" src="./L&L-buttons/back.webp" alt="Back" />
             </a>
 
@@ -95,19 +280,18 @@
         </header>
 
         <div class="pay-scroll" id="payScroll">
-          <div class="pay-grid">
-            <!-- LEFT: Cart -->
+          <div class="pay-grid" id="checkoutGrid">
             <section class="pay-card" aria-label="Order summary">
-              <h2>ORDER</h2>
+              <div class="pay-step"><span class="pay-step-num">1</span> Review</div>
 
               <div class="pay-row pay-row-top">
                 <div>
-                  <div class="pay-muted">Order ID</div>
+                  <div class="pay-muted">Order</div>
                   <div class="pay-id"><span id="orderId">—</span></div>
                 </div>
 
                 <div class="pay-right">
-                  <div class="pay-muted">Subtotal</div>
+                  <div class="pay-muted">Total</div>
                   <div class="pay-total" id="subtotal">$0.00</div>
                 </div>
               </div>
@@ -115,81 +299,75 @@
               <ul class="pay-items" id="cartList" aria-label="Cart items"></ul>
 
               <div class="pay-note" id="emptyNote">
-                Cart is empty. Add items on the main page, then return here.
+                Your cart is empty. Add something from the shop, then come back here.
               </div>
 
-              <!-- CUSTOMER INFO -->
-              <div class="pay-fields" aria-label="Receipt details">
-                <div class="pay-note pay-tiny" style="margin: 0 0 8px;">
-                  Provide email for your receipt (sent after payment is verified).
-                </div>
-
+              <div class="pay-fields" id="customerFields">
                 <label class="pay-field">
-                  <span class="pay-muted">Email (receipt)</span>
+                  <span class="pay-muted">Email for receipt &amp; delivery</span>
                   <input id="custEmail" type="email" autocomplete="email" inputmode="email"
-                         placeholder="you@example.com" />
+                         placeholder="you@example.com" required />
                 </label>
-                <br>
 
                 <label class="pay-field">
-                  <span class="pay-muted">Name</span>
+                  <span class="pay-muted">Name <span aria-hidden="true">·</span> optional</span>
                   <input id="custName" type="text" autocomplete="name" placeholder="Name" />
                 </label>
               </div>
-              <br>
 
-              <!-- CONFIRM -->
-              <div class="pay-confirm-wrap">
-                <button class="ll-btn" id="confirmBtn" type="button" aria-label="Confirm order">
-                  <img decoding="async" src="./L&L-buttons/confirm-order.webp" alt="Confirm order" />
+              <div class="pay-action-stack">
+                <button class="pay-primary-btn" id="continueBtn" type="button">
+                  CONTINUE TO PAYMENT
                 </button>
-
-                <div class="pay-confirm-status" id="confirmStatus" aria-live="polite"></div>
-              </div>
-
-              <div class="pay-note pay-tiny" id="confirmHint">
-                Confirm adds you to our order log. QR/PayPal link appear after save.
+                <div class="pay-status" id="status" aria-live="polite"></div>
               </div>
             </section>
 
-            <!-- RIGHT: Pay -->
-            <section class="pay-card" aria-label="Payment">
-              <h2>SCAN TO PAY</h2>
+            <section class="pay-card" id="paymentCard" aria-label="Payment">
+              <div class="pay-step"><span class="pay-step-num">2</span> Pay</div>
 
-              <div class="pay-qr-wrap" id="qrWrap" style="display:none;">
-                <img decoding="async" class="pay-qr" src="./assets/lace-qr.webp" alt="PayPal QR Code" />
-                <div class="pay-note pay-tiny" style="text-align:center; margin:8px 0;">
-          open PayPal!
-</div>
+              <div class="pay-blocked" id="paymentBlocked">
+                <strong>Payment unlocks after Step 1.</strong>
+                <div class="pay-note">We save the order first so your payment can be matched correctly.</div>
+              </div>
+
+              <div class="pay-payment-panel" id="qrWrap" hidden>
+                <div class="pay-muted">Pay this exact total</div>
+                <div class="pay-amount" id="paymentTotal">$0.00</div>
+
+                <img decoding="async" class="pay-qr" src="./assets/lace-qr.webp" alt="Lace and Leather PayPal QR code" />
+
                 <a class="ll-btn"
                    href="https://www.paypal.com/"
                    target="_blank"
                    rel="noopener noreferrer"
                    aria-label="Open PayPal">
-                  <img decoding="async" src="./L&L-buttons/paypal.webp" alt="PayPal" />
+                  <img decoding="async" src="./L&L-buttons/paypal.webp" alt="Open PayPal" />
                 </a>
 
-                <button class="payment-submitted-btn" id="paidBtn" type="button" aria-label="I sent payment">
-                  I SENT PAYMENT
+                <p class="pay-payment-help">
+                  Send the exact total in PayPal. When you are finished, return here and tap the button below.
+                  We verify the payment before sending the receipt and digital delivery.
+                </p>
+
+                <button class="payment-submitted-btn" id="paidBtn" type="button">
+                  I'VE SENT PAYMENT
                 </button>
-              </div>
-
-              <div class="pay-qr-blocked" id="qrBlocked">
-                Confirm order for QR code/PayPal link.
-              </div>
-
-              <div class="pay-note">Open PayPal → pay the exact total → return here and tap <strong>I SENT PAYMENT</strong>. We verify the payment before marking the order paid.</div>
-
-              <div class="pay-note pay-tiny">
-                Tip: If PayPal tries to “guess” the amount, match the total shown on receipt.
-                <br>
-                <br>
-                THANK YOU so MUCH!
-                <br>
-                People like you keep us going!
               </div>
             </section>
           </div>
+
+          <section class="pay-complete" id="completePanel" hidden aria-live="polite">
+            <div class="pay-complete-mark" aria-hidden="true">✓</div>
+            <h2>Payment submitted</h2>
+            <p>
+              Thanks! Order <strong id="completeOrderId">—</strong> is now waiting for verification.
+              Your receipt and digital delivery will be sent after the PayPal payment is confirmed.
+            </p>
+            <div class="pay-complete-actions">
+              <a class="pay-secondary-btn" href="./index.html">BACK TO SHOP</a>
+            </div>
+          </section>
         </div>
       </div>
     </section>
@@ -197,50 +375,49 @@
 
   <script src="./catalog.js"></script>
   <script>
-    // =============================
-    // CONFIG
-    // =============================
     const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzQSkg_6m84LsodueoI9LN6VuXhuWpfRtYNlyzleZ_I0XghmU-ra49-Bmb4SaoSG8uI/exec";
 
-    // Storage keys
-    const CART_KEY  = "ll_cart";
+    const CART_KEY = "ll_cart";
     const ORDER_KEY = "ll_order_id";
-    const LOCK_KEY  = "ll_cart_locked";
-
-    // Receipt fields persist for a locked order
+    const LOCK_KEY = "ll_cart_locked";
     const CUST_EMAIL_KEY = "ll_customer_email";
-    const CUST_NAME_KEY  = "ll_customer_name";
+    const CUST_NAME_KEY = "ll_customer_name";
+    const LAST_SUBMISSION_KEY = "ll_last_payment_submission";
 
-    let CONFIRM_IN_FLIGHT = false;
+    let actionInFlight = false;
 
-    const $ = (id) => document.getElementById(id);
+    const $ = id => document.getElementById(id);
 
-    function money(n){
-      const v = Number(n || 0);
-      return v.toLocaleString(undefined, { style:"currency", currency:"USD" });
+    function money(value){
+      return Number(value || 0).toLocaleString(undefined, {
+        style:"currency",
+        currency:"USD"
+      });
     }
 
-    function safeParse(json, fallback){
-      try { return JSON.parse(json) ?? fallback; } catch { return fallback; }
+    function safeParse(value, fallback){
+      try{
+        return JSON.parse(value) ?? fallback;
+      }catch{
+        return fallback;
+      }
     }
 
     function genOrderId(){
-      const a = Math.random().toString(16).slice(2,6).toUpperCase();
-      const b = Math.random().toString(16).slice(2,6).toUpperCase();
-      return `${a}-${b}`;
+      const part = () => Math.random().toString(16).slice(2,6).toUpperCase();
+      return `${part()}-${part()}`;
     }
 
     function loadCart(){
-      const raw = localStorage.getItem(CART_KEY);
-      const cart = safeParse(raw, []);
-      return window.LaceLeatherCatalog.normalizeCart(cart);
+      const raw = safeParse(localStorage.getItem(CART_KEY), []);
+      return window.LaceLeatherCatalog.normalizeCart(raw);
     }
 
     function saveCart(cart){
       localStorage.setItem(CART_KEY, JSON.stringify(cart));
     }
 
-    function loadOrderId(){
+    function getOrderId(){
       let id = localStorage.getItem(ORDER_KEY);
       if(!id){
         id = genOrderId();
@@ -249,106 +426,174 @@
       return id;
     }
 
-    function newOrderId(){
+    function resetOrderId(){
       const id = genOrderId();
       localStorage.setItem(ORDER_KEY, id);
       return id;
     }
 
-    function setCartLocked(v){
-      localStorage.setItem(LOCK_KEY, v ? "1" : "0");
+    function setLocked(value){
+      localStorage.setItem(LOCK_KEY, value ? "1" : "0");
     }
 
-    function isCartLocked(){
+    function isLocked(){
       return localStorage.getItem(LOCK_KEY) === "1";
     }
 
-    function calcSubtotal(cart){
-      let subtotal = 0;
-      for(const item of cart){
-        const qty  = Math.max(1, Number(item?.qty ?? 1));
-        const price = Number(item?.price ?? 0);
-        subtotal += (price * qty);
-      }
-      return subtotal;
+    function subtotal(cart){
+      return cart.reduce((sum, item) => {
+        const qty = Math.max(1, Number(item?.qty || 1));
+        const price = Number(item?.price || 0);
+        return sum + (qty * price);
+      }, 0);
     }
 
-    // =============================
-    // Customer info helpers
-    // =============================
-    function getCustEmail(){ return (localStorage.getItem(CUST_EMAIL_KEY) || "").trim(); }
-    function getCustName(){  return (localStorage.getItem(CUST_NAME_KEY)  || "").trim(); }
-    function setCustInfo(name, email){
-      localStorage.setItem(CUST_NAME_KEY, (name || "").trim());
-      localStorage.setItem(CUST_EMAIL_KEY, (email || "").trim());
+    function setCustomerInfo(name, email){
+      localStorage.setItem(CUST_NAME_KEY, String(name || "").trim());
+      localStorage.setItem(CUST_EMAIL_KEY, String(email || "").trim());
     }
-    function clearCustInfo(){
+
+    function clearCustomerInfo(){
       localStorage.removeItem(CUST_NAME_KEY);
       localStorage.removeItem(CUST_EMAIL_KEY);
     }
-    function syncCustInputsFromStorage(){
-      if ($("custEmail")) $("custEmail").value = getCustEmail();
-      if ($("custName")) $("custName").value = getCustName();
-    }
-    function lockCustInputs(locked){
-      if ($("custEmail")) $("custEmail").disabled = !!locked;
-      if ($("custName")) $("custName").disabled = !!locked;
+
+    function syncCustomerInputs(){
+      $("custName").value = localStorage.getItem(CUST_NAME_KEY) || "";
+      $("custEmail").value = localStorage.getItem(CUST_EMAIL_KEY) || "";
     }
 
-    // =============================
-    // UI
-    // =============================
-    function setQrReady(isReady){
-      document.body.classList.toggle("qr-ready", !!isReady);
-      $("qrBlocked").style.display = isReady ? "none" : "block";
-      $("qrWrap").style.display = isReady ? "flex" : "none";
-      $("clearCartBtn").disabled = !!isReady;
-      lockCustInputs(!!isReady);
+    function setStatus(message, kind){
+      const el = $("status");
+      el.textContent = message || "";
+      el.className = "pay-status" + (kind ? " " + kind : "");
     }
 
-    function setConfirmStatus(msg, kind){
-      const el = $("confirmStatus");
-      el.textContent = msg || "";
-      el.classList.remove("ok","bad");
-      if(kind) el.classList.add(kind);
-    }
-
-    function setConfirmBusy(busy){
-      $("confirmBtn").disabled = !!busy;
-      $("confirmBtn").classList.toggle("busy", !!busy);
+    function setBusy(busy){
+      actionInFlight = !!busy;
+      $("continueBtn").disabled = !!busy || isLocked() || !loadCart().length;
       $("paidBtn").disabled = !!busy;
-      $("clearCartBtn").disabled = !!busy || document.body.classList.contains("qr-ready");
-      lockCustInputs(!!busy || document.body.classList.contains("qr-ready"));
+      $("clearCartBtn").disabled = !!busy || isLocked();
+      $("custName").disabled = !!busy || isLocked();
+      $("custEmail").disabled = !!busy || isLocked();
     }
 
-    // =============================
-    // Better fetch parsing (handles non-JSON)
-    // =============================
-    function bridgeNonce_(){
-      if (window.crypto?.randomUUID) {
-        return window.crypto.randomUUID();
+    function showPaymentReady(ready){
+      $("paymentBlocked").hidden = !!ready;
+      $("qrWrap").hidden = !ready;
+      $("paymentTotal").textContent = money(subtotal(loadCart()));
+      $("continueBtn").disabled = !!ready || !loadCart().length;
+      $("clearCartBtn").disabled = !!ready;
+      $("custName").disabled = !!ready;
+      $("custEmail").disabled = !!ready;
+    }
+
+    function showComplete(orderId){
+      $("checkoutGrid").hidden = true;
+      $("completePanel").hidden = false;
+      $("completeOrderId").textContent = orderId;
+      $("clearCartBtn").hidden = true;
+      $("payScroll").scrollTo({top:0, behavior:"smooth"});
+    }
+
+    function clearComplete(){
+      $("checkoutGrid").hidden = false;
+      $("completePanel").hidden = true;
+      $("clearCartBtn").hidden = false;
+    }
+
+    function recentSubmission(){
+      const saved = safeParse(localStorage.getItem(LAST_SUBMISSION_KEY), null);
+      if(!saved || !saved.orderId || !saved.at) return null;
+      if(Date.now() - Number(saved.at) > 24 * 60 * 60 * 1000){
+        localStorage.removeItem(LAST_SUBMISSION_KEY);
+        return null;
+      }
+      return saved;
+    }
+
+    function render(){
+      const cart = loadCart();
+      const hasItems = cart.length > 0;
+      const list = $("cartList");
+
+      if(hasItems){
+        localStorage.removeItem(LAST_SUBMISSION_KEY);
       }
 
-      return (
-        Date.now().toString(36)
-        + "-"
-        + Math.random().toString(36).slice(2)
-        + "-"
-        + Math.random().toString(36).slice(2)
-      );
+      const last = !hasItems ? recentSubmission() : null;
+      if(last){
+        showComplete(last.orderId);
+        return;
+      }
+
+      clearComplete();
+      list.innerHTML = "";
+
+      $("subtotal").textContent = money(subtotal(cart));
+      $("orderId").textContent = hasItems ? getOrderId() : "—";
+      $("emptyNote").style.display = hasItems ? "none" : "block";
+      $("customerFields").style.display = hasItems ? "grid" : "none";
+
+      for(const item of cart){
+        const li = document.createElement("li");
+        li.className = "pay-item";
+
+        const name = document.createElement("div");
+        name.className = "pay-item-name";
+        name.textContent = item.name;
+
+        const meta = document.createElement("div");
+        meta.className = "pay-item-meta";
+
+        const qty = document.createElement("span");
+        qty.className = "pay-item-qty";
+        qty.textContent = `×${Math.max(1, Number(item.qty || 1))}`;
+
+        const price = document.createElement("span");
+        price.className = "pay-item-price";
+        price.textContent = money(Number(item.price || 0) * Math.max(1, Number(item.qty || 1)));
+
+        meta.append(qty, price);
+        li.append(name, meta);
+        list.appendChild(li);
+      }
+
+      const locked = isLocked() && hasItems;
+      showPaymentReady(locked);
+
+      if(!hasItems){
+        setLocked(false);
+        setStatus("", null);
+        $("continueBtn").disabled = true;
+        $("clearCartBtn").disabled = true;
+        showPaymentReady(false);
+      }else if(locked){
+        setStatus("Order saved. Complete payment in Step 2.", "ok");
+      }else{
+        $("continueBtn").disabled = false;
+        $("clearCartBtn").disabled = false;
+      }
+    }
+
+    function bridgeNonce_(){
+      if(window.crypto?.randomUUID){
+        return window.crypto.randomUUID();
+      }
+      return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
     }
 
     function postToAppsScript_(params){
       return new Promise((resolve, reject) => {
         const nonce = bridgeNonce_();
-        const frameName = "llAppsScriptBridge_" + nonce.replace(/[^a-zA-Z0-9_-]/g, "");
+        const frameName = "llBridge_" + nonce.replace(/[^a-zA-Z0-9_-]/g, "");
         const iframe = document.createElement("iframe");
         const form = document.createElement("form");
         let settled = false;
 
         iframe.name = frameName;
-        iframe.title = "Order service";
         iframe.hidden = true;
+        iframe.title = "Order service";
         iframe.setAttribute("aria-hidden", "true");
 
         form.method = "POST";
@@ -359,8 +604,8 @@
 
         const fields = {
           ...params,
-          transport: "iframe",
-          bridge_nonce: nonce
+          transport:"iframe",
+          bridge_nonce:nonce
         };
 
         Object.entries(fields).forEach(([name, value]) => {
@@ -379,72 +624,51 @@
         };
 
         const finish = (fn, value) => {
-          if (settled) return;
+          if(settled) return;
           settled = true;
           cleanup();
           fn(value);
         };
 
-        const onMessage = (event) => {
+        const onMessage = event => {
           const data = event?.data;
-
-          if (
-            !data
-            || data.source !== "lace-leather-appscript"
-            || data.nonce !== nonce
-          ) {
+          if(!data || data.source !== "lace-leather-appscript" || data.nonce !== nonce){
             return;
           }
-
           finish(resolve, data.payload);
         };
 
         const timeoutId = window.setTimeout(() => {
-          finish(
-            reject,
-            new Error("Order service did not respond.")
-          );
+          finish(reject, new Error("Order service did not respond."));
         }, 6000);
 
         window.addEventListener("message", onMessage);
-        document.body.appendChild(iframe);
-        document.body.appendChild(form);
-
+        document.body.append(iframe, form);
         form.submit();
       });
     }
 
     function getOrderStatus_(orderId){
       return new Promise((resolve, reject) => {
-        const callbackName =
-          "llOrderStatus_"
-          + Date.now().toString(36)
-          + "_"
-          + Math.random().toString(36).slice(2);
-
+        const callbackName = "llOrderStatus_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2);
         const script = document.createElement("script");
         let settled = false;
 
         const cleanup = () => {
           window.clearTimeout(timeoutId);
-          try { delete window[callbackName]; } catch {}
+          try{ delete window[callbackName]; }catch{}
           script.remove();
         };
 
         const finish = (fn, value) => {
-          if (settled) return;
+          if(settled) return;
           settled = true;
           cleanup();
           fn(value);
         };
 
-        window[callbackName] = (data) => {
-          finish(resolve, data);
-        };
-
-        script.onerror = () => {
-          finish(reject, new Error("Order status check failed."));
-        };
+        window[callbackName] = data => finish(resolve, data);
+        script.onerror = () => finish(reject, new Error("Order status check failed."));
 
         const timeoutId = window.setTimeout(() => {
           finish(reject, new Error("Order status check timed out."));
@@ -462,331 +686,208 @@
       });
     }
 
-    async function waitForOrderStatus_(orderId, wantedStatuses){
-      const wanted = Array.isArray(wantedStatuses) ? wantedStatuses : [];
-
+    async function waitForStatus_(orderId, wanted){
       for(let attempt = 0; attempt < 6; attempt++){
         try{
           const json = await getOrderStatus_(orderId);
-
           if(
-            json
-            && json.ok === true
-            && json.found === true
-            && (!wanted.length || wanted.includes(String(json.status || "")))
+            json?.ok === true
+            && json?.found === true
+            && wanted.includes(String(json.status || ""))
           ){
             return json;
           }
-        }catch(err){
-          // Keep polling briefly; Apps Script writes may finish just after POST returns.
-        }
+        }catch{}
 
         if(attempt < 5){
-          await new Promise(r => setTimeout(r, 650));
+          await new Promise(resolve => setTimeout(resolve, 650));
         }
       }
-
       return null;
     }
 
-    function explainBridgeFailure_(label, json){
-      if (json && typeof json === "object") {
-        const msg =
-          json.details
-          || json.error
-          || json.message
-          || "Unknown server response";
-
-        return `${label} failed. ${msg}`;
-      }
-
-      return `${label} failed. Unknown server response.`;
+    function bridgeError_(label, json){
+      const detail = json?.details || json?.error || json?.message || "Unknown server response.";
+      return `${label} failed. ${detail}`;
     }
 
-    // =============================
-    // Render
-    // =============================
-    function render(){
-      const cart = loadCart();
-      const list = $("cartList");
-      const emptyNote = $("emptyNote");
-      list.innerHTML = "";
-
-      const subtotal = calcSubtotal(cart);
-      $("subtotal").textContent = money(subtotal);
-
-      const hasItems = cart.length > 0;
-      emptyNote.style.display = hasItems ? "none" : "block";
-
-      $("orderId").textContent = loadOrderId();
-
-      if (isCartLocked() && hasItems) {
-        setQrReady(true);
-        setConfirmStatus("Saved. Scan to pay.", "ok");
+    function validEmail(){
+      const input = $("custEmail");
+      const value = input.value.trim();
+      if(!value || !input.checkValidity()){
+        input.reportValidity();
+        setStatus("Enter a valid email so we can deliver your receipt and files.", "bad");
+        return false;
       }
-
-      if(hasItems){
-        for(const item of cart){
-          const name = String(item?.name ?? "Item");
-          const qty  = Math.max(1, Number(item?.qty ?? 1));
-          const price = Number(item?.price ?? 0);
-
-          const li = document.createElement("li");
-          li.className = "pay-item";
-
-          const nameEl = document.createElement("div");
-          nameEl.className = "pay-item-name";
-          nameEl.textContent = name;
-
-          const meta = document.createElement("div");
-          meta.className = "pay-item-meta";
-
-          const qtyEl = document.createElement("span");
-          qtyEl.className = "pay-item-qty";
-          qtyEl.textContent = `x${qty}`;
-
-          const priceEl = document.createElement("span");
-          priceEl.className = "pay-item-price";
-          priceEl.textContent = money(price * qty);
-
-          meta.append(qtyEl, priceEl);
-          li.append(nameEl, meta);
-          list.appendChild(li);
-        }
-      }
-
-      if(!hasItems){
-        setCartLocked(false);
-        setQrReady(false);
-        setConfirmStatus("", null);
-        setConfirmBusy(false);
-        clearCustInfo();
-        syncCustInputsFromStorage();
-        lockCustInputs(false);
-      }
+      return true;
     }
 
-    // =============================
-    // Confirm -> save receipt
-    // =============================
-    async function postReceipt(){
-      if (CONFIRM_IN_FLIGHT) return;
-      CONFIRM_IN_FLIGHT = true;
+    async function saveOrder(){
+      if(actionInFlight || isLocked()) return;
 
       const cart = loadCart();
       if(!cart.length){
-        setConfirmStatus("Cart is empty.", "bad");
-        CONFIRM_IN_FLIGHT = false;
+        setStatus("Your cart is empty.", "bad");
         return;
       }
 
-      if (document.body.classList.contains("qr-ready") || isCartLocked()) {
-        setConfirmStatus("Already saved. Scan to pay.", "ok");
-        CONFIRM_IN_FLIGHT = false;
-        return;
-      }
+      if(!validEmail()) return;
 
-      const custEmail = ($("custEmail")?.value || "").trim();
-      const custName  = ($("custName")?.value  || "").trim();
-      setCustInfo(custName, custEmail);
+      const name = $("custName").value.trim();
+      const email = $("custEmail").value.trim();
+      setCustomerInfo(name, email);
 
-      const orderId = loadOrderId();
-      const subtotal = calcSubtotal(cart);
-
-      const items = cart.map(it => ({
-        id: it.id,
-        name: it.name,
-        qty: Math.max(1, Number(it.qty ?? 1)),
-        price: Number(it.price.toFixed(2))
+      const orderId = getOrderId();
+      const total = subtotal(cart);
+      const items = cart.map(item => ({
+        id:item.id,
+        name:item.name,
+        qty:Math.max(1, Number(item.qty || 1)),
+        price:Number(Number(item.price || 0).toFixed(2))
       }));
 
       const payload = {
-        order_id: orderId,
-        total: Number(subtotal.toFixed(2)),
-        currency: "USD",
+        order_id:orderId,
+        total:Number(total.toFixed(2)),
+        currency:"USD",
         items,
-        customer: { name: custName, email: custEmail },
-        note: "",
-        referrer: document.referrer || "",
-        status: "new"
+        customer:{name,email},
+        note:"",
+        referrer:document.referrer || "",
+        status:"new"
       };
 
-      setConfirmBusy(true);
-      setConfirmStatus("Saving receipt…", null);
+      setBusy(true);
+      setStatus("Saving your order…", null);
 
       try{
         const json = await postToAppsScript_({
-          payload: JSON.stringify(payload)
+          payload:JSON.stringify(payload)
         });
 
-        const ok = json && json.ok === true;
-
-        if(!ok){
-          setConfirmStatus(explainBridgeFailure_("Save", json), "bad");
-          setConfirmBusy(false);
-          CONFIRM_IN_FLIGHT = false;
+        if(json?.ok !== true){
+          setStatus(bridgeError_("Save", json), "bad");
+          setBusy(false);
           return;
         }
 
-        setCartLocked(true);
-        setConfirmStatus("Saved. Scan to pay.", "ok");
-        setQrReady(true);
-        setConfirmBusy(false);
-        CONFIRM_IN_FLIGHT = false;
-
-      }catch(err){
-        const verified = await waitForOrderStatus_(
-          orderId,
-          ["new", "payment_submitted", "paid"]
-        );
+        setLocked(true);
+        showPaymentReady(true);
+        setStatus("Order saved. Complete payment in Step 2.", "ok");
+        setBusy(false);
+        $("paymentCard").scrollIntoView({behavior:"smooth", block:"nearest"});
+      }catch{
+        const verified = await waitForStatus_(orderId, ["new","payment_submitted","paid"]);
 
         if(verified){
-          setCartLocked(true);
-          setConfirmStatus("Saved. Scan to pay.", "ok");
-          setQrReady(true);
-          setConfirmBusy(false);
-          CONFIRM_IN_FLIGHT = false;
+          setLocked(true);
+          showPaymentReady(true);
+          setStatus("Order saved. Complete payment in Step 2.", "ok");
+          setBusy(false);
+          $("paymentCard").scrollIntoView({behavior:"smooth", block:"nearest"});
           return;
         }
 
-        setConfirmStatus("Could not verify the saved order. Try again.", "bad");
-        setConfirmBusy(false);
-        CONFIRM_IN_FLIGHT = false;
+        setStatus("We could not verify the saved order. Please try once more.", "bad");
+        setBusy(false);
       }
     }
 
-    // =============================
-    // Paid -> update sheet + trigger emails + reset
-    // (now with: better errors + one retry)
-    // =============================
-    async function submitPaymentForVerification(){
-      if (!document.body.classList.contains("qr-ready") || !isCartLocked()) {
-        setConfirmStatus("Confirm first.", "bad");
+    function finishSubmission(orderId){
+      localStorage.setItem(LAST_SUBMISSION_KEY, JSON.stringify({
+        orderId,
+        at:Date.now()
+      }));
+
+      setLocked(false);
+      saveCart([]);
+      resetOrderId();
+      clearCustomerInfo();
+
+      setBusy(false);
+      showComplete(orderId);
+    }
+
+    async function submitPayment(){
+      if(actionInFlight) return;
+
+      if(!isLocked()){
+        setStatus("Save the order first.", "bad");
         return;
       }
 
-      const orderId = loadOrderId();
+      const orderId = getOrderId();
+      setBusy(true);
+      setStatus("Submitting payment for verification…", null);
 
-      setConfirmBusy(true);
-      setConfirmStatus("Submitting payment for verification…", null);
-
-      async function attemptSubmitOnce(){
-        return postToAppsScript_({
-          action: "payment_submitted",
-          order_id: orderId
-        });
-      }
+      const attempt = () => postToAppsScript_({
+        action:"payment_submitted",
+        order_id:orderId
+      });
 
       try{
-        let json = await attemptSubmitOnce();
-        let ok = json && json.ok === true;
+        let json = await attempt();
 
-        // One retry is safe because the backend is idempotent.
-        if(!ok){
-          await new Promise(r => setTimeout(r, 900));
-          json = await attemptSubmitOnce();
-          ok = json && json.ok === true;
+        if(json?.ok !== true){
+          await new Promise(resolve => setTimeout(resolve, 900));
+          json = await attempt();
         }
 
-        if(!ok){
-          setConfirmStatus(explainBridgeFailure_("Payment submission", json), "bad");
-          setConfirmBusy(false);
+        if(json?.ok === true){
+          finishSubmission(orderId);
           return;
         }
 
-        // Customer is finished. Actual PAID status is owner-verified in the Sheet.
-        setCartLocked(false);
-        saveCart([]);
-        newOrderId();
-        clearCustInfo();
-
-        setQrReady(false);
-        setConfirmStatus("Payment submitted for verification. Your receipt will be sent after we confirm the PayPal payment.", "ok");
-        setConfirmBusy(false);
-
-        render();
-        $("payScroll").scrollTo({ top: 0, behavior: "smooth" });
-
-      }catch(err){
-        const verified = await waitForOrderStatus_(
-          orderId,
-          ["payment_submitted", "paid"]
-        );
+        setStatus(bridgeError_("Payment submission", json), "bad");
+        setBusy(false);
+      }catch{
+        const verified = await waitForStatus_(orderId, ["payment_submitted","paid"]);
 
         if(verified){
-          setCartLocked(false);
-          saveCart([]);
-          newOrderId();
-          clearCustInfo();
-
-          setQrReady(false);
-          setConfirmStatus(
-            "Payment submitted for verification. Your receipt will be sent after we confirm the PayPal payment.",
-            "ok"
-          );
-          setConfirmBusy(false);
-
-          render();
-          $("payScroll").scrollTo({ top: 0, behavior: "smooth" });
+          finishSubmission(orderId);
           return;
         }
 
-        setConfirmStatus(
-          "Could not verify payment submission. Please do not submit payment again until this message clears.",
+        setStatus(
+          "We could not verify the payment report. Do not pay again. Try this button again after the message clears.",
           "bad"
         );
-        setConfirmBusy(false);
+        setBusy(false);
       }
     }
 
-    // =============================
-    // Events
-    // =============================
+    $("continueBtn").addEventListener("click", saveOrder);
+    $("paidBtn").addEventListener("click", submitPayment);
+
     $("clearCartBtn").addEventListener("click", () => {
-      if (isCartLocked() || document.body.classList.contains("qr-ready")) {
-        setConfirmStatus("Order is locked after save. Complete payment, then use I SENT PAYMENT.", "bad");
+      if(actionInFlight || isLocked()){
+        setStatus("This order is already saved. Finish payment before starting over.", "bad");
         return;
       }
 
       saveCart([]);
-      newOrderId();
-      setCartLocked(false);
-      setQrReady(false);
-      clearCustInfo();
-      setConfirmStatus("", null);
-      setConfirmBusy(false);
+      resetOrderId();
+      clearCustomerInfo();
+      setLocked(false);
+      localStorage.removeItem(LAST_SUBMISSION_KEY);
+      syncCustomerInputs();
       render();
-      $("payScroll").scrollTo({ top: 0, behavior: "smooth" });
+      $("payScroll").scrollTo({top:0, behavior:"smooth"});
     });
 
-    $("confirmBtn").addEventListener("click", () => {
-      if(document.body.classList.contains("qr-ready") || isCartLocked()){
-        setConfirmStatus("Already saved. Scan to pay.", "ok");
-        return;
-      }
-      postReceipt();
-    });
-
-    $("paidBtn").addEventListener("click", () => {
-      submitPaymentForVerification();
-    });
-
-    window.addEventListener("input", (e) => {
-      if (e.target && (e.target.id === "custEmail" || e.target.id === "custName")) {
-        setCustInfo(($("custName")?.value || ""), ($("custEmail")?.value || ""));
+    window.addEventListener("input", event => {
+      if(event.target?.id === "custEmail" || event.target?.id === "custName"){
+        setCustomerInfo($("custName").value, $("custEmail").value);
       }
     });
 
-    // Boot
-    setQrReady(false);
-    syncCustInputsFromStorage();
-    if (isCartLocked()) setQrReady(true);
+    window.addEventListener("storage", event => {
+      if([CART_KEY, ORDER_KEY, LOCK_KEY].includes(event.key)) render();
+      if([CUST_EMAIL_KEY, CUST_NAME_KEY].includes(event.key)) syncCustomerInputs();
+    });
+
+    syncCustomerInputs();
     render();
-
-    window.addEventListener("storage", (e) => {
-      if(e.key === CART_KEY || e.key === ORDER_KEY || e.key === LOCK_KEY) render();
-      if(e.key === CUST_EMAIL_KEY || e.key === CUST_NAME_KEY) syncCustInputsFromStorage();
-    });
   </script>
 </body>
 </html>
