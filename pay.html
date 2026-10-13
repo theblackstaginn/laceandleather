@@ -465,11 +465,11 @@
 
       const token = window.crypto?.randomUUID
         ? window.crypto.randomUUID()
-        : [
-            Date.now().toString(16),
-            Math.random().toString(16).slice(2),
-            Math.random().toString(16).slice(2)
-          ].join("-");
+        : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, char => {
+            const value = Math.floor(Math.random() * 16);
+            const nibble = char === "x" ? value : ((value & 0x3) | 0x8);
+            return nibble.toString(16);
+          });
 
       localStorage.setItem(CHECKOUT_TOKEN_KEY, JSON.stringify({orderId, token}));
       return token;
@@ -891,6 +891,7 @@
       }
 
       saveCart([]);
+      resetCheckoutToken();
       resetOrderId();
       clearCustomerInfo();
       setLocked(false);
