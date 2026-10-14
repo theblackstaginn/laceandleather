@@ -1,14 +1,177 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Lace & Leather — Payment Confirmed</title>
-<link rel="stylesheet" href="./styles.css?v=LL-20261014-STRIPE3">
-<meta name="robots" content="noindex,nofollow,noarchive">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Lace & Leather — Payment Confirmed</title>
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <link rel="stylesheet" href="./styles.css?v=LL-20261014-STRIPE4" />
+  <style>
+    body.pay-page .pay-success-wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:22px 18px;
+      box-sizing:border-box;
+      text-align:center;
+      color:#111;
+    }
+    body.pay-page .pay-success-card{
+      width:min(600px,100%);
+      display:grid;
+      justify-items:center;
+      gap:12px;
+    }
+    body.pay-page .pay-success-mark{
+      width:58px;
+      height:58px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      border:2px solid rgba(56,98,49,.52);
+      background:rgba(93,127,75,.18);
+      font-size:30px;
+      font-weight:950;
+    }
+    body.pay-page .pay-success-card h1{
+      margin:0;
+      font-size:24px;
+      letter-spacing:.045em;
+    }
+    body.pay-page .pay-success-card p{
+      margin:0;
+      max-width:520px;
+      line-height:1.5;
+      font-weight:750;
+    }
+    body.pay-page .pay-success-detail{
+      font-size:13px;
+      opacity:.82;
+    }
+    body.pay-page .pay-success-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      margin-top:6px;
+      padding:11px 18px;
+      border:1px solid rgba(64,39,20,.35);
+      border-radius:11px;
+      background:rgba(255,255,255,.16);
+      color:#24170d;
+      text-decoration:none;
+      font:inherit;
+      font-weight:900;
+      letter-spacing:.055em;
+    }
+    body.pay-page .pay-success-card[data-state="error"] .pay-success-mark{
+      border-color:rgba(139,44,38,.5);
+      background:rgba(139,44,38,.12);
+    }
+  </style>
 </head>
 <body class="pay-page">
-<div class="bg" aria-hidden="true"></div>
-<main class="pay-shell"><section class="tablet-wrap"><div class="tablet-screen"><header class="pay-head"><div class="pay-head-left"><div class="pay-brand">LACE &amp; LEATHER</div><div class="pay-sub">Secure payment confirmation</div></div></header><div class="pay-scroll"><section class="pay-complete"><div class="pay-complete-mark">…</div><h2>Confirming payment</h2><p>We’re verifying your Stripe payment securely.</p></section></div></div></section></main>
+  <div class="bg" aria-hidden="true"></div>
+
+  <main class="pay-shell" aria-label="Payment confirmation">
+    <section class="tablet-wrap" aria-label="Lace and Leather payment confirmation">
+      <div class="tablet-screen">
+        <header class="pay-head">
+          <div class="pay-head-left">
+            <div class="pay-brand">LACE &amp; LEATHER</div>
+            <div class="pay-sub">Secure payment confirmation</div>
+          </div>
+          <div class="pay-actions">
+            <a class="ll-btn" href="./index.html" aria-label="Back to shop">
+              <img decoding="async" src="./L&L-buttons/back.webp" alt="Back" />
+            </a>
+          </div>
+        </header>
+
+        <div class="pay-scroll">
+          <div class="pay-success-wrap">
+            <section class="pay-success-card" id="successCard" aria-live="polite">
+              <div class="pay-success-mark" id="successMark" aria-hidden="true">…</div>
+              <h1 id="successTitle">Confirming payment</h1>
+              <p id="successMessage">We’re verifying your Stripe payment securely.</p>
+              <p class="pay-success-detail" id="successDetail"></p>
+              <a class="pay-success-btn" href="./index.html">BACK TO SHOP</a>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const PAYMENTS_API_URL = "https://stripe-checkout-production-0f3c.up.railway.app";
+    const CART_KEY = "ll_cart";
+    const LOCK_KEY = "ll_cart_locked";
+    const CUST_EMAIL_KEY = "ll_customer_email";
+    const LAST_SUBMISSION_KEY = "ll_last_payment_submission";
+
+    const $ = id => document.getElementById(id);
+
+    function fail(title, message){
+      $("successCard").dataset.state = "error";
+      $("successMark").textContent = "!";
+      $("successTitle").textContent = title;
+      $("successMessage").textContent = message;
+      $("successDetail").textContent = "If you already paid, do not submit another payment.";
+    }
+
+    async function verifyPayment(){
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = String(params.get("session_id") || "").trim();
+
+      if(!sessionId){
+        fail("Payment reference missing", "We could not verify this return page.");
+        return;
+      }
+
+      try{
+        const response = await fetch(
+          PAYMENTS_API_URL + "/api/stripe/session/" + encodeURIComponent(sessionId),
+          { method:"GET", mode:"cors", cache:"no-store" }
+        );
+        const data = await response.json();
+
+        if(!response.ok || data?.ok !== true){
+          throw new Error(data?.error || "Stripe verification failed.");
+        }
+
+        if(data.payment_status !== "paid"){
+          fail("Payment still processing", "Stripe has not confirmed this payment yet.");
+          return;
+        }
+
+        const orderId = String(data.order_id || "").trim();
+        if(!orderId){
+          throw new Error("Stripe confirmed payment, but the order reference is missing.");
+        }
+
+        localStorage.setItem(LAST_SUBMISSION_KEY, JSON.stringify({
+          orderId,
+          sessionId,
+          at:Date.now(),
+          status:"paid"
+        }));
+        localStorage.setItem(CART_KEY, "[]");
+        localStorage.setItem(LOCK_KEY, "0");
+        localStorage.removeItem(CUST_EMAIL_KEY);
+
+        $("successCard").dataset.state = "success";
+        $("successMark").textContent = "✓";
+        $("successTitle").textContent = "Payment confirmed";
+        $("successMessage").innerHTML =
+          "Thanks! Order <strong>" + orderId + "</strong> is paid. Your receipt and digital delivery are being prepared.";
+        $("successDetail").textContent = "Stripe verification complete.";
+      }catch(error){
+        fail("Payment verification needs attention", error?.message || "We could not verify this payment.");
+      }
+    }
+
+    verifyPayment();
+  </script>
 </body>
 </html>
