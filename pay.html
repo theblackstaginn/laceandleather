@@ -317,9 +317,6 @@
         </header>
 
         <div class="pay-scroll" id="payScroll">
-          <div class="ordering-unavailable" role="status">
-            Ordering currently unavailable. Please check back soon.
-          </div>
           <div class="pay-grid" id="checkoutGrid">
             <section class="pay-card" aria-label="Order summary">
               <div class="pay-step"><span class="pay-step-num">1</span> Review</div>
@@ -352,12 +349,10 @@
               </div>
 
               <div class="pay-action-stack">
-                <button class="pay-primary-btn" id="continueBtn" type="button" disabled aria-disabled="true">
-                  ORDERING UNAVAILABLE
+                <button class="pay-primary-btn" id="continueBtn" type="button">
+                  CONTINUE TO PAYMENT
                 </button>
-                <div class="pay-status bad" id="status" aria-live="polite">
-                  Online ordering is temporarily paused.
-                </div>
+                <div class="pay-status" id="status" aria-live="polite"></div>
               </div>
             </section>
 
@@ -406,7 +401,7 @@
   <script>
     const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzQSkg_6m84LsodueoI9LN6VuXhuWpfRtYNlyzleZ_I0XghmU-ra49-Bmb4SaoSG8uI/exec";
     const PAYMENTS_API_URL = "https://paypal-venmo-production.up.railway.app";
-    const ORDERING_DISABLED = true;
+    const ORDERING_DISABLED = false;
 
     const CART_KEY = "ll_cart";
     const ORDER_KEY = "ll_order_id";
@@ -834,7 +829,9 @@
       const data = await response.json();
 
       if(!response.ok || data?.ok !== true){
-        throw new Error(data?.error || "Venmo capture failed.");
+        const error = new Error(data?.error || "Venmo capture failed.");
+        error.code = String(data?.code || "");
+        throw error;
       }
 
       const capture = data?.paypal?.purchase_units?.[0]?.payments?.captures?.find?.(
@@ -909,7 +906,11 @@
               await captureVenmoOrder_(data.orderId);
               finishAutomaticPayment_(getOrderId());
             }catch(error){
-              setStatus(error?.message || "Payment capture failed. Do not retry until the status is checked.", "bad");
+              if(error?.code === "INSTRUMENT_DECLINED"){
+                setStatus("Venmo declined that funding source. Try again and choose another available funding source in Venmo.", "bad");
+              }else{
+                setStatus(error?.message || "Payment capture failed. Do not retry until the status is checked.", "bad");
+              }
               setBusy(false);
             }
           },
