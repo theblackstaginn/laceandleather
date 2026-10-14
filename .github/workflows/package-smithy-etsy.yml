@@ -1,0 +1,32 @@
+name: Package Smithy Etsy Downloads
+
+on:
+  push:
+    paths:
+      - ".github/workflows/package-smithy-etsy.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build Etsy ZIP files
+        run: |
+          mkdir -p downloads
+          rm -f downloads/smithy-textures-part-1.zip downloads/smithy-textures-part-2.zip downloads/smithy-textures-part-3.zip
+          zip -j downloads/smithy-textures-part-1.zip assets/smithy/smithy-{1,2,3,4}.png
+          zip -j downloads/smithy-textures-part-2.zip assets/smithy/smithy-{5,6,7,8}.png
+          zip -j downloads/smithy-textures-part-3.zip assets/smithy/smithy-{9,10,11,12}.png
+
+      - name: Commit packaged downloads
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add downloads/smithy-textures-part-1.zip downloads/smithy-textures-part-2.zip downloads/smithy-textures-part-3.zip
+          git diff --cached --quiet || git commit -m "Build Smithy Etsy download bundles"
+          git push
