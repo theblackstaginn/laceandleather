@@ -22,7 +22,7 @@
   <meta name="twitter:description" content="Review your order and pay securely with Stripe." />
   <meta name="twitter:image" content="https://laceleatherarcane.com/assets/l&l_logo.webp" />
 
-  <link rel="stylesheet" href="./styles.css?v=LL-20261014-STRIPE2" />
+  <link rel="stylesheet" href="./styles.css?v=LL-20261014-STRIPE3" />
 
   <style>
     body.pay-page .pay-step{
@@ -172,42 +172,6 @@
     body.pay-page .pay-blocked strong{
       font-size:15px;
       letter-spacing:.06em;
-    }
-
-    body.pay-page .pay-venmo-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      width:min(220px, 62vw);
-      padding:0;
-      border:0;
-      background:transparent;
-      box-shadow:none;
-      text-decoration:none;
-      cursor:pointer;
-      transition:transform .14s ease, filter .14s ease;
-    }
-
-    body.pay-page .pay-venmo-btn img{
-      display:block;
-      width:100%;
-      height:auto;
-      object-fit:contain;
-    }
-
-    body.pay-page .pay-venmo-btn:hover{
-      transform:translateY(-2px) scale(1.015);
-      filter:drop-shadow(0 10px 14px rgba(0,0,0,.28));
-    }
-
-    body.pay-page .pay-venmo-btn:active{
-      transform:translateY(0) scale(.98);
-    }
-
-    body.pay-page .pay-venmo-btn:focus-visible{
-      outline:2px solid rgba(91,148,207,.70);
-      outline-offset:6px;
-      border-radius:18px;
     }
 
     body.pay-page .pay-payment-help{
@@ -395,9 +359,8 @@
     </section>
   </main>
 
-  <script src="./catalog.js?v=LL-20261014-STRIPE2"></script>
+  <script src="./catalog.js?v=LL-20261014-STRIPE3"></script>
   <script>
-    const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzQSkg_6m84LsodueoI9LN6VuXhuWpfRtYNlyzleZ_I0XghmU-ra49-Bmb4SaoSG8uI/exec";
     const PAYMENTS_API_URL = "https://stripe-checkout-production-0f3c.up.railway.app";
     const ORDERING_DISABLED = false;
 
@@ -513,6 +476,7 @@
 
     function showComplete(orderId){
       const verifiedOrderId = String(orderId || "").trim();
+      setStatus("", null);
       const checkoutGrid = $("checkoutGrid");
       const completePanel = $("completePanel");
       const completeOrderId = $("completeOrderId");
@@ -626,146 +590,6 @@
         $("continueBtn").disabled = false;
         $("clearCartBtn").disabled = false;
       }
-    }
-
-    function bridgeNonce_(){
-      if(window.crypto?.randomUUID){
-        return window.crypto.randomUUID();
-      }
-      return Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
-    }
-
-    function postToAppsScript_(params){
-      return new Promise((resolve, reject) => {
-        const nonce = bridgeNonce_();
-        const frameName = "llBridge_" + nonce.replace(/[^a-zA-Z0-9_-]/g, "");
-        const iframe = document.createElement("iframe");
-        const form = document.createElement("form");
-        let settled = false;
-
-        iframe.name = frameName;
-        iframe.hidden = true;
-        iframe.title = "Order service";
-        iframe.setAttribute("aria-hidden", "true");
-
-        form.method = "POST";
-        form.action = ENDPOINT_URL;
-        form.target = frameName;
-        form.acceptCharset = "UTF-8";
-        form.hidden = true;
-
-        const fields = {
-          ...params,
-          transport:"iframe",
-          bridge_nonce:nonce
-        };
-
-        Object.entries(fields).forEach(([name, value]) => {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = name;
-          input.value = String(value ?? "");
-          form.appendChild(input);
-        });
-
-        const cleanup = () => {
-          window.removeEventListener("message", onMessage);
-          window.clearTimeout(timeoutId);
-          form.remove();
-          window.setTimeout(() => iframe.remove(), 0);
-        };
-
-        const finish = (fn, value) => {
-          if(settled) return;
-          settled = true;
-          cleanup();
-          fn(value);
-        };
-
-        const onMessage = event => {
-          const data = event?.data;
-          if(
-            event.source !== iframe.contentWindow
-            || !data
-            || data.source !== "lace-leather-appscript"
-            || data.nonce !== nonce
-          ){
-            return;
-          }
-          finish(resolve, data.payload);
-        };
-
-        const timeoutId = window.setTimeout(() => {
-          finish(reject, new Error("Order service did not respond."));
-        }, 6000);
-
-        window.addEventListener("message", onMessage);
-        document.body.append(iframe, form);
-        form.submit();
-      });
-    }
-
-    function getOrderStatus_(orderId){
-      return new Promise((resolve, reject) => {
-        const callbackName = "llOrderStatus_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2);
-        const script = document.createElement("script");
-        let settled = false;
-
-        const cleanup = () => {
-          window.clearTimeout(timeoutId);
-          try{ delete window[callbackName]; }catch{}
-          script.remove();
-        };
-
-        const finish = (fn, value) => {
-          if(settled) return;
-          settled = true;
-          cleanup();
-          fn(value);
-        };
-
-        window[callbackName] = data => finish(resolve, data);
-        script.onerror = () => finish(reject, new Error("Order status check failed."));
-
-        const timeoutId = window.setTimeout(() => {
-          finish(reject, new Error("Order status check timed out."));
-        }, 6000);
-
-        const url = new URL(ENDPOINT_URL);
-        url.searchParams.set("action", "order_status");
-        url.searchParams.set("order_id", orderId);
-        url.searchParams.set("callback", callbackName);
-        url.searchParams.set("_", String(Date.now()));
-
-        script.src = url.toString();
-        script.async = true;
-        document.head.appendChild(script);
-      });
-    }
-
-    async function waitForStatus_(orderId, wanted){
-      for(let attempt = 0; attempt < 6; attempt++){
-        try{
-          const json = await getOrderStatus_(orderId);
-          if(
-            json?.ok === true
-            && json?.found === true
-            && wanted.includes(String(json.status || ""))
-          ){
-            return json;
-          }
-        }catch{}
-
-        if(attempt < 5){
-          await new Promise(resolve => setTimeout(resolve, 650));
-        }
-      }
-      return null;
-    }
-
-    function bridgeError_(label, json){
-      const detail = json?.details || json?.error || json?.message || "Unknown server response.";
-      return `${label} failed. ${detail}`;
     }
 
     function validEmail(){
@@ -898,8 +722,12 @@
         return;
       }
 
+      showComplete("");
+      const pendingMessage = $("completeMessage");
+      if(pendingMessage){
+        pendingMessage.textContent = "Payment received. Verifying your Stripe confirmation…";
+      }
       setBusy(true);
-      setStatus("Confirming your Stripe payment…", null);
 
       try{
         const session = await getStripeSession_(sessionId);
@@ -920,7 +748,10 @@
         // This lets refresh/back-forward navigation re-verify the paid session
         // instead of falling back to an empty cart screen.
       }catch(error){
-        setStatus(error?.message || "Payment verification is still processing. Do not retry yet.", "bad");
+        const message = $("completeMessage");
+        if(message){
+          message.textContent = (error?.message || "Payment verification is still processing.") + " Do not pay again.";
+        }
         setBusy(false);
       }
     }
@@ -1033,6 +864,6 @@
       handleStripeReturn_();
     }
   </script>
-  <script src="./site-refresh.js?v=LL-20261014-STRIPE2" defer></script>
+  <script src="./site-refresh.js?v=LL-20261014-STRIPE3" defer></script>
 </body>
 </html>
