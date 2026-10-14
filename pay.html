@@ -512,17 +512,40 @@
     }
 
     function showComplete(orderId){
-      $("checkoutGrid").hidden = true;
-      $("completePanel").hidden = false;
-      $("completeOrderId").textContent = orderId;
-      $("clearCartBtn").hidden = true;
+      const verifiedOrderId = String(orderId || "").trim();
+      const checkoutGrid = $("checkoutGrid");
+      const completePanel = $("completePanel");
+      const completeOrderId = $("completeOrderId");
+      const clearCartBtn = $("clearCartBtn");
+
+      if(checkoutGrid) checkoutGrid.hidden = true;
+      if(clearCartBtn) clearCartBtn.hidden = true;
+
+      // Be defensive against a stale cached HTML shell loading newer JavaScript.
+      // A confirmed payment should never crash just because an optional display
+      // node is missing.
+      if(!completePanel){
+        setStatus(
+          verifiedOrderId
+            ? `Payment confirmed. Order ${verifiedOrderId} is paid. Your receipt and digital delivery are being prepared.`
+            : "Payment confirmed. Your receipt and digital delivery are being prepared.",
+          "ok"
+        );
+        return;
+      }
+
+      completePanel.hidden = false;
+      if(completeOrderId) completeOrderId.textContent = verifiedOrderId || "Confirmed";
 
       const message = $("completeMessage");
       if(message){
-        message.innerHTML = `Thanks! Order <strong>${orderId}</strong> is paid. Your receipt and digital delivery are being prepared.`;
+        message.innerHTML = verifiedOrderId
+          ? `Thanks! Order <strong>${verifiedOrderId}</strong> is paid. Your receipt and digital delivery are being prepared.`
+          : "Thanks! Your payment is confirmed. Your receipt and digital delivery are being prepared.";
       }
 
-      $("payScroll").scrollTo({top:0, behavior:"smooth"});
+      const scroll = $("payScroll");
+      if(scroll) scroll.scrollTo({top:0, behavior:"smooth"});
     }
 
     function clearComplete(){
@@ -756,9 +779,15 @@
       return true;
     }
 
-    function finishAutomaticPayment_(orderId){
+    function finishAutomaticPayment_(orderId, sessionId=""){
+      const verifiedOrderId = String(orderId || "").trim();
+      if(!verifiedOrderId){
+        throw new Error("Stripe confirmed the payment, but the order reference is missing. Do not pay again.");
+      }
+
       localStorage.setItem(LAST_SUBMISSION_KEY, JSON.stringify({
-        orderId,
+        orderId:verifiedOrderId,
+        sessionId:String(sessionId || "").trim(),
         at:Date.now(),
         status:"paid"
       }));
@@ -768,7 +797,7 @@
       resetOrderId();
       clearCustomerInfo();
       setBusy(false);
-      showComplete(orderId);
+      showComplete(verifiedOrderId);
     }
 
     function stripeOrderPayload_(){
@@ -881,7 +910,12 @@
           return;
         }
 
-        finishAutomaticPayment_(session.order_id || getOrderId());
+        const verifiedOrderId = String(session.order_id || "").trim();
+        if(!verifiedOrderId){
+          throw new Error("Stripe confirmed the payment, but the Lace & Leather order reference is missing. Do not pay again.");
+        }
+
+        finishAutomaticPayment_(verifiedOrderId, sessionId);
         // Keep the verified Stripe success reference in the URL.
         // This lets refresh/back-forward navigation re-verify the paid session
         // instead of falling back to an empty cart screen.
@@ -996,8 +1030,16 @@
     });
 
     syncCustomerInputs();
-    render();
-    handleStripeReturn_();
+
+    // On a Stripe return, verify the provider session first. This prevents a
+    // stale local success record from flashing the wrong order number.
+    const stripeReturnState = new URLSearchParams(window.location.search).get("stripe");
+    if(stripeReturnState === "success"){
+      handleStripeReturn_();
+    }else{
+      render();
+      handleStripeReturn_();
+    }
   </script>
   <script src="./site-refresh.js?v=LL-20261014-STRIPE1" defer></script>
 </body>
