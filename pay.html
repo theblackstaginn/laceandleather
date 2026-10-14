@@ -882,7 +882,9 @@
         }
 
         finishAutomaticPayment_(session.order_id || getOrderId());
-        clearStripeReturnParams_();
+        // Keep the verified Stripe success reference in the URL.
+        // This lets refresh/back-forward navigation re-verify the paid session
+        // instead of falling back to an empty cart screen.
       }catch(error){
         setStatus(error?.message || "Payment verification is still processing. Do not retry yet.", "bad");
         setBusy(false);
