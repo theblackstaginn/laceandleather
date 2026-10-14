@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="en" class="pay-html">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Lace &amp; Leather — Checkout</title>
+
+  <meta name="description" content="Lace & Leather checkout. Review your order, continue to payment, then submit payment for verification." />
+  <link rel="canonical" href="https://laceleatherarcane.com/pay.html" />
+  <meta name="robots" content="noindex, follow, noarchive" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Lace & Leather" />
+  <meta property="og:title" content="Lace & Leather — Checkout" />
+  <meta property="og:description" content="Review your order, continue to payment, then submit payment for verification." />
+  <meta property="og:url" content="https://laceleatherarcane.com/pay.html" />
+  <meta property="og:image" content="https://laceleatherarcane.com/assets/l&l_logo.webp" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Lace & Leather — Checkout" />
+  <meta name="twitter:description" content="Review your order, continue to payment, then submit payment for verification." />
+  <meta name="twitter:image" content="https://laceleatherarcane.com/assets/l&l_logo.webp" />
+
+  <link rel="stylesheet" href="./styles.css?v=LL-20261013-2" />
+
+  <style>
+    body.pay-page .pay-step{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin:0 0 8px;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      opacity:.82;
+    }
+
+    body.pay-page .pay-step-num{
+      display:grid;
+      place-items:center;
+      width:24px;
+      height:24px;
+      border-radius:999px;
+      border:1px solid rgba(64,39,20,.35);
+      background:rgba(255,255,255,.18);
+    }
+
+    body.pay-page .pay-primary-btn,
+    body.pay-page .payment-submitted-btn,
+    body.pay-page .pay-secondary-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      border-radius:11px;
+      padding:11px 16px;
+      font:inherit;
+      font-weight:900;
+      letter-spacing:.055em;
+      line-height:1.1;
+      cursor:pointer;
+      transition:transform .14s ease, opacity .14s ease, box-shadow .14s ease;
+    }
+
+    body.pay-page .pay-primary-btn,
+    body.pay-page .payment-submitted-btn{
+      border:1px solid rgba(64,39,20,.62);
+      background:linear-gradient(180deg, rgba(238,216,167,.98), rgba(184,145,82,.98));
+      color:#24170d;
+      box-shadow:0 5px 12px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.45);
+    }
+
+    body.pay-page .pay-secondary-btn{
+      border:1px solid rgba(64,39,20,.35);
+      background:rgba(255,255,255,.16);
+      color:#24170d;
+      text-decoration:none;
+    }
+
+    body.pay-page .pay-primary-btn:hover,
+    body.pay-page .payment-submitted-btn:hover,
+    body.pay-page .pay-secondary-btn:hover{
+      transform:translateY(-1px);
+    }
+
+    body.pay-page .pay-primary-btn:disabled,
+    body.pay-page .payment-submitted-btn:disabled,
+    body.pay-page .pay-secondary-btn[aria-disabled="true"]{
+      cursor:not-allowed;
+      opacity:.56;
+      transform:none;
+    }
+
+    body.pay-page .pay-fields{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    body.pay-page .pay-field{
+      display:grid;
+      gap:5px;
+    }
+
+    body.pay-page .pay-field input{
+      width:100%;
+      min-height:42px;
+      box-sizing:border-box;
+      border:1px solid rgba(64,39,20,.28);
+      border-radius:9px;
+      padding:9px 10px;
+      background:rgba(255,255,255,.34);
+      color:#1c130c;
+      font:inherit;
+      font-weight:700;
+    }
+
+    body.pay-page .pay-field input:focus{
+      outline:2px solid rgba(135,93,43,.34);
+      outline-offset:1px;
+    }
+
+    body.pay-page .pay-action-stack{
+      display:grid;
+      gap:8px;
+      margin-top:12px;
+    }
+
+    body.pay-page .pay-status{
+      min-height:20px;
+      margin-top:8px;
+      font-size:12px;
+      font-weight:800;
+      line-height:1.35;
+    }
+
+    body.pay-page .pay-status.ok{ color:#315f32; }
+    body.pay-page .pay-status.bad{ color:#8b2c26; }
+
+    body.pay-page .pay-amount{
+      margin:4px 0 2px;
+      font-size:28px;
+      font-weight:950;
+      letter-spacing:.01em;
+    }
+
+    body.pay-page .pay-payment-panel{
+      display:grid;
+      gap:10px;
+      justify-items:center;
+      text-align:center;
+    }
+
+    body.pay-page .pay-payment-panel[hidden],
+    body.pay-page .pay-blocked[hidden],
+    body.pay-page .pay-complete[hidden]{
+      display:none !important;
+    }
+
+    body.pay-page .pay-blocked{
+      min-height:190px;
+      display:grid;
+      place-items:center;
+      align-content:center;
+      gap:8px;
+      text-align:center;
+      opacity:.72;
+    }
+
+    body.pay-page .pay-blocked strong{
+      font-size:15px;
+      letter-spacing:.06em;
+    }
+
+    body.pay-page .pay-venmo-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:min(220px, 62vw);
+      padding:0;
+      border:0;
+      background:transparent;
+      box-shadow:none;
+      text-decoration:none;
+      cursor:pointer;
+      transition:transform .14s ease, filter .14s ease;
+    }
+
+    body.pay-page .pay-venmo-btn img{
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:contain;
+    }
+
+    body.pay-page .pay-venmo-btn:hover{
+      transform:translateY(-2px) scale(1.015);
+      filter:none;
+    }
+
+    body.pay-page .pay-venmo-btn:active{
+      transform:translateY(0) scale(.98);
+    }
+
+    body.pay-page .pay-venmo-btn:focus-visible{
+      outline:2px solid rgba(91,148,207,.70);
+      outline-offset:6px;
+      border-radius:18px;
+    }
+
+    body.pay-page .pay-payment-help{
+      max-width:310px;
+      margin:0;
+      font-size:12px;
+      line-height:1.45;
+      font-weight:750;
+      opacity:.82;
+    }
+
+    body.pay-page .pay-complete{
+      width:min(620px,100%);
+      margin:0 auto;
+      padding:20px 16px;
+      text-align:center;
+      color:#111;
+    }
+
+    body.pay-page .pay-complete-mark{
+      width:54px;
+      height:54px;
+      margin:0 auto 10px;
+      display:grid;
+      place-items:center;
+      border-radius:999px;
+      background:rgba(93,127,75,.18);
+      border:2px solid rgba(56,98,49,.52);
+      font-size:28px;
+      font-weight:900;
+    }
+
+    body.pay-page .pay-complete h2{
+      margin:0 0 8px;
+      font-size:22px;
+      letter-spacing:.05em;
+    }
+
+    body.pay-page .pay-complete p{
+      max-width:520px;
+      margin:0 auto 12px;
+      line-height:1.5;
+      font-weight:700;
+    }
+
+    body.pay-page .pay-complete-actions{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    @media (max-width:768px) and (orientation:portrait){
+      body.pay-page .pay-grid{
+        gap:18px;
+      }
+
+      body.pay-page section.pay-card[aria-label="Payment"] > h2{
+        display:block !important;
+      }
+
+      body.pay-page section.pay-card[aria-label="Payment"] .pay-note{
+        display:block !important;
+      }
+
+      body.pay-page .pay-actions .ll-btn img{
+        height:34px;
+      }
+    }
+  </style>
+</head>
+
+<body class="pay-page">
+  <div class="bg" aria-hidden="true"></div>
+
+  <main class="pay-shell" aria-label="Checkout">
+    <section class="tablet-wrap" aria-label="Lace and Leather checkout">
+      <div class="tablet-screen">
+        <header class="pay-head">
+          <div class="pay-head-left">
+            <div class="pay-brand">LACE &amp; LEATHER</div>
+            <div class="pay-sub">Review your order, continue to payment, then tell us when it is sent.</div>
+          </div>
+
+          <div class="pay-actions">
+            <a class="ll-btn" href="./index.html" aria-label="Back to shop">
+              <img decoding="async" src="./L&L-buttons/back.webp" alt="Back" />
+            </a>
+
+            <button class="ll-btn" id="clearCartBtn" type="button" aria-label="Clear cart">
+              <img decoding="async" src="./L&L-buttons/clear-cart.webp" alt="Clear cart" />
+            </button>
+          </div>
+        </header>
+
+        <div class="pay-scroll" id="payScroll">
+          <div class="pay-grid" id="checkoutGrid">
+            <section class="pay-card" aria-label="Order summary">
+              <div class="pay-step"><span class="pay-step-num">1</span> Review</div>
+
+              <div class="pay-row pay-row-top">
+                <div>
+                  <div class="pay-muted">Order</div>
+                  <div class="pay-id"><span id="orderId">—</span></div>
+                </div>
+
+                <div class="pay-right">
+                  <div class="pay-muted">Total</div>
+                  <div class="pay-total" id="subtotal">$0.00</div>
+                </div>
+              </div>
+
+              <ul class="pay-items" id="cartList" aria-label="Cart items"></ul>
+
+              <div class="pay-note" id="emptyNote">
+                Your cart is empty. Add something from the shop, then come back here.
+              </div>
+
+              <div class="pay-fields" id="customerFields">
+                <label class="pay-field">
+                  <span class="pay-muted">Email for receipt &amp; delivery</span>
+                  <input id="custEmail" type="email" autocomplete="email" inputmode="email"
+                         placeholder="you@example.com" required />
+                </label>
+
+                <label class="pay-field">
+                  <span class="pay-muted">Venmo handle <span aria-hidden="true">·</span> required</span>
+                  <input id="venmoHandle" type="text" autocomplete="off" autocapitalize="none"
+                         spellcheck="false" placeholder="@username" required />
+                </label>
+              </div>
+
+              <div class="pay-action-stack">
+                <button class="pay-primary-btn" id="continueBtn" type="button">
+                  CONTINUE TO PAYMENT
+                </button>
+                <div class="pay-status" id="status" aria-live="polite"></div>
+              </div>
+            </section>
+
+            <section class="pay-card" id="paymentCard" aria-label="Payment">
+              <div class="pay-step"><span class="pay-step-num">2</span> Pay</div>
+
+              <div class="pay-blocked" id="paymentBlocked">
+                <strong>Payment unlocks after Step 1.</strong>
+                <div class="pay-note">We save the order first so your payment can be matched correctly.</div>
+              </div>
+
+              <div class="pay-payment-panel" id="paymentPanel" hidden>
+                <div class="pay-muted">Pay this exact total</div>
+                <div class="pay-amount" id="paymentTotal">$0.00</div>
+
+                <a class="pay-venmo-btn"
+                   href="https://venmo.com/code?user_id=4521214244554098361&created=1791898834.9486709&printed=1"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   aria-label="Pay Black Stag Web Design with Venmo">
+                  <img decoding="async" src="./assets/venmo-ll.webp?v=LL-20261013-3" alt="Pay with Venmo — @blackstagweb" />
+                </a>
+
+                <p class="pay-payment-help">
+                  Venmo opens separately so this checkout stays here. Send the exact total above from the Venmo account matching the handle you entered, then return and tap the button below.
+                  We verify the handle and payment before sending the receipt and digital delivery.
+                </p>
+
+                <button class="payment-submitted-btn" id="paidBtn" type="button">
+                  I'VE SENT PAYMENT
+                </button>
+              </div>
+            </section>
+          </div>
+
+          <section class="pay-complete" id="completePanel" hidden aria-live="polite">
+            <div class="pay-complete-mark" aria-hidden="true">✓</div>
+            <h2>Payment submitted</h2>
+            <p>
+              Thanks! Order <strong id="completeOrderId">—</strong> is now waiting for verification.
+              We’ll match the Venmo handle you entered to the payment. Your receipt and digital delivery will be sent after it is confirmed.
+            </p>
+            <div class="pay-complete-actions">
+              <a class="pay-secondary-btn" href="./index.html">BACK TO SHOP</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./catalog.js?v=LL-20261013-2"></script>
+  <script>
+    const ORDER_API_URL = "https://lpjpuedylongafgqbwjh.supabase.co/functions/v1/lace-leather-orders";
+
+    const CART_KEY = "ll_cart";
+    const ORDER_KEY = "ll_order_id";
+    const CHECKOUT_TOKEN_KEY = "ll_checkout_token";
+    const LOCK_KEY = "ll_cart_locked";
+    const CUST_EMAIL_KEY = "ll_customer_email";
+    const VENMO_HANDLE_KEY = "ll_venmo_handle";
+    const LAST_SUBMISSION_KEY = "ll_last_payment_submission";
+
+    let actionInFlight = false;
+
+    const $ = id => document.getElementById(id);
+
+    function money(value){
+      return Number(value || 0).toLocaleString(undefined, {
+        style:"currency",
+        currency:"USD"
+      });
+    }
+
+    function safeParse(value, fallback){
+      try{
+        return JSON.parse(value) ?? fallback;
+      }catch{
+        return fallback;
+      }
+    }
+
+    function genOrderId(){
+      const part = () => Math.random().toString(16).slice(2,6).toUpperCase();
+      return `${part()}-${part()}`;
+    }
+
+    function loadCart(){
+      const raw = safeParse(localStorage.getItem(CART_KEY), []);
+      return window.LaceLeatherCatalog.normalizeCart(raw);
+    }
+
+    function saveCart(cart){
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    function getOrderId(){
+      let id = localStorage.getItem(ORDER_KEY);
+      if(!id){
+        id = genOrderId();
+        localStorage.setItem(ORDER_KEY, id);
+      }
+      return id;
+    }
+
+    function resetOrderId(){
+      const id = genOrderId();
+      localStorage.setItem(ORDER_KEY, id);
+      return id;
+    }
+
+    function getCheckoutToken(orderId = getOrderId()){
+      const saved = safeParse(localStorage.getItem(CHECKOUT_TOKEN_KEY), null);
+      if(saved?.orderId === orderId && saved?.token){
+        return saved.token;
+      }
+
+      const token = window.crypto?.randomUUID
+        ? window.crypto.randomUUID()
+        : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, char => {
+            const value = Math.floor(Math.random() * 16);
+            const nibble = char === "x" ? value : ((value & 0x3) | 0x8);
+            return nibble.toString(16);
+          });
+
+      localStorage.setItem(CHECKOUT_TOKEN_KEY, JSON.stringify({orderId, token}));
+      return token;
+    }
+
+    function resetCheckoutToken(){
+      localStorage.removeItem(CHECKOUT_TOKEN_KEY);
+    }
+
+    function setLocked(value){
+      localStorage.setItem(LOCK_KEY, value ? "1" : "0");
+    }
+
+    function isLocked(){
+      return localStorage.getItem(LOCK_KEY) === "1";
+    }
+
+    function subtotal(cart){
+      return cart.reduce((sum, item) => {
+        const qty = Math.max(1, Number(item?.qty || 1));
+        const price = Number(item?.price || 0);
+        return sum + (qty * price);
+      }, 0);
+    }
+
+    function normalizeVenmoHandle(value){
+      const raw = String(value || "").trim();
+
+      if(!raw) return "";
+      if(/\s/.test(raw)) return raw;
+
+      return raw.startsWith("@") ? raw : "@" + raw;
+    }
+
+    function setCustomerInfo(handle, email){
+      localStorage.setItem(VENMO_HANDLE_KEY, normalizeVenmoHandle(handle));
+      localStorage.setItem(CUST_EMAIL_KEY, String(email || "").trim());
+    }
+
+    function clearCustomerInfo(){
+      localStorage.removeItem(VENMO_HANDLE_KEY);
+      localStorage.removeItem(CUST_EMAIL_KEY);
+    }
+
+    function syncCustomerInputs(){
+      $("venmoHandle").value = localStorage.getItem(VENMO_HANDLE_KEY) || "";
+      $("custEmail").value = localStorage.getItem(CUST_EMAIL_KEY) || "";
+    }
+
+    function setStatus(message, kind){
+      const el = $("status");
+      el.textContent = message || "";
+      el.className = "pay-status" + (kind ? " " + kind : "");
+    }
+
+    function setBusy(busy){
+      actionInFlight = !!busy;
+      $("continueBtn").disabled = !!busy || isLocked() || !loadCart().length;
+      $("paidBtn").disabled = !!busy;
+      $("clearCartBtn").disabled = !!busy || isLocked();
+      $("venmoHandle").disabled = !!busy || isLocked();
+      $("custEmail").disabled = !!busy || isLocked();
+    }
+
+    function showPaymentReady(ready){
+      $("paymentBlocked").hidden = !!ready;
+      $("paymentPanel").hidden = !ready;
+      $("paymentTotal").textContent = money(subtotal(loadCart()));
+      $("continueBtn").disabled = !!ready || !loadCart().length;
+      $("clearCartBtn").disabled = !!ready;
+      $("venmoHandle").disabled = !!ready;
+      $("custEmail").disabled = !!ready;
+    }
+
+    function showComplete(orderId){
+      $("checkoutGrid").hidden = true;
+      $("completePanel").hidden = false;
+      $("completeOrderId").textContent = orderId;
+      $("clearCartBtn").hidden = true;
+      $("payScroll").scrollTo({top:0, behavior:"smooth"});
+    }
+
+    function clearComplete(){
+      $("checkoutGrid").hidden = false;
+      $("completePanel").hidden = true;
+      $("clearCartBtn").hidden = false;
+    }
+
+    function recentSubmission(){
+      const saved = safeParse(localStorage.getItem(LAST_SUBMISSION_KEY), null);
+      if(!saved || !saved.orderId || !saved.at) return null;
+      if(Date.now() - Number(saved.at) > 24 * 60 * 60 * 1000){
+        localStorage.removeItem(LAST_SUBMISSION_KEY);
+        return null;
+      }
+      return saved;
+    }
+
+    function render(){
+      const cart = loadCart();
+      const hasItems = cart.length > 0;
+      const list = $("cartList");
+
+      if(hasItems){
+        localStorage.removeItem(LAST_SUBMISSION_KEY);
+      }
+
+      const last = !hasItems ? recentSubmission() : null;
+      if(last){
+        showComplete(last.orderId);
+        return;
+      }
+
+      clearComplete();
+      list.innerHTML = "";
+
+      $("subtotal").textContent = money(subtotal(cart));
+      $("orderId").textContent = hasItems ? getOrderId() : "—";
+      $("emptyNote").style.display = hasItems ? "none" : "block";
+      $("customerFields").style.display = hasItems ? "grid" : "none";
+
+      for(const item of cart){
+        const li = document.createElement("li");
+        li.className = "pay-item";
+
+        const name = document.createElement("div");
+        name.className = "pay-item-name";
+        name.textContent = item.name;
+
+        const meta = document.createElement("div");
+        meta.className = "pay-item-meta";
+
+        const qty = document.createElement("span");
+        qty.className = "pay-item-qty";
+        qty.textContent = `×${Math.max(1, Number(item.qty || 1))}`;
+
+        const price = document.createElement("span");
+        price.className = "pay-item-price";
+        price.textContent = money(Number(item.price || 0) * Math.max(1, Number(item.qty || 1)));
+
+        meta.append(qty, price);
+        li.append(name, meta);
+        list.appendChild(li);
+      }
+
+      const locked = isLocked() && hasItems;
+      showPaymentReady(locked);
+
+      if(!hasItems){
+        setLocked(false);
+        setStatus("", null);
+        $("continueBtn").disabled = true;
+        $("clearCartBtn").disabled = true;
+        showPaymentReady(false);
+      }else if(locked){
+        setStatus("Order saved. Complete payment in Step 2.", "ok");
+      }else{
+        $("continueBtn").disabled = false;
+        $("clearCartBtn").disabled = false;
+      }
+    }
+
+    async function orderApi_(body){
+      const response = await fetch(ORDER_API_URL, {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(body)
+      });
+
+      const json = await response.json().catch(() => ({}));
+      if(!response.ok && json?.ok !== true){
+        const error = new Error(json?.error || "Order service request failed.");
+        error.payload = json;
+        throw error;
+      }
+
+      return json;
+    }
+
+    async function postToAppsScript_(params){
+      if(params?.payload){
+        const order = safeParse(params.payload, null);
+        if(!order) return {ok:false,error:"invalid_order_payload"};
+
+        const orderId = String(order.order_id || getOrderId());
+        order.checkout_token = getCheckoutToken(orderId);
+
+        return orderApi_({
+          action:"create",
+          order
+        });
+      }
+
+      if(params?.action === "payment_submitted"){
+        const orderId = String(params.order_id || getOrderId());
+        return orderApi_({
+          action:"payment_submitted",
+          order_id:orderId,
+          checkout_token:getCheckoutToken(orderId)
+        });
+      }
+
+      return {ok:false,error:"unsupported_action"};
+    }
+
+    async function getOrderStatus_(orderId){
+      return orderApi_({
+        action:"order_status",
+        order_id:orderId,
+        checkout_token:getCheckoutToken(orderId)
+      });
+    }
+
+    async function waitForStatus_(orderId, wanted){
+      for(let attempt = 0; attempt < 6; attempt++){
+        try{
+          const json = await getOrderStatus_(orderId);
+          if(
+            json?.ok === true
+            && json?.found === true
+            && wanted.includes(String(json.status || ""))
+          ){
+            return json;
+          }
+        }catch{}
+
+        if(attempt < 5){
+          await new Promise(resolve => setTimeout(resolve, 650));
+        }
+      }
+      return null;
+    }
+
+    function bridgeError_(label, json){
+      const detail = json?.details || json?.error || json?.message || "Unknown server response.";
+      return `${label} failed. ${detail}`;
+    }
+
+    function validEmail(){
+      const input = $("custEmail");
+      const value = input.value.trim();
+      if(!value || !input.checkValidity()){
+        input.reportValidity();
+        setStatus("Enter a valid email so we can deliver your receipt and files.", "bad");
+        return false;
+      }
+      return true;
+    }
+
+    function validVenmoHandle(){
+      const input = $("venmoHandle");
+      const raw = input.value.trim();
+
+      input.setCustomValidity("");
+
+      if(!raw){
+        input.setCustomValidity("Enter the Venmo handle you will use to send payment.");
+      }else if(/\s/.test(raw)){
+        input.setCustomValidity("Venmo handles cannot contain spaces.");
+      }else if(raw.replace(/^@/, "").length < 2){
+        input.setCustomValidity("Enter your full Venmo handle.");
+      }else if(raw.length > 65){
+        input.setCustomValidity("That Venmo handle is too long.");
+      }
+
+      if(!input.checkValidity()){
+        input.reportValidity();
+        setStatus("Enter the Venmo handle you will use to send payment.", "bad");
+        return false;
+      }
+
+      input.value = normalizeVenmoHandle(raw);
+      return true;
+    }
+
+    async function saveOrder(){
+      if(actionInFlight || isLocked()) return;
+
+      const cart = loadCart();
+      if(!cart.length){
+        setStatus("Your cart is empty.", "bad");
+        return;
+      }
+
+      if(!validEmail()) return;
+      if(!validVenmoHandle()) return;
+
+      const venmoHandle = normalizeVenmoHandle($("venmoHandle").value);
+      const email = $("custEmail").value.trim();
+      setCustomerInfo(venmoHandle, email);
+
+      const orderId = getOrderId();
+      const total = subtotal(cart);
+      const items = cart.map(item => ({
+        id:item.id,
+        name:item.name,
+        qty:Math.max(1, Number(item.qty || 1)),
+        price:Number(Number(item.price || 0).toFixed(2))
+      }));
+
+      const payload = {
+        order_id:orderId,
+        total:Number(total.toFixed(2)),
+        currency:"USD",
+        items,
+        customer:{name:venmoHandle,email},
+        note:`Venmo handle: ${venmoHandle}`,
+        referrer:document.referrer || "",
+        status:"new"
+      };
+
+      setBusy(true);
+      setStatus("Saving your order…", null);
+
+      try{
+        const json = await postToAppsScript_({
+          payload:JSON.stringify(payload)
+        });
+
+        if(json?.ok !== true){
+          setStatus(bridgeError_("Save", json), "bad");
+          setBusy(false);
+          return;
+        }
+
+        setLocked(true);
+        showPaymentReady(true);
+        setStatus("Order saved. Complete payment in Step 2.", "ok");
+        setBusy(false);
+        $("paymentCard").scrollIntoView({behavior:"smooth", block:"nearest"});
+      }catch{
+        const verified = await waitForStatus_(orderId, ["new","payment_submitted","paid"]);
+
+        if(verified){
+          setLocked(true);
+          showPaymentReady(true);
+          setStatus("Order saved. Complete payment in Step 2.", "ok");
+          setBusy(false);
+          $("paymentCard").scrollIntoView({behavior:"smooth", block:"nearest"});
+          return;
+        }
+
+        setStatus("We could not verify the saved order. Please try once more.", "bad");
+        setBusy(false);
+      }
+    }
+
+    function finishSubmission(orderId){
+      localStorage.setItem(LAST_SUBMISSION_KEY, JSON.stringify({
+        orderId,
+        at:Date.now()
+      }));
+
+      setLocked(false);
+      saveCart([]);
+      resetCheckoutToken();
+      resetOrderId();
+      clearCustomerInfo();
+
+      setBusy(false);
+      showComplete(orderId);
+    }
+
+    async function submitPayment(){
+      if(actionInFlight) return;
+
+      if(!isLocked()){
+        setStatus("Save the order first.", "bad");
+        return;
+      }
+
+      const orderId = getOrderId();
+      setBusy(true);
+      setStatus("Submitting payment for verification…", null);
+
+      const attempt = () => postToAppsScript_({
+        action:"payment_submitted",
+        order_id:orderId
+      });
+
+      try{
+        let json = await attempt();
+
+        if(json?.ok !== true){
+          await new Promise(resolve => setTimeout(resolve, 900));
+          json = await attempt();
+        }
+
+        if(json?.ok === true){
+          finishSubmission(orderId);
+          return;
+        }
+
+        setStatus(bridgeError_("Payment submission", json), "bad");
+        setBusy(false);
+      }catch{
+        const verified = await waitForStatus_(orderId, ["payment_submitted","paid"]);
+
+        if(verified){
+          finishSubmission(orderId);
+          return;
+        }
+
+        setStatus(
+          "We could not verify the payment report. Do not pay again. Try this button again after the message clears.",
+          "bad"
+        );
+        setBusy(false);
+      }
+    }
+
+    $("continueBtn").addEventListener("click", saveOrder);
+    $("paidBtn").addEventListener("click", submitPayment);
+
+    $("clearCartBtn").addEventListener("click", () => {
+      if(actionInFlight || isLocked()){
+        setStatus("This order is already saved. Finish payment before starting over.", "bad");
+        return;
+      }
+
+      saveCart([]);
+      resetCheckoutToken();
+      resetOrderId();
+      clearCustomerInfo();
+      setLocked(false);
+      localStorage.removeItem(LAST_SUBMISSION_KEY);
+      syncCustomerInputs();
+      render();
+      $("payScroll").scrollTo({top:0, behavior:"smooth"});
+    });
+
+    window.addEventListener("input", event => {
+      if(event.target?.id === "custEmail" || event.target?.id === "venmoHandle"){
+        if(event.target?.id === "venmoHandle"){
+          event.target.setCustomValidity("");
+        }
+        setCustomerInfo($("venmoHandle").value, $("custEmail").value);
+      }
+    });
+
+    window.addEventListener("storage", event => {
+      if([CART_KEY, ORDER_KEY, LOCK_KEY].includes(event.key)) render();
+      if([CUST_EMAIL_KEY, VENMO_HANDLE_KEY].includes(event.key)) syncCustomerInputs();
+    });
+
+    syncCustomerInputs();
+    render();
+  </script>
+  <script src="./site-refresh.js?v=LL-20261013-2" defer></script>
+</body>
+</html>
