@@ -1,0 +1,47 @@
+name: Build Smithy High Resolution
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/build_smithy_hires.py"
+      - "scripts/build_smithy_site.py"
+      - "scripts/qa_smithy_edges.py"
+      - ".github/workflows/build-smithy-highres.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check pillow numpy
+
+      - name: Build 3600x5400 masters
+        run: python scripts/build_smithy_hires.py
+
+      - name: Verify white edges are gone
+        run: python scripts/qa_smithy_edges.py
+
+      - name: Build site previews and cover
+        run: python scripts/build_smithy_site.py
+
+      - name: Commit generated assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/smithy-hires
+          git diff --cached --quiet || git commit -m "Build high-resolution Smithy assets"
+          git pull --rebase origin main
+          git push
