@@ -1,0 +1,33 @@
+name: Package Smithy High Resolution Etsy Files
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/package-smithy-hires.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build three Etsy ZIP files
+        run: |
+          mkdir -p downloads
+          zip -j -0 downloads/Smithy_High_Res_Part_1_of_3.zip assets/smithy-hires/masters/Smithy_Texture_0{1,2,3,4}.jpg
+          zip -j -0 downloads/Smithy_High_Res_Part_2_of_3.zip assets/smithy-hires/masters/Smithy_Texture_0{5,6,7,8}.jpg
+          zip -j -0 downloads/Smithy_High_Res_Part_3_of_3.zip assets/smithy-hires/masters/Smithy_Texture_{09,10,11,12}.jpg
+          test $(stat -c%s downloads/Smithy_High_Res_Part_1_of_3.zip) -lt 20971520
+          test $(stat -c%s downloads/Smithy_High_Res_Part_2_of_3.zip) -lt 20971520
+          test $(stat -c%s downloads/Smithy_High_Res_Part_3_of_3.zip) -lt 20971520
+      - name: Commit packages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add downloads/Smithy_High_Res_Part_1_of_3.zip downloads/Smithy_High_Res_Part_2_of_3.zip downloads/Smithy_High_Res_Part_3_of_3.zip
+          git diff --cached --quiet || git commit -m "Add high-resolution Smithy Etsy packages"
+          git push
