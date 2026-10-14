@@ -22,7 +22,7 @@
   <meta name="twitter:description" content="Review your order and pay securely with Stripe." />
   <meta name="twitter:image" content="https://laceleatherarcane.com/assets/l&l_logo.webp" />
 
-  <link rel="stylesheet" href="./styles.css?v=LL-20261014-STRIPE1" />
+  <link rel="stylesheet" href="./styles.css?v=LL-20261014-STRIPE2" />
 
   <style>
     body.pay-page .pay-step{
@@ -395,7 +395,7 @@
     </section>
   </main>
 
-  <script src="./catalog.js?v=LL-20261014-STRIPE1"></script>
+  <script src="./catalog.js?v=LL-20261014-STRIPE2"></script>
   <script>
     const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzQSkg_6m84LsodueoI9LN6VuXhuWpfRtYNlyzleZ_I0XghmU-ra49-Bmb4SaoSG8uI/exec";
     const PAYMENTS_API_URL = "https://stripe-checkout-production-0f3c.up.railway.app";
@@ -967,14 +967,17 @@
       setStatus("Saving your order…", null);
 
       try{
-        const json = await postToAppsScript_({
-          payload:JSON.stringify(payload)
+        const response = await fetch(PAYMENTS_API_URL + "/api/orders/save", {
+          method:"POST",
+          mode:"cors",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify(payload)
         });
 
-        if(json?.ok !== true){
-          setStatus(bridgeError_("Save", json), "bad");
-          setBusy(false);
-          return;
+        const json = await response.json();
+
+        if(!response.ok || json?.ok !== true){
+          throw new Error(json?.error || "Order service could not confirm the saved order.");
         }
 
         setLocked(true);
@@ -982,19 +985,8 @@
         setStatus("Order saved. Complete payment in Step 2.", "ok");
         setBusy(false);
         $("paymentCard").scrollIntoView({behavior:"smooth", block:"nearest"});
-      }catch{
-        const verified = await waitForStatus_(orderId, ["new","payment_submitted","paid"]);
-
-        if(verified){
-          setLocked(true);
-          showPaymentReady(true);
-          setStatus("Order saved. Complete payment in Step 2.", "ok");
-          setBusy(false);
-          $("paymentCard").scrollIntoView({behavior:"smooth", block:"nearest"});
-          return;
-        }
-
-        setStatus("We could not verify the saved order. Please try once more.", "bad");
+      }catch(error){
+        setStatus(error?.message || "We could not save your order. Please try once more.", "bad");
         setBusy(false);
       }
     }
@@ -1041,6 +1033,6 @@
       handleStripeReturn_();
     }
   </script>
-  <script src="./site-refresh.js?v=LL-20261014-STRIPE1" defer></script>
+  <script src="./site-refresh.js?v=LL-20261014-STRIPE2" defer></script>
 </body>
 </html>
