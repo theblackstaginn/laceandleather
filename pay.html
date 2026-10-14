@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Lace & Leather — Checkout</title>
 
-  <meta name="description" content="Lace & Leather checkout. Review your order and pay securely with Venmo." />
+  <meta name="description" content="Lace & Leather checkout. Review your order and pay securely with Stripe." />
   <link rel="canonical" href="https://laceleatherarcane.com/pay.html" />
   <meta name="robots" content="noindex, follow, noarchive" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -13,16 +13,16 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Lace & Leather" />
   <meta property="og:title" content="Lace & Leather — Checkout" />
-  <meta property="og:description" content="Review your order and pay securely with Venmo." />
+  <meta property="og:description" content="Review your order and pay securely with Stripe." />
   <meta property="og:url" content="https://laceleatherarcane.com/pay.html" />
   <meta property="og:image" content="https://laceleatherarcane.com/assets/l&l_logo.webp" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Lace & Leather — Checkout" />
-  <meta name="twitter:description" content="Review your order and pay securely with Venmo." />
+  <meta name="twitter:description" content="Review your order and pay securely with Stripe." />
   <meta name="twitter:image" content="https://laceleatherarcane.com/assets/l&l_logo.webp" />
 
-  <link rel="stylesheet" href="./styles.css?v=LL-20261013-2" />
+  <link rel="stylesheet" href="./styles.css?v=LL-20261014-STRIPE1" />
 
   <style>
     body.pay-page .pay-step{
@@ -219,16 +219,15 @@
       opacity:.82;
     }
 
-    body.pay-page .paypal-venmo-wrap{
+    body.pay-page .stripe-checkout-wrap{
       width:min(320px, 100%);
       display:grid;
       justify-items:center;
       gap:9px;
     }
 
-    body.pay-page venmo-button{
+    body.pay-page .stripe-checkout-wrap .pay-primary-btn{
       width:min(300px, 78vw);
-      min-height:48px;
     }
 
     body.pay-page .pay-complete{
@@ -302,7 +301,7 @@
         <header class="pay-head">
           <div class="pay-head-left">
             <div class="pay-brand">LACE &amp; LEATHER</div>
-            <div class="pay-sub">Review your order, then pay securely with Venmo.</div>
+            <div class="pay-sub">Review your order, then pay securely with Stripe.</div>
           </div>
 
           <div class="pay-actions">
@@ -368,15 +367,14 @@
                 <div class="pay-muted">Pay this exact total</div>
                 <div class="pay-amount" id="paymentTotal">$0.00</div>
 
-                <div class="paypal-venmo-wrap" id="venmoWrap">
-                  <venmo-button id="venmoButton" type="pay" hidden></venmo-button>
-                  <div class="pay-note" id="venmoLoading">
-                    Preparing secure Venmo checkout…
-                  </div>
+                <div class="stripe-checkout-wrap">
+                  <button class="pay-primary-btn" id="stripePayBtn" type="button">
+                    CONTINUE TO SECURE PAYMENT
+                  </button>
                 </div>
 
-                <p class="pay-payment-help" id="venmoHelp">
-                  Venmo payment is created and captured securely through PayPal. We do not receive your Venmo password or payment credentials.
+                <p class="pay-payment-help">
+                  You’ll continue to Stripe’s secure checkout. Your payment credentials never touch the Lace & Leather site.
                 </p>
               </div>
             </section>
@@ -397,10 +395,10 @@
     </section>
   </main>
 
-  <script src="./catalog.js?v=LL-20261013-2"></script>
+  <script src="./catalog.js?v=LL-20261014-STRIPE1"></script>
   <script>
     const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzQSkg_6m84LsodueoI9LN6VuXhuWpfRtYNlyzleZ_I0XghmU-ra49-Bmb4SaoSG8uI/exec";
-    const PAYMENTS_API_URL = "https://paypal-venmo-production.up.railway.app";
+    const PAYMENTS_API_URL = "https://stripe-checkout-production-0f3c.up.railway.app";
     const ORDERING_DISABLED = false;
 
     const CART_KEY = "ll_cart";
@@ -410,10 +408,6 @@
     const LAST_SUBMISSION_KEY = "ll_last_payment_submission";
 
     let actionInFlight = false;
-    let paypalConfig = null;
-    let venmoSdk = null;
-    let venmoSession = null;
-    let venmoEligible = false;
 
     const $ = id => document.getElementById(id);
 
@@ -500,6 +494,9 @@
       $("continueBtn").disabled = !!busy || isLocked() || !loadCart().length;
       $("clearCartBtn").disabled = !!busy || isLocked();
       $("custEmail").disabled = !!busy || isLocked();
+      if($("stripePayBtn")){
+        $("stripePayBtn").disabled = !!busy || !isLocked() || !loadCart().length;
+      }
     }
 
     function showPaymentReady(ready){
@@ -509,6 +506,9 @@
       $("continueBtn").disabled = !!ready || !loadCart().length;
       $("clearCartBtn").disabled = !!ready;
       $("custEmail").disabled = !!ready;
+      if($("stripePayBtn")){
+        $("stripePayBtn").disabled = !ready || actionInFlight;
+      }
     }
 
     function showComplete(orderId){
@@ -519,9 +519,7 @@
 
       const message = $("completeMessage");
       if(message){
-        message.innerHTML = paypalConfig?.environment === "sandbox"
-          ? `Sandbox payment captured for order <strong>${orderId}</strong>. No real money moved. Live fulfillment remains disabled while we finish testing.`
-          : `Thanks! Order <strong>${orderId}</strong> is paid. Your receipt and digital delivery are being prepared.`;
+        message.innerHTML = `Thanks! Order <strong>${orderId}</strong> is paid. Your receipt and digital delivery are being prepared.`;
       }
 
       $("payScroll").scrollTo({top:0, behavior:"smooth"});
@@ -758,36 +756,7 @@
       return true;
     }
 
-    async function fetchPaymentsConfig_(){
-      const response = await fetch(PAYMENTS_API_URL + "/api/config", {
-        method:"GET",
-        mode:"cors",
-        cache:"no-store"
-      });
-
-      const data = await response.json();
-
-      if(!response.ok || data?.ok !== true || !data?.clientId || !data?.sdkUrl){
-        throw new Error(data?.error || "Payment configuration unavailable.");
-      }
-
-      return data;
-    }
-
-    async function loadPayPalSdk_(sdkUrl){
-      if(window.paypal?.createInstance) return;
-
-      await new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-        script.src = sdkUrl;
-        script.async = true;
-        script.onload = resolve;
-        script.onerror = () => reject(new Error("PayPal SDK failed to load."));
-        document.head.appendChild(script);
-      });
-    }
-
-    function venmoOrderPayload_(){
+    function stripeOrderPayload_(){
       const cart = loadCart();
       return {
         order_id:getOrderId(),
@@ -799,163 +768,109 @@
       };
     }
 
-    async function createVenmoOrder_(){
-      const response = await fetch(PAYMENTS_API_URL + "/api/paypal/orders", {
+    async function createStripeCheckout_(){
+      const response = await fetch(PAYMENTS_API_URL + "/api/stripe/checkout", {
         method:"POST",
         mode:"cors",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify(venmoOrderPayload_())
+        body:JSON.stringify(stripeOrderPayload_())
       });
 
       const data = await response.json();
 
-      if(!response.ok || data?.ok !== true || !data?.id){
-        throw new Error(data?.error || "Could not create Venmo order.");
+      if(!response.ok || data?.ok !== true || !data?.url){
+        throw new Error(data?.error || "Could not create secure Stripe checkout.");
       }
 
-      return {orderId:data.id};
+      return data;
     }
 
-    async function captureVenmoOrder_(paypalOrderId){
+    async function getStripeSession_(sessionId){
       const response = await fetch(
-        PAYMENTS_API_URL + "/api/paypal/orders/" + encodeURIComponent(paypalOrderId) + "/capture",
+        PAYMENTS_API_URL + "/api/stripe/session/" + encodeURIComponent(sessionId),
         {
-          method:"POST",
+          method:"GET",
           mode:"cors",
-          headers:{"Content-Type":"application/json"}
+          cache:"no-store"
         }
       );
 
       const data = await response.json();
 
       if(!response.ok || data?.ok !== true){
-        const error = new Error(data?.error || "Venmo capture failed.");
-        error.code = String(data?.code || "");
-        throw error;
-      }
-
-      const capture = data?.paypal?.purchase_units?.[0]?.payments?.captures?.find?.(
-        item => item?.status === "COMPLETED"
-      );
-
-      if(data?.paypal?.status !== "COMPLETED" && !capture){
-        throw new Error("Payment was not completed.");
+        throw new Error(data?.error || "Could not verify Stripe payment.");
       }
 
       return data;
     }
 
-    function finishAutomaticPayment_(orderId){
-      localStorage.setItem(LAST_SUBMISSION_KEY, JSON.stringify({
-        orderId,
-        at:Date.now(),
-        status:"paid"
-      }));
-
-      setLocked(false);
-      saveCart([]);
-      resetOrderId();
-      clearCustomerInfo();
-      setBusy(false);
-      showComplete(orderId);
+    function clearStripeReturnParams_(){
+      try{
+        const url = new URL(window.location.href);
+        url.searchParams.delete("stripe");
+        url.searchParams.delete("session_id");
+        const clean = url.pathname + (url.search ? url.search : "") + (url.hash || "");
+        window.history.replaceState({}, "", clean);
+      }catch{}
     }
 
-    async function initVenmo_(){
-      const loading = $("venmoLoading");
-      const button = $("venmoButton");
+    async function startStripeCheckout_(){
+      if(actionInFlight) return;
 
-      if(ORDERING_DISABLED){
-        if(button) button.hidden = true;
-        if(loading) loading.textContent = "Ordering currently unavailable.";
+      if(!isLocked()){
+        setStatus("Save the order first.", "bad");
         return;
       }
 
+      setBusy(true);
+      setStatus("Opening secure Stripe checkout…", null);
+
       try{
-        paypalConfig = await fetchPaymentsConfig_();
-        await loadPayPalSdk_(paypalConfig.sdkUrl);
+        const checkout = await createStripeCheckout_();
+        window.location.assign(checkout.url);
+      }catch(error){
+        setStatus(error?.message || "Stripe checkout could not start.", "bad");
+        setBusy(false);
+      }
+    }
 
-        const instanceOptions = {
-          clientId:paypalConfig.clientId,
-          components:["venmo-payments"],
-          pageType:"checkout"
-        };
+    async function handleStripeReturn_(){
+      const params = new URLSearchParams(window.location.search);
+      const state = params.get("stripe");
 
-        if(paypalConfig.environment === "sandbox"){
-          instanceOptions.testBuyerCountry = "US";
-        }
+      if(state === "cancel"){
+        setStatus("Stripe checkout was canceled. No payment was captured. You can try again.", "bad");
+        showPaymentReady(isLocked() && !!loadCart().length);
+        clearStripeReturnParams_();
+        return;
+      }
 
-        venmoSdk = await window.paypal.createInstance(instanceOptions);
+      if(state !== "success") return;
 
-        const methods = await venmoSdk.findEligibleMethods({
-          currencyCode:"USD"
-        });
+      const sessionId = params.get("session_id");
+      if(!sessionId){
+        setStatus("Stripe returned without a payment reference. Please contact us before retrying.", "bad");
+        clearStripeReturnParams_();
+        return;
+      }
 
-        venmoEligible = methods.isEligible("venmo");
+      setBusy(true);
+      setStatus("Confirming your Stripe payment…", null);
 
-        if(!venmoEligible){
-          loading.textContent = "Venmo is not eligible in this browser session. Try a U.S. browser/device or another eligible Venmo account.";
+      try{
+        const session = await getStripeSession_(sessionId);
+
+        if(session.payment_status !== "paid"){
+          setStatus("Stripe has not confirmed payment yet. Please wait before retrying.", "bad");
+          setBusy(false);
           return;
         }
 
-        venmoSession = venmoSdk.createVenmoOneTimePaymentSession({
-          async onApprove(data){
-            setBusy(true);
-            setStatus("Venmo approved. Capturing payment…", null);
-
-            try{
-              await captureVenmoOrder_(data.orderId);
-              finishAutomaticPayment_(getOrderId());
-            }catch(error){
-              if(error?.code === "INSTRUMENT_DECLINED"){
-                setStatus("Venmo declined that funding source. Try again and choose another available funding source in Venmo.", "bad");
-              }else{
-                setStatus(error?.message || "Payment capture failed. Do not retry until the status is checked.", "bad");
-              }
-              setBusy(false);
-            }
-          },
-          onCancel(){
-            setStatus("Venmo checkout was canceled. No payment was captured.", "bad");
-            setBusy(false);
-          },
-          onError(error){
-            setStatus(error?.message || "Venmo checkout could not start.", "bad");
-            setBusy(false);
-          }
-        });
-
-        loading.hidden = true;
-        button.hidden = false;
-
-        button.addEventListener("click", async () => {
-          if(actionInFlight) return;
-
-          if(!isLocked()){
-            setStatus("Save the order first.", "bad");
-            return;
-          }
-
-          if(!venmoSession || !venmoEligible){
-            setStatus("Venmo is not ready in this browser.", "bad");
-            return;
-          }
-
-          setBusy(true);
-          setStatus("Opening secure Venmo checkout…", null);
-
-          try{
-            await venmoSession.start(
-              {presentationMode:"auto"},
-              createVenmoOrder_()
-            );
-          }catch(error){
-            setStatus(error?.message || "Venmo checkout could not start.", "bad");
-            setBusy(false);
-          }
-        });
+        finishAutomaticPayment_(session.order_id || getOrderId());
+        clearStripeReturnParams_();
       }catch(error){
-        loading.textContent = error?.message || "Secure Venmo checkout could not be initialized.";
-        setStatus("Secure Venmo checkout is unavailable right now.", "bad");
+        setStatus(error?.message || "Payment verification is still processing. Do not retry yet.", "bad");
+        setBusy(false);
       }
     }
 
@@ -992,7 +907,7 @@
         currency:"USD",
         items,
         customer:{email},
-        note:"Venmo checkout — payer handle is recorded from PayPal after approval.",
+        note:"Stripe checkout — payment is confirmed by Stripe before fulfillment.",
         referrer:document.referrer || "",
         status:"new"
       };
@@ -1034,6 +949,7 @@
     }
 
     $("continueBtn").addEventListener("click", saveOrder);
+    $("stripePayBtn").addEventListener("click", startStripeCheckout_);
 
     $("clearCartBtn").addEventListener("click", () => {
       if(actionInFlight || isLocked()){
@@ -1064,8 +980,8 @@
 
     syncCustomerInputs();
     render();
-    initVenmo_();
+    handleStripeReturn_();
   </script>
-  <script src="./site-refresh.js?v=LL-20261013-2" defer></script>
+  <script src="./site-refresh.js?v=LL-20261014-STRIPE1" defer></script>
 </body>
 </html>
