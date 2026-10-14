@@ -22,7 +22,7 @@
   <meta name="twitter:description" content="Review your order and pay securely with Stripe." />
   <meta name="twitter:image" content="https://laceleatherarcane.com/assets/l&l_logo.webp" />
 
-  <link rel="stylesheet" href="./styles.css?v=LL-20261014-STRIPE3" />
+  <link rel="stylesheet" href="./styles.css?v=LL-20261014-STRIPE4" />
 
   <style>
     body.pay-page .pay-step{
@@ -359,7 +359,7 @@
     </section>
   </main>
 
-  <script src="./catalog.js?v=LL-20261014-STRIPE3"></script>
+  <script src="./catalog.js?v=LL-20261014-STRIPE4"></script>
   <script>
     const PAYMENTS_API_URL = "https://stripe-checkout-production-0f3c.up.railway.app";
     const ORDERING_DISABLED = false;
@@ -854,16 +854,22 @@
 
     syncCustomerInputs();
 
-    // On a Stripe return, verify the provider session first. This prevents a
-    // stale local success record from flashing the wrong order number.
-    const stripeReturnState = new URLSearchParams(window.location.search).get("stripe");
-    if(stripeReturnState === "success"){
-      handleStripeReturn_();
+    // Stripe success returns are handed to a dedicated confirmation page.
+    // Keeping checkout state and confirmation state separate prevents stale
+    // cart/order UI from competing with provider verification.
+    const stripeReturnParams = new URLSearchParams(window.location.search);
+    const stripeReturnState = stripeReturnParams.get("stripe");
+    const stripeSessionId = String(stripeReturnParams.get("session_id") || "").trim();
+
+    if(stripeReturnState === "success" && stripeSessionId){
+      window.location.replace(
+        "./payment-success.html?session_id=" + encodeURIComponent(stripeSessionId)
+      );
     }else{
       render();
       handleStripeReturn_();
     }
   </script>
-  <script src="./site-refresh.js?v=LL-20261014-STRIPE3" defer></script>
+  <script src="./site-refresh.js?v=LL-20261014-STRIPE4" defer></script>
 </body>
 </html>
