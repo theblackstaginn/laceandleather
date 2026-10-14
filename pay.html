@@ -317,6 +317,9 @@
         </header>
 
         <div class="pay-scroll" id="payScroll">
+          <div class="ordering-unavailable" role="status">
+            Ordering currently unavailable. Please check back soon.
+          </div>
           <div class="pay-grid" id="checkoutGrid">
             <section class="pay-card" aria-label="Order summary">
               <div class="pay-step"><span class="pay-step-num">1</span> Review</div>
@@ -349,10 +352,12 @@
               </div>
 
               <div class="pay-action-stack">
-                <button class="pay-primary-btn" id="continueBtn" type="button">
-                  CONTINUE TO PAYMENT
+                <button class="pay-primary-btn" id="continueBtn" type="button" disabled aria-disabled="true">
+                  ORDERING UNAVAILABLE
                 </button>
-                <div class="pay-status" id="status" aria-live="polite"></div>
+                <div class="pay-status bad" id="status" aria-live="polite">
+                  Online ordering is temporarily paused.
+                </div>
               </div>
             </section>
 
@@ -401,6 +406,7 @@
   <script>
     const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzQSkg_6m84LsodueoI9LN6VuXhuWpfRtYNlyzleZ_I0XghmU-ra49-Bmb4SaoSG8uI/exec";
     const PAYMENTS_API_URL = "https://paypal-venmo-production.up.railway.app";
+    const ORDERING_DISABLED = true;
 
     const CART_KEY = "ll_cart";
     const ORDER_KEY = "ll_order_id";
@@ -861,6 +867,12 @@
       const loading = $("venmoLoading");
       const button = $("venmoButton");
 
+      if(ORDERING_DISABLED){
+        if(button) button.hidden = true;
+        if(loading) loading.textContent = "Ordering currently unavailable.";
+        return;
+      }
+
       try{
         paypalConfig = await fetchPaymentsConfig_();
         await loadPayPalSdk_(paypalConfig.sdkUrl);
@@ -947,6 +959,10 @@
     }
 
     async function saveOrder(){
+      if(ORDERING_DISABLED){
+        setStatus("Online ordering is temporarily paused.", "bad");
+        return;
+      }
       if(actionInFlight || isLocked()) return;
 
       const cart = loadCart();
