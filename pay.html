@@ -756,6 +756,21 @@
       return true;
     }
 
+    function finishAutomaticPayment_(orderId){
+      localStorage.setItem(LAST_SUBMISSION_KEY, JSON.stringify({
+        orderId,
+        at:Date.now(),
+        status:"paid"
+      }));
+
+      setLocked(false);
+      saveCart([]);
+      resetOrderId();
+      clearCustomerInfo();
+      setBusy(false);
+      showComplete(orderId);
+    }
+
     function stripeOrderPayload_(){
       const cart = loadCart();
       return {
