@@ -22,7 +22,19 @@
   <meta name="twitter:description" content="Review your order and pay securely with Stripe." />
   <meta name="twitter:image" content="https://laceleatherarcane.com/assets/l&l_logo.webp" />
 
-  <link rel="stylesheet" href="./styles.css?v=LL-20261014-STRIPE4" />
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = String(params.get("session_id") || "").trim();
+      if(params.get("stripe") === "success" && sessionId){
+        window.location.replace(
+          "./payment-success.html?session_id=" + encodeURIComponent(sessionId)
+        );
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="./styles.css?v=LL-20261014-STRIPE5" />
 
   <style>
     body.pay-page .pay-step{
@@ -359,7 +371,7 @@
     </section>
   </main>
 
-  <script src="./catalog.js?v=LL-20261014-STRIPE4"></script>
+  <script src="./catalog.js?v=LL-20261014-STRIPE5"></script>
   <script>
     const PAYMENTS_API_URL = "https://stripe-checkout-production-0f3c.up.railway.app";
     const ORDERING_DISABLED = false;
@@ -870,6 +882,6 @@
       handleStripeReturn_();
     }
   </script>
-  <script src="./site-refresh.js?v=LL-20261014-STRIPE4" defer></script>
+  <script src="./site-refresh.js?v=LL-20261014-STRIPE5" defer></script>
 </body>
 </html>
