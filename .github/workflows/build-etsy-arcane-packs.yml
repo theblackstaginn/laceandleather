@@ -1,0 +1,77 @@
+name: Build Etsy Arcane Packs
+
+on:
+  push:
+    paths:
+      - ".github/workflows/build-etsy-arcane-packs.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install image tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick zip
+
+      - name: Prepare folders
+        run: |
+          rm -rf etsy-temp
+          mkdir -p etsy-temp/bookmaker etsy-temp/arcane-ui etsy-temp/previews
+
+      - name: Convert Bookmaker pack to transparent PNG
+        run: |
+          convert buttons-stickers/lantern.webp etsy-temp/bookmaker/01-lantern.png
+          convert buttons-stickers/wax-key.webp etsy-temp/bookmaker/02-wax-key.png
+          convert buttons-stickers/red-wax-feather.webp etsy-temp/bookmaker/03-red-wax-feather.png
+          convert buttons-stickers/purple-wax-crystal.webp etsy-temp/bookmaker/04-purple-wax-crystal.png
+          convert buttons-stickers/grn-wax-book.webp etsy-temp/bookmaker/05-green-wax-book.png
+          convert buttons-stickers/wax-green-book-2.webp etsy-temp/bookmaker/06-green-wax-book-ii.png
+          convert buttons-stickers/moon-parch-clean.webp etsy-temp/bookmaker/07-moon-parchment.png
+          convert buttons-stickers/amber-bronze.webp etsy-temp/bookmaker/08-amber-bronze.png
+          convert buttons-stickers/ruby-plate.webp etsy-temp/bookmaker/09-ruby-plate.png
+          convert buttons-stickers/stag-red-wax.webp etsy-temp/bookmaker/10-stag-red-wax.png
+
+      - name: Convert Arcane UI pack to transparent PNG
+        run: |
+          convert buttons-stickers/amethyst-frame.webp etsy-temp/arcane-ui/01-amethyst-frame.png
+          convert buttons-stickers/amethyst-rectangle.webp etsy-temp/arcane-ui/02-amethyst-rectangle.png
+          convert buttons-stickers/emerald-oval.webp etsy-temp/arcane-ui/03-emerald-oval.png
+          convert buttons-stickers/emerald-x.webp etsy-temp/arcane-ui/04-emerald-x.png
+          convert buttons-stickers/green-moon.webp etsy-temp/arcane-ui/05-green-moon.png
+          convert buttons-stickers/moon-green.webp etsy-temp/arcane-ui/06-moon-green.png
+          convert buttons-stickers/purple-arrow.webp etsy-temp/arcane-ui/07-purple-arrow.png
+          convert buttons-stickers/red-arrow.webp etsy-temp/arcane-ui/08-red-arrow.png
+          convert buttons-stickers/sapphire-arrow.webp etsy-temp/arcane-ui/09-sapphire-arrow.png
+          convert buttons-stickers/sapphire-plate.webp etsy-temp/arcane-ui/10-sapphire-plate.png
+
+      - name: Build Etsy preview images
+        run: |
+          montage etsy-temp/bookmaker/*.png -thumbnail '430x430>' -tile 5x2 -geometry 480x480+20+20 -background '#17120f' etsy-temp/previews/bookmaker-grid.png
+          convert -size 2600x440 xc:'#17120f' -gravity center -fill '#d4b47c' -font DejaVu-Serif-Bold -pointsize 112 -annotate +0-45 'OLD-WORLD BOOKMAKER' -pointsize 58 -annotate +0+85 'STICKERS & SEALS • VOL. 1 • 10 PNG ASSETS' etsy-temp/previews/bookmaker-header.png
+          convert -size 2600x240 xc:'#17120f' -gravity center -fill '#bda47c' -font DejaVu-Serif -pointsize 48 -annotate +0+0 'LACE & LEATHER ARCANE • DIGITAL DOWNLOAD' etsy-temp/previews/bookmaker-footer.png
+          convert etsy-temp/previews/bookmaker-header.png etsy-temp/previews/bookmaker-grid.png etsy-temp/previews/bookmaker-footer.png -append etsy-temp/bookmaker-cover.png
+
+          montage etsy-temp/arcane-ui/*.png -thumbnail '430x430>' -tile 5x2 -geometry 480x480+20+20 -background '#17120f' etsy-temp/previews/arcane-ui-grid.png
+          convert -size 2600x440 xc:'#17120f' -gravity center -fill '#d4b47c' -font DejaVu-Serif-Bold -pointsize 112 -annotate +0-45 'ARCANE FANTASY UI' -pointsize 58 -annotate +0+85 'BUTTONS • VOL. 1 • 10 PNG ASSETS' etsy-temp/previews/arcane-ui-header.png
+          convert -size 2600x240 xc:'#17120f' -gravity center -fill '#bda47c' -font DejaVu-Serif -pointsize 48 -annotate +0+0 'LACE & LEATHER ARCANE • DIGITAL DOWNLOAD' etsy-temp/previews/arcane-ui-footer.png
+          convert etsy-temp/previews/arcane-ui-header.png etsy-temp/previews/arcane-ui-grid.png etsy-temp/previews/arcane-ui-footer.png -append etsy-temp/arcane-ui-cover.png
+
+      - name: Package ZIP downloads
+        run: |
+          (cd etsy-temp/bookmaker && zip -9 ../old-world-bookmaker-stickers-seals-vol-1.zip *.png)
+          (cd etsy-temp/arcane-ui && zip -9 ../arcane-fantasy-ui-buttons-vol-1.zip *.png)
+
+      - name: Commit temporary Etsy assets
+        run: |
+          git config user.name "Black Stag Studio Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add etsy-temp
+          git commit -m "Build temporary Etsy button packs"
+          git push
