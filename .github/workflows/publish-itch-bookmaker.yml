@@ -1,0 +1,49 @@
+name: Publish Bookmaker Pack to itch.io
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'buttons-stickers/lantern.png'
+      - 'buttons-stickers/wax-key.png'
+      - 'buttons-stickers/red-wax-feather.png'
+      - 'buttons-stickers/purple-wax-crystal.png'
+      - 'buttons-stickers/grn-wax-book.png'
+      - 'buttons-stickers/wax-green-book-2.png'
+      - 'buttons-stickers/moon-parch-clean.png'
+      - 'buttons-stickers/amber-bronze.png'
+      - 'buttons-stickers/ruby-plate.png'
+      - 'buttons-stickers/stag-red-wax.png'
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build pack
+        run: |
+          mkdir -p dist/old-world-bookmaker-stickers-seals-vol-1
+          cp buttons-stickers/lantern.png dist/old-world-bookmaker-stickers-seals-vol-1/
+          cp buttons-stickers/wax-key.png dist/old-world-bookmaker-stickers-seals-vol-1/
+          cp buttons-stickers/red-wax-feather.png dist/old-world-bookmaker-stickers-seals-vol-1/
+          cp buttons-stickers/purple-wax-crystal.png dist/old-world-bookmaker-stickers-seals-vol-1/
+          cp buttons-stickers/grn-wax-book.png dist/old-world-bookmaker-stickers-seals-vol-1/
+          cp buttons-stickers/wax-green-book-2.png dist/old-world-bookmaker-stickers-seals-vol-1/
+          cp buttons-stickers/moon-parch-clean.png dist/old-world-bookmaker-stickers-seals-vol-1/
+          cp buttons-stickers/amber-bronze.png dist/old-world-bookmaker-stickers-seals-vol-1/
+          cp buttons-stickers/ruby-plate.png dist/old-world-bookmaker-stickers-seals-vol-1/
+          cp buttons-stickers/stag-red-wax.png dist/old-world-bookmaker-stickers-seals-vol-1/
+          cd dist && zip -r old-world-bookmaker-stickers-seals-vol-1.zip old-world-bookmaker-stickers-seals-vol-1
+      - name: Install Butler
+        run: |
+          curl -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
+          unzip -q butler.zip -d $HOME/butler
+          chmod +x $HOME/butler/butler
+      - name: Publish
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: $HOME/butler/butler push dist/old-world-bookmaker-stickers-seals-vol-1.zip laceleatherarcane/old-world-bookmaker-stickers-seals-vol1:assets
