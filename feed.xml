@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Lace &amp; Leather Arcane</title>
+    <link>https://laceleatherarcane.com/feed.xml</link>
+    <description>Original fantasy design showcases, digital texture releases, RPG interface assets, cartography resources, and creator use cases from Lace &amp; Leather Arcane.</description>
+    <language>en-US</language>
+    <lastBuildDate>Thu, 15 Oct 2026 14:30:00 GMT</lastBuildDate>
+    <atom:link href="https://laceleatherarcane.com/feed.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://laceleatherarcane.com/" rel="alternate" type="text/html" />
+    <image>
+      <url>https://laceleatherarcane.com/assets/l%26l_logo.webp</url>
+      <title>Lace &amp; Leather Arcane</title>
+      <link>https://laceleatherarcane.com/</link>
+    </image>
+
+    <item>
+      <title>Smithy Textures: Forge-Worn Parchment for Fantasy Creators</title>
+      <link>https://laceleatherarcane.com/smithy-textures.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/smithy-textures.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:29:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Smithy Textures is a 12-sheet collection of forge-worn parchment built for fantasy creators who want heat, soot, metalwork, and age without sacrificing readability. The 3600 × 5400 px, 300 DPI surfaces are designed for TTRPG handouts, journals, maps, book pages, layered layouts, and other projects that need a believable smithy-worn material beneath the design.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/smithy/smithy-cover.webp" length="293528" type="image/webp" />
+      <category>Fantasy Design</category>
+      <category>Digital Textures</category>
+    </item>
+
+    <item>
+      <title>Grimoire Pages: Printable Pages for Spellbooks and Campaign Logs</title>
+      <link>https://laceleatherarcane.com/grimoire-pages.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/grimoire-pages.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:28:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Grimoire Pages brings together 12 high-resolution parchment pages made for spellbooks, journal inserts, book interiors, overlays, and TTRPG campaign logs. The surfaces keep the aged manuscript atmosphere while preserving enough visual calm for type, handwriting, stamps, diagrams, and layered art, making them useful both as finished printable pages and as foundations for larger fantasy layouts.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/grimoire/grim-thumb.webp" length="241014" type="image/webp" />
+      <category>Grimoire</category>
+      <category>Printable Design</category>
+    </item>
+
+    <item>
+      <title>Mapmaker Sheets: Parchment Pages for Fantasy Cartography</title>
+      <link>https://laceleatherarcane.com/mapmaker-sheets.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/mapmaker-sheets.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:27:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Mapmaker Sheets is a 10-page collection for fantasy cartography, campaign planning, and worldbuilding notes. The parchment surfaces are intended for map drafts, region studies, travel routes, settlement notes, and layout experiments before a final map is inked. They are built to hold pencil-style marks, type, symbols, stamps, and illustration while keeping the page rooted in an old-world material language.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/mapmaker/mapmaker-cover.webp" length="241454" type="image/webp" />
+      <category>Fantasy Cartography</category>
+      <category>Worldbuilding</category>
+    </item>
+
+    <item>
+      <title>Light Aged Parchment Vol. One: Clean Vintage Texture Surfaces</title>
+      <link>https://laceleatherarcane.com/light-aged-parchment-vol-1.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/light-aged-parchment-vol-1.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:26:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Light Aged Parchment Vol. One contains 12 high-resolution backgrounds designed for projects that need age and material character without heavy visual noise. These lighter surfaces leave generous room for readable text, handwriting, illustrations, and overlays, making them practical for journal spreads, book interiors, scrapbook layouts, printable pages, TTRPG materials, and restrained archival-style design.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/vol-one/vol-1-thumbnail.webp" length="222738" type="image/webp" />
+      <category>Parchment</category>
+      <category>Digital Textures</category>
+    </item>
+
+    <item>
+      <title>Fantasy Map Design: Building Worlds on Aged Parchment</title>
+      <link>https://laceleatherarcane.com/use-case.html#map-design</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/use-case.html#map-design</guid>
+      <pubDate>Thu, 15 Oct 2026 14:25:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[A fantasy map gains much of its atmosphere from the surface beneath the linework. This map-design showcase explores how aged parchment, muted weathering, cartographic marks, and old-world material cues can support coastlines, routes, labels, compass details, and geographic illustration without overwhelming them. The goal is a map surface that feels discovered and handled, while still functioning as a clear design document.]]></description>
+      <enclosure url="https://laceleatherarcane.com/use-case/map-layout.webp" length="228512" type="image/webp" />
+      <category>Fantasy Maps</category>
+      <category>Worldbuilding</category>
+    </item>
+
+    <item>
+      <title>TTRPG Handouts: Giving Campaign Notes a World-Worn Surface</title>
+      <link>https://laceleatherarcane.com/use-case.html#rpg-handouts</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/use-case.html#rpg-handouts</guid>
+      <pubDate>Thu, 15 Oct 2026 14:24:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[TTRPG handouts work best when they carry the world into the player’s hands without making the information difficult to use. This example shows aged parchment used as a restrained foundation for session notes, clues, letters, campaign records, and printable reference sheets. The material treatment adds history and place while leaving enough contrast for headings, writing fields, annotations, and the practical information a table needs during play.]]></description>
+      <enclosure url="https://laceleatherarcane.com/use-case/rpg-handout.webp" length="210932" type="image/webp" />
+      <category>TTRPG</category>
+      <category>Printable Design</category>
+    </item>
+
+    <item>
+      <title>Tarot Layouts: Archival Parchment for Divination Designs</title>
+      <link>https://laceleatherarcane.com/use-case.html#tarot-layouts</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/use-case.html#tarot-layouts</guid>
+      <pubDate>Thu, 15 Oct 2026 14:23:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Tarot and divination layouts often benefit from a surface that feels archival rather than glossy or synthetic. This showcase uses warm aged parchment, restrained ornament, and clear typography to frame symbolic artwork while keeping the card readable. The same approach can support printable tarot concepts, oracle layouts, ritual worksheets, reference cards, and other designs where imagery and text need to share a believable old-world material.]]></description>
+      <enclosure url="https://laceleatherarcane.com/use-case/tarot-template.webp" length="201150" type="image/webp" />
+      <category>Tarot Design</category>
+      <category>Printable Design</category>
+    </item>
+
+    <item>
+      <title>Journal Pages: Building Printable Reflection and Lore Sheets</title>
+      <link>https://laceleatherarcane.com/use-case.html#journal-pages</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/use-case.html#journal-pages</guid>
+      <pubDate>Thu, 15 Oct 2026 14:22:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Printable journal pages need atmosphere, but they also need generous writing space and dependable contrast. This example uses light weathering, fine ornament, and an aged-paper base to create a page that can hold reflection prompts, lore notes, campaign records, gratitude entries, sketches, or handwritten annotations. It demonstrates how parchment texture can give a worksheet character without turning the background into competition for the content.]]></description>
+      <enclosure url="https://laceleatherarcane.com/use-case/journal-page.webp" length="270976" type="image/webp" />
+      <category>Journaling</category>
+      <category>Printables</category>
+    </item>
+
+    <item>
+      <title>Fantasy Book Covers: Adding Tactile Material to Publishing Art</title>
+      <link>https://laceleatherarcane.com/use-case.html#book-covers</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/use-case.html#book-covers</guid>
+      <pubDate>Thu, 15 Oct 2026 14:21:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Fantasy cover art can feel more grounded when the design carries material cues beyond the central illustration. This showcase explores an aged, tactile presentation around dramatic fantasy imagery, using weathered surfaces and restrained old-world detailing to support the title and composition. The approach is useful for concepting book covers, campaign books, lore documents, and other publishing pieces that need a physical sense of history around digital artwork.]]></description>
+      <enclosure url="https://laceleatherarcane.com/use-case/book-cover.webp" length="144884" type="image/webp" />
+      <category>Book Design</category>
+      <category>Fantasy Art</category>
+    </item>
+
+    <item>
+      <title>Website Heroes: Old-World Surfaces for Digital Interfaces</title>
+      <link>https://laceleatherarcane.com/use-case.html#website-heroes</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/use-case.html#website-heroes</guid>
+      <pubDate>Thu, 15 Oct 2026 14:20:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Old-world material does not have to stay on the printed page. This website-hero example brings parchment texture, dark surrounding space, ornamental framing, and strong typography into a digital layout while preserving clear calls to action. It shows how tactile fantasy assets can support landing pages, creator portfolios, game interfaces, and branded web experiences without sacrificing readability or basic interface function.]]></description>
+      <enclosure url="https://laceleatherarcane.com/use-case/website-cover.webp" length="161880" type="image/webp" />
+      <category>Web Design</category>
+      <category>Fantasy UI</category>
+    </item>
+
+    <item>
+      <title>Fantasy Buttons &amp; Stickers: Interface Elements for Arcane Projects</title>
+      <link>https://laceleatherarcane.com/buttons.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/buttons.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:19:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[The Lace & Leather button and sticker collection extends the same weathered, tactile visual language into smaller interface and decorative pieces. These elements are built for fantasy websites, RPG interfaces, creator pages, digital products, labels, and layered compositions where a plain modern control would break the atmosphere. The collection favors leather, bronze, parchment, carved details, and botanical ornament over generic stock interface styling.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/button-banner.webp" length="661224" type="image/webp" />
+      <category>Fantasy UI</category>
+      <category>Game Assets</category>
+    </item>
+
+    <item>
+      <title>Lace &amp; Leather Arcane: Digital Assets for Makers and Worldbuilders</title>
+      <link>https://laceleatherarcane.com/</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/</guid>
+      <pubDate>Thu, 15 Oct 2026 14:18:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Lace & Leather Arcane is a growing collection of digital textures, fantasy cartography resources, interface elements, creator tools, and custom map work built around believable aged materials. The visual language centers parchment, leather, ink, patina, weathering, and archival fantasy design, with practical use kept in view. This feed gathers new releases and examples showing how those assets can live inside real creative projects.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/l%26l_logo.webp" length="2542834" type="image/webp" />
+      <category>Digital Art</category>
+      <category>Worldbuilding</category>
+    </item>
+
+    <item>
+      <title>Suneen Reef: Fantasy Map Showcase</title>
+      <link>https://laceleatherarcane.com/journal/suneen-reef.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/journal/suneen-reef.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:17:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Suneen Reef is presented as a Lace & Leather fantasy cartography showcase, pairing illustrated geography with the aged, archival atmosphere that runs through the studio’s map work. The piece is a useful reference for worldbuilders thinking about how place names, coastlines, water, landmarks, and weathered material can work together without turning a map into decorative clutter.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/maps/suneen-reef.webp" length="407436" type="image/webp" />
+      <category>Fantasy Maps</category>
+      <category>Worldbuilding</category>
+    </item>
+
+    <item>
+      <title>Whispering Bay: Fantasy Cartography Showcase</title>
+      <link>https://laceleatherarcane.com/journal/whispering-bay.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/journal/whispering-bay.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:16:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Whispering Bay is a Lace & Leather fantasy map showcase focused on the meeting point between worldbuilding and tactile presentation. A map can carry narrative before a reader studies a single label: coastline shape, spacing, visual hierarchy, paper character, and restrained weathering all help suggest that the document belongs to a larger imagined world.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/maps/whispering-bay.webp" length="421512" type="image/webp" />
+      <category>Fantasy Maps</category>
+      <category>Worldbuilding</category>
+    </item>
+
+    <item>
+      <title>Coastline Drafting on Aged Mapmaker Sheets</title>
+      <link>https://laceleatherarcane.com/journal/coastline-drafting.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/journal/coastline-drafting.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:15:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Aged parchment can be a surprisingly practical drafting surface for fantasy coastlines. This field note uses a Mapmaker Sheets page as a visual example and looks at a simple workflow: establish the large landmass first, vary the coastline at multiple scales, leave breathing room around labels, and let the underlying texture add material character instead of forcing detail into every empty space.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/mapmaker/map_3.webp" length="618738" type="image/webp" />
+      <category>Fantasy Cartography</category>
+      <category>Worldbuilding</category>
+    </item>
+
+    <item>
+      <title>Region Notes and Geography Studies for Worldbuilding</title>
+      <link>https://laceleatherarcane.com/journal/region-notes.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/journal/region-notes.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:14:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Not every fantasy map begins as finished cartography. Regional notes are often where the world becomes coherent: climate, terrain, settlements, hazards, borders, resources, and travel constraints can be worked out before the final lines are inked. This field note uses a Mapmaker Sheets surface to show how an aged page can support both rough thinking and presentable worldbuilding records.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/mapmaker/map_4.webp" length="623302" type="image/webp" />
+      <category>Worldbuilding</category>
+      <category>Mapmaking</category>
+    </item>
+
+    <item>
+      <title>Planning Travel Routes Across a Fantasy Map</title>
+      <link>https://laceleatherarcane.com/journal/travel-routes.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/journal/travel-routes.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:13:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Travel routes give geography consequence. Roads, river crossings, mountain passes, ports, and dangerous detours help turn a collection of locations into a world that feels traversable. This field note uses a Mapmaker Sheets page as a working example for plotting routes, travel notes, distances, and obstacles while preserving enough open space for revisions and campaign annotations.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/mapmaker/map_5.webp" length="581550" type="image/webp" />
+      <category>Fantasy Cartography</category>
+      <category>TTRPG</category>
+    </item>
+
+    <item>
+      <title>Settlement Planning, Landmarks, and Map Hierarchy</title>
+      <link>https://laceleatherarcane.com/journal/settlement-planning.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/journal/settlement-planning.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:12:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Settlements work best when their placement tells a geographic story. Rivers, coasts, crossroads, defensive ground, farmland, and trade routes can all explain why a town exists where it does. This field note uses a Mapmaker Sheets surface to explore settlement placement and visual hierarchy, with enough breathing room for landmarks, names, roads, and later campaign notes.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/mapmaker/map_6.webp" length="651512" type="image/webp" />
+      <category>Worldbuilding</category>
+      <category>Fantasy Maps</category>
+    </item>
+
+    <item>
+      <title>Campaign Map Notes That Survive the Table</title>
+      <link>https://laceleatherarcane.com/journal/campaign-map-notes.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/journal/campaign-map-notes.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:11:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[A campaign map often becomes a living document. New names appear, routes change, ruins are discovered, factions move, and player choices leave marks on the geography. This field note uses a Mapmaker Sheets page as a model for keeping annotations readable and organized, so the map can accumulate history without becoming a thicket of arrows, labels, and crossed-out notes.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/mapmaker/map_7.webp" length="602484" type="image/webp" />
+      <category>TTRPG</category>
+      <category>Worldbuilding</category>
+    </item>
+
+    <item>
+      <title>Legends, Symbols, and Annotation Layers in Fantasy Maps</title>
+      <link>https://laceleatherarcane.com/journal/map-legends.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/journal/map-legends.html</guid>
+      <pubDate>Thu, 15 Oct 2026 14:10:00 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[A good map legend quietly teaches the reader how to understand the world. Symbols for settlements, ruins, roads, borders, hazards, and resources should feel related to the map’s visual language while remaining distinct enough to scan quickly. This field note uses a Mapmaker Sheets surface to explore how legends and annotation layers can add information without overpowering the geography.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/mapmaker/map_8.webp" length="652104" type="image/webp" />
+      <category>Fantasy Cartography</category>
+      <category>Mapmaking</category>
+    </item>
+  </channel>
+</rss>
