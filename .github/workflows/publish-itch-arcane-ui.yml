@@ -2,6 +2,20 @@ name: Publish Arcane UI to itch.io
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "buttons-stickers/amethyst-frame.png"
+      - "buttons-stickers/amethyst-rectangle.png"
+      - "buttons-stickers/emerald-oval.png"
+      - "buttons-stickers/emerald-x.png"
+      - "buttons-stickers/green-moon.png"
+      - "buttons-stickers/moon-green.png"
+      - "buttons-stickers/purple-arrow.png"
+      - "buttons-stickers/red-arrow.png"
+      - "buttons-stickers/sapphire-arrow.png"
+      - "buttons-stickers/sapphire-plate.png"
 
 permissions:
   contents: read
@@ -11,6 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Build pack
         run: |
           mkdir -p dist/arcane-fantasy-ui-buttons-vol-1
@@ -25,11 +40,13 @@ jobs:
           cp buttons-stickers/sapphire-arrow.png dist/arcane-fantasy-ui-buttons-vol-1/
           cp buttons-stickers/sapphire-plate.png dist/arcane-fantasy-ui-buttons-vol-1/
           cd dist && zip -r arcane-fantasy-ui-buttons-vol-1.zip arcane-fantasy-ui-buttons-vol-1
+
       - name: Install Butler
         run: |
           curl -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
           unzip -q butler.zip -d $HOME/butler
           chmod +x $HOME/butler/butler
+
       - name: Publish
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
