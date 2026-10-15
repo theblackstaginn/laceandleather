@@ -1,0 +1,36 @@
+name: Publish Arcane UI to itch.io
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build pack
+        run: |
+          mkdir -p dist/arcane-fantasy-ui-buttons-vol-1
+          cp buttons-stickers/amethyst-frame.png dist/arcane-fantasy-ui-buttons-vol-1/
+          cp buttons-stickers/amethyst-rectangle.png dist/arcane-fantasy-ui-buttons-vol-1/
+          cp buttons-stickers/emerald-oval.png dist/arcane-fantasy-ui-buttons-vol-1/
+          cp buttons-stickers/emerald-x.png dist/arcane-fantasy-ui-buttons-vol-1/
+          cp buttons-stickers/green-moon.png dist/arcane-fantasy-ui-buttons-vol-1/
+          cp buttons-stickers/moon-green.png dist/arcane-fantasy-ui-buttons-vol-1/
+          cp buttons-stickers/purple-arrow.png dist/arcane-fantasy-ui-buttons-vol-1/
+          cp buttons-stickers/red-arrow.png dist/arcane-fantasy-ui-buttons-vol-1/
+          cp buttons-stickers/sapphire-arrow.png dist/arcane-fantasy-ui-buttons-vol-1/
+          cp buttons-stickers/sapphire-plate.png dist/arcane-fantasy-ui-buttons-vol-1/
+          cd dist && zip -r arcane-fantasy-ui-buttons-vol-1.zip arcane-fantasy-ui-buttons-vol-1
+      - name: Install Butler
+        run: |
+          curl -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
+          unzip -q butler.zip -d $HOME/butler
+          chmod +x $HOME/butler/butler
+      - name: Publish
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: $HOME/butler/butler push dist/arcane-fantasy-ui-buttons-vol-1.zip laceleatherarcane/arcane-fantasy-ui-buttons-vol-1:assets
