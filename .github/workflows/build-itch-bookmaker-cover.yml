@@ -1,0 +1,44 @@
+name: Build itch.io Bookmaker cover
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'itch-assets/bookmaker-cover-source.png'
+
+permissions:
+  contents: write
+
+jobs:
+  build-cover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build itch.io cover
+        run: |
+          python -m pip install pillow
+          python - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          src = Image.open('itch-assets/bookmaker-cover-source.png').convert('RGB')
+          W, H = 1260, 1000
+          bg = Image.new('RGB', (W, H), (22, 14, 11))
+          src.thumbnail((W, H), Image.Resampling.LANCZOS)
+          x = (W - src.width) // 2
+          y = (H - src.height) // 2
+          bg.paste(src, (x, y))
+          out = Path('itch-assets/bookmaker-cover-itch.jpg')
+          bg.save(out, 'JPEG', quality=92, optimize=True, progressive=True)
+          q = 92
+          while out.stat().st_size > 2900000 and q > 70:
+              q -= 4
+              bg.save(out, 'JPEG', quality=q, optimize=True, progressive=True)
+          print(out, out.stat().st_size, q)
+          PY
+      - name: Commit optimized cover
+        run: |
+          git config user.name 'Black Stag Studio Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add itch-assets/bookmaker-cover-itch.jpg
+          git diff --cached --quiet || git commit -m 'Build optimized itch.io Bookmaker cover'
+          git push
