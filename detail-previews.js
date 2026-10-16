@@ -66,14 +66,19 @@
       closeButton.focus({preventScroll: true});
     }
 
-    function reset() {
+    function restoreScroll() {
       document.body.style.overflow = previousOverflow;
+    }
+
+    function reset() {
+      restoreScroll();
       if (trigger?.isConnected) trigger.focus({preventScroll: true});
       trigger = null;
       currentImage.removeAttribute("src");
     }
 
     function close() {
+      restoreScroll();
       if (typeof modal.close === "function") {
         modal.close();
       } else {
@@ -88,6 +93,7 @@
     prev.addEventListener("click", () => show(current - 1));
     next.addEventListener("click", () => show(current + 1));
     closeButton.addEventListener("click", close);
+    modal.addEventListener("cancel", restoreScroll);
     modal.addEventListener("close", reset);
     modal.addEventListener("click", (event) => {
       if (event.target === modal) close();
