@@ -37,3 +37,11 @@ The draft PR also disables seven public GitHub Actions jobs pending relocation:
 - The broad WebP conversion job that could recommit source assets.
 
 These are **asset generation/publishing** jobs, not live customer Stripe payment, Google Sheets order confirmation, or Resend fulfillment. These workflows should be rebuilt with PRIVATE source and output storage before enabling them. Public GitHub Actions artifacts should not store customer-ready digital goods.
+
+
+## Smithy preview migration (staged on this branch)
+- The one-time \`scripts/build_ward_previews.py --pack smithy\` build has produced **12 baked-watermark, flattened WebP previews**, each <=1500px on its long edge. All 12 are listed with dimensions, byte count and checksum in \`assets/previews/smithy/preview-manifest.json\`.
+- Both \`index.html\` pack previews and \`smithy-textures.html\` detail gallery now load \`assets/previews/smithy/smithy-XX-preview.webp\`. The website does NOT request original Smithy source images in those galleries.
+- This draft removes the old public sale-quality \`assets/smithy/smithy-N.png\`, \`assets/smithy/smithy-N.webp\`, and \`assets/smithy-hires/site/smithy-N.jpg\` files (36 total) as well as 12 high-resolution masters and six ZIPs.
+- Marketing cover assets are intentionally preserved to avoid broken site listings. Their public status must still be reviewed as preview collateral.
+- **Important**: The working private Drive \`smithy.zip\` delivery package is separate, and was not changed. Public-history purge and broader product-art migration remain prerequisites for claiming full protection.
