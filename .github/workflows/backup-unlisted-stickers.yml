@@ -1,0 +1,45 @@
+name: Preserve Unlisted Sticker Originals (one-time)
+run-name: Preserve four original files before public removal
+on:
+  push:
+    branches:
+      - security/ward-v2-previews-20261016
+    paths:
+      - .github/workflows/backup-unlisted-stickers.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preserve:
+    name: Prepare temporary owner backup of two unlisted sticker designs
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Read historical main source only; do not publish to the site
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Bundle exact original PNG and WebP assets
+        run: |
+          set -eu
+          mkdir -p owner-backup
+          for filename in blue-naut-wax bronze-x-sheild; do
+            test -s "buttons-stickers/${filename}.png"
+            test -s "buttons-stickers/${filename}.webp"
+          done
+          zip -j -9 owner-backup/unlisted-sticker-originals.zip \
+            buttons-stickers/blue-naut-wax.png \
+            buttons-stickers/blue-naut-wax.webp \
+            buttons-stickers/bronze-x-sheild.png \
+            buttons-stickers/bronze-x-sheild.webp
+          unzip -t owner-backup/unlisted-sticker-originals.zip
+          sha256sum owner-backup/unlisted-sticker-originals.zip
+      - name: Temporary upload for transfer into private owner Drive
+        uses: actions/upload-artifact@v4
+        with:
+          name: unlisted-sticker-originals-owner-transfer
+          path: owner-backup/unlisted-sticker-originals.zip
+          retention-days: 1
+          if-no-files-found: error
