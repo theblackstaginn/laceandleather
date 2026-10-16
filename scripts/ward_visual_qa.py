@@ -107,6 +107,10 @@ def check(device, browser, base, failures, results):
         page.locator("#packModal.open").wait_for(timeout=8000)
         assert_ok(page.locator("#packCollage .tile").count()==expected,
                   f"{device}: {pack} collage expected {expected} tiles",failures)
+        paths=page.locator("#packCollage .tile-face").evaluate_all(
+            "(els)=>els.map(el=>el.style.backgroundImage)")
+        assert_ok(len(paths)==expected and all(f"assets/previews/{pack}/" in path for path in paths),
+                  f"{device}: {pack} gallery is still sourcing paid originals",failures)
         urls=page.locator("#packCollage .tile-face").evaluate_all(
             """(els) => els.map(el => getComputedStyle(el).backgroundImage
                 .match(/url\\(["']?(.*?)["']?\\)/)?.[1]).filter(Boolean)""")
@@ -183,12 +187,36 @@ def check(device, browser, base, failures, results):
 
     page.goto(base+"/buttons.html",wait_until="domcontentloaded",timeout=30000)
     page.locator("#buttonsGrid .btn-main").first.wait_for(timeout=15000)
+    sticker_images=page.locator("#buttonsGrid .btn-main img")
+    assert_ok(sticker_images.count()==31,
+              f"{device}: sold sticker count changed ({sticker_images.count()})",failures)
+    sticker_sources=sticker_images.evaluate_all("(els)=>els.map(el=>el.getAttribute('src'))")
+    assert_ok(len(sticker_sources)==31 and all("/assets/previews/buttons/" in x and x.endswith("-preview.webp") for x in sticker_sources),
+              f"{device}: sticker gallery still contains clean originals",failures)
+    page.wait_for_function("""() => Array.from(document.querySelectorAll('#buttonsGrid .btn-main img')).every(img => img.complete)""", timeout=15000)
+    assert_ok(sticker_images.evaluate_all("(els)=>els.every(el=>el.naturalWidth>0)"),
+              f"{device}: missing sticker preview image",failures)
     page.locator("#buttonsGrid .btn-main").first.click()
     cart=page.evaluate("() => JSON.parse(localStorage.getItem('ll_cart')||'[]')")
     assert_ok(len(cart)>0, f"{device}: button gallery add-to-cart click failed",failures)
+    assert_ok(bool(cart and cart[0].get("id")=="button-amber-bronze"),
+              f"{device}: sticker catalog id or order item changed unexpectedly",failures)
     page.screenshot(path=str(OUT/f"{device}-buttons.png"))
     assert_ok(page.evaluate("document.documentElement.scrollWidth<=innerWidth+5"),
               f"{device}: button gallery horizontal overflow", failures)
+    # Journal social/hero links and public RSS must use the protected map artwork.
+    page.goto(base+"/journal/coastline-drafting.html",wait_until="domcontentloaded",timeout=30000)
+    hero=page.locator("img.hero").first
+    hero.wait_for(timeout=10000)
+    assert_ok("assets/previews/mapmaker/" in (hero.get_attribute("src") or ""),
+              f"{device}: journal still serves a clean Mapmaker original",failures)
+    page.wait_for_function("() => document.querySelector('img.hero').naturalWidth > 0",timeout=12000)
+    page.screenshot(path=str(OUT/f"{device}-journal-mapmaker.png"))
+    feed=page.request.get(base+"/feed.xml")
+    assert_ok(feed.ok and "assets/mapmaker/map_" not in feed.text() and
+              "assets/previews/mapmaker/" in feed.text(),
+              f"{device}: RSS still contains exposed Mapmaker assets",failures)
+
     results[device]={"preview_count":len(sources),"detail_viewer_dimensions":shape,
                      "cart_after_click":len(cart),
                      "page_javascript_errors":errors[:15],
