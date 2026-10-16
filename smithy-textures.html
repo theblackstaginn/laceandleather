@@ -119,7 +119,7 @@
     const viewerImg = $("#viewerImg");
     const viewerTitle = $("#viewerTitle");
 
-    const SMITHY_IMAGES = Array.from({ length: 12 }, (_, i) => `./assets/smithy-hires/site/smithy-${i + 1}.jpg`);
+    const SMITHY_IMAGES = Array.from({ length: 12 }, (_, i) => `./assets/previews/smithy/smithy-${String(i + 1).padStart(2, "0")}-preview.webp`);
 
     function openModal(){
       window.LaceLeatherUI.openModal(modal);
