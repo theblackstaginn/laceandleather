@@ -163,6 +163,13 @@ def check(device, browser, base, failures, results):
     shape=viewer.evaluate("(el) => [el.naturalWidth,el.naturalHeight]")
     assert_ok(max(shape)<=1500,
               f"{device}: detail zoom exceeds intended preview resolution ({shape})", failures)
+    # Hidden modal control icons may defer decoding. Confirm the actual asset
+    # renders instead of mistaking a broken-image placeholder for a button.
+    page.wait_for_function("""() => {
+      const icon = document.querySelector('#viewerModal button[data-close] img');
+      return Boolean(icon && icon.complete && icon.naturalWidth > 0);
+    }""", timeout=12000)
+    page.wait_for_timeout(300)
     page.screenshot(path=str(OUT/f"{device}-smithy-zoom.png"))
     page.locator("#viewerModal button[data-close]").click()
     assert_ok(page.locator("#viewerModal.open").count()==0,
