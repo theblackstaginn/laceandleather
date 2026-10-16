@@ -11,8 +11,10 @@ on:
 permissions:
   contents: read
 
+# SECURITY HOLD: preview build completed; never rerun against deleted source art.
 jobs:
   preserve:
+    if: ${{ false }}
     name: Prepare temporary owner backup of two unlisted sticker designs
     runs-on: ubuntu-latest
     timeout-minutes: 10
