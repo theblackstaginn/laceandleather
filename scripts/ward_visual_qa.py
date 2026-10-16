@@ -185,6 +185,74 @@ def check(device, browser, base, failures, results):
     assert_ok(page.locator("#viewerModal.open").count()==0,
               f"{device}: detail modal didn't close",failures)
 
+
+    # Product detail galleries must show watermarked pages directly, not just
+    # a cover + an outbound link to the homepage. Verify desktop/mobile UI.
+    for pack, route, total in (
+        ("grimoire", "grimoire-pages.html", 12),
+        ("mapmaker", "mapmaker-sheets.html", 10),
+        ("volone", "light-aged-parchment-vol-1.html", 12),
+    ):
+        page.goto(base+"/"+route, wait_until="domcontentloaded", timeout=30000)
+        section=page.locator("#product-previews")
+        section.wait_for(state="visible", timeout=15000)
+        thumbs=section.locator(".detail-preview-tile")
+        assert_ok(thumbs.count()==total,
+                  f"{device} {pack}: expected {total} visible product detail thumbnails; got {thumbs.count()}",
+                  failures)
+        paths=section.locator(".detail-preview-art img").evaluate_all(
+            "(els)=>els.map(img=>img.getAttribute('src'))")
+        assert_ok(len(paths)==total and all(
+            "assets/previews/"+pack+"/" in source for source in paths),
+            f"{device} {pack}: details display unprotected or missing preview sources",
+            failures)
+        for path in paths:
+            response=page.request.head(base+"/"+path.removeprefix("./"))
+            assert_ok(response.status==200,
+                      f"{device} {pack}: missing preview {path}, status {response.status}",
+                      failures)
+        section.locator(".detail-preview-art img").evaluate_all(
+            "(els)=>els.forEach(img=>img.loading='eager')")
+        page.wait_for_function(
+            "() => [...document.querySelectorAll('#product-previews .detail-preview-art img')].every(img=>img.complete&&img.naturalWidth>0)",
+            timeout=20000)
+        section.screenshot(path=str(OUT/f"{device}-{pack}-details-grid.png"))
+        thumbs.first.click()
+        dialog=page.locator(".detail-preview-dialog")
+        dialog.wait_for(state="visible",timeout=8000)
+        assert_ok(dialog.evaluate("(e)=>e.open"),
+                  f"{device} {pack}: detail preview modal did not open", failures)
+        hero=dialog.locator(".detail-preview-stage img")
+        hero.wait_for(state="visible",timeout=8000)
+        hero_src=hero.get_attribute("src") or ""
+        assert_ok("assets/previews/"+pack+"/" in hero_src,
+                  f"{device} {pack}: zoom uses unprotected source {hero_src}", failures)
+        page.wait_for_function(
+            "() => document.querySelector('.detail-preview-stage img').naturalWidth>0",
+            timeout=15000)
+        box=hero.bounding_box()
+        assert_ok(bool(box and box["width"]>130 and box["height"]>160),
+                  f"{device} {pack}: zoom image not visible at useful size {box}", failures)
+        count=dialog.locator(".detail-preview-dialog-count")
+        assert_ok(count.inner_text()==f"1 of {total}",
+                  f"{device} {pack}: initial modal count incorrect: {count.inner_text()}",failures)
+        dialog.screenshot(path=str(OUT/f"{device}-{pack}-details-zoom.png"))
+        dialog.locator("[data-next]").click()
+        assert_ok(count.inner_text()==f"2 of {total}",
+                  f"{device} {pack}: next navigation failed",failures)
+        dialog.press("ArrowLeft")
+        assert_ok(count.inner_text()==f"1 of {total}",
+                  f"{device} {pack}: keyboard reverse navigation failed", failures)
+        page.keyboard.press("Escape")
+        assert_ok(not dialog.evaluate("(e)=>e.open"),
+                  f"{device} {pack}: Escape did not close modal",failures)
+        assert_ok(not page.evaluate("document.body.style.overflow=='hidden'"),
+                  f"{device} {pack}: closing gallery failed to unlock scrolling",
+                  failures)
+        assert_ok(page.evaluate("document.documentElement.scrollWidth<=innerWidth+5"),
+                  f"{device} {pack}: mobile/desktop product detail has horizontal overflow",
+                  failures)
+
     page.goto(base+"/buttons.html",wait_until="domcontentloaded",timeout=30000)
     page.locator("#buttonsGrid .btn-main").first.wait_for(timeout=15000)
     sticker_images=page.locator("#buttonsGrid .btn-main img")
