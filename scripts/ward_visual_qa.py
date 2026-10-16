@@ -85,6 +85,13 @@ def check(device, browser, base, failures, results):
               f"{device}: pack zoom did not open", failures)
     assert_ok("assets/previews/smithy/" in page.locator("#packViewerImg").evaluate(
               "(e) => e.style.backgroundImage"), f"{device}: pack zoom uses original artwork", failures)
+    # Guard against CSS pseudo-element overlays that dim the artwork.
+    packview=page.locator("#packViewer")
+    assert_ok(packview.is_visible(), f"{device}: pack viewer is hidden", failures)
+    assert_ok(not packview.evaluate("(e) => e.classList.contains('ll-ward-surface')"),
+              f"{device}: full-screen viewer gained dark Ward pseudo-overlay",failures)
+    assert_ok(page.locator("#packViewerImg").evaluate("(e) => e.classList.contains('ll-ward-surface')"),
+              f"{device}: preview canvas lacks Ward badge", failures)
     page.wait_for_timeout(300)
     page.screenshot(path=str(OUT/f"{device}-pack-zoom.png"))
     page.locator("#packBackBtn").click()
@@ -107,6 +114,11 @@ def check(device, browser, base, failures, results):
               f"{device}: detail zoom uses unwarded source", failures)
     page.wait_for_function("() => document.querySelector('#viewerImg').naturalWidth > 0",
                            timeout=12000)
+    # A loaded image is not enough: confirm it is actually rendered onscreen.
+    assert_ok(viewer.is_visible(), f"{device}: detail zoom image is hidden by CSS",failures)
+    box=viewer.bounding_box()
+    assert_ok(bool(box and box["height"]>160 and box["width"]>150),
+              f"{device}: detail zoom image has no visible dimensions ({box})",failures)
     shape=viewer.evaluate("(el) => [el.naturalWidth,el.naturalHeight]")
     assert_ok(max(shape)<=1500,
               f"{device}: detail zoom exceeds intended preview resolution ({shape})", failures)
