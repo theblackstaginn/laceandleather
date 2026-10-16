@@ -246,6 +246,7 @@ def check(device, browser, base, failures, results):
         page.keyboard.press("Escape")
         assert_ok(not dialog.evaluate("(e)=>e.open"),
                   f"{device} {pack}: Escape did not close modal",failures)
+        page.wait_for_function("() => document.body.style.overflow !== 'hidden'",timeout=3000)
         assert_ok(not page.evaluate("document.body.style.overflow=='hidden'"),
                   f"{device} {pack}: closing gallery failed to unlock scrolling",
                   failures)
