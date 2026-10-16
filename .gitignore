@@ -1,3 +1,8 @@
 # Paid downloadable masters must remain in private storage.
 /downloads/
 /assets/smithy-hires/masters/
+
+# Only generated flattened preview derivatives may be published.
+/assets/smithy/smithy-[0-9]*.png
+/assets/smithy/smithy-[0-9]*.webp
+/assets/smithy-hires/site/
