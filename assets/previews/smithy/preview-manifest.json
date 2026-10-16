@@ -1,0 +1,163 @@
+{
+  "ward_version": 2,
+  "source_count": 12,
+  "max_long_edge": 1500,
+  "files": [
+    {
+      "file": "assets/previews/smithy/smithy-01-preview.webp",
+      "source_dimensions": [
+        991,
+        1509
+      ],
+      "preview_dimensions": [
+        985,
+        1500
+      ],
+      "bytes": 333344,
+      "sha256": "3082c3744710b460a94791443489aa40d611dd952338bd9bd11caf581d48512a"
+    },
+    {
+      "file": "assets/previews/smithy/smithy-02-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        1000,
+        1500
+      ],
+      "bytes": 355750,
+      "sha256": "2ac215dd2b2cbf8b710df083412553a99a579cb27c5cdd2798685e075c463ae3"
+    },
+    {
+      "file": "assets/previews/smithy/smithy-03-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        1000,
+        1500
+      ],
+      "bytes": 334054,
+      "sha256": "f22d1dcea05ca1bd7b8651f1f8f188ca3fce7585214ff592957eba067971f16d"
+    },
+    {
+      "file": "assets/previews/smithy/smithy-04-preview.webp",
+      "source_dimensions": [
+        990,
+        1511
+      ],
+      "preview_dimensions": [
+        983,
+        1500
+      ],
+      "bytes": 338900,
+      "sha256": "1798c4fe20b686659aa48da09012ea98b9dc2c2db70ea4e742415ffe48b30b63"
+    },
+    {
+      "file": "assets/previews/smithy/smithy-05-preview.webp",
+      "source_dimensions": [
+        993,
+        1512
+      ],
+      "preview_dimensions": [
+        985,
+        1500
+      ],
+      "bytes": 441130,
+      "sha256": "a4b0bbfdb58e492ca79b9a8a6fe819d08ad499566a061b13d8d82d1255992d93"
+    },
+    {
+      "file": "assets/previews/smithy/smithy-06-preview.webp",
+      "source_dimensions": [
+        975,
+        1492
+      ],
+      "preview_dimensions": [
+        975,
+        1492
+      ],
+      "bytes": 318318,
+      "sha256": "fdd9794519595095560e3a2a7deefe935f574caea479c787764376145dcdf047"
+    },
+    {
+      "file": "assets/previews/smithy/smithy-07-preview.webp",
+      "source_dimensions": [
+        983,
+        1502
+      ],
+      "preview_dimensions": [
+        982,
+        1500
+      ],
+      "bytes": 348096,
+      "sha256": "68784ae14040b6d6501320b5e2b07d103d6527e55b59788efafa95ab2b4824b0"
+    },
+    {
+      "file": "assets/previews/smithy/smithy-08-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        1000,
+        1500
+      ],
+      "bytes": 325782,
+      "sha256": "115567354fb237895619db24d02cc94dbb87c4b2f3f4b418fc7da98c2c1a575f"
+    },
+    {
+      "file": "assets/previews/smithy/smithy-09-preview.webp",
+      "source_dimensions": [
+        988,
+        1506
+      ],
+      "preview_dimensions": [
+        984,
+        1500
+      ],
+      "bytes": 370658,
+      "sha256": "1a3291b1723b8ec0126c513f3e6bff9316e500d3f7d35e0e05fbf3cc9308850b"
+    },
+    {
+      "file": "assets/previews/smithy/smithy-10-preview.webp",
+      "source_dimensions": [
+        992,
+        1505
+      ],
+      "preview_dimensions": [
+        989,
+        1500
+      ],
+      "bytes": 404760,
+      "sha256": "06d3b96322aa7d2d48df97eaafb4ebaa46b0413bcc207a28865c4bb23bffb6fc"
+    },
+    {
+      "file": "assets/previews/smithy/smithy-11-preview.webp",
+      "source_dimensions": [
+        995,
+        1514
+      ],
+      "preview_dimensions": [
+        986,
+        1500
+      ],
+      "bytes": 444380,
+      "sha256": "89e9d57cac068fd38d3138c8fda6ed728b1e225509eeb0dbd5d03149313aa5c9"
+    },
+    {
+      "file": "assets/previews/smithy/smithy-12-preview.webp",
+      "source_dimensions": [
+        1003,
+        1518
+      ],
+      "preview_dimensions": [
+        991,
+        1500
+      ],
+      "bytes": 429432,
+      "sha256": "6ce27322669c4e8fb3a1ba299e320393f455fc094e1936449c6c79b0649bda5b"
+    }
+  ]
+}
