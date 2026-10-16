@@ -7,7 +7,7 @@
   "use strict";
 
   const surfaceSelector = [
-    ".pack", ".tile", ".viewer", ".map-thumb",
+    ".pack", ".tile", ".viewer-img", ".map-thumb",
     ".thumb", ".btn-main", ".uc-btn", ".uc-card",
     ".hero-card", ".buttons-banner-link", ".map-card",
     ".pack-preview", ".preview-card"
