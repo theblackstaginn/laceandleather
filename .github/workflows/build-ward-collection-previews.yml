@@ -10,14 +10,16 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: ward-v2-collection-previews
   cancel-in-progress: false
 
+# SECURITY HOLD: preview build completed; never rerun against deleted source art.
 jobs:
   build:
+    if: ${{ false }}
     name: Verify and stage 67 watermarked preview files
     runs-on: ubuntu-latest
     timeout-minutes: 15
