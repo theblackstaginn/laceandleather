@@ -101,9 +101,50 @@ def check(device, browser, base, failures, results):
     assert_ok(page.locator("#packModal.open").count()==0,
               f"{device}: pack close button failed", failures)
 
+    # Representative art galleries must remain navigable under Ward v2.
+    for pack, expected in (("grimoire",12),("mapmaker",10),("volone",12)):
+        page.locator(f'button.pack[data-pack="{pack}"]').click()
+        page.locator("#packModal.open").wait_for(timeout=8000)
+        assert_ok(page.locator("#packCollage .tile").count()==expected,
+                  f"{device}: {pack} collage expected {expected} tiles",failures)
+        urls=page.locator("#packCollage .tile-face").evaluate_all(
+            """(els) => els.map(el => getComputedStyle(el).backgroundImage
+                .match(/url\\(["']?(.*?)["']?\\)/)?.[1]).filter(Boolean)""")
+        for path in urls:
+            if path.startswith("http:") or path.startswith("https:"):
+                if not path.startswith(base):
+                    failures.append(f"{device}: {pack} unexpected remote preview URL: {path}")
+                    continue
+            response=page.request.head(path)
+            assert_ok(response.ok, f"{device}: {pack} preview missing at {path}", failures)
+        page.screenshot(path=str(OUT/f"{device}-{pack}-pack-grid.png"))
+        page.locator("#packCollage .tile").first.click()
+        assert_ok(page.locator("#packModal.mode-viewer").count()==1,
+                  f"{device}: {pack} tile enlarged viewer did not open",failures)
+        page.screenshot(path=str(OUT/f"{device}-{pack}-pack-zoom.png"))
+        page.locator("#packModal button[data-close]").click()
+
+    page.locator(".map-card[data-map='suneen']").click()
+    page.locator("#mapModal.open").wait_for(timeout=8000)
+    assert_ok("assets/maps/suneen-reef.webp" in page.locator("#mapViewerImg").evaluate(
+              "(e)=>e.style.backgroundImage"),f"{device}: commission map preview broken",failures)
+    page.screenshot(path=str(OUT/f"{device}-map-zoom.png"))
+    page.locator("#mapModal button[data-close]").click()
+    assert_ok(page.locator("#mapModal.open").count()==0,
+              f"{device}: commission map close failed",failures)
+
+    page.locator("#useCaseBtn").click()
+    page.locator("#useCaseModal.open").wait_for(timeout=8000)
+    page.screenshot(path=str(OUT/f"{device}-usecase.png"))
+    page.locator("#useCaseModal button[data-close]").first.click()
+    assert_ok(page.locator("#useCaseModal.open").count()==0,
+              f"{device}: use-case close failed",failures)
+
     page.goto(base+"/smithy-textures.html",wait_until="domcontentloaded",timeout=30000)
     page.locator("#thumbs .thumb").first.wait_for(timeout=12000)
     page.wait_for_timeout(500)
+    assert_ok("\\n" not in page.locator(".bullets").inner_text(),
+              f"{device}: literal newline escape rendered in Smithy bullet text",failures)
     page.screenshot(path=str(OUT/f"{device}-smithy-detail.png"))
     assert_ok(page.locator("#thumbs .thumb").count()==12,
               f"{device}: detail page does not have 12 thumbnails", failures)
