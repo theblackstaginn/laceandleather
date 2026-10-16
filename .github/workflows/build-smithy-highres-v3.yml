@@ -8,10 +8,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
+# SECURITY HOLD: paid masters/customer downloads must not be published from a public repository.
+# Move this generation workflow to private infrastructure before enabling again.
 jobs:
   build:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
