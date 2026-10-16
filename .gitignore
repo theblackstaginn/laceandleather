@@ -6,3 +6,12 @@
 /assets/smithy/smithy-[0-9]*.png
 /assets/smithy/smithy-[0-9]*.webp
 /assets/smithy-hires/site/
+
+# Ward v2: clean paid-source images never belong in a public site repository.
+/assets/grimoire/grim-[0-9]*.PNG
+/assets/grimoire/grim-[0-9]*.webp
+/assets/mapmaker/map_[0-9]*.png
+/assets/mapmaker/map_[0-9]*.webp
+/assets/vol-one/parchment-light_[0-9]*.jpg
+/buttons-stickers/*.png
+/buttons-stickers/*.webp
