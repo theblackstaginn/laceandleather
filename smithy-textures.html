@@ -140,7 +140,11 @@
         btn.setAttribute("aria-label", `Open smithy texture ${idx + 1}`);
         btn.innerHTML = `<img decoding="async" src="${src}" alt="Smithy texture ${idx + 1}" loading="lazy" />`;
         btn.addEventListener("click", () => {
-          viewerTitle.textContent = `Smithy Texture ${idx + 1}`;
+          viewerTitle.textContent = "Smithy Texture ";
+          const sequence = document.createElement("span");
+          sequence.className = "preview-num";
+          sequence.textContent = String(idx + 1);
+          viewerTitle.appendChild(sequence);
           viewerImg.src = src;
           viewerImg.alt = `Smithy texture ${idx + 1} enlarged`;
           openModal();
