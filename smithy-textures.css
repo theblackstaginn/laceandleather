@@ -305,6 +305,11 @@
       max-height: calc(86vh - 64px);
       -webkit-overflow-scrolling: touch;
     }
+    /* Shared styles hide viewer regions until a mode-viewer flag is set.
+       This detail-page modal has no such flag, so explicitly show its image. */
+    #viewerModal .viewer{
+      display:block;
+    }
     .viewer{
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.10);
