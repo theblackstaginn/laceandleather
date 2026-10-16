@@ -150,6 +150,12 @@ def check(device, browser, base, failures, results):
               f"{device}: detail page does not have 12 thumbnails", failures)
     page.locator("#thumbs .thumb").first.click()
     page.locator("#viewerModal.open").wait_for(timeout=8000)
+    number=page.locator("#viewerTitle .preview-num")
+    assert_ok(number.count()==1 and number.inner_text()=="1",
+              f"{device}: Smithy modal numeral missing",failures)
+    font=number.evaluate("(el) => getComputedStyle(el).fontFamily") if number.count() else ""
+    assert_ok("Georgia" in font,
+              f"{device}: Smithy modal numeric glyph may use broken decorative font ({font})",failures)
     viewer=page.locator("#viewerImg")
     assert_ok("assets/previews/smithy/" in (viewer.get_attribute("src") or ""),
               f"{device}: detail zoom uses unwarded source", failures)
