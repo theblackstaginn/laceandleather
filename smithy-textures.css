@@ -266,6 +266,14 @@
       margin:0;
       text-align:left;
     }
+    /* Cardinal's numeric glyphs can rasterize into illegible symbols.
+       Keep the manuscript face for words and a reliable serif for indices. */
+    #viewerTitle .preview-num{
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      font-weight: normal;
+      letter-spacing: .02em;
+    }
     .modal-actions{
       display:flex;
       gap:10px;
