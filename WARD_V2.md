@@ -27,3 +27,13 @@ This PR contains the UI Ward layer only. The original artwork migration must be 
 - Inspect image URLs: product previews must resolve to reduced flattened and baked-watermark versions, **not** master originals.
 - Confirm no /downloads archive URLs or full-resolution paid artwork can be served from public hosting.
 - Review an authenticated test order's email/file delivery without initiating unnecessary real charges.
+
+
+## Legacy workflow security hold
+The draft PR also disables seven public GitHub Actions jobs pending relocation:
+- Three high-resolution Smithy master builders.
+- Two Smithy paid-ZIP packaging jobs.
+- The customer-ready delivery-package build that published public GitHub Actions artifacts.
+- The broad WebP conversion job that could recommit source assets.
+
+These are **asset generation/publishing** jobs, not live customer Stripe payment, Google Sheets order confirmation, or Resend fulfillment. These workflows should be rebuilt with PRIVATE source and output storage before enabling them. Public GitHub Actions artifacts should not store customer-ready digital goods.
