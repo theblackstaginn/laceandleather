@@ -19,8 +19,10 @@ on:
 permissions:
   contents: read
 
+# SECURITY HOLD: paid originals now private; this job must use a private-source build.
 jobs:
   publish:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
