@@ -16,8 +16,8 @@ img.ll-ward-image {
   content: "L&L  \00b7  PREVIEW";
   position: absolute;
   z-index: 3;
-  right: 8px;
-  bottom: 7px;
+  /* Explicitly reset full-screen ::after shields inherited from older viewer CSS. */
+  inset: auto 8px 7px auto;
   max-width: 85%;
   border-radius: 3px;
   padding: 3px 6px;
