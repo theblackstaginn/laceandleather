@@ -8,10 +8,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
+# SECURITY HOLD: paid product media must not be committed or distributed from a public repository.
+# Reenable only after replacing the build with a private, preview-only pipeline.
 jobs:
   package:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
