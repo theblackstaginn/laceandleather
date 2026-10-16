@@ -45,3 +45,14 @@ These are **asset generation/publishing** jobs, not live customer Stripe payment
 - This draft removes the old public sale-quality \`assets/smithy/smithy-N.png\`, \`assets/smithy/smithy-N.webp\`, and \`assets/smithy-hires/site/smithy-N.jpg\` files (36 total) as well as 12 high-resolution masters and six ZIPs.
 - Marketing cover assets are intentionally preserved to avoid broken site listings. Their public status must still be reviewed as preview collateral.
 - **Important**: The working private Drive \`smithy.zip\` delivery package is separate, and was not changed. Public-history purge and broader product-art migration remain prerequisites for claiming full protection.
+
+
+## Remaining product collection migration (2026-10-16)
+- All 67 remaining art previews were generated as reduced flattened baked-watermark WebP files: 12 Grimoire, 10 Mapmaker, 12 Vol One, 33 buttons/stickers.
+- Homepage collection galleries, buttons/stickers catalog JSON-LD and clickable thumbnails, six map journal pages, and corresponding Flipboard RSS enclosures use preview URLs rather than clean product artwork.
+- The public working tree stages removal of 24 Grimoire raster sources, 20 Mapmaker sources, 12 Vol One sources, and 66 button/sticker source images (122 files). Including the earlier 54 Smithy files, 176 public product-source files have been staged for removal.
+- Product Map references have private owner-only Google Drive delivery ZIPs for all 31 sold button designs and all four texture packs. The remaining two not-listed sticker designs (blue-naut-wax and bronze-x-sheild) were preserved in an owner-only Drive ZIP of four exact original PNG/WebP files; archive integrity and owner-only access were checked separately.
+- Additional outdated Itch publication and Vol One master-building jobs were placed on security hold because their source images are being removed. The one-off preview-building and unlisted-sticker-backup jobs are also disabled after successful completion.
+- Expanded Chromium tests covered all four texture galleries, sticker cart, map journal hero, RSS media references, and modal behavior on desktop and mobile. All checks passed in the build log; inspect captured screenshots prior to release.
+
+**RELEASE BLOCKER:** The public GitHub repository retains all older commit history, including historic paid artwork. A new clean-history presentation-only hosting repository or carefully planned history rewrite and cache assessment is required before claiming that previously exposed originals are no longer available. The current PR does not solve historical exposure.
