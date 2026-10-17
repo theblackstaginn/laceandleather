@@ -1,0 +1,52 @@
+name: Preview Modal Consistency QA
+run-name: Verify L&L preview modal consistency
+
+on:
+  push:
+    branches:
+      - fix/unify-preview-modals-20261016
+      - main
+    paths:
+      - index.html
+      - use-case.html
+      - smithy-textures.html
+      - grimoire-pages.html
+      - mapmaker-sheets.html
+      - light-aged-parchment-vol-1.html
+      - styles.css
+      - detail-previews.css
+      - detail-previews.js
+      - ward.css
+      - ward.js
+      - scripts/preview_modal_qa.py
+      - .github/workflows/preview-modal-qa.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preview-modal-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout tested commit
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Chromium harness
+        run: |
+          python -m pip install --disable-pip-version-check playwright
+          python -m playwright install --with-deps chromium
+      - name: Test desktop and mobile preview flows
+        run: python scripts/preview_modal_qa.py
+      - name: Upload screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-modal-qa
+          path: preview-modal-qa/
+          if-no-files-found: warn
+          retention-days: 7
