@@ -16,6 +16,7 @@
 .detail-preview-modal .modal-body{display:grid;gap:12px}
 .detail-preview-stage{position:relative;display:grid;place-items:center;min-height:180px;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:radial-gradient(ellipse at center,#423329,#17110f 90%);overflow:hidden}
 .detail-preview-stage img{display:block;width:auto;max-width:100%;height:auto;max-height:min(62dvh,700px);object-fit:contain;border-radius:8px}
+.detail-preview-stage::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,0);pointer-events:auto;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .detail-preview-dialog-controls{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .detail-preview-step{appearance:none;min-height:44px;min-width:132px;padding:10px 17px;border:1px solid rgba(241,206,156,.28);border-radius:10px;color:#f1dfc0;background:rgba(255,255,255,.06);cursor:pointer;font:600 14px/1.15 system-ui,sans-serif}
 .detail-preview-step:hover{background:rgba(206,155,97,.19);border-color:rgba(250,214,160,.65)}
