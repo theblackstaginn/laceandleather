@@ -575,6 +575,28 @@ p, h1, h2, h3, h4, h5, h6,
   -webkit-overflow-scrolling: touch;
 }
 
+/* Unified artwork-preview shell */
+.modal.preview-modal .modal-panel{
+  width:min(980px, calc(100% - 24px));
+  max-height:min(88dvh, 920px);
+}
+.modal.preview-modal .modal-body{
+  max-height:calc(88dvh - 70px);
+}
+.modal.preview-modal .modal-head{
+  min-height:64px;
+}
+@media (max-width:520px){
+  .modal.preview-modal .modal-panel{
+    width:calc(100% - 16px);
+    max-height:calc(100dvh - 16px);
+  }
+  .modal.preview-modal .modal-body{
+    padding:10px;
+    max-height:calc(100dvh - 80px);
+  }
+}
+
 /* Wax buttons */
 .wax-btn{
   appearance:none;
