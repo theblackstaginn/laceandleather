@@ -1,0 +1,164 @@
+{
+  "ward_version": 2,
+  "pack": "grimoire",
+  "count": 12,
+  "assets": [
+    {
+      "file": "assets/previews/grimoire/grimoire-01-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 28864,
+      "sha256": "871edd4aded71e80b3cd4ca6adc5159a388c9eea7db8f834222324db59f027a5"
+    },
+    {
+      "file": "assets/previews/grimoire/grimoire-02-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 33772,
+      "sha256": "089d5fb62afe1c959dfc0dfeaf712e1f25769b0afba02a9e5271b1b14dd68879"
+    },
+    {
+      "file": "assets/previews/grimoire/grimoire-03-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 31014,
+      "sha256": "94d81239d7a4824632c57ec81fc5b1db36ef33a83541e4b3b3cc549879eaf768"
+    },
+    {
+      "file": "assets/previews/grimoire/grimoire-04-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 27510,
+      "sha256": "23ee811be3a98d04a224b1a10a6f02e804092da4b98fce26b9ac91af7ff98a5f"
+    },
+    {
+      "file": "assets/previews/grimoire/grimoire-05-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 46740,
+      "sha256": "a3d092151457706629754f398c917281e39c00223ef6d9b389032ccd58d0ab77"
+    },
+    {
+      "file": "assets/previews/grimoire/grimoire-06-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 47750,
+      "sha256": "b733e76934421af377d821e14b57ebe530c01df098bd5c1d2415770cecb3a975"
+    },
+    {
+      "file": "assets/previews/grimoire/grimoire-07-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 33702,
+      "sha256": "fae6a839610d7059e2f56bd6cef19fce179b8b54f841623d2a98841eb9b8021c"
+    },
+    {
+      "file": "assets/previews/grimoire/grimoire-08-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 43822,
+      "sha256": "3f54a0464b0bcf5ef1d3a8fb286159cc3bf46c2971d97be279893ac5b395c223"
+    },
+    {
+      "file": "assets/previews/grimoire/grimoire-09-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 56566,
+      "sha256": "01cd2ebecb1dc90740e5964e8b18b8e55e4530463b80015c187fb3489db2225e"
+    },
+    {
+      "file": "assets/previews/grimoire/grimoire-10-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 29046,
+      "sha256": "375507da83a79876bae1a6779c485c01fb26976bf7bb005734d6e3245318b86b"
+    },
+    {
+      "file": "assets/previews/grimoire/grimoire-11-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 40612,
+      "sha256": "3119741ab20e3f79286111a5bc7d446bf5fb343cdc47496aa5b9dd931f84021c"
+    },
+    {
+      "file": "assets/previews/grimoire/grimoire-12-preview.webp",
+      "source_dimensions": [
+        426,
+        640
+      ],
+      "preview_dimensions": [
+        426,
+        640
+      ],
+      "bytes": 34470,
+      "sha256": "49530d06920054f707090c30166d595ea151aabbd3599e82a0df52fe9c98c828"
+    }
+  ],
+  "access_control": "public marketing preview only; full assets are private"
+}

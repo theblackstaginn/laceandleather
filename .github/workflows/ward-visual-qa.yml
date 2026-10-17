@@ -1,0 +1,42 @@
+name: Ward v2 Desktop and Mobile Visual QA
+run-name: Inspect rendered Ward v2 gallery interactions
+on:
+  push:
+    branches:
+      - security/ward-v2-previews-20261016
+    paths:
+      - scripts/ward_visual_qa.py
+      - .github/workflows/ward-visual-qa.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-qa:
+    name: Screenshot and interaction checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - name: Checkout draft branch
+        uses: actions/checkout@v4
+        with:
+          ref: security/ward-v2-previews-20261016
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install browser harness
+        run: |
+          python -m pip install --disable-pip-version-check playwright pillow
+          python -m playwright install --with-deps chromium
+      - name: Inspect desktop and mobile layouts and galleries
+        run: python scripts/ward_visual_qa.py
+      - name: Upload screenshots and QA report, even if checks fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ward-v2-visual-qa
+          path: ward-qa/
+          if-no-files-found: warn
+          retention-days: 7

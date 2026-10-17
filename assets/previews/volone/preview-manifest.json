@@ -1,0 +1,164 @@
+{
+  "ward_version": 2,
+  "pack": "volone",
+  "count": 12,
+  "assets": [
+    {
+      "file": "assets/previews/volone/volone-01-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 92814,
+      "sha256": "1dc02cb4c44819cf98cde05178e967a980e259418d32c5d5326c252cc7a9968d"
+    },
+    {
+      "file": "assets/previews/volone/volone-02-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 128556,
+      "sha256": "32c8816418699a9173ce8b41c4539941b392084c63152d442b02b5bb3ad0d41c"
+    },
+    {
+      "file": "assets/previews/volone/volone-03-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 90400,
+      "sha256": "e0a8d26dcf4043b23d9473de229a3c04067e4ff31850065230e00c1d6bcf1ee8"
+    },
+    {
+      "file": "assets/previews/volone/volone-04-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 130258,
+      "sha256": "917a850a760bd6bc9ef9d800d9fb906c51a7280322ef416797809af80bbeddf7"
+    },
+    {
+      "file": "assets/previews/volone/volone-05-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 82754,
+      "sha256": "d4e36c2a4516dee65c6e5fb012a552f166ee6c17529967953447f45cc67643c2"
+    },
+    {
+      "file": "assets/previews/volone/volone-06-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 104748,
+      "sha256": "00409f6595001cf3854e16a36d71add92023d26d2982c21e7282e2ec7fb352ac"
+    },
+    {
+      "file": "assets/previews/volone/volone-07-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 122858,
+      "sha256": "93d973eabf926b2526b423d386fde301f751acb7262ec8bee80f8558cd52c291"
+    },
+    {
+      "file": "assets/previews/volone/volone-08-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 104910,
+      "sha256": "e1d655278e1f12dbfcc7045b23fb9be9db4dccdfcb3477e35d33053f26a29d85"
+    },
+    {
+      "file": "assets/previews/volone/volone-09-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 132570,
+      "sha256": "5052dc88b7f0587bf482fefa1683a79dd836c8c51542ac9b553b5c72de5bdbcc"
+    },
+    {
+      "file": "assets/previews/volone/volone-10-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 163134,
+      "sha256": "ba09d209d33b5c9f083eb51038758a14aee700d9384a4331e9ac6f4e4d6fe8f1"
+    },
+    {
+      "file": "assets/previews/volone/volone-11-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 163134,
+      "sha256": "ba09d209d33b5c9f083eb51038758a14aee700d9384a4331e9ac6f4e4d6fe8f1"
+    },
+    {
+      "file": "assets/previews/volone/volone-12-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 178738,
+      "sha256": "6345df9e763c845d47bd8b0c9ac71e5f516dcaf39588d72bc79262a7a8494d38"
+    }
+  ],
+  "access_control": "public marketing preview only; full assets are private"
+}

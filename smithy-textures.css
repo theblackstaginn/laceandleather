@@ -266,6 +266,14 @@
       margin:0;
       text-align:left;
     }
+    /* Cardinal's numeric glyphs can rasterize into illegible symbols.
+       Keep the manuscript face for words and a reliable serif for indices. */
+    #viewerTitle .preview-num{
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      font-weight: normal;
+      letter-spacing: .02em;
+    }
     .modal-actions{
       display:flex;
       gap:10px;
@@ -304,6 +312,11 @@
       overflow:auto;
       max-height: calc(86vh - 64px);
       -webkit-overflow-scrolling: touch;
+    }
+    /* Shared styles hide viewer regions until a mode-viewer flag is set.
+       This detail-page modal has no such flag, so explicitly show its image. */
+    #viewerModal .viewer{
+      display:block;
     }
     .viewer{
       border-radius: 16px;

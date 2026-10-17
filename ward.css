@@ -1,0 +1,49 @@
+/* Lace & Leather Arcane | Ward v2
+ * UI-only deterrents. Baked-in watermarked PREVIEW files provide the
+ * meaningful differentiation from privately stored paid originals.
+ */
+img.ll-ward-image {
+  -webkit-user-drag: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+.ll-ward-surface {
+  position: relative;
+  isolation: isolate;
+}
+.ll-ward-surface::after {
+  content: "L&L  \00b7  PREVIEW";
+  position: absolute;
+  z-index: 3;
+  /* Explicitly reset full-screen ::after shields inherited from older viewer CSS. */
+  inset: auto 8px 7px auto;
+  max-width: 85%;
+  border-radius: 3px;
+  padding: 3px 6px;
+  color: rgba(249, 228, 186, .85);
+  background: rgba(16, 12, 10, .48);
+  border: 1px solid rgba(249, 228, 186, .13);
+  font: 600 9px/1.2 system-ui, sans-serif;
+  letter-spacing: .1em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .8);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+@media (max-width: 480px) {
+  .ll-ward-surface::after {
+    font-size: 8px;
+    letter-spacing: .06em;
+    right: 5px;
+    bottom: 5px;
+  }
+}
+@media print {
+  .ll-ward-surface::after {
+    color: #24170d !important;
+    background: rgba(233, 212, 176, .8) !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

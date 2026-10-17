@@ -697,6 +697,7 @@
     }
   </style>
   <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"570203b21402b6698caff30be98f0ebc"})});</script>
+  <link rel="stylesheet" href="./ward.css?v=LL-20261016-WARD2" />
 </head>
 
 <body>
@@ -1484,33 +1485,33 @@
       grimoire: {
         title: "Grimoire Pages",
         sub: "Preview (12 pages)",
-        images: Array.from({length: 12}, (_,i)=> `./assets/grimoire/grim-${i+1}.PNG`)
+        images: Array.from({length: 12}, (_,i)=> `./assets/previews/grimoire/grimoire-${String(i+1).padStart(2, "0")}-preview.webp`)
       },
       mapmaker: {
         title: "Mapmaker Sheets",
         sub: "Preview (10 sheets)",
         images: [
-          "./assets/mapmaker/map_3.webp",
-          "./assets/mapmaker/map_4.webp",
-          "./assets/mapmaker/map_5.webp",
-          "./assets/mapmaker/map_6.webp",
-          "./assets/mapmaker/map_7.webp",
-          "./assets/mapmaker/map_8.webp",
-          "./assets/mapmaker/map_9.webp",
-          "./assets/mapmaker/map_10.webp",
-          "./assets/mapmaker/map_12.webp",
-          "./assets/mapmaker/map_13.webp"
+          "./assets/previews/mapmaker/mapmaker-03-preview.webp",
+          "./assets/previews/mapmaker/mapmaker-04-preview.webp",
+          "./assets/previews/mapmaker/mapmaker-05-preview.webp",
+          "./assets/previews/mapmaker/mapmaker-06-preview.webp",
+          "./assets/previews/mapmaker/mapmaker-07-preview.webp",
+          "./assets/previews/mapmaker/mapmaker-08-preview.webp",
+          "./assets/previews/mapmaker/mapmaker-09-preview.webp",
+          "./assets/previews/mapmaker/mapmaker-10-preview.webp",
+          "./assets/previews/mapmaker/mapmaker-12-preview.webp",
+          "./assets/previews/mapmaker/mapmaker-13-preview.webp"
         ]
       },
       volone: {
         title: "Light Aged Parchment - Vol. One",
         sub: "Preview (12 textures)",
-        images: Array.from({length: 12}, (_,i)=> `./assets/vol-one/parchment-light_${i+1}.jpg`)
+        images: Array.from({length: 12}, (_,i)=> `./assets/previews/volone/volone-${String(i+1).padStart(2, "0")}-preview.webp`)
       },
       smithy: {
         title: "Smithy Textures",
         sub: "Preview (12 textures)",
-        images: Array.from({length: 12}, (_,i)=> `./assets/smithy/smithy-${i+1}.png`)
+        images: Array.from({length: 12}, (_,i)=> `./assets/previews/smithy/smithy-${String(i+1).padStart(2, "0")}-preview.webp`)
       }
     };
 
@@ -1650,5 +1651,6 @@
     });
   </script>
   <script src="./site-refresh.js?v=LL-20261013-2" defer></script>
+  <script src="./ward.js?v=LL-20261016-WARD2" defer></script>
 </body>
 </html>

@@ -1,0 +1,437 @@
+{
+  "ward_version": 2,
+  "pack": "buttons",
+  "count": 33,
+  "assets": [
+    {
+      "file": "assets/previews/buttons/amber-bronze-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 43756,
+      "sha256": "b7f1191c7aacffe8d22fb2971b780af25a804664ca07844b18a0e6cb7652fa76"
+    },
+    {
+      "file": "assets/previews/buttons/amethyst-frame-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 43536,
+      "sha256": "196dedbf9f42817aa6f9f3ba493ea068ad565afdc5cfb41a74c3a535436c28f0"
+    },
+    {
+      "file": "assets/previews/buttons/amethyst-rectangle-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 39236,
+      "sha256": "27f3b27419ac6d0c29a77e2f2dc1ebd2254a412633be46ac4d02f00955136327"
+    },
+    {
+      "file": "assets/previews/buttons/blue-naut-wax-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 64228,
+      "sha256": "1d35fdcbaec413c2766feb901fb9ee3f0c19b9d43fe465ebafcbc62db8a5a557"
+    },
+    {
+      "file": "assets/previews/buttons/bronze-x-sheild-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 46248,
+      "sha256": "b042a7e23cb77c2699e556551049b9966cffdab1ac8c37b8a5861ccb25901506"
+    },
+    {
+      "file": "assets/previews/buttons/emerald-oval-preview.webp",
+      "source_dimensions": [
+        1398,
+        709
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 50640,
+      "sha256": "a84a11cf99d88493a96f0be8a01a0dced62a81e030e02a22181feab0ca4ad780"
+    },
+    {
+      "file": "assets/previews/buttons/emerald-x-preview.webp",
+      "source_dimensions": [
+        1304,
+        590
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 42478,
+      "sha256": "b8254035a37bccca58511bce539b195ea9cee48e1e07ef7edde3ed0dbc3161fa"
+    },
+    {
+      "file": "assets/previews/buttons/green-moon-preview.webp",
+      "source_dimensions": [
+        899,
+        806
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 58936,
+      "sha256": "67ca63a5236cf61b168e181096b5464413cb3fb53a965a4178c5c725fbf9fa41"
+    },
+    {
+      "file": "assets/previews/buttons/grn-wax-book-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 47174,
+      "sha256": "b6efa010858fe7386995b8c9b7e3bf27616e0e9157d0c6696e4667f77ddc409d"
+    },
+    {
+      "file": "assets/previews/buttons/lantern-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 48544,
+      "sha256": "d8d2c45cb42d9148dfa33befaa61672227df7a53b2a4ab7e2d3acde57cebe91b"
+    },
+    {
+      "file": "assets/previews/buttons/moon-green-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 40886,
+      "sha256": "cd15b5dc4ac77e9a31a7b3f639b6eea524dde44558658963bfc8794852226054"
+    },
+    {
+      "file": "assets/previews/buttons/moon-parch-clean-preview.webp",
+      "source_dimensions": [
+        918,
+        1708
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 50920,
+      "sha256": "1aebc3813b58f02f8725c758ec1b1ffa991fe253a42f3e837c99d2f5212f524a"
+    },
+    {
+      "file": "assets/previews/buttons/purple-arrow-preview.webp",
+      "source_dimensions": [
+        1367,
+        616
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 47404,
+      "sha256": "7fd126735b9d7057a440b87e69987469f8b5ffb317919b9b06d98c7914c72d2c"
+    },
+    {
+      "file": "assets/previews/buttons/purple-wax-crystal-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 44254,
+      "sha256": "803156c9452f83221f5665dcf5aaf1b24bd81aeecd73fcd7431684ef5a79f6ab"
+    },
+    {
+      "file": "assets/previews/buttons/purple-x-shield-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 32900,
+      "sha256": "77a66168fd9448e5a2e7d66c207230c0e55d08d38f8c082f317a2d3ec086130e"
+    },
+    {
+      "file": "assets/previews/buttons/red-arrow-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 34802,
+      "sha256": "eedbc7e52c0111839cf2bcf87b0be6023da96227cabd917d3e7290b92e97d97c"
+    },
+    {
+      "file": "assets/previews/buttons/red-parch-arrow-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 45188,
+      "sha256": "a2a6bcb33765a4f153006338bf0ede0d64967460d409edb418cf1974f4271cdd"
+    },
+    {
+      "file": "assets/previews/buttons/red-stag-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 50274,
+      "sha256": "69ccf3c11a773feb28c8c4cb59eb4e746ab2687e02176bf20caa48e8846d57e4"
+    },
+    {
+      "file": "assets/previews/buttons/red-wax-feather-preview.webp",
+      "source_dimensions": [
+        885,
+        1276
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 74938,
+      "sha256": "d78460251436a3b032245fb22ca4c27ce05cc14b32e0a56e718b490d252548fd"
+    },
+    {
+      "file": "assets/previews/buttons/red-x-bronze-preview.webp",
+      "source_dimensions": [
+        1362,
+        539
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 48798,
+      "sha256": "0aaca51bfb3644aa975f1ea9c64c806afe1c3b8ba604a1ac39719ffecf9da53a"
+    },
+    {
+      "file": "assets/previews/buttons/red-x-shield-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 38594,
+      "sha256": "44f41d6033cd34d68747a95ac400aa6d4639e93284af6335a60fb0221fb4e46b"
+    },
+    {
+      "file": "assets/previews/buttons/red-x-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 37328,
+      "sha256": "e566a759cb9f8c41a20e5d84299737c0d7f0bb7d32930b894ed6ad8de1c5bdaf"
+    },
+    {
+      "file": "assets/previews/buttons/ruby-plate-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 50052,
+      "sha256": "ec7135440a2e2880a89f21626ebf5139feed1045b9deac414d60499510930a5f"
+    },
+    {
+      "file": "assets/previews/buttons/sapphire-arrow-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 40370,
+      "sha256": "b57f14976250526274320a2247912a139b445e1d41656352f1cd07afd7b093a8"
+    },
+    {
+      "file": "assets/previews/buttons/sapphire-plate-preview.webp",
+      "source_dimensions": [
+        1289,
+        841
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 67326,
+      "sha256": "5028b7fb7e666765c70d7ddb50fe88351dae88722fca515eb717cfcaa23f253b"
+    },
+    {
+      "file": "assets/previews/buttons/skull-bronze-plate-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 55960,
+      "sha256": "0d372b6d3aec7ac9b9c4c82b510697f9ad114a0bbf14ff125ded2443a65d28ff"
+    },
+    {
+      "file": "assets/previews/buttons/skull-plate-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 46868,
+      "sha256": "ca89af58700c8ccf93ef6d7681ada7c234f74d5a62851074af9e60446d5483e1"
+    },
+    {
+      "file": "assets/previews/buttons/skull-preview.webp",
+      "source_dimensions": [
+        953,
+        835
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 51348,
+      "sha256": "cf1222d8b4d247129667ea47092256748297c8d73861d57fb39adc4cae370797"
+    },
+    {
+      "file": "assets/previews/buttons/stag-plate-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 42588,
+      "sha256": "69c498749355213651fee408354981dd28cd1cd0fb92c956acaea95fe6637777"
+    },
+    {
+      "file": "assets/previews/buttons/stag-red-wax-preview.webp",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 49850,
+      "sha256": "a88e4ef8c0f6635e8cfc215437523f2d17a27cc0794b62ba58b730893b917281"
+    },
+    {
+      "file": "assets/previews/buttons/wax-green-book-2-preview.webp",
+      "source_dimensions": [
+        812,
+        880
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 69856,
+      "sha256": "38850082c87c070185dd323a935aba1999fd47805629dd5ef6aa3bda43b19c71"
+    },
+    {
+      "file": "assets/previews/buttons/wax-key-preview.webp",
+      "source_dimensions": [
+        1289,
+        649
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 61228,
+      "sha256": "bc8e0066f41943dc16267243c5a53f629a6b676e566f88a4adb7c0e47b346575"
+    },
+    {
+      "file": "assets/previews/buttons/wax-skull-preview.webp",
+      "source_dimensions": [
+        658,
+        1335
+      ],
+      "preview_dimensions": [
+        820,
+        820
+      ],
+      "bytes": 55184,
+      "sha256": "ccf2acb2991055ff20a7e071f16807cdaae2fa2989d5f1fa34e1d01c6158748d"
+    }
+  ],
+  "access_control": "public marketing preview only; full assets are private"
+}

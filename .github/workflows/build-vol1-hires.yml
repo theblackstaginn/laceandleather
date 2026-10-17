@@ -12,8 +12,10 @@ on:
 permissions:
   contents: read
 
+# SECURITY HOLD: paid originals now private; this job must use a private-source build.
 jobs:
   build:
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository

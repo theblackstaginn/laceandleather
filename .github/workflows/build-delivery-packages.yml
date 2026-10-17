@@ -16,8 +16,11 @@ on:
 permissions:
   contents: read
 
+# SECURITY HOLD: paid masters/customer downloads must not be published from a public repository.
+# Move this generation workflow to private infrastructure before enabling again.
 jobs:
   build:
+    if: ${{ false }}
     name: Build ${{ matrix.product }}
     runs-on: ubuntu-latest
     strategy:

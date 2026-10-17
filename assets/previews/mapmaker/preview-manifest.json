@@ -1,0 +1,138 @@
+{
+  "ward_version": 2,
+  "pack": "mapmaker",
+  "count": 10,
+  "assets": [
+    {
+      "file": "assets/previews/mapmaker/mapmaker-03-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 306236,
+      "sha256": "d050f0acf2bc88bebc05f4da068f0f4f5a6483e3a9732d660500910c9822017c"
+    },
+    {
+      "file": "assets/previews/mapmaker/mapmaker-04-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 325300,
+      "sha256": "e5a89680843794cb5501b322297237d962107b63c441f10e0471687d24052f0c"
+    },
+    {
+      "file": "assets/previews/mapmaker/mapmaker-05-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 291490,
+      "sha256": "044a8faff6bb748b2f7e50607eea4eb9f3f10e35979802b26e5f79670d682c67"
+    },
+    {
+      "file": "assets/previews/mapmaker/mapmaker-06-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 337462,
+      "sha256": "a92c02d5f025296b0dc97337d823f30e52e831d0db24706c529b19d502138fb9"
+    },
+    {
+      "file": "assets/previews/mapmaker/mapmaker-07-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 302110,
+      "sha256": "9c0090afff9c1fe458e54da1be129b2dc134d4983c75af6778e0398c241cd38a"
+    },
+    {
+      "file": "assets/previews/mapmaker/mapmaker-08-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 368536,
+      "sha256": "f3cb68f340b32acc6ff67de70a184378019243edb760e58f32b7ffba8c61c963"
+    },
+    {
+      "file": "assets/previews/mapmaker/mapmaker-09-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 337882,
+      "sha256": "42882f283bf15231166f15275fa09be8ee83edadc9016beb304b47f57db1309c"
+    },
+    {
+      "file": "assets/previews/mapmaker/mapmaker-10-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 322348,
+      "sha256": "749763c13b7783f7a79c566fcb2c5eed1a296b96779662ea9d284342a604f65e"
+    },
+    {
+      "file": "assets/previews/mapmaker/mapmaker-12-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 329062,
+      "sha256": "398afff2dccfb5a1fbe8a56da2c9162bf531563348147147f6c106502b94feaf"
+    },
+    {
+      "file": "assets/previews/mapmaker/mapmaker-13-preview.webp",
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "preview_dimensions": [
+        933,
+        1400
+      ],
+      "bytes": 251456,
+      "sha256": "bc15fca56a1181dd0cbee31b1f1a1b95621e6a631163d521f9fc1a214d949717"
+    }
+  ],
+  "access_control": "public marketing preview only; full assets are private"
+}

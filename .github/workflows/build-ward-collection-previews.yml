@@ -1,0 +1,64 @@
+name: Build Ward v2 Collection Previews
+run-name: Generate protected galleries for Grimoire Mapmaker Vol One and buttons
+on:
+  push:
+    branches:
+      - security/ward-v2-previews-20261016
+    paths:
+      - scripts/build_ward_collection_previews.py
+      - .github/workflows/build-ward-collection-previews.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ward-v2-collection-previews
+  cancel-in-progress: false
+
+# SECURITY HOLD: preview build completed; never rerun against deleted source art.
+jobs:
+  build:
+    if: ${{ false }}
+    name: Verify and stage 67 watermarked preview files
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout draft security branch
+        uses: actions/checkout@v4
+        with:
+          ref: security/ward-v2-previews-20261016
+      - name: Install preview tools
+        run: python -m pip install --disable-pip-version-check pillow
+      - name: Generate flattened baked-watermark previews
+        run: python scripts/build_ward_collection_previews.py
+      - name: Verify all 67 preview files and four manifests
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import json
+          root=Path("assets/previews")
+          expected={"grimoire":12,"mapmaker":10,"volone":12,"buttons":33}
+          for pack,count in expected.items():
+              folder=root/pack
+              items=list(folder.glob("*-preview.webp"))
+              manifest=json.loads((folder/"preview-manifest.json").read_text())
+              assert len(items)==count, (pack,len(items),count)
+              assert manifest["count"]==count, (pack,manifest["count"])
+              for file in items:
+                  with Image.open(file) as im:
+                      assert im.mode=="RGB" and im.format=="WEBP",file
+                      assert max(im.size)<=1400,file
+                  assert file.stat().st_size<1_000_000,file
+              print(f"PASS {pack}: {count} verified flattened previews")
+          PY
+      - name: Commit only public preview assets, never originals
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/previews/grimoire assets/previews/mapmaker assets/previews/volone assets/previews/buttons
+          if ! git diff --cached --quiet; then
+            git commit -m "assets(ward): build 67 baked-watermark public previews [skip ci]"
+            git push origin HEAD:security/ward-v2-previews-20261016
+          fi
