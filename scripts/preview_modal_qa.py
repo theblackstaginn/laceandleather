@@ -43,7 +43,7 @@ def wait_img(page, selector):
           const img = document.querySelector(sel);
           return Boolean(img && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0);
         }""",
-        selector,
+        arg=selector,
         timeout=15000,
     )
 
