@@ -1,6 +1,6 @@
 /* Lace & Leather Arcane | shared product-detail preview gallery.
    Public files are reduced, flattened, baked-watermark derivatives only. */
-.detail-previews{margin-top:clamp(26px,5vw,40px);padding-top:clamp(18px,3vw,26px);border-top:1px solid rgba(232,202,157,.25);text-align:left}
+.detail-previews{margin-top:clamp(26px,5vw,40px);padding:clamp(18px,3vw,26px) 14px 14px;border-top:1px solid rgba(232,202,157,.25);text-align:left}
 .detail-preview-heading{display:flex;align-items:end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;margin-bottom:18px}
 .detail-preview-heading h2{font-family:"Cardinal",Georgia,serif;font-size:clamp(23px,3.3vw,32px);font-weight:normal;letter-spacing:.035em;line-height:1.25;margin:0 0 6px;color:#f2e5cc}
 .detail-preview-heading p{margin:0;font-size:14px;line-height:1.6;color:rgba(243,232,214,.85)}
@@ -9,22 +9,17 @@
 .detail-preview-tile{min-width:0;appearance:none;display:flex;flex-direction:column;border:1px solid rgba(244,209,155,.27);border-radius:12px;padding:8px;color:#f2e4cd;background:linear-gradient(148deg,rgba(96,64,46,.22),rgba(15,12,10,.5));cursor:zoom-in;overflow:hidden;transition:transform .16s ease,border-color .16s ease,background .16s ease}
 .detail-preview-tile:hover{transform:translateY(-3px);border-color:rgba(251,212,155,.65);background:rgba(116,79,54,.2)}
 .detail-preview-tile:active{transform:translateY(0)}
-.detail-preview-art{display:grid;place-items:center;width:100%;aspect-ratio:4/5;min-height:0;overflow:hidden;border-radius:7px;background:radial-gradient(ellipse at center,#4c3a2b 0%,#241c19 74%)}
+.detail-preview-art{display:grid;place-items:center;width:100%;aspect-ratio:2/3;min-height:0;overflow:hidden;border-radius:7px;background:radial-gradient(ellipse at center,#4c3a2b 0%,#241c19 74%)}
 .detail-preview-art img{display:block;width:100%;height:100%;object-fit:contain;border:0;background:transparent}
 .detail-preview-index{width:100%;padding:9px 2px 4px;text-align:left;font:500 12px/1.25 system-ui,sans-serif;letter-spacing:.055em;color:#eddbbd}
 .detail-preview-note{color:rgba(235,218,193,.7);font:12px/1.55 system-ui,sans-serif;margin:14px 0 0}
-.detail-preview-dialog{position:fixed;box-sizing:border-box;width:min(880px,calc(100vw - 24px));max-width:none;max-height:calc(100dvh - 24px);overflow:auto;margin:auto;padding:15px;color:#f4e8d1;border:1px solid rgba(236,196,139,.42);border-radius:17px;background:linear-gradient(145deg,#30221d,#19130f 72%);box-shadow:0 24px 65px rgba(0,0,0,.8)}
-.detail-preview-dialog::backdrop{background:rgba(5,3,2,.88);backdrop-filter:blur(4px)}
-.detail-preview-dialog-head,.detail-preview-dialog-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.detail-preview-dialog-title{min-width:0;margin:0;font:500 clamp(17px,2.9vw,23px)/1.35 Georgia,serif;color:#f0d9ae}
-.detail-preview-dismiss,.detail-preview-step{appearance:none;min-height:44px;border:1px solid rgba(241,206,156,.28);border-radius:10px;color:#f1dfc0;background:rgba(255,255,255,.06);cursor:pointer;font:600 14px/1.15 system-ui,sans-serif}
-.detail-preview-dismiss{min-width:44px;font-size:26px}
-.detail-preview-dismiss:hover,.detail-preview-step:hover{background:rgba(206,155,97,.19);border-color:rgba(250,214,160,.65)}
-.detail-preview-stage{position:relative;display:grid;place-items:center;min-height:180px;margin:12px 0;padding:12px;border-radius:11px;background:radial-gradient(ellipse at center,#423329,#17110f 90%)}
-.detail-preview-stage img{display:block;width:auto;max-width:100%;height:auto;max-height:min(65dvh,710px);object-fit:contain;border-radius:3px}
-.detail-preview-step{padding:10px 17px}
-.detail-preview-dialog-count{font:600 14px/1.25 system-ui,sans-serif;color:#ead6ae;letter-spacing:.05em}
-.detail-preview-dialog .detail-preview-note{text-align:center;margin:12px 0 1px}
-@media(max-width:720px){.detail-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.detail-preview-tile{padding:6px}.detail-preview-dialog{padding:11px;border-radius:12px}.detail-preview-stage{padding:6px}.detail-preview-stage img{max-height:60dvh}.detail-preview-step{padding:10px 12px}.detail-preview-heading h2{font-size:25px}}
-@media(max-width:360px){.detail-preview-dialog-count{order:3;width:100%;text-align:center}}
+.detail-preview-modal .modal-body{display:grid;gap:12px}
+.detail-preview-stage{position:relative;display:grid;place-items:center;min-height:180px;padding:10px;border-radius:14px;border:1px solid rgba(255,255,255,.10);background:radial-gradient(ellipse at center,#423329,#17110f 90%);overflow:hidden}
+.detail-preview-stage img{display:block;width:auto;max-width:100%;height:auto;max-height:min(62dvh,700px);object-fit:contain;border-radius:8px}
+.detail-preview-dialog-controls{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.detail-preview-step{appearance:none;min-height:44px;min-width:132px;padding:10px 17px;border:1px solid rgba(241,206,156,.28);border-radius:10px;color:#f1dfc0;background:rgba(255,255,255,.06);cursor:pointer;font:600 14px/1.15 system-ui,sans-serif}
+.detail-preview-step:hover{background:rgba(206,155,97,.19);border-color:rgba(250,214,160,.65)}
+.detail-preview-modal .detail-preview-note{text-align:center;margin:0}
+@media(max-width:720px){.detail-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.detail-preview-tile{padding:6px}.detail-preview-stage{padding:6px}.detail-preview-stage img{max-height:58dvh}.detail-preview-step{min-width:0;flex:1;padding:10px 12px}.detail-preview-heading h2{font-size:25px}}
+@media(max-width:360px){.detail-preview-dialog-controls{gap:8px}.detail-preview-step{font-size:13px}}
 @media(prefers-reduced-motion:reduce){.detail-preview-tile{transition:none}}
