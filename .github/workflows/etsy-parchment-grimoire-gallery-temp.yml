@@ -1,0 +1,181 @@
+name: TEMP Build Parchment and Grimoire Etsy galleries
+run-name: TEMP Parchment + Grimoire Etsy gallery cards
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/etsy-parchment-grimoire-gallery-temp.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Build flattened marketing cards from public protected previews
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageDraw, ImageFont, ImageFilter
+          from pathlib import Path
+
+          W=H=2600
+          IVORY=(244,226,194)
+          COPPER=(177,100,55)
+          MUTED=(211,189,158)
+          BLACK=(9,7,5)
+          FONT="/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf"
+          BOLD="/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"
+
+          def fnt(path,size): return ImageFont.truetype(path,size)
+
+          def fit(draw,text,path,max_size,min_size,max_width):
+              for s in range(max_size,min_size-1,-2):
+                  f=fnt(path,s); b=draw.textbbox((0,0),text,font=f)
+                  if b[2]-b[0] <= max_width: return f
+              return fnt(path,min_size)
+
+          def load(path):
+              im=Image.open(path).convert("RGBA"); im.load(); return im
+
+          def shadow_paste(base,im,center,box,angle=0):
+              if angle:
+                  im=im.rotate(angle,Image.Resampling.BICUBIC,expand=True)
+              scale=min(box[0]/im.width,box[1]/im.height)
+              size=(max(1,round(im.width*scale)),max(1,round(im.height*scale)))
+              im=im.resize(size,Image.Resampling.LANCZOS)
+              x=round(center[0]-size[0]/2); y=round(center[1]-size[1]/2)
+              alpha=im.getchannel("A")
+              blur=alpha.filter(ImageFilter.GaussianBlur(20))
+              sh=Image.new("RGBA",im.size,(0,0,0,150)); sh.putalpha(blur.point(lambda p:int(p*.55)))
+              base.alpha_composite(sh,(x+22,y+25))
+              base.alpha_composite(im,(x,y))
+
+          def footer(draw,text,bg):
+              box=(350,2180,2250,2395)
+              draw.rounded_rectangle(box,radius=24,fill=BLACK,outline=COPPER,width=3)
+              f=fit(draw,text,BOLD,46,30,1700)
+              b=draw.textbbox((0,0),text,font=f)
+              draw.text(((W-(b[2]-b[0]))/2,2257),text,font=f,fill=IVORY)
+
+          def header(draw,title,subtitle):
+              ft=fit(draw,title,BOLD,108,68,2150)
+              b=draw.textbbox((0,0),title,font=ft)
+              draw.text(((W-(b[2]-b[0]))/2,130),title,font=ft,fill=IVORY)
+              fs=fit(draw,subtitle,FONT,52,34,1900)
+              b=draw.textbbox((0,0),subtitle,font=fs)
+              draw.text(((W-(b[2]-b[0]))/2,285),subtitle,font=fs,fill=COPPER)
+              draw.line((290,380,2310,380),fill=COPPER,width=3)
+
+          def build_pack(slug,title,subtitle,preview_paths,count,spec_line,use_lines,bg):
+              out=Path("assets/etsy-previews")/slug
+              out.mkdir(parents=True,exist_ok=True)
+              ims=[load(p) for p in preview_paths[:count]]
+
+              # Hero, layered paper fan.
+              base=Image.new("RGBA",(W,H),bg+(255,))
+              d=ImageDraw.Draw(base)
+              header(d,title,subtitle)
+              fan=[
+                ((740,1280),(720,1080),-10),
+                ((1120,1210),(740,1110),-4),
+                ((1510,1190),(760,1140),4),
+                ((1900,1280),(720,1080),10),
+              ]
+              for im,(c,box,a) in zip(ims[:4],fan):
+                  shadow_paste(base,im,c,box,a)
+              d=ImageDraw.Draw(base)
+              footer(d,spec_line,bg)
+              base.convert("RGB").save(out/f"{slug}-01-hero.jpg","JPEG",quality=94,subsampling=0,optimize=True)
+
+              # Contents grid.
+              base=Image.new("RGBA",(W,H),bg+(255,))
+              d=ImageDraw.Draw(base)
+              header(d,f"{count} INCLUDED DESIGNS","A CLOSER LOOK AT THE COLLECTION")
+              cols=5
+              rows=(count+cols-1)//cols
+              xs=[310,805,1300,1795,2290]
+              ys=[900,1610] if rows==2 else [1250]
+              k=0
+              for y in ys:
+                  for x in xs:
+                      if k>=count: break
+                      shadow_paste(base,ims[k],(x,y),(390,560),0)
+                      k+=1
+              d=ImageDraw.Draw(base)
+              footer(d,"FLATTENED PREVIEWS  •  FULL-RES FILES INCLUDED WITH PURCHASE",bg)
+              base.convert("RGB").save(out/f"{slug}-02-contents.jpg","JPEG",quality=94,subsampling=0,optimize=True)
+
+              # Specs/use card.
+              base=Image.new("RGBA",(W,H),bg+(255,))
+              d=ImageDraw.Draw(base)
+              header(d,"BUILT FOR CREATIVE WORK",subtitle)
+              # left feature sample
+              d.rounded_rectangle((210,600,1160,1950),radius=18,fill=(222,193,145),outline=(104,62,34),width=4)
+              shadow_paste(base,ims[min(1,len(ims)-1)],(685,1260),(760,1160),0)
+              x=1270; y=650
+              fh=fnt(BOLD,48); fp=fnt(FONT,35)
+              for head,body in use_lines:
+                  d.text((x,y),head,font=fh,fill=COPPER)
+                  d.multiline_text((x,y+80),body,font=fp,fill=MUTED,spacing=14)
+                  y+=310
+              footer(d,"PERSONAL + COMMERCIAL USE IN FINISHED PROJECTS",bg)
+              base.convert("RGB").save(out/f"{slug}-03-specs.jpg","JPEG",quality=94,subsampling=0,optimize=True)
+
+              for p in sorted(out.glob("*.jpg")):
+                  with Image.open(p) as im:
+                      assert im.size==(2600,2600)
+                      im.verify()
+                  print(p,p.stat().st_size)
+
+          vol=[Path(f"assets/previews/volone/volone-{i:02d}-preview.webp") for i in range(1,11)]
+          build_pack(
+              "parchment-light",
+              "PARCHMENT LIGHT — VOL. 1",
+              "AGED PARCHMENT TEXTURES",
+              vol,10,
+              "10 TEXTURES  |  3600 x 5400  |  300 DPI",
+              [
+                ("HIGH-RES JPG","Ten unique 2:3 portrait textures at 3600 × 5400 pixels\nand 300 DPI."),
+                ("QUIET, USABLE CENTERS","Aged paper character without overpowering text, artwork\nor journal layouts."),
+                ("MADE FOR","Tarot, grimoires, journals, stationery, fantasy design\nand printable creative projects."),
+                ("DELIVERY","Two ZIP files containing the complete high-resolution set."),
+              ],
+              (30,19,13)
+          )
+
+          grim=[Path(f"assets/previews/grimoire/grimoire-{i:02d}-preview.webp") for i in range(1,13)]
+          build_pack(
+              "grimoire-vol-3",
+              "GRIMOIRE SERIES — VOL. 3",
+              "AGED SPELLBOOK PARCHMENT",
+              grim,12,
+              "12 TEXTURES  |  3600 x 5400  |  300 DPI",
+              [
+                ("HIGH-RES JPG","Twelve unique 2:3 portrait textures at 3600 × 5400 pixels\nand 300 DPI."),
+                ("GRIMOIRE CHARACTER","Warm aging, organic wear and readable centers for text,\nillustration and layered design."),
+                ("MADE FOR","Book of Shadows pages, tarot backgrounds, lore handouts,\nworldbuilding, journals and manuscript design."),
+                ("DELIVERY","Three ZIP files containing the complete high-resolution set."),
+              ],
+              (24,14,11)
+          )
+          PY
+
+      - name: Commit marketing-only preview cards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/etsy-previews/parchment-light assets/etsy-previews/grimoire-vol-3
+          if ! git diff --cached --quiet; then
+            git commit -m "assets(etsy): refresh Parchment and Grimoire galleries [skip ci]"
+            git push origin HEAD:main
+          fi
