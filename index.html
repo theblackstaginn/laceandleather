@@ -773,13 +773,13 @@
 
     <section class="glass section" aria-label="Packs">
       <h2 class="h2">Browse Packs</h2>
-      <p class="muted">Tap a cover to preview the full set. Add to cart to buy ($5 each).</p>
+      <p class="muted">Tap a cover to preview the full set. Shop options and current prices are shown below.</p>
 
       <div class="packs">
         <!-- GRIMOIRE -->
         <div class="pack-wrap">
           <button class="pack" type="button" data-pack="grimoire" aria-label="Preview Grimoire Pages">
-            <img decoding="async" src="./assets/grimoire/grim-thumb.webp" alt="Grimoire pack preview" loading="lazy" />
+            <img decoding="async" src="https://i.etsystatic.com/63811998/r/il/08a790/8748883553/il_fullxfull.8748883553_1uqi.jpg" alt="Grimoire Series Vol. 3 new cover" loading="lazy" />
             <div class="pack-meta">
               <div class="pack-title">Grimoire Pages</div>
               <div class="pack-note muted">Click to preview all pages</div>
@@ -796,7 +796,7 @@
         <!-- MAPMAKER -->
         <div class="pack-wrap">
           <button class="pack" type="button" data-pack="mapmaker" aria-label="Preview Mapmaker Sheets">
-            <img decoding="async" src="./assets/mapmaker/mapmaker-cover.webp" alt="Mapmaker pack preview" loading="lazy" />
+            <img decoding="async" src="https://i.etsystatic.com/63811998/r/il/05bca3/8748872713/il_fullxfull.8748872713_fayx.jpg" alt="Mapmakers Series new cover" loading="lazy" />
             <div class="pack-meta">
               <div class="pack-title">Mapmaker Sheets</div>
               <div class="pack-note muted">Click to preview all sheets</div>
@@ -813,7 +813,7 @@
         <!-- VOL ONE -->
         <div class="pack-wrap">
           <button class="pack" type="button" data-pack="volone" aria-label="Preview Light Aged Parchment Vol One">
-            <img decoding="async" src="./assets/vol-one/vol-1-thumbnail.webp" alt="Vol One light parchment preview" loading="lazy" />
+            <img decoding="async" src="https://i.etsystatic.com/63811998/r/il/a91591/8748889273/il_fullxfull.8748889273_j59y.jpg" alt="Parchment Light Vol. 1 new cover" loading="lazy" />
             <div class="pack-meta">
               <div class="pack-title">Light Aged Parchment - Vol. One</div>
               <div class="pack-note muted">Click to preview all textures</div>
@@ -827,10 +827,27 @@
           </div>
         </div>
 
+
+        <!-- PARCHMENT LIGHT VOL TWO -->
+        <div class="pack-wrap">
+          <button class="pack" type="button" data-pack="voltwo" aria-label="Preview Parchment Light Vol. 2">
+            <img decoding="async" src="https://i.etsystatic.com/63811998/r/il/e2064c/8749308451/il_fullxfull.8749308451_sfyu.jpg" alt="Parchment Light Vol. 2 new cover" loading="lazy" />
+            <div class="pack-meta">
+              <div class="pack-title">Parchment Light Vol. 2</div>
+              <div class="pack-note muted">8 subtle Victorian parchment textures</div>
+            </div>
+          </button>
+
+          <div class="pack-buy" aria-label="Shop Parchment Light Vol. 2">
+            <a class="pack-details" href="https://www.etsy.com/listing/4598296238/parchment-light-vol-2-lace-leather" target="_blank" rel="noopener noreferrer">View on Etsy</a>
+            <div class="pack-price muted">$3.75</div>
+          </div>
+        </div>
+
         <!-- SMITHY (NEW) -->
         <div class="pack-wrap">
           <button class="pack" type="button" data-pack="smithy" aria-label="Preview Smithy Textures">
-            <img decoding="async" src="./assets/smithy/smithy-cover.webp" alt="Smithy textures pack preview" loading="lazy" />
+            <img decoding="async" src="https://i.etsystatic.com/63811998/r/il/b6bf34/8748925265/il_fullxfull.8748925265_9po1.jpg" alt="Smithy Textures new cover" loading="lazy" />
             <div class="pack-meta">
               <div class="pack-title">Smithy Textures</div>
               <div class="pack-note muted">Click to preview all textures</div>
@@ -1508,6 +1525,20 @@
         sub: "Preview (12 textures)",
         images: Array.from({length: 12}, (_,i)=> `./assets/previews/volone/volone-${String(i+1).padStart(2, "0")}-preview.webp`)
       },
+      voltwo: {
+        title: "Parchment Light Vol. 2",
+        sub: "Preview (8 Victorian textures)",
+        images: [
+          "https://i.etsystatic.com/63811998/r/il/b7d864/8749641737/il_fullxfull.8749641737_5jc2.jpg",
+          "https://i.etsystatic.com/63811998/r/il/f46e37/8749655115/il_fullxfull.8749655115_blob.jpg",
+          "https://i.etsystatic.com/63811998/r/il/45f68d/8701836312/il_fullxfull.8701836312_2pxb.jpg",
+          "https://i.etsystatic.com/63811998/r/il/3003a4/8701838588/il_fullxfull.8701838588_nny6.jpg",
+          "https://i.etsystatic.com/63811998/r/il/207588/8701839632/il_fullxfull.8701839632_b8d8.jpg",
+          "https://i.etsystatic.com/63811998/r/il/250890/8701834868/il_fullxfull.8701834868_tpvs.jpg",
+          "https://i.etsystatic.com/63811998/r/il/142899/8701840242/il_fullxfull.8701840242_5nu7.jpg",
+          "https://i.etsystatic.com/63811998/r/il/0b2af5/8701840984/il_fullxfull.8701840984_3siq.jpg"
+        ]
+      },
       smithy: {
         title: "Smithy Textures",
         sub: "Preview (12 textures)",
@@ -1547,7 +1578,7 @@
         packTitle.textContent = def.title;
         packSub.textContent = def.sub;
 
-        const cropTextureMargins = key === "volone" || key === "smithy";
+        const cropTextureMargins = key === "volone" || key === "voltwo" || key === "smithy";
         packModal.classList.toggle("preview-crop", cropTextureMargins);
 
         buildPackCollage(def.images);
