@@ -1,0 +1,160 @@
+name: TEMP Build Bookmaker 3400 Etsy artifacts
+run-name: TEMP Bookmaker 3400 Etsy delivery
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/etsy-bookmaker-hires-temp.yml"
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Download protected source artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          mkdir -p inputs
+          download_artifact () {
+            id="$1"
+            name="$2"
+            curl -L --fail --silent --show-error \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" \
+              -o "inputs/$name.zip"
+          }
+          download_artifact 11817020648 lantern
+          download_artifact 11816034396 wax-key
+          download_artifact 11817290565 red-wax-feather
+          download_artifact 11816183599 purple-wax-crystal
+          download_artifact 11817215487 grn-wax-book
+          download_artifact 11816850965 wax-green-book-2
+          download_artifact 11815903970 moon-parch-clean
+          download_artifact 11816073994 amber-bronze
+          download_artifact 11815634469 ruby-plate
+          download_artifact 11817085841 stag-red-wax
+
+      - name: Rebuild 3400px transparent masters and stage four parts
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageFilter
+          from pathlib import Path
+          import zipfile, shutil, textwrap
+
+          items = [
+              ("lantern","lantern.png","01-lantern.png"),
+              ("wax-key","wax-key.png","02-wax-key.png"),
+              ("red-wax-feather","red-wax-feather.png","03-red-wax-feather.png"),
+              ("purple-wax-crystal","purple-wax-crystal.png","04-purple-wax-crystal.png"),
+              ("grn-wax-book","grn-wax-book.png","05-grn-wax-book.png"),
+              ("wax-green-book-2","wax-green-book-2.png","06-wax-green-book-2.png"),
+              ("moon-parch-clean","moon-parch-clean.png","07-moon-parch-clean.png"),
+              ("amber-bronze","amber-bronze.png","08-amber-bronze.png"),
+              ("ruby-plate","ruby-plate.png","09-ruby-plate.png"),
+              ("stag-red-wax","stag-red-wax.png","10-stag-red-wax.png"),
+          ]
+          masters = Path("masters")
+          masters.mkdir(exist_ok=True)
+
+          for artifact_name, src_base, out_name in items:
+              with zipfile.ZipFile(Path("inputs") / f"{artifact_name}.zip") as z:
+                  member = next(n for n in z.namelist() if n.lower().endswith("/"+src_base.lower()) or n.lower()==src_base.lower())
+                  with z.open(member) as f:
+                      im = Image.open(f).convert("RGBA")
+                      im.load()
+              w,h = im.size
+              scale = 3400 / max(w,h)
+              size = (round(w*scale), round(h*scale))
+              prem = im.convert("RGBa").resize(size, Image.Resampling.LANCZOS).convert("RGBA")
+              rgb = prem.convert("RGB").filter(ImageFilter.UnsharpMask(radius=.85, percent=50, threshold=2))
+              final = Image.merge("RGBA", (*rgb.split(), prem.getchannel("A")))
+              final.save(masters/out_name, "PNG", optimize=True, compress_level=9, dpi=(300,300))
+
+          # Verify all files before packaging.
+          for p in sorted(masters.glob("*.png")):
+              with Image.open(p) as im:
+                  im.verify()
+              with Image.open(p) as im:
+                  im.load()
+                  assert im.mode == "RGBA"
+                  assert max(im.size) == 3400
+                  assert im.getchannel("A").getextrema() == (0,255)
+
+          groups = [
+              ["03-red-wax-feather.png","02-wax-key.png"],
+              ["06-wax-green-book-2.png","09-ruby-plate.png"],
+              ["10-stag-red-wax.png","05-grn-wax-book.png","08-amber-bronze.png"],
+              ["01-lantern.png","04-purple-wax-crystal.png","07-moon-parch-clean.png"],
+          ]
+          readme = textwrap.dedent("""\
+          LACE & LEATHER ARCANE
+          OLD-WORLD BOOKMAKER STICKERS & SEALS - VOL. 1
+
+          HIGH-RES EDITION
+          This product contains 10 unique transparent PNG embellishments, delivered across four ZIP parts.
+          Each high-resolution PNG is 3400 pixels on its longest edge and tagged at 300 DPI.
+          Transparency is preserved.
+
+          LICENSE
+          - Personal use permitted.
+          - Commercial use permitted in finished creative projects.
+          - Redistribution, sharing, resale, or repackaging of the source PNG files is not permitted.
+
+          The Etsy listing also includes the original-scale legacy ZIP as a bonus/reference copy.
+          """)
+
+          delivery = Path("delivery")
+          for i, group in enumerate(groups, start=1):
+              folder = delivery / f"part{i}"
+              folder.mkdir(parents=True, exist_ok=True)
+              (folder/"README.txt").write_text(readme, encoding="utf-8")
+              for name in group:
+                  shutil.copy2(masters/name, folder/name)
+          PY
+
+      - name: Upload Part 1
+        uses: actions/upload-artifact@v4
+        with:
+          name: Old_World_Bookmaker_High_Res_Part_1_of_4
+          path: delivery/part1/*
+          compression-level: 9
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Upload Part 2
+        uses: actions/upload-artifact@v4
+        with:
+          name: Old_World_Bookmaker_High_Res_Part_2_of_4
+          path: delivery/part2/*
+          compression-level: 9
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Upload Part 3
+        uses: actions/upload-artifact@v4
+        with:
+          name: Old_World_Bookmaker_High_Res_Part_3_of_4
+          path: delivery/part3/*
+          compression-level: 9
+          retention-days: 1
+          if-no-files-found: error
+
+      - name: Upload Part 4
+        uses: actions/upload-artifact@v4
+        with:
+          name: Old_World_Bookmaker_High_Res_Part_4_of_4
+          path: delivery/part4/*
+          compression-level: 9
+          retention-days: 1
+          if-no-files-found: error
