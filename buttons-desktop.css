@@ -100,23 +100,26 @@
     z-index:2;
   }
 
-  /* Hit areas precisely cover the printed parchment labels in the
-     approved 1536x864 image (verified against a labeled hotspot overlay).
-     They reuse the same openDrawer() / previews / cart handlers as mobile. */
+  /* The easy-to-hit button is larger than the actual parchment plaque.
+     Only its pseudo-elements shine. Plaques are approximately 11.8% of
+     the 1536px image wide and 7.7% of the 864px image tall, so 74% x 73%
+     inside a 16% x 10.5% hotspot matches the printed plate closely. */
   .cabinet-hotspot {
+    --plaque-w:74%;
+    --plaque-h:73%;
     position:absolute;
     width:16%;
     height:10.5%;
     box-sizing:border-box;
     transform:translate(-50%,-50%);
     padding:0;
-    border:2px solid transparent;
-    border-radius:7px;
+    border:0;
+    border-radius:0;
     background:transparent;
     color:transparent;
     box-shadow:none;
     cursor:pointer;
-    transition:border-color .16s ease,background-color .16s ease,box-shadow .16s ease;
+    transition:none;
   }
 
   .cabinet-hotspot > span {
@@ -124,10 +127,63 @@
     font-size:0;
   }
 
+  /* Bound BOTH the ambient shimmer and hover glow to the parchment itself,
+     not to the larger transparent click target. */
   .cabinet-hotspot::before,
   .cabinet-hotspot::after {
-    display:none !important;
-    content:none !important;
+    display:block !important;
+    content:"" !important;
+    position:absolute;
+    left:50%;
+    top:50%;
+    right:auto;
+    bottom:auto;
+    width:var(--plaque-w);
+    height:var(--plaque-h);
+    box-sizing:border-box;
+    transform:translate(-50%,-50%);
+    border-radius:4px;
+    pointer-events:none;
+    filter:none;
+    text-shadow:none;
+  }
+
+  .cabinet-hotspot::before {
+    z-index:1;
+    opacity:0;
+    border:1px solid rgba(255,225,177,.36);
+    background:linear-gradient(180deg,
+      rgba(255,245,218,.035),
+      rgba(246,207,140,.08) 68%,
+      rgba(255,235,196,.025));
+    box-shadow:
+      inset 0 1px 1px rgba(255,248,223,.1),
+      0 0 9px rgba(240,189,111,.12);
+    animation:none;
+    transition:opacity .19s ease,border-color .19s ease;
+  }
+
+  .cabinet-hotspot::after {
+    z-index:2;
+    opacity:.14;
+    color:transparent;
+    font-size:0;
+    background:linear-gradient(105deg,
+      transparent 29%,
+      rgba(255,250,230,.015) 37%,
+      rgba(255,244,212,.23) 49%,
+      rgba(255,247,224,.04) 58%,
+      transparent 68%);
+    background-size:240% 100%;
+    background-position:145% 50%;
+    background-repeat:no-repeat;
+    animation:plaqueGleam 5s ease-in-out infinite;
+    transition:opacity .19s ease;
+  }
+
+  @keyframes plaqueGleam {
+    0%,34% { background-position:145% 50%; }
+    69%,100% { background-position:-70% 50%; }
   }
 
   .cabinet-hotspot[data-category="heraldry"] {
@@ -155,20 +211,33 @@
     top:57.5%;
   }
 
+  /* Keep the click area completely transparent in every state.
+     The only visible highlight is clipped to the printed label. */
   .cabinet-hotspot:hover,
   .cabinet-hotspot:focus-visible,
   .cabinet-hotspot[aria-expanded="true"] {
     transform:translate(-50%,-50%);
     outline:none;
-    border-color:rgba(250,212,154,.82);
-    background:rgba(235,187,122,.1);
-    box-shadow:
-      inset 0 0 20px rgba(243,202,142,.11),
-      0 0 16px rgba(251,205,123,.2);
+    border-color:transparent;
+    background:transparent;
+    box-shadow:none;
   }
-  .cabinet-hotspot:focus-visible {
-    outline:2px solid #ffdcaa;
-    outline-offset:2px;
+
+  .cabinet-hotspot:hover::before,
+  .cabinet-hotspot:focus-visible::before,
+  .cabinet-hotspot[aria-expanded="true"]::before {
+    opacity:1;
+  }
+
+  .cabinet-hotspot:hover::after,
+  .cabinet-hotspot:focus-visible::after,
+  .cabinet-hotspot[aria-expanded="true"]::after {
+    opacity:.68;
+  }
+
+  .cabinet-hotspot:focus-visible::before {
+    border:2px solid #ffe1ad;
+    box-shadow:0 0 0 1px rgba(46,26,12,.55),0 0 14px rgba(250,208,143,.45);
   }
 
   /* Same slide-up drawer design and specimen cards as phones.
@@ -210,7 +279,19 @@
 
 @media (prefers-reduced-motion:reduce) {
   .cabinet-hotspot,
+  .cabinet-hotspot::before,
+  .cabinet-hotspot::after,
   .specimen-drawer {
     transition:none !important;
+  }
+  .cabinet-hotspot::after {
+    animation:none !important;
+    background-position:50% 50%;
+    opacity:0;
+  }
+  .cabinet-hotspot:hover::after,
+  .cabinet-hotspot:focus-visible::after,
+  .cabinet-hotspot[aria-expanded="true"]::after {
+    opacity:.25;
   }
 }
