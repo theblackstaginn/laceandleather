@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap");
+
 /* styles.css (FULL)
    Lace & Leather — Front Porch + Pay Screen
    CLEANED: removed conflicting overrides, made tablet bg fill viewport,
@@ -5,27 +7,12 @@
 */
 
 /* =========================
-   FONTS
-   ========================= */
-@font-face{
-  font-family:"Cardinal";
-  src:url("./fonts/cardinal.ttf") format("truetype");
-  font-weight:normal;
-  font-style:normal;
-  font-display:swap;
-}
-@font-face{
-  font-family:"DarkAges";
-  src:url("./fonts/dark-ages.TTF") format("truetype");
-  font-weight:normal;
-  font-style:normal;
-  font-display:swap;
-}
-
-/* =========================
    ROOT
    ========================= */
 :root{
+  --font-display:"Cinzel", Georgia, serif;
+  --font-body:"Cormorant Garamond", Georgia, serif;
+
   --text:#e7e2db;
   --muted: rgba(231,226,219,.80);
 
@@ -65,14 +52,28 @@ body{
   margin:0;
   background:#06070a;
   color:var(--text);
-  font-family:"Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
-  font-size:16px;
+  font-family:var(--font-body);
+  font-size:18px;
+  line-height:1.55;
+  font-weight:500;
   overflow-x:hidden;
   text-align:center;
 }
 
 html.no-scroll,
 html.no-scroll body{ overflow:hidden; }
+
+h1,h2,h3,h4,h5,h6{
+  font-family:var(--font-display);
+  font-weight:600;
+  letter-spacing:.035em;
+}
+
+button,
+input,
+select,
+textarea{ font-family:inherit; }
+
 
 /* =========================
    FIXED BACKGROUND (Front Porch default)
@@ -225,7 +226,7 @@ html.no-scroll body{ overflow:hidden; }
    ========================= */
 .hero{ padding:18px; }
 .brand-title{
-  font-family: "Cardinal", serif;
+  font-family:var(--font-display);
   font-size: clamp(2.2rem, 5vw, 3.1rem);
   letter-spacing: 0.16em;
   margin-bottom: 16px;
@@ -248,7 +249,7 @@ html.no-scroll body{ overflow:hidden; }
    TYPE
    ========================= */
 .h2{
-  font-family:"Cardinal", serif;
+  font-family:var(--font-display);
   font-size:var(--h2);
   letter-spacing:.08em;
   margin:0 0 10px;
@@ -371,13 +372,13 @@ p, h1, h2, h3, h4, h5, h6,
 }
 .pack-meta{ display:grid; gap:3px; }
 .pack-title{
-  font-family:"Cardinal", serif;
+  font-family:var(--font-display);
   font-size:18px;
   letter-spacing:.06em;
   text-shadow:0 0 8px rgba(0,0,0,.9);
 }
 .pack-note{
-  font-family:"Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  font-family:var(--font-body);
   font-size:15px;
   text-shadow:0 0 6px rgba(0,0,0,.9);
 }
@@ -417,7 +418,7 @@ p, h1, h2, h3, h4, h5, h6,
 .map-caption{ margin-top:6px; font-size:13px; }
 .map-name{
   display:block;
-  font-family:"Cardinal", serif;
+  font-family:var(--font-display);
   font-size:18px;
   letter-spacing:.06em;
   text-shadow:0 0 8px rgba(0,0,0,.9);
@@ -468,7 +469,7 @@ p, h1, h2, h3, h4, h5, h6,
   color: rgba(231,226,219,.92);
 }
 .section-copy h2{
-  font-family:"Cardinal", serif;
+  font-family:var(--font-display);
   letter-spacing:.06em;
   text-shadow:0 0 10px rgba(0,0,0,.9);
   margin: 0 0 10px;
@@ -508,7 +509,7 @@ p, h1, h2, h3, h4, h5, h6,
   text-align:center;
 }
 .brand{
-  font-family:"Cardinal", serif;
+  font-family:var(--font-display);
   letter-spacing:.05em;
   font-size:17px;
   text-shadow:0 0 10px rgba(0,0,0,.85);
@@ -559,7 +560,7 @@ p, h1, h2, h3, h4, h5, h6,
 }
 
 .modal-title{
-  font-family:"Cardinal", serif;
+  font-family:var(--font-display);
   letter-spacing:.08em;
   font-size:20px;
   text-shadow:0 0 10px rgba(0,0,0,.9);
@@ -919,7 +920,7 @@ p, h1, h2, h3, h4, h5, h6,
 
 body.pay-page{
   background:#111;
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family:var(--font-body);
   overflow:hidden; /* ONLY the in-screen scrolls */
 }
 
@@ -1025,7 +1026,7 @@ body.pay-page .pay-head{
 }
 
 body.pay-page .pay-brand{
-  font-weight:900;
+  font-weight:700;
   letter-spacing:.12em;
   font-size:14px;
   color:#111;
@@ -1115,7 +1116,7 @@ body.pay-page .pay-card{
 body.pay-page .pay-card h2{
   margin:0 0 8px;
   font-size:15px;
-  font-weight:900;
+  font-weight:700;
   letter-spacing:.12em;
   color:#111;
 }
@@ -1139,12 +1140,12 @@ body.pay-page .pay-id{
   align-items:center;
   gap:8px;
   font-size:13px;
-  font-weight:800;
+  font-weight:700;
 }
 body.pay-page .pay-right{ text-align:right; }
 body.pay-page .pay-total{
   font-size:22px;
-  font-weight:900;
+  font-weight:700;
   letter-spacing:.02em;
 }
 
@@ -1177,7 +1178,7 @@ body.pay-page .pay-item{
 }
 body.pay-page .pay-item-name{
   font-size:13px;
-  font-weight:900;
+  font-weight:700;
   line-height:1.2;
 }
 body.pay-page .pay-item-meta{
@@ -1185,10 +1186,10 @@ body.pay-page .pay-item-meta{
   gap:10px;
   font-size:13px;
   white-space:nowrap;
-  font-weight:800;
+  font-weight:700;
 }
 body.pay-page .pay-item-qty{ opacity:.72; }
-body.pay-page .pay-item-price{ font-weight:900; }
+body.pay-page .pay-item-price{ font-weight:700; }
 
 body.pay-page .pay-note{
   font-size:12px;
@@ -1383,7 +1384,7 @@ body.pay-page .pay-qr{
 }
 .ll-plus-pop .plus{
   display: inline-block;
-  font-family: "Cinzel", serif;
+  font-family:var(--font-display);
   font-weight: 700;
   font-size: 18px;
   line-height: 1;
@@ -1425,7 +1426,7 @@ body.pay-page .pay-qr{
 
 .ll-projects h2{
   margin:0 0 8px;
-  font-family:"Cardinal", serif;
+  font-family:var(--font-display);
   letter-spacing:.08em;
   text-align:center;
   text-shadow:0 0 10px rgba(0,0,0,.85);
@@ -1478,7 +1479,7 @@ body.pay-page .pay-qr{
     inset 0 0 0 1px rgba(255,255,255,.03),
     0 10px 22px rgba(0,0,0,.35);
   color:var(--ll-wild-ink);
-  font-family:"Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  font-family:var(--font-body);
   letter-spacing:.04em;
   text-decoration:none;
   transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease, background .16s ease;
@@ -1630,7 +1631,7 @@ body.pay-page .pay-qr{
 
 .product-hero h1{
   margin:0 0 10px;
-  font-family:"Cardinal", serif;
+  font-family:var(--font-display);
   letter-spacing:.06em;
   text-align:left;
   text-shadow:0 0 10px rgba(0,0,0,.9);
