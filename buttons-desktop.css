@@ -1,457 +1,216 @@
-/* Lace & Leather Arcane | Bookmaker's Specimen Cabinet
-   Responsive v2: cinematic LANDSCAPE on web, original portrait on phones.
-   The original specimen categories, cart, preview and mobile styling are intact. */
+/* Lace & Leather Arcane | The Bookmaker's Specimen Cabinet
+ * Landscape website artwork supplied and approved October 19, 2026.
+ * Desktop uses an accurate six-plaque hit map over the ACTUAL artwork.
+ * Phone / <=820px keeps its original portrait art, hotspots and bottom drawer.
+ */
 
-@media (max-width: 820px) {
-  .cabinet-layout { display: contents; }
+/* Mobile remains exactly as originally designed. */
+@media (max-width:820px) {
+  .cabinet-layout { display:contents; }
   .cabinet-heading-kicker,
   .cabinet-index,
-  .instruction-pointer { display: none !important; }
-  .instruction-touch { display: inline; }
+  .instruction-pointer { display:none !important; }
+  .instruction-touch { display:inline; }
 }
 
-/* Wider canvases get a real landscape exhibit, not a portrait with side rails. */
-@media (min-width: 821px) {
+/* The desktop composition itself contains its heading, instructions and
+   six gold-lettered plaques. Do not repeat them above or below the image. */
+@media (min-width:821px) {
   body.specimen-shop {
-    background-color: #080605;
+    background-color:#090605;
   }
 
   body.specimen-shop::after {
     background:
-      radial-gradient(ellipse at 50% 20%, rgba(130, 82, 44, .22), transparent 54%),
-      linear-gradient(90deg, rgba(5, 3, 2, .74), rgba(10, 6, 5, .37) 50%, rgba(5, 3, 2, .74));
+      radial-gradient(ellipse at 50% 20%,rgba(126,75,35,.16),transparent 60%),
+      linear-gradient(90deg,rgba(5,3,2,.55),rgba(8,5,3,.22) 50%,rgba(5,3,2,.55));
   }
 
   main.specimen-shell {
-    width: min(1500px, calc(100% - clamp(36px, 6vw, 118px)));
-    margin: 0 auto;
-    padding: clamp(30px, 4.5vh, 56px) 0 100px;
+    width:min(1600px,calc(100% - clamp(24px,4.5vw,88px)));
+    margin:0 auto;
+    padding:clamp(20px,3vh,36px) 0 80px;
   }
 
   .cabinet-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "heading" "art" "index";
-    gap: clamp(18px, 2.5vw, 32px);
-    align-items: center;
+    display:block;
+    width:100%;
   }
 
-  /* Editorial top matter, positioned above the full-width artwork. */
+  /* Retain the semantic h1/instructions for accessibility and search.
+     They're visually hidden because the artwork already prints them. */
   .specimen-header {
-    grid-area: heading;
-    width: 100%;
-    max-width: 1150px;
-    margin: 0 auto 3px;
-    text-align: center;
+    position:absolute !important;
+    width:1px !important;
+    height:1px !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden !important;
+    clip-path:inset(50%) !important;
+    white-space:nowrap !important;
   }
 
-  .cabinet-heading-kicker {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    width: min(650px, 90%);
-    margin: 0 auto 16px;
-    color: #d1ac7a;
-    font: 600 12px/1.4 var(--font-display), Georgia, serif;
-    letter-spacing: .21em;
-    text-transform: uppercase;
-  }
-  .cabinet-heading-kicker::before,
-  .cabinet-heading-kicker::after {
-    content: "";
-    flex: 1 1 auto;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(220, 174, 108, .72));
-  }
-  .cabinet-heading-kicker::after {
-    transform: rotate(180deg);
-  }
+  .cabinet-index { display:none !important; }
+  .stage-hint { display:none !important; }
+  .instruction-touch { display:none; }
+  .instruction-pointer { display:inline; }
 
-  .specimen-header h1 {
-    max-width: 1080px;
-    margin: 0 auto;
-    color: #f2e4d0;
-    font-family: var(--font-display), Georgia, serif;
-    font-size: clamp(31px, 3.8vw, 57px);
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: .05em;
-    text-shadow: 0 5px 22px rgba(0, 0, 0, .9);
-    text-wrap: balance;
-  }
-  .specimen-header h1::after {
-    content: "❧";
-    display: block;
-    color: #b89560;
-    font: 400 28px/.8 Georgia, serif;
-    margin: 9px auto 0;
-    letter-spacing: normal;
-  }
-
-  .specimen-header .page-sub {
-    max-width: 870px;
-    margin: 16px auto 0;
-    color: rgba(237, 220, 193, .86);
-    font-size: clamp(15px, 1.35vw, 19px);
-    line-height: 1.5;
-    text-align: center;
-  }
-  .instruction-touch { display: none; }
-  .instruction-pointer { display: inline; }
-
-  /* The 1672 x 941 LANDSCAPE artwork occupies the entire available width.
-     No cover-cropping, no portrait aspect ratio and no stretched image. */
   .cabinet-stage {
-    grid-area: art;
-    position: relative;
-    justify-self: stretch;
-    width: min(100%, 1470px);
-    max-width: none;
-    margin: 0 auto;
-    overflow: hidden;
-    border: 6px solid #26180f;
-    border-radius: 13px;
-    background: #170f0b;
+    position:relative;
+    width:min(100%,1536px);
+    max-width:1536px;
+    margin:0 auto;
+    overflow:hidden;
+    isolation:isolate;
+    border:3px solid #271910;
+    border-radius:10px;
+    background:#110a07;
     box-shadow:
-      0 0 0 1px rgba(235, 195, 137, .72),
-      0 0 0 6px rgba(9, 6, 4, .79),
-      0 0 0 7px rgba(173, 131, 78, .4),
-      0 40px 90px rgba(0, 0, 0, .75),
-      inset 0 0 30px rgba(0, 0, 0, .33);
+      0 0 0 1px rgba(229,183,119,.64),
+      0 0 0 6px rgba(12,8,5,.8),
+      0 0 0 7px rgba(182,133,70,.27),
+      0 24px 75px rgba(0,0,0,.76);
   }
 
-  .cabinet-art, .cabinet-art picture, .cabinet-art img {
-    display: block;
-    width: 100%;
-  }
+  .cabinet-art,
+  .cabinet-art picture,
   .cabinet-art img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1672 / 941;
-    object-fit: contain;
-    user-select: none;
-    -webkit-user-drag: none;
+    display:block;
+    width:100%;
+  }
+
+  .cabinet-art img {
+    width:100%;
+    height:auto;
+    aspect-ratio:16 / 9;
+    object-fit:contain;
+    user-select:none;
+    -webkit-user-drag:none;
+    -webkit-touch-callout:none;
   }
 
   .cabinet-stage::after {
-    border-radius: 7px;
-    box-shadow:
-      inset 0 0 0 1px rgba(245, 205, 144, .17),
-      inset 0 0 68px rgba(5, 3, 2, .46);
+    border-radius:6px;
+    box-shadow:inset 0 0 0 1px rgba(245,205,145,.13);
   }
 
-  /* Six unobtrusive numbered brass markers over the wide cabinet.
-     The Index of Curiosities below supplies full permanent labels. */
+  .cabinet-hotspots {
+    position:absolute;
+    inset:0;
+    z-index:2;
+  }
+
+  /* Hit areas precisely cover the printed parchment labels in the
+     approved 1536x864 image (verified against a labeled hotspot overlay).
+     They reuse the same openDrawer() / previews / cart handlers as mobile. */
   .cabinet-hotspot {
-    position: absolute;
-    box-sizing: border-box;
-    width: 17%;
-    height: 11%;
-    padding: 0;
-    color: #f3dfb7;
-    border: 1px solid rgba(231, 188, 124, 0);
-    border-radius: 14px;
-    background: transparent;
-    box-shadow: none;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+    position:absolute;
+    width:16%;
+    height:10.5%;
+    box-sizing:border-box;
+    transform:translate(-50%,-50%);
+    padding:0;
+    border:2px solid transparent;
+    border-radius:7px;
+    background:transparent;
+    color:transparent;
+    box-shadow:none;
+    cursor:pointer;
+    transition:border-color .16s ease,background-color .16s ease,box-shadow .16s ease;
   }
-
-  /* Keep hotspots at the coordinates already established for this image. */
-  .cabinet-hotspot[data-category="heraldry"] { left: 47%; top: 40%; }
-  .cabinet-hotspot[data-category="books"] { left: 66%; top: 40%; }
-  .cabinet-hotspot[data-category="celestial"] { left: 47%; top: 52%; }
-  .cabinet-hotspot[data-category="wax"] { left: 66%; top: 52%; }
-  .cabinet-hotspot[data-category="lunar"] { left: 47%; top: 64%; }
-  .cabinet-hotspot[data-category="ornaments"] { left: 66%; top: 64%; }
 
   .cabinet-hotspot > span {
-    position: absolute;
-    inset: auto -5% 70% -5%;
-    z-index: 2;
-    display: grid;
-    place-items: center;
-    padding: 8px 3px;
-    border: 1px solid rgba(241, 202, 147, .62);
-    border-radius: 5px;
-    color: #f8e9ca;
-    background: linear-gradient(160deg, rgba(58, 34, 21, .95), rgba(27, 16, 12, .98));
-    box-shadow: 0 6px 17px rgba(0, 0, 0, .6);
-    font-family: var(--font-display), Georgia, serif;
-    font-size: clamp(10px, 1vw, 15px);
-    font-weight: 600;
-    letter-spacing: .045em;
-    line-height: 1.15;
-    text-align: center;
-    text-transform: none;
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity .2s ease, transform .2s ease;
-    pointer-events: none;
+    opacity:0;
+    font-size:0;
   }
 
-  .cabinet-hotspot::before { display: none; }
+  .cabinet-hotspot::before,
   .cabinet-hotspot::after {
-    content: "✦";
-    position: absolute;
-    z-index: 3;
-    bottom: 15%;
-    left: 50%;
-    right: auto;
-    top: auto;
-    display: grid;
-    place-items: center;
-    width: 26px;
-    height: 26px;
-    border: 1px solid rgba(245, 211, 158, .8);
-    border-radius: 50%;
-    background: linear-gradient(145deg, #725133, #2d2117);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, .62);
-    transform: translateX(-50%);
-    font: 400 13px/1 Georgia, serif;
-    color: #f5ddb0;
-    opacity: .93;
-    text-shadow: none;
-    filter: none;
-    animation: none;
-    pointer-events: none;
+    display:none !important;
+    content:none !important;
+  }
+
+  .cabinet-hotspot[data-category="heraldry"] {
+    left:18.8%;
+    top:28.1%;
+  }
+  .cabinet-hotspot[data-category="books"] {
+    left:50%;
+    top:28.1%;
+  }
+  .cabinet-hotspot[data-category="celestial"] {
+    left:81.7%;
+    top:28.1%;
+  }
+  .cabinet-hotspot[data-category="wax"] {
+    left:19%;
+    top:57.5%;
+  }
+  .cabinet-hotspot[data-category="lunar"] {
+    left:50%;
+    top:57.5%;
+  }
+  .cabinet-hotspot[data-category="ornaments"] {
+    left:81.7%;
+    top:57.5%;
   }
 
   .cabinet-hotspot:hover,
   .cabinet-hotspot:focus-visible,
   .cabinet-hotspot[aria-expanded="true"] {
-    outline: none;
-    border: 1px solid rgba(246, 207, 145, .85);
-    background: rgba(107, 67, 32, .22);
-    box-shadow: inset 0 0 25px rgba(247, 197, 120, .08),
-      0 0 24px rgba(229, 159, 65, .11);
-    transform: translate(-50%, -50%);
-  }
-  .cabinet-hotspot:hover > span,
-  .cabinet-hotspot:focus-visible > span,
-  .cabinet-hotspot[aria-expanded="true"] > span {
-    opacity: 1;
-    transform: translateY(0);
+    transform:translate(-50%,-50%);
+    outline:none;
+    border-color:rgba(250,212,154,.82);
+    background:rgba(235,187,122,.1);
+    box-shadow:
+      inset 0 0 20px rgba(243,202,142,.11),
+      0 0 16px rgba(251,205,123,.2);
   }
   .cabinet-hotspot:focus-visible {
-    outline: 2px solid #f6d49b;
-    outline-offset: 3px;
+    outline:2px solid #ffdcaa;
+    outline-offset:2px;
   }
 
-  .stage-hint {
-    left: 50%;
-    bottom: 2%;
-    padding: 6px 16px;
-    border-color: rgba(235, 200, 145, .42);
-    color: #f4dfc2;
-    background: rgba(17, 11, 8, .8);
-    font-family: var(--font-display), Georgia, serif;
-    font-size: 12px;
-    letter-spacing: .1em;
-    transform: translateX(-50%);
-    pointer-events: none;
-  }
-
-  /* Index styled as a horizontal antiquarian catalog below the artwork. */
-  .cabinet-index {
-    grid-area: index;
-    position: relative;
-    top: auto;
-    width: min(100%, 1470px);
-    max-width: none;
-    margin: 5px auto 0;
-    padding: clamp(20px, 2.5vw, 34px);
-    border: 1px solid rgba(204, 157, 98, .47);
-    border-radius: 13px;
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(132, 88, 51, .22), transparent 67%),
-      linear-gradient(150deg, #271b14, #130e0b 73%);
-    box-shadow:
-      inset 0 0 0 4px rgba(9, 6, 4, .67),
-      inset 0 0 0 5px rgba(192, 148, 95, .19),
-      0 23px 64px rgba(0, 0, 0, .56);
-  }
-
-  .cabinet-index::before, .cabinet-index::after {
-    content: "✦";
-    position: absolute;
-    top: 16px;
-    color: #bd925d;
-    opacity: .65;
-    font-size: 12px;
-  }
-  .cabinet-index::before { left: 18px; }
-  .cabinet-index::after { right: 18px; }
-
-  .cabinet-index-heading {
-    margin: 0 0 20px;
-    padding: 0 8px 16px;
-    border-bottom: 1px solid rgba(205, 155, 101, .33);
-    text-align: center;
-  }
-  .cabinet-index-kicker {
-    display: block;
-    color: #cfaa78;
-    font: 600 11px/1.5 var(--font-display), Georgia, serif;
-    letter-spacing: .21em;
-    text-transform: uppercase;
-  }
-  .cabinet-index-heading h2 {
-    margin: 4px 0;
-    color: #f2dfc1;
-    font-family: var(--font-display), Georgia, serif;
-    font-size: clamp(24px, 2.5vw, 35px);
-    font-weight: 600;
-    letter-spacing: .06em;
-  }
-  .cabinet-index-heading p { margin: 0; color: #cbb69b; font-size: 14px; }
-
-  .cabinet-index-controls {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .cabinet-index-trigger {
-    display: grid;
-    grid-template-columns: 42px minmax(0, 1fr) 22px;
-    align-items: center;
-    gap: 12px;
-    min-height: 88px;
-    width: 100%;
-    padding: 15px;
-    border: 1px solid rgba(199, 160, 107, .31);
-    border-radius: 7px;
-    color: #f1dec1;
-    background: linear-gradient(150deg, rgba(106, 76, 47, .28), rgba(20, 14, 10, .54));
-    box-shadow: inset 0 0 16px rgba(231, 185, 109, .024);
-    cursor: pointer;
-    text-align: left;
-    transition: border-color .18s ease, background .18s ease, transform .18s ease;
-  }
-  .cabinet-index-trigger:hover,
-  .cabinet-index-trigger:focus-visible,
-  .cabinet-index-trigger.is-selected {
-    outline: none;
-    padding-left: 15px;
-    border-color: rgba(244, 201, 139, .8);
-    background: linear-gradient(140deg, rgba(131, 87, 43, .43), rgba(26, 17, 11, .58));
-    transform: translateY(-2px);
-  }
-  .cabinet-index-trigger:focus-visible { outline: 2px solid #e9c28a; outline-offset: 2px; }
-
-  .cabinet-index-number {
-    display: grid;
-    place-items: center;
-    width: 42px;
-    height: 42px;
-    border: 1px solid rgba(205, 161, 101, .7);
-    border-radius: 50%;
-    color: #e4bf8b;
-    background: rgba(15, 9, 6, .65);
-    font-family: var(--font-display), Georgia, serif;
-    font-size: 18px;
-    font-weight: 600;
-  }
-  .cabinet-index-name {
-    display: block;
-    min-width: 0;
-    color: #f0dec0;
-    font-family: var(--font-display), Georgia, serif;
-    font-size: clamp(16px, 1.45vw, 23px);
-    font-weight: 600;
-    line-height: 1.25;
-  }
-  .cabinet-index-name small {
-    display: block;
-    margin-top: 5px;
-    color: rgba(227, 201, 166, .72);
-    font-family: var(--font-body), Georgia, serif;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.3;
-  }
-  .cabinet-index-arrow {
-    justify-self: end;
-    color: #e2bb83;
-    font-size: 26px;
-    line-height: 1;
-  }
-  .cabinet-index-foot {
-    padding-top: 20px;
-    color: #cbb59b;
-    font-size: 13px;
-    text-align: center;
-  }
-  .cabinet-index-foot strong {
-    display: block;
-    color: #e7c594;
-    font-family: var(--font-display), Georgia, serif;
-    font-size: 17px;
-    font-weight: 600;
-    letter-spacing: .045em;
-  }
-
-  /* A wide, horizontal specimen tray preserves the landscape presentation. */
+  /* Same slide-up drawer design and specimen cards as phones.
+     Desktop simply gets more horizontal room for browsing items. */
   .specimen-drawer {
-    display: flex;
-    flex-direction: column;
-    top: auto;
-    left: clamp(12px, 2.3vw, 42px);
-    right: clamp(12px, 2.3vw, 42px);
-    bottom: clamp(12px, 2.5vh, 26px);
-    width: auto;
-    max-height: min(48vh, 445px);
-    padding: 10px 20px 19px;
-    border: 1px solid rgba(231, 184, 122, .72);
-    border-radius: 15px;
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(147, 97, 53, .31), transparent 60%),
-      linear-gradient(165deg, #322116, #140d09 72%);
-    box-shadow:
-      inset 0 0 0 4px rgba(10, 6, 4, .64),
-      0 0 0 1px rgba(6, 3, 2, .8),
-      0 -20px 80px rgba(0, 0, 0, .79);
-    transform: translateY(calc(100% + 34px));
+    left:clamp(12px,2.5vw,44px);
+    right:clamp(12px,2.5vw,44px);
+    bottom:clamp(10px,2.2vh,26px);
+    width:auto;
+    max-height:min(50dvh,460px);
+    border:1px solid rgba(230,192,134,.58);
+    border-radius:16px;
+    box-shadow:0 -22px 78px rgba(0,0,0,.84);
+    transform:translateY(calc(100% + 40px));
   }
-  .specimen-drawer.is-open { transform: translateY(0); }
-  .drawer-grip { display: block; }
-  .drawer-head { width: 100%; align-items: center; padding: 3px 7px 12px; }
-  .drawer-head h2 { font-size: clamp(23px, 2vw, 31px); }
-  .drawer-track {
-    display: flex;
-    flex: 1 1 auto;
-    width: 100%;
-    min-height: 0;
-    align-items: stretch;
-    gap: 13px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x proximity;
-    padding: 4px 3px 11px;
-  }
-  .specimen-card { flex: 0 0 clamp(147px, 14vw, 194px); min-width: 0; }
-  .drawer-foot { width: 100%; padding-top: 9px; }
 
-  .specimen-preview { width: min(830px, calc(100vw - 34px)); }
-  .close-btn { top: 17px; right: 18px; }
-  .close-btn img { width: 46px; }
+  .specimen-drawer.is-open {
+    transform:translateY(0);
+  }
+
+  .drawer-head,
+  .drawer-track,
+  .drawer-foot {
+    width:min(1330px,100%);
+  }
+  .specimen-card {
+    flex-basis:clamp(142px,15vw,190px);
+  }
+
+  .close-btn {
+    top:clamp(10px,2vh,25px);
+    right:clamp(10px,2vw,35px);
+  }
+
+  .close-btn img {
+    width:clamp(38px,3vw,46px);
+  }
 }
 
-/* Narrow desktops and landscape tablets: three columns become two for legibility. */
-@media (min-width: 821px) and (max-width: 1080px) {
-  main.specimen-shell { width: calc(100% - 38px); }
-  .cabinet-layout { gap: 21px; }
-  .specimen-header h1 { font-size: clamp(31px, 4vw, 45px); }
-  .cabinet-index-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .cabinet-index-trigger { min-height: 77px; }
-  .cabinet-hotspot > span { font-size: 11px; }
-  .stage-hint { display: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cabinet-hotspot, .cabinet-hotspot > span,
-  .cabinet-index-trigger, .specimen-drawer { transition: none !important; }
+@media (prefers-reduced-motion:reduce) {
+  .cabinet-hotspot,
+  .specimen-drawer {
+    transition:none !important;
+  }
 }
