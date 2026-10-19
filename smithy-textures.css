@@ -3,7 +3,7 @@
       margin:0;
       background:#06070a;
       color:#e7e2db;
-      font-family:"DarkAges", ui-serif, Georgia, serif;
+      font-family:var(--font-body);
       text-align:center;
       overflow-x:hidden;
     }
@@ -92,7 +92,7 @@
       text-align:left;
     }
     .title{
-      font-family:"Cardinal", serif;
+      font-family:var(--font-display);
       letter-spacing:.10em;
       font-size: clamp(22px, 3.2vw, 30px);
       margin: 0;
@@ -133,7 +133,7 @@
       padding: 10px 12px;
       border-radius: 12px;
       cursor:pointer;
-      font-family:"DarkAges", ui-serif, Georgia, serif;
+      font-family:var(--font-body);
       letter-spacing:.04em;
       text-decoration:none;
       display:inline-flex;
@@ -158,7 +158,7 @@
       gap:8px;
     }
     .related-title{
-      font-family:"Cardinal", serif;
+      font-family:var(--font-display);
       letter-spacing:.06em;
       margin: 0;
       font-size: 16px;
@@ -180,7 +180,7 @@
       gap:10px;
     }
     .preview h2{
-      font-family:"Cardinal", serif;
+      font-family:var(--font-display);
       letter-spacing:.08em;
       margin: 0;
       font-size: 18px;
@@ -259,7 +259,7 @@
       border-bottom:1px solid rgba(255,255,255,.10);
     }
     .modal-title{
-      font-family:"Cardinal", serif;
+      font-family:var(--font-display);
       letter-spacing:.08em;
       font-size:18px;
       text-shadow:0 0 10px rgba(0,0,0,.9);
@@ -269,7 +269,7 @@
     /* Cardinal's numeric glyphs can rasterize into illegible symbols.
        Keep the manuscript face for words and a reliable serif for indices. */
     #viewerTitle .preview-num{
-      font-family: Georgia, "Times New Roman", serif;
+      font-family:var(--font-body);
       font-size: 18px;
       font-weight: normal;
       letter-spacing: .02em;
