@@ -1,27 +1,9 @@
 /* =========================
-       L&L FONTS (match site)
-       ========================= */
-    @font-face{
-      font-family:"Cardinal";
-      src:url("./fonts/cardinal.ttf") format("truetype");
-      font-weight:normal;
-      font-style:normal;
-      font-display:swap;
-    }
-    @font-face{
-      font-family:"DarkAges";
-      src:url("./fonts/dark-ages.TTF") format("truetype");
-      font-weight:normal;
-      font-style:normal;
-      font-display:swap;
-    }
-
-    /* =========================
        FIXED OAK BACKGROUND
        ========================= */
     body{
       margin:0;
-      font-family: "DarkAges", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family:var(--font-body);
       color:#eee;
       background:#000;
     }
@@ -68,7 +50,7 @@
     }
 
     h1{
-      font-family: "Cardinal", cursive;
+      font-family:var(--font-display);
       font-size:22px;
       margin:0 0 6px;
       letter-spacing:.04em;
