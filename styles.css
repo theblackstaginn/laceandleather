@@ -6,6 +6,14 @@
    mounted PayPad overlay correctly, and added a single, reliable alignment knob.
 */
 
+@font-face{
+  font-family:"Cardinal";
+  src:url("./fonts/cardinal.ttf") format("truetype");
+  font-weight:normal;
+  font-style:normal;
+  font-display:swap;
+}
+
 /* =========================
    ROOT
    ========================= */
@@ -226,7 +234,7 @@ textarea{ font-family:inherit; }
    ========================= */
 .hero{ padding:18px; }
 .brand-title{
-  font-family:var(--font-display);
+  font-family:"Cardinal", serif;
   font-size: clamp(2.2rem, 5vw, 3.1rem);
   letter-spacing: 0.16em;
   margin-bottom: 16px;
