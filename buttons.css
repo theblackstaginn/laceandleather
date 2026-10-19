@@ -521,12 +521,13 @@ main.specimen-shell{
     border:2px solid rgba(248,216,163,.72);
   }
 
-  .cabinet-hotspot[data-category="heraldry"]{ left:2%; top:18%; width:39%; height:16%; }
-  .cabinet-hotspot[data-category="celestial"]{ left:58%; top:18%; width:40%; height:16%; }
-  .cabinet-hotspot[data-category="books"]{ left:2%; top:34%; width:45%; height:21%; }
-  .cabinet-hotspot[data-category="wax"]{ left:57%; top:34%; width:41%; height:21%; }
-  .cabinet-hotspot[data-category="lunar"]{ left:2%; top:55%; width:57%; height:22%; }
-  .cabinet-hotspot[data-category="ornaments"]{ left:58%; top:74%; width:40%; height:16%; }
+  /* Hit areas follow the six printed label cards in the readable mobile cabinet. */
+  .cabinet-hotspot[data-category="heraldry"]{ left:10%; top:26%; width:31%; height:10%; }
+  .cabinet-hotspot[data-category="celestial"]{ left:61%; top:26%; width:32%; height:10%; }
+  .cabinet-hotspot[data-category="books"]{ left:21%; top:45%; width:29%; height:11%; }
+  .cabinet-hotspot[data-category="wax"]{ left:63%; top:45%; width:30%; height:10%; }
+  .cabinet-hotspot[data-category="lunar"]{ left:24%; top:65%; width:33%; height:10%; }
+  .cabinet-hotspot[data-category="ornaments"]{ left:67%; top:78%; width:31%; height:10%; }
 
   .stage-hint{
     bottom:1.25%;
