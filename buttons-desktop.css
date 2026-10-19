@@ -147,7 +147,7 @@
     position: absolute;
     box-sizing: border-box;
     width: 17%;
-    height: 19%;
+    height: 11%;
     padding: 0;
     color: #f3dfb7;
     border: 1px solid rgba(231, 188, 124, 0);
@@ -159,16 +159,17 @@
     transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
   }
 
-  .cabinet-hotspot[data-category="heraldry"] { left: 19%; top: 35%; }
-  .cabinet-hotspot[data-category="books"] { left: 50%; top: 35%; }
-  .cabinet-hotspot[data-category="celestial"] { left: 81%; top: 35%; }
-  .cabinet-hotspot[data-category="wax"] { left: 19%; top: 69%; }
-  .cabinet-hotspot[data-category="lunar"] { left: 50%; top: 69%; }
-  .cabinet-hotspot[data-category="ornaments"] { left: 81%; top: 69%; }
+  /* Keep hotspots at the coordinates already established for this image. */
+  .cabinet-hotspot[data-category="heraldry"] { left: 47%; top: 40%; }
+  .cabinet-hotspot[data-category="books"] { left: 66%; top: 40%; }
+  .cabinet-hotspot[data-category="celestial"] { left: 47%; top: 52%; }
+  .cabinet-hotspot[data-category="wax"] { left: 66%; top: 52%; }
+  .cabinet-hotspot[data-category="lunar"] { left: 47%; top: 64%; }
+  .cabinet-hotspot[data-category="ornaments"] { left: 66%; top: 64%; }
 
   .cabinet-hotspot > span {
     position: absolute;
-    inset: auto 2% 32% 2%;
+    inset: auto -5% 70% -5%;
     z-index: 2;
     display: grid;
     place-items: center;
@@ -196,7 +197,7 @@
     content: "✦";
     position: absolute;
     z-index: 3;
-    bottom: 9%;
+    bottom: 15%;
     left: 50%;
     right: auto;
     top: auto;
