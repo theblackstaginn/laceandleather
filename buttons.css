@@ -114,8 +114,98 @@ main.specimen-shell{
   letter-spacing:.08em;
   text-transform:uppercase;
   cursor:pointer;
+  overflow:hidden;
+  isolation:isolate;
   transition:transform .16s ease, border-color .16s ease, background .16s ease;
   transform:translate(-50%, -50%);
+}
+
+.cabinet-hotspot > span{
+  position:relative;
+  z-index:2;
+}
+
+.cabinet-hotspot::before{
+  content:"";
+  position:absolute;
+  z-index:1;
+  top:-28%;
+  bottom:-28%;
+  left:-58%;
+  width:34%;
+  pointer-events:none;
+  opacity:0;
+  background:
+    linear-gradient(
+      105deg,
+      transparent 0%,
+      rgba(255,235,190,.08) 28%,
+      rgba(255,245,216,.72) 49%,
+      rgba(255,255,246,.92) 52%,
+      rgba(255,224,168,.18) 72%,
+      transparent 100%
+    );
+  filter:blur(.35px);
+  transform:skewX(-18deg);
+  animation:cabinetLabelShimmer 4.6s ease-in-out infinite;
+}
+
+.cabinet-hotspot::after{
+  content:"✦";
+  position:absolute;
+  z-index:3;
+  top:10%;
+  right:8%;
+  pointer-events:none;
+  color:rgba(255,246,211,.96);
+  font-size:9px;
+  line-height:1;
+  opacity:.15;
+  text-shadow:
+    -18px 12px 0 rgba(255,230,174,.72),
+    8px 20px 0 rgba(255,248,219,.55);
+  filter:drop-shadow(0 0 3px rgba(255,225,160,.9));
+  animation:cabinetLabelTwinkle 2.8s ease-in-out infinite;
+}
+
+@keyframes cabinetLabelShimmer{
+  0%, 42%{
+    left:-58%;
+    opacity:0;
+  }
+  48%{
+    opacity:.22;
+  }
+  62%{
+    opacity:.86;
+  }
+  76%{
+    left:124%;
+    opacity:.18;
+  }
+  77%, 100%{
+    left:124%;
+    opacity:0;
+  }
+}
+
+@keyframes cabinetLabelTwinkle{
+  0%, 100%{
+    opacity:.08;
+    transform:scale(.7) rotate(0deg);
+  }
+  46%{
+    opacity:.18;
+    transform:scale(.82) rotate(8deg);
+  }
+  52%{
+    opacity:1;
+    transform:scale(1.3) rotate(18deg);
+  }
+  61%{
+    opacity:.24;
+    transform:scale(.86) rotate(25deg);
+  }
 }
 
 .cabinet-hotspot:hover,
@@ -132,6 +222,21 @@ main.specimen-shell{
 .cabinet-hotspot[data-category="wax"]{ left:66%; top:52%; }
 .cabinet-hotspot[data-category="lunar"]{ left:47%; top:64%; }
 .cabinet-hotspot[data-category="ornaments"]{ left:66%; top:64%; }
+
+.cabinet-hotspot[data-category="books"]::before,
+.cabinet-hotspot[data-category="books"]::after{ animation-delay:.55s; }
+
+.cabinet-hotspot[data-category="celestial"]::before,
+.cabinet-hotspot[data-category="celestial"]::after{ animation-delay:1.05s; }
+
+.cabinet-hotspot[data-category="wax"]::before,
+.cabinet-hotspot[data-category="wax"]::after{ animation-delay:1.55s; }
+
+.cabinet-hotspot[data-category="lunar"]::before,
+.cabinet-hotspot[data-category="lunar"]::after{ animation-delay:2.05s; }
+
+.cabinet-hotspot[data-category="ornaments"]::before,
+.cabinet-hotspot[data-category="ornaments"]::after{ animation-delay:2.55s; }
 
 .stage-hint{
   position:absolute;
@@ -521,6 +626,28 @@ main.specimen-shell{
     border:2px solid rgba(248,216,163,.72);
   }
 
+  /* On mobile the labels are baked into the cabinet artwork, so the shimmer
+     rides over the invisible label hit areas rather than replacing the art. */
+  .cabinet-hotspot::before{
+    background:
+      linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(255,240,201,.04) 28%,
+        rgba(255,248,226,.44) 49%,
+        rgba(255,255,247,.74) 52%,
+        rgba(255,228,176,.12) 72%,
+        transparent 100%
+      );
+  }
+
+  .cabinet-hotspot::after{
+    font-size:8px;
+    text-shadow:
+      -14px 10px 0 rgba(255,230,174,.62),
+      7px 15px 0 rgba(255,248,219,.46);
+  }
+
   /* Hit areas follow the six printed label cards in the readable mobile cabinet. */
   .cabinet-hotspot[data-category="heraldry"]{ left:10%; top:26%; width:31%; height:10%; }
   .cabinet-hotspot[data-category="celestial"]{ left:61%; top:26%; width:32%; height:10%; }
@@ -574,4 +701,10 @@ main.specimen-shell{
 @media (prefers-reduced-motion:reduce){
   .specimen-drawer,
   .cabinet-hotspot{ transition:none; }
+
+  .cabinet-hotspot::before,
+  .cabinet-hotspot::after{
+    animation:none;
+    opacity:0;
+  }
 }
