@@ -668,6 +668,7 @@
   <link rel="stylesheet" href="styles.css?v=LL-20261018-TYPE1" />
   <link rel="stylesheet" href="./buttons.css?v=LL-20261018-CABINET1" />
   <link rel="stylesheet" href="./ward.css?v=LL-20261016-WARD2" />
+  <link rel="stylesheet" href="./buttons-desktop.css?v=LL-20261019-FOLIO1" />
 </head>
 
 <body class="specimen-shop">
@@ -677,23 +678,23 @@
 </button>
 
 <main class="specimen-shell">
+  <div class="cabinet-layout">
   <section class="specimen-header" aria-labelledby="specimenTitle">
+    <span class="cabinet-heading-kicker">Lace &amp; Leather Arcane · Collection I</span>
     <h1 id="specimenTitle">The Bookmaker's Specimen Cabinet</h1>
-    <p class="page-sub">Tap a labeled compartment to open its drawer. Tap a specimen to examine it. Individual assets remain $1 each.</p>
+    <p class="page-sub"><span class="instruction-touch">Tap</span><span class="instruction-pointer">Select</span> a labeled compartment to open its drawer. Tap or click a specimen to examine it. Individual assets remain $1 each.</p>
   </section>
 
   <section class="cabinet-stage" aria-label="Interactive Victorian specimen cabinet">
     <div class="cabinet-art">
-      <picture>
-        <source media="(max-width: 820px)" srcset="/assets/specimen-cabinet-mobile-readable.jpg" width="864" height="1536" />
-        <img
-          src="/assets/specimen-cabinet-desktop.png"
-          alt="Victorian specimen cabinet with luna moths, wax seals, books, keys, celestial ornaments, feathers, crystals, and botanical curiosities"
-          width="1672"
-          height="941"
-          decoding="async"
-        />
-      </picture>
+      <img
+        src="/assets/specimen-cabinet-mobile-readable.jpg"
+        alt="Six labeled compartments in a Victorian specimen cabinet, surrounded by luna moths, wax seals, books, keys, celestial ornaments, feathers, and crystals"
+        width="864"
+        height="1536"
+        decoding="async"
+        fetchpriority="high"
+      />
     </div>
 
     <div class="cabinet-hotspots" aria-label="Specimen cabinet drawers">
@@ -707,6 +708,53 @@
 
     <div class="stage-hint" aria-hidden="true">Tap a specimen label</div>
   </section>
+
+  <aside class="cabinet-index" aria-labelledby="cabinetIndexTitle">
+    <header class="cabinet-index-heading">
+      <span class="cabinet-index-kicker">The bookbinder's collection · Vol. I</span>
+      <h2 id="cabinetIndexTitle">Index of Curiosities</h2>
+      <p>Choose a drawer to examine the collection.</p>
+    </header>
+
+    <nav class="cabinet-index-controls" aria-label="Specimen drawer index">
+      <button class="cabinet-index-trigger" type="button" data-category="heraldry">
+        <span class="cabinet-index-number" aria-hidden="true">I</span>
+        <span class="cabinet-index-name">Heraldry<small>8 pieces · Stags, shields &amp; crests</small></span>
+        <span class="cabinet-index-arrow" aria-hidden="true">›</span>
+      </button>
+      <button class="cabinet-index-trigger" type="button" data-category="books">
+        <span class="cabinet-index-number" aria-hidden="true">II</span>
+        <span class="cabinet-index-name">Books &amp; Keys<small>5 pieces · Bound lore &amp; keepsakes</small></span>
+        <span class="cabinet-index-arrow" aria-hidden="true">›</span>
+      </button>
+      <button class="cabinet-index-trigger" type="button" data-category="celestial">
+        <span class="cabinet-index-number" aria-hidden="true">III</span>
+        <span class="cabinet-index-name">Celestial<small>6 pieces · Moonmarks &amp; gilded frames</small></span>
+        <span class="cabinet-index-arrow" aria-hidden="true">›</span>
+      </button>
+      <button class="cabinet-index-trigger" type="button" data-category="wax">
+        <span class="cabinet-index-number" aria-hidden="true">IV</span>
+        <span class="cabinet-index-name">Wax Seals<small>7 pieces · Crests &amp; sealed letters</small></span>
+        <span class="cabinet-index-arrow" aria-hidden="true">›</span>
+      </button>
+      <button class="cabinet-index-trigger" type="button" data-category="lunar">
+        <span class="cabinet-index-number" aria-hidden="true">V</span>
+        <span class="cabinet-index-name">Lunar Specimens<small>7 pieces · Enchanted plates &amp; curios</small></span>
+        <span class="cabinet-index-arrow" aria-hidden="true">›</span>
+      </button>
+      <button class="cabinet-index-trigger" type="button" data-category="ornaments">
+        <span class="cabinet-index-number" aria-hidden="true">VI</span>
+        <span class="cabinet-index-name">Manuscript Ornaments<small>9 pieces · Illuminations &amp; flourishes</small></span>
+        <span class="cabinet-index-arrow" aria-hidden="true">›</span>
+      </button>
+    </nav>
+
+    <footer class="cabinet-index-foot">
+      <strong>31 individually mounted designs</strong>
+      Every digital specimen is $1 · Choose, examine, collect.
+    </footer>
+  </aside>
+  </div><!-- /.cabinet-layout -->
 
   <div class="seo-product-list" aria-hidden="true">
     <ul>
@@ -858,6 +906,7 @@
 
   let activeCategory = "heraldry";
   let activeProduct = null;
+  let drawerTrigger = null;
 
   function titleFromFile(file){
     return file
@@ -1028,10 +1077,19 @@
     return card;
   }
 
-  function openDrawer(categoryKey){
+  function setDrawerSelection(categoryKey){
+    document.querySelectorAll(".cabinet-hotspot, .cabinet-index-trigger").forEach(button => {
+      const selected = button.dataset.category === categoryKey;
+      button.classList.toggle("is-selected", selected);
+      button.setAttribute("aria-expanded", String(selected));
+    });
+  }
+
+  function openDrawer(categoryKey, trigger){
     const def = CATEGORIES[categoryKey];
     if(!def) return;
 
+    drawerTrigger = trigger || drawerTrigger;
     activeCategory = categoryKey;
     drawerTitle.textContent = def.label;
     drawerTrack.replaceChildren();
@@ -1042,17 +1100,31 @@
 
     drawer.classList.add("is-open");
     drawer.setAttribute("aria-hidden", "false");
+    setDrawerSelection(categoryKey);
     drawerTrack.scrollLeft = 0;
+    drawerTrack.scrollTop = 0;
+    drawerClose.focus({ preventScroll:true });
   }
 
   function closeDrawer(){
     drawer.classList.remove("is-open");
     drawer.setAttribute("aria-hidden", "true");
+    setDrawerSelection(null);
+    if(drawerTrigger && drawerTrigger.isConnected){
+      drawerTrigger.focus({ preventScroll:true });
+    }
   }
 
-  document.querySelectorAll(".cabinet-hotspot").forEach(button => {
+  document.querySelectorAll(".cabinet-hotspot, .cabinet-index-trigger").forEach(button => {
+    const def = CATEGORIES[button.dataset.category];
+    if(!def) return;
+    button.setAttribute("aria-controls", "specimenDrawer");
+    button.setAttribute("aria-expanded", "false");
+    if(button.classList.contains("cabinet-hotspot")){
+      button.setAttribute("aria-label", "Open " + def.label + " drawer");
+    }
     button.addEventListener("click", () => {
-      openDrawer(button.dataset.category);
+      openDrawer(button.dataset.category, button);
     });
   });
 
