@@ -668,7 +668,7 @@
   <link rel="stylesheet" href="styles.css?v=LL-20261018-TYPE1" />
   <link rel="stylesheet" href="./buttons.css?v=LL-20261018-CABINET1" />
   <link rel="stylesheet" href="./ward.css?v=LL-20261016-WARD2" />
-  <link rel="stylesheet" href="./buttons-desktop.css?v=LL-20261019-FOLIO1" />
+  <link rel="stylesheet" href="./buttons-desktop.css?v=LL-20261019-LANDSCAPE2" />
 </head>
 
 <body class="specimen-shop">
@@ -687,14 +687,22 @@
 
   <section class="cabinet-stage" aria-label="Interactive Victorian specimen cabinet">
     <div class="cabinet-art">
-      <img
-        src="/assets/specimen-cabinet-mobile-readable.jpg"
-        alt="Six labeled compartments in a Victorian specimen cabinet, surrounded by luna moths, wax seals, books, keys, celestial ornaments, feathers, and crystals"
-        width="864"
-        height="1536"
-        decoding="async"
-        fetchpriority="high"
-      />
+      <picture>
+        <source
+          media="(max-width: 820px)"
+          srcset="/assets/specimen-cabinet-mobile-readable.jpg"
+          width="864"
+          height="1536"
+        />
+        <img
+          src="/assets/specimen-cabinet-desktop.png"
+          alt="A wide Victorian specimen cabinet filled with arcane bookbinder curiosities, including symbols, wax seals, books, keys, and celestial ornaments"
+          width="1672"
+          height="941"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
     </div>
 
     <div class="cabinet-hotspots" aria-label="Specimen cabinet drawers">
