@@ -112,7 +112,7 @@
   .cabinet-stage {
     grid-area: art;
     justify-self: center;
-    width: min(100%, 590px);
+    width: min(100%, 550px, max(380px, calc(56.25dvh - 72px)));
     margin: 0;
     overflow: hidden;
     border: 5px solid #26180e;
@@ -346,7 +346,7 @@
     right: clamp(18px, 3.5vw, 70px);
     bottom: 26px;
     left: auto;
-    width: min(550px, calc(100vw - 44px));
+    width: min(550px, calc((100vw - 38px) * .45));
     height: auto;
     max-height: none;
     padding: 18px clamp(16px, 1.8vw, 26px) 20px;
