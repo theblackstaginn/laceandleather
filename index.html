@@ -752,6 +752,55 @@
       background-position:center;
       background-color:#120f0d;
     }
+
+    /* Size and center the visible wax, accounting for each asset's transparent padding. */
+    .social-icons{
+      --seal-size:56px;
+      --seal-slot-width:96px;
+      --seal-slot-height:64px;
+    }
+    .social-icons .seal{
+      width:var(--seal-slot-width);
+      height:var(--seal-slot-height);
+      flex:0 0 var(--seal-slot-width);
+    }
+    .social-icons .seal img{
+      position:relative;
+      width:calc(var(--seal-size) * var(--seal-scale,1));
+      height:auto;
+      max-width:none;
+      max-height:none;
+      flex:none;
+      left:calc(var(--seal-size) * var(--seal-offset-x,0));
+      top:calc(var(--seal-size) * var(--seal-offset-y,0));
+    }
+    .social-icons .seal-etsy{
+      --seal-scale:1.72972973;
+      --seal-offset-x:-0.02477477;
+      --seal-offset-y:0.02027027;
+    }
+    .social-icons .seal-instagram{
+      --seal-scale:1.87317073;
+      --seal-offset-x:0.00975610;
+      --seal-offset-y:0.02804878;
+    }
+    .social-icons .seal-pinterest{
+      --seal-scale:1.73755656;
+      --seal-offset-x:-0.00565611;
+      --seal-offset-y:0.01809955;
+    }
+    .social-icons .seal-itch{
+      --seal-scale:1.08016878;
+      --seal-offset-x:0.00000000;
+      --seal-offset-y:0.00000000;
+    }
+    @media (max-width:420px){
+      .social-icons{
+        --seal-size:70px;
+        --seal-slot-width:120px;
+        --seal-slot-height:80px;
+      }
+    }
   </style>
   <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"570203b21402b6698caff30be98f0ebc"})});</script>
   <link rel="stylesheet" href="./ward.css?v=LL-20261016-WARD2" />
@@ -808,19 +857,19 @@
           <p class="shop-line muted">Shop now</p>
 
           <div class="social-icons" aria-label="Shop and follow">
-            <a class="seal" href="https://laceleatherarcane.itch.io/" target="_blank" rel="noopener noreferrer" aria-label="itch.io">
+            <a class="seal seal-itch" href="https://laceleatherarcane.itch.io/" target="_blank" rel="noopener noreferrer" aria-label="itch.io">
               <img decoding="async" src="./assets/social-icons/itch-icon.webp" alt="itch.io" />
             </a>
 
-            <a class="seal" href="https://www.etsy.com/shop/laceLeatherArcane" target="_blank" rel="noopener noreferrer" aria-label="Etsy">
+            <a class="seal seal-etsy" href="https://www.etsy.com/shop/laceLeatherArcane" target="_blank" rel="noopener noreferrer" aria-label="Etsy">
               <img decoding="async" src="./assets/social-icons/etsy-icon.webp" alt="Etsy" />
             </a>
 
-            <a class="seal" href="https://instagram.com/lace.and.leather65" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a class="seal seal-instagram" href="https://instagram.com/lace.and.leather65" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <img decoding="async" src="./assets/social-icons/instagram-icon.webp" alt="Instagram" />
             </a>
 
-            <a class="seal" href="https://pinterest.com/laceandleather65" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+            <a class="seal seal-pinterest" href="https://pinterest.com/laceandleather65" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
               <img decoding="async" src="./assets/social-icons/pinterest-icon.webp" alt="Pinterest" />
             </a>
           </div>
