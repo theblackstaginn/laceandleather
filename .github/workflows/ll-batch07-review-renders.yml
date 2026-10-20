@@ -1,0 +1,99 @@
+name: Batch 07 review-only renders
+
+on:
+  push:
+    branches:
+      - ll-review-renders-39461310294
+    paths:
+      - ".github/workflows/ll-batch07-review-renders.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  render-pairs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout helper branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check "Pillow==11.3.0"
+
+      - name: Render review-only original/staged pairs
+        shell: bash
+        run: |
+          git fetch origin main:refs/remotes/origin/main
+          python - <<'PY'
+          import io, json, subprocess
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageOps
+
+          targets = [
+              "assets/etsy-previews/bookmaker/bookmaker-01-hero.jpg",
+              "assets/etsy-previews/bookmaker/bookmaker-02-contents.jpg",
+              "assets/etsy-previews/bookmaker/bookmaker-03-specs.jpg",
+              "assets/etsy-previews/grimoire-vol-3/grimoire-vol-3-02-contents.jpg",
+              "assets/etsy-previews/grimoire-vol-3/grimoire-vol-3-03-specs.jpg",
+              "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-01.jpg",
+              "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-02.jpg",
+              "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-03.jpg",
+          ]
+          out = Path("studio/review-renders/batch07")
+          out.mkdir(parents=True, exist_ok=True)
+          manifest = []
+
+          def fit(img, box=(760, 760)):
+              img = ImageOps.exif_transpose(img).convert("RGB")
+              img.thumbnail(box, Image.Resampling.LANCZOS)
+              return img
+
+          for path in targets:
+              original_bytes = subprocess.check_output(["git", "show", f"origin/main:{path}"])
+              staged_bytes = Path(path).read_bytes()
+              original = Image.open(io.BytesIO(original_bytes))
+              staged = Image.open(io.BytesIO(staged_bytes))
+
+              o = fit(original)
+              s = fit(staged)
+              top = 34
+              gap = 12
+              w = o.width + s.width + gap
+              h = max(o.height, s.height) + top
+              canvas = Image.new("RGB", (w, h), (35, 35, 35))
+              draw = ImageDraw.Draw(canvas)
+              draw.text((8, 8), "ORIGINAL MAIN", fill=(240,240,240))
+              draw.text((o.width + gap + 8, 8), "STAGED", fill=(240,240,240))
+              canvas.paste(o, (0, top))
+              canvas.paste(s, (o.width + gap, top))
+
+              name = Path(path).stem + "-pair.webp"
+              dest = out / name
+              canvas.save(dest, "WEBP", quality=86, method=6)
+
+              manifest.append({
+                  "source_path": path,
+                  "review_render": str(dest),
+                  "original_display_size": list(o.size),
+                  "staged_display_size": list(s.size),
+              })
+
+          (out / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+          PY
+
+      - name: Commit review-only renders to helper branch
+        shell: bash
+        run: |
+          git config user.name "L&L Review Render Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add studio/review-renders/batch07
+          git commit -m "review: add batch seven comparison renders"
+          git push
