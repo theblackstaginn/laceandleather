@@ -346,13 +346,19 @@ main.specimen-shell{
   cursor:pointer;
 }
 
-.drawer-close{
+.specimen-drawer .drawer-head .drawer-close{
   flex:0 0 auto;
-  min-height:38px;
-  padding:7px 10px;
-  font-size:14px;
+  width:44px;
+  height:44px;
+  min-height:44px;
+  padding:0;
+  border:0;
+  font-size:0;
   line-height:1.2;
   white-space:nowrap;
+  background:url("/assets/x-button.webp") center / 36px 36px no-repeat;
+  box-shadow:none;
+  backdrop-filter:none;
 }
 
 .drawer-track{
@@ -471,15 +477,17 @@ main.specimen-shell{
 }
 
 
+/* Keep purchase controls beside the details at every viewport size. */
 .specimen-card{
   flex:0 0 clamp(142px, 17vw, 185px);
   min-width:0;
   min-height:0;
   scroll-snap-align:start;
   display:grid;
-  grid-template-rows:minmax(0, 1fr) auto auto;
-  gap:5px;
-  padding:6px;
+  grid-template-columns:minmax(0, 1fr) 44px;
+  grid-template-rows:minmax(0, 1fr) 34px;
+  gap:4px;
+  padding:4px;
   border:1px solid rgba(221,181,119,.24);
   border-radius:10px;
   background:
@@ -489,6 +497,8 @@ main.specimen-shell{
 }
 
 .specimen-art{
+  grid-column:1 / -1;
+  grid-row:1;
   position:relative;
   display:grid;
   place-items:center;
@@ -496,7 +506,7 @@ main.specimen-shell{
   height:100%;
   min-width:0;
   min-height:0;
-  padding:5px;
+  padding:2px;
   border:0;
   border-radius:7px;
   overflow:hidden;
@@ -533,6 +543,9 @@ main.specimen-shell{
 }
 
 .specimen-meta{
+  grid-column:1;
+  grid-row:2;
+  align-self:center;
   min-width:0;
   text-align:left;
 }
@@ -556,15 +569,23 @@ main.specimen-shell{
   line-height:1.2;
 }
 
-.specimen-add-compact{
+.specimen-add-label{
   display:none;
 }
 
+.specimen-add-compact{
+  display:inline;
+}
+
 .specimen-add{
+  grid-column:2;
+  grid-row:2;
+  width:44px;
   min-height:34px;
-  padding:5px 8px;
-  font-size:13px;
+  padding:4px 2px;
+  font-size:12px;
   line-height:1.2;
+  white-space:nowrap;
 }
 
 .specimen-add:hover,
@@ -932,58 +953,12 @@ main.specimen-shell{
     font-size:clamp(16px, 4.5vw, 19px);
   }
 
-  .specimen-drawer .drawer-head .drawer-close{
-    width:44px;
-    height:44px;
-    min-height:44px;
-    padding:0;
-    border:0;
-    font-size:0;
-    background:url("/assets/x-button.webp") center / 36px 36px no-repeat;
-    box-shadow:none;
-    backdrop-filter:none;
-  }
-
   .drawer-track{
     gap:10px;
   }
 
-  /* Keep the purchase control beside the details so art owns the upper row. */
   .specimen-card{
     flex-basis:142px;
-    grid-template-columns:minmax(0, 1fr) 44px;
-    grid-template-rows:minmax(0, 1fr) 34px;
-    gap:4px;
-    padding:4px;
-  }
-
-  .specimen-art{
-    grid-column:1 / -1;
-    grid-row:1;
-    padding:2px;
-  }
-
-  .specimen-meta{
-    grid-column:1;
-    grid-row:2;
-    align-self:center;
-  }
-
-  .specimen-add{
-    grid-column:2;
-    grid-row:2;
-    width:44px;
-    padding:4px 2px;
-    font-size:12px;
-    white-space:nowrap;
-  }
-
-  .specimen-add-label{
-    display:none;
-  }
-
-  .specimen-add-compact{
-    display:inline;
   }
 
   .preview-grid{
@@ -1056,4 +1031,5 @@ main.specimen-shell{
     height:calc(100dvh - 44px);
   }
 }
+
 
