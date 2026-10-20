@@ -4,14 +4,15 @@
   "batch": "07",
   "staging_branch": "ll-studio-visual-39461310294",
   "staging_commit": "aa9597d77ee01d520e58c88e68274671361c67dd",
-  "review_method": "Every updated image was visually inspected as an original-versus-staged pair. Large JPEGs were rendered on an isolated non-deploying helper branch into review-only comparison sheets because GitHub's contents API does not return large binary JPEG bodies.",
+  "review_method": "Every updated image was visually inspected as an original-versus-staged pair. Large JPEGs were rendered on an isolated non-deploying helper branch into review-only comparison sheets because the connected GitHub contents response did not return their large binary bodies inline.",
   "helper_branch": "ll-review-renders-39461310294",
-  "total_reviewed": 11,
-  "approved": 11,
+  "total_reviewed": 12,
+  "approved": 12,
   "held": 0,
   "result": "all_approved",
   "safeguards": [
     "Helper comparison renders are not on the staging branch and are not part of the merge candidate.",
+    "The Bookmaker hero's prior hold was limited to the inline-render size constraint; its metadata edit had already passed image payload and decoded-pixel integrity checks, and the helper comparison supplied the missing visual review.",
     "No customer download masters reviewed or modified.",
     "No client-owned or client-supplied media reviewed or modified.",
     "No site code reviewed or modified by this batch.",
@@ -27,7 +28,7 @@
       "pixel_sha256": "f2ba09fabfe1da5bf70c3bd28800568c39e295a7e753768588c97269ec0ab8f9",
       "compressed_picture_data_unchanged": true,
       "pixels_alpha_frames_profile_unchanged": true,
-      "visual_notes": "Original and staged previews visually match: parchment tone/texture, edge aging, creases/scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
+      "visual_notes": "Original and staged previews visually match: parchment tone and texture, edge aging, creases and scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
     },
     {
       "path": "assets/previews/volone/volone-10-preview.webp",
@@ -38,7 +39,7 @@
       "pixel_sha256": "72be47692c8c0ca9daf915984e8eb16b7fd0788118f5e9bfc22e7394c97f62ac",
       "compressed_picture_data_unchanged": true,
       "pixels_alpha_frames_profile_unchanged": true,
-      "visual_notes": "Original and staged previews visually match: parchment tone/texture, edge aging, creases/scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
+      "visual_notes": "Original and staged previews visually match: parchment tone and texture, edge aging, creases and scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
     },
     {
       "path": "assets/previews/volone/volone-11-preview.webp",
@@ -49,7 +50,7 @@
       "pixel_sha256": "72be47692c8c0ca9daf915984e8eb16b7fd0788118f5e9bfc22e7394c97f62ac",
       "compressed_picture_data_unchanged": true,
       "pixels_alpha_frames_profile_unchanged": true,
-      "visual_notes": "Original and staged previews visually match: parchment tone/texture, edge aging, creases/scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
+      "visual_notes": "Original and staged previews visually match: parchment tone and texture, edge aging, creases and scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
     },
     {
       "path": "assets/previews/volone/volone-12-preview.webp",
@@ -60,7 +61,18 @@
       "pixel_sha256": "f1c92e18b1fda2b8c580763d90f0adb5d6be16800854e20b642bd049e7d371e8",
       "compressed_picture_data_unchanged": true,
       "pixels_alpha_frames_profile_unchanged": true,
-      "visual_notes": "Original and staged previews visually match: parchment tone/texture, edge aging, creases/scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
+      "visual_notes": "Original and staged previews visually match: parchment tone and texture, edge aging, creases and scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/bookmaker/bookmaker-01-hero.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "e1c8730f587d3ffdddb650a0697d9206dd4fc709629f7ab454b12c95dee000df",
+      "staged_sha256": "7b7e03f87b79f30f6813abcd10e17ce815e3f40379bff900ec09d0fc202d43c9",
+      "pixel_sha256": "e096af91f0cb014432e5b04426b7473249314535e42b2f224eb671e28938fef6",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Etsy listing images visually match: typography, object placement, colors, shadows, borders, product copy, and layout are unchanged."
     },
     {
       "path": "assets/etsy-previews/bookmaker/bookmaker-02-contents.jpg",
