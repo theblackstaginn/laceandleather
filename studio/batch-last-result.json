@@ -1,13 +1,12 @@
 {
   "schema_version": 1,
   "eligible_public_images": 146,
-  "retrofitted_this_run": 12,
+  "retrofitted_this_run": 11,
   "updated_paths": [
     "assets/previews/volone/volone-09-preview.webp",
     "assets/previews/volone/volone-10-preview.webp",
     "assets/previews/volone/volone-11-preview.webp",
     "assets/previews/volone/volone-12-preview.webp",
-    "assets/etsy-previews/bookmaker/bookmaker-01-hero.jpg",
     "assets/etsy-previews/bookmaker/bookmaker-02-contents.jpg",
     "assets/etsy-previews/bookmaker/bookmaker-03-specs.jpg",
     "assets/etsy-previews/grimoire-vol-3/grimoire-vol-3-02-contents.jpg",
@@ -17,10 +16,12 @@
     "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-03.jpg"
   ],
   "already_credited_new_this_run": 1,
-  "held_for_rights_or_integrity_review_this_run": [],
+  "held_for_rights_or_integrity_review_this_run": [
+    "assets/etsy-previews/bookmaker/bookmaker-01-hero.jpg"
+  ],
   "previously_completed_or_held": 75,
   "remaining_unchecked": 58,
-  "requires_manual_review": 1,
+  "requires_manual_review": 2,
   "auto_batches_complete": false,
   "live_site_image_code_changed": false,
   "safety": "On batch failure nothing is committed. Original pixels, alpha, ICC, frames and compressed picture data required to match."
