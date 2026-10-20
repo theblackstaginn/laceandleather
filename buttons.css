@@ -556,6 +556,10 @@ main.specimen-shell{
   line-height:1.2;
 }
 
+.specimen-add-compact{
+  display:none;
+}
+
 .specimen-add{
   min-height:34px;
   padding:5px 8px;
@@ -582,6 +586,130 @@ main.specimen-shell{
   font-size:11px;
   line-height:1.25;
   text-align:center;
+}
+
+/* Homepage cart burst, mounted in a fixed overlay above the specimen strip. */
+.cart-plus-burst{
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:4;
+  pointer-events:none;
+  color:#fff3bf;
+  font-family:var(--font-display);
+  font-size:60px;
+  font-weight:700;
+  line-height:1;
+  text-shadow:
+    0 2px 3px rgba(0,0,0,.90),
+    0 0 14px rgba(255,238,179,.98),
+    0 0 26px rgba(236,177,71,.88),
+    0 0 42px rgba(236,177,71,.58);
+  transform:translate(-50%, -50%) scale(.55);
+  animation:
+    ll-cart-plus 1.25s cubic-bezier(.18,.72,.22,1) forwards,
+    ll-cart-shimmer 1.25s ease-in-out forwards;
+}
+
+.cart-plus-burst::before,
+.cart-plus-burst::after{
+  position:absolute;
+  pointer-events:none;
+  color:#fffbe6;
+  text-shadow:
+    0 0 6px rgba(255,255,255,1),
+    0 0 14px rgba(255,238,179,.98),
+    0 0 24px rgba(236,177,71,.88);
+  animation:ll-cart-sparkle 1.25s ease-out forwards;
+}
+
+.cart-plus-burst::before{
+  content:"✦";
+  left:-18px;
+  top:-8px;
+  font-size:22px;
+}
+
+.cart-plus-burst::after{
+  content:"✧";
+  right:-20px;
+  bottom:-4px;
+  font-size:26px;
+  animation-direction:reverse;
+}
+
+@keyframes ll-cart-plus{
+  0%{
+    opacity:0;
+    transform:translate(-50%, -42%) scale(.55);
+  }
+  20%{
+    opacity:1;
+    transform:translate(-50%, -62%) scale(1.08);
+  }
+  72%{
+    opacity:1;
+    transform:translate(-50%, -122%) scale(1.24) rotate(4deg);
+  }
+  100%{
+    opacity:0;
+    transform:translate(-50%, -170%) scale(1.38) rotate(8deg);
+  }
+}
+
+@keyframes ll-cart-shimmer{
+  0%,100%{
+    color:#fff3bf;
+    text-shadow:
+      0 2px 3px rgba(0,0,0,.90),
+      0 0 14px rgba(255,238,179,.98),
+      0 0 26px rgba(236,177,71,.88),
+      0 0 42px rgba(236,177,71,.58);
+  }
+  34%{
+    color:#ffffff;
+    text-shadow:
+      0 2px 3px rgba(0,0,0,.90),
+      0 0 9px rgba(255,255,255,1),
+      0 0 20px rgba(255,247,210,1),
+      0 0 36px rgba(255,211,112,.98),
+      0 0 58px rgba(236,177,71,.80);
+  }
+  64%{
+    color:#fff8d8;
+    text-shadow:
+      0 2px 3px rgba(0,0,0,.90),
+      0 0 12px rgba(255,255,255,.98),
+      0 0 28px rgba(255,233,162,.98),
+      0 0 48px rgba(236,177,71,.72);
+  }
+}
+
+@keyframes ll-cart-sparkle{
+  0%,100%{
+    opacity:0;
+    transform:scale(.25) rotate(0deg);
+  }
+  24%{
+    opacity:1;
+    transform:scale(1.15) rotate(18deg);
+  }
+  46%{
+    opacity:.25;
+    transform:scale(.65) rotate(38deg);
+  }
+  68%{
+    opacity:1;
+    transform:scale(1.35) rotate(62deg);
+  }
+  84%{
+    opacity:.45;
+    transform:scale(.80) rotate(82deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .cart-plus-burst{ display:none; }
 }
 
 /* On-demand close examination */
@@ -800,12 +928,62 @@ main.specimen-shell{
     align-items:center;
   }
 
+  .drawer-head h2{
+    font-size:clamp(16px, 4.5vw, 19px);
+  }
+
+  .specimen-drawer .drawer-head .drawer-close{
+    width:44px;
+    height:44px;
+    min-height:44px;
+    padding:0;
+    border:0;
+    font-size:0;
+    background:url("/assets/x-button.webp") center / 36px 36px no-repeat;
+    box-shadow:none;
+    backdrop-filter:none;
+  }
+
   .drawer-track{
     gap:10px;
   }
 
+  /* Keep the purchase control beside the details so art owns the upper row. */
   .specimen-card{
     flex-basis:142px;
+    grid-template-columns:minmax(0, 1fr) 44px;
+    grid-template-rows:minmax(0, 1fr) 34px;
+    gap:4px;
+    padding:4px;
+  }
+
+  .specimen-art{
+    grid-column:1 / -1;
+    grid-row:1;
+    padding:2px;
+  }
+
+  .specimen-meta{
+    grid-column:1;
+    grid-row:2;
+    align-self:center;
+  }
+
+  .specimen-add{
+    grid-column:2;
+    grid-row:2;
+    width:44px;
+    padding:4px 2px;
+    font-size:12px;
+    white-space:nowrap;
+  }
+
+  .specimen-add-label{
+    display:none;
+  }
+
+  .specimen-add-compact{
+    display:inline;
   }
 
   .preview-grid{

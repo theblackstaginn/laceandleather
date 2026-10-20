@@ -666,7 +666,7 @@
 
   <!-- Shared site styles, followed by page-specific styles. -->
   <link rel="stylesheet" href="styles.css?v=LL-20261018-TYPE1" />
-  <link rel="stylesheet" href="./buttons.css?v=LL-20261019-LEATHER-INSET1" />
+  <link rel="stylesheet" href="./buttons.css?v=LL-20261019-MOBILE-ART1" />
   <link rel="stylesheet" href="./ward.css?v=LL-20261016-WARD2" />
   <link rel="stylesheet" href="./buttons-desktop.css?v=LL-20261019-LEATHER-INSET1" />
 </head>
@@ -808,7 +808,7 @@
       <span class="drawer-kicker">Specimen drawer</span>
       <h2 id="drawerTitle">Heraldry</h2>
     </div>
-    <button id="drawerClose" class="drawer-close" type="button">Close drawer</button>
+    <button id="drawerClose" class="drawer-close" type="button" aria-label="Close drawer">Close drawer</button>
   </header>
   <div class="drawer-track-wrap">
     <div id="drawerTrack" class="drawer-track" role="list"></div>
@@ -1033,27 +1033,31 @@
     window.dispatchEvent(new StorageEvent("storage", { key:CART_KEY }));
   }
 
-  function plusPopAt(x, y){
+  function plusPopAt(x, y, host = document.body){
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const wrap = document.createElement("div");
     wrap.className = "ll-plus-pop";
+    wrap.setAttribute("aria-hidden", "true");
     wrap.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px)`;
 
     const plus = document.createElement("span");
-    plus.className = "plus";
+    plus.className = "cart-plus-burst";
     plus.textContent = "+";
+    plus.addEventListener("animationend", (event) => {
+      if(event.animationName === "ll-cart-plus") wrap.remove();
+    });
 
     wrap.appendChild(plus);
-    document.body.appendChild(wrap);
-    window.setTimeout(() => wrap.remove(), 650);
+    host.appendChild(wrap);
+    window.setTimeout(() => wrap.remove(), 1400);
   }
 
   function plusPopFromEvent(e, fallbackEl){
-    if(e && Number.isFinite(e.clientX) && Number.isFinite(e.clientY)){
-      plusPopAt(e.clientX + 8, e.clientY - 10);
-      return;
-    }
     const r = fallbackEl.getBoundingClientRect();
-    plusPopAt(r.left + r.width * .7, r.top + r.height * .25);
+    // A fixed overlay escapes the card scroller; native previews need its top layer.
+    const host = fallbackEl.closest("dialog[open]") || document.body;
+    plusPopAt(r.left + r.width * .5, r.top + r.height * .48, host);
   }
 
   function openPreview(file, categoryKey, trigger){
@@ -1134,15 +1138,17 @@
     const add = document.createElement("button");
     add.type = "button";
     add.className = "specimen-add";
-    add.textContent = "Add · $1";
+    const addLabel = '<span class="specimen-add-label">Add · $1</span><span class="specimen-add-compact">+ $1</span>';
+    const addedLabel = '<span class="specimen-add-label">Added ✓</span><span class="specimen-add-compact">✓</span>';
+    add.innerHTML = addLabel;
     add.setAttribute("aria-label", "Add " + product.name + " to cart");
 
     art.addEventListener("click", () => openPreview(file, categoryKey, art));
     add.addEventListener("click", (e) => {
       addToCart(product);
       plusPopFromEvent(e, add);
-      add.textContent = "Added ✓";
-      window.setTimeout(() => { add.textContent = "Add · $1"; }, 900);
+      add.innerHTML = addedLabel;
+      window.setTimeout(() => { add.innerHTML = addLabel; }, 900);
     });
 
     card.append(art, meta, add);
