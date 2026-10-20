@@ -1,0 +1,171 @@
+name: Resolve blue nautical preview metadata hold
+
+on:
+  push:
+    branches:
+      - ll-blue-naut-hold-processor-20261020
+    paths:
+      - ".github/workflows/ll-blue-naut-hold-processor.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Install validators
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libimage-exiftool-perl
+          python -m pip install --disable-pip-version-check "Pillow==11.3.0"
+
+      - name: Resolve only blue nautical preview
+        shell: bash
+        run: |
+          git switch -c "ll-studio-blue-naut-$GITHUB_RUN_ID"
+          python -B - <<'PY'
+          import hashlib, json, subprocess, sys
+          from pathlib import Path
+
+          ROOT=Path.cwd()
+          sys.path.insert(0,str(ROOT/"studio"))
+          from ll_metadata_pilot import (
+              OWNER, STUDIO, WEBSITE, RIGHTS, digest, identify_unchanged_image,
+              compressed_image_payload, exiftool_metadata,
+              has_authenticity_credentials, has_conflicting_rights,
+          )
+          from ll_metadata_batches import full_description, metadata_matches
+
+          rel="assets/previews/buttons/blue-naut-wax-preview.webp"
+          path=ROOT/rel
+          raw=path.read_bytes()
+          before_sha=digest(raw)
+          ledger_path=ROOT/"studio/batch-ledger.json"
+          summary_path=ROOT/"studio/batch-last-result.json"
+          ledger=json.loads(ledger_path.read_text(encoding="utf-8"))
+          prior=ledger["records"].get(rel,{})
+          if prior.get("sha256") and prior["sha256"] != before_sha:
+              raise RuntimeError("Blue nautical preview changed since the hold was recorded")
+
+          before_image=identify_unchanged_image(path)
+          if before_image["format"]!="WEBP":
+              raise RuntimeError(f"Unexpected format: {before_image['format']}")
+          before_payload=compressed_image_payload(raw,".webp")
+          before_meta=exiftool_metadata(path)
+
+          if has_authenticity_credentials(raw,before_meta):
+              raise RuntimeError("Authenticity credentials detected; refusing retrofit")
+          conflicts=has_conflicting_rights(before_meta)
+          if conflicts:
+              raise RuntimeError(f"Conflicting rights metadata: {conflicts}")
+
+          description=full_description(rel)
+          cmd=[
+              "exiftool","-overwrite_original","-P",
+              f"-XMP-dc:Creator={OWNER}",
+              f"-XMP-dc:Rights={RIGHTS}",
+              f"-XMP-dc:Description={description}",
+              f"-XMP-photoshop:Credit={STUDIO} (artwork production and preparation)",
+              f"-XMP-xmpRights:WebStatement={WEBSITE}",
+              str(path),
+          ]
+          p=subprocess.run(cmd,capture_output=True,text=True)
+          if p.returncode != 0 or "1 image files updated" not in p.stdout:
+              raise RuntimeError(p.stderr or p.stdout or "ExifTool refused update")
+
+          updated=path.read_bytes()
+          after_image=identify_unchanged_image(path)
+          after_payload=compressed_image_payload(updated,".webp")
+          after_meta=exiftool_metadata(path)
+          if before_image != after_image:
+              raise RuntimeError("Decoded pixels/alpha/profile/frames changed")
+          if before_payload != after_payload:
+              raise RuntimeError("Compressed picture payload changed")
+          if has_authenticity_credentials(updated,after_meta):
+              raise RuntimeError("Unexpected authenticity marker after metadata write")
+          if not metadata_matches(after_meta,description):
+              raise RuntimeError("Metadata readback failed")
+
+          record={
+              "status":"verified_metadata_only",
+              "source_sha256":before_sha,
+              "sha256":digest(updated),
+              "pixel_sha256":before_image["pixel_sha256"],
+              "original_image_payload_sha256":before_payload,
+              "width":before_image["size"][0],
+              "height":before_image["size"][1],
+              "format":"WEBP",
+              "pixels_alpha_frames_profile_unchanged":True,
+              "compressed_picture_data_unchanged":True,
+              "studio_credit":STUDIO+" (artwork production and preparation)",
+              "copyright":RIGHTS,
+              "website":WEBSITE,
+              "manual_hold_resolution":"baked checkerboard confirmed intentional preview artwork; metadata-only retrofit",
+          }
+          ledger["records"][rel]=record
+          ledger_path.write_text(json.dumps(ledger,indent=2,ensure_ascii=False,sort_keys=True)+"\n",encoding="utf-8")
+
+          remaining=sum(v.get("status")=="review_required" for v in ledger["records"].values())
+          if remaining != 6:
+              raise RuntimeError(f"Expected six protected holds after resolution, found {remaining}")
+          summary={
+              "schema_version":1,
+              "eligible_public_images":146,
+              "retrofitted_this_run":1,
+              "updated_paths":[rel],
+              "already_credited_new_this_run":0,
+              "held_for_rights_or_integrity_review_this_run":[],
+              "previously_completed_or_held":145,
+              "remaining_unchecked":0,
+              "requires_manual_review":remaining,
+              "auto_batches_complete":True,
+              "live_site_image_code_changed":False,
+              "safety":"Blue nautical preview metadata-only retrofit preserved decoded pixels, alpha, ICC profile, frames, compressed picture data, and intentionally baked checkerboard artwork.",
+          }
+          summary_path.write_text(json.dumps(summary,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+          result={
+              "schema_version":1,
+              "path":rel,
+              "record":record,
+              "manual_review_remaining":remaining,
+          }
+          (ROOT/"studio/manual-blue-naut-last-result.json").write_text(json.dumps(result,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+          PY
+
+      - name: Verify exact scope
+        shell: bash
+        run: |
+          git diff --check
+          python -B - <<'PY'
+          import subprocess
+          expected={
+              "assets/previews/buttons/blue-naut-wax-preview.webp",
+              "studio/batch-ledger.json",
+              "studio/batch-last-result.json",
+              "studio/manual-blue-naut-last-result.json",
+          }
+          changed=set(subprocess.check_output(["git","diff","--name-only"],text=True).splitlines())
+          changed |= set(subprocess.check_output(["git","ls-files","--others","--exclude-standard"],text=True).splitlines())
+          changed={p for p in changed if not p.startswith("studio/__pycache__/")}
+          assert changed==expected,(changed,expected)
+          print("Exact blue-naut staging scope verified.")
+          PY
+
+      - name: Commit isolated staging branch
+        shell: bash
+        run: |
+          git config user.name "L&L Studio Metadata Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/previews/buttons/blue-naut-wax-preview.webp studio/batch-ledger.json studio/batch-last-result.json studio/manual-blue-naut-last-result.json
+          git commit -m "stage: resolve blue nautical preview metadata hold"
+          git push origin "HEAD:refs/heads/ll-studio-blue-naut-$GITHUB_RUN_ID"
