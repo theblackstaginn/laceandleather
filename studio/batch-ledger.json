@@ -241,10 +241,21 @@
       "width": 889
     },
     "assets/creation/creation_1.png": {
-      "detail": "ValueError",
-      "reason": "unsupported_or_unreadable_image",
-      "sha256": "c79208d33d12b366744c925f818591abb528c34cdf5af1dd087af22362d325e6",
-      "status": "review_required"
+      "actual_format_note": "JPEG bytes retained under legacy .png filename",
+      "compressed_picture_data_unchanged": true,
+      "copyright": "Copyright 2026 Lace & Leather Arcane",
+      "format": "JPEG",
+      "height": 1024,
+      "manual_hold_resolution": "actual-format-aware metadata-only retrofit",
+      "original_image_payload_sha256": "4180b75dd4aa636f1d106d9902f3ecdf9289f19fc009cede11f328df3bbb8940",
+      "pixel_sha256": "1245fd9849aaa3a9dbfdd3e7549547522ddb0ea6a346af8ee01d81b236a7effe",
+      "pixels_alpha_frames_profile_unchanged": true,
+      "sha256": "634c104573dc1cb96d2f5f67898a807b347bde82bb158ec5d140b2358b33aa2e",
+      "source_sha256": "c79208d33d12b366744c925f818591abb528c34cdf5af1dd087af22362d325e6",
+      "status": "verified_metadata_only",
+      "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
+      "website": "https://laceleatherarcane.com",
+      "width": 1536
     },
     "assets/creation/creation_1.webp": {
       "compressed_picture_data_unchanged": true,
@@ -262,10 +273,21 @@
       "width": 1536
     },
     "assets/creation/creation_2.png": {
-      "detail": "ValueError",
-      "reason": "unsupported_or_unreadable_image",
-      "sha256": "0dc8832aa3e22372c061f55070b2fb56bfa9f18324a501af914ae1a80c73f7fb",
-      "status": "review_required"
+      "actual_format_note": "JPEG bytes retained under legacy .png filename",
+      "compressed_picture_data_unchanged": true,
+      "copyright": "Copyright 2026 Lace & Leather Arcane",
+      "format": "JPEG",
+      "height": 1024,
+      "manual_hold_resolution": "actual-format-aware metadata-only retrofit",
+      "original_image_payload_sha256": "a5efbf162a5cfd7af14599926bc18db92811999b413cd00bcac53415ea91961a",
+      "pixel_sha256": "dc53d4c7f41922cb78691b9e911e73e28b81540c7a7df2a07b9dc40d243f3732",
+      "pixels_alpha_frames_profile_unchanged": true,
+      "sha256": "6c3524e9e301a2c899bff39fcbc9194d67da751d64f8476e250e1356db12fa27",
+      "source_sha256": "0dc8832aa3e22372c061f55070b2fb56bfa9f18324a501af914ae1a80c73f7fb",
+      "status": "verified_metadata_only",
+      "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
+      "website": "https://laceleatherarcane.com",
+      "width": 1536
     },
     "assets/creation/creation_2.webp": {
       "compressed_picture_data_unchanged": true,
@@ -283,10 +305,21 @@
       "width": 1536
     },
     "assets/creation/creation_3.png": {
-      "detail": "ValueError",
-      "reason": "unsupported_or_unreadable_image",
-      "sha256": "1248c69718295e42e1c2c61abfb7650db80a26d87c119ec2bd55e3c8482dfab8",
-      "status": "review_required"
+      "actual_format_note": "JPEG bytes retained under legacy .png filename",
+      "compressed_picture_data_unchanged": true,
+      "copyright": "Copyright 2026 Lace & Leather Arcane",
+      "format": "JPEG",
+      "height": 1024,
+      "manual_hold_resolution": "actual-format-aware metadata-only retrofit",
+      "original_image_payload_sha256": "ef34933e49a8ce222652972f2d0c8de7b3cfaa36b9309b747b42a1c0e0b50674",
+      "pixel_sha256": "bb0ec77b45f6b0dc7215fe53fc86204a5cfaafcf2817177151c99b79a7715e8e",
+      "pixels_alpha_frames_profile_unchanged": true,
+      "sha256": "0b85023f7e860a4d7150e57f21c2309e0864b1455214665b0b520635f937e7c0",
+      "source_sha256": "1248c69718295e42e1c2c61abfb7650db80a26d87c119ec2bd55e3c8482dfab8",
+      "status": "verified_metadata_only",
+      "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
+      "website": "https://laceleatherarcane.com",
+      "width": 1536
     },
     "assets/creation/creation_3.webp": {
       "compressed_picture_data_unchanged": true,
@@ -304,10 +337,21 @@
       "width": 1536
     },
     "assets/creation/creation_4.png": {
-      "detail": "ValueError",
-      "reason": "unsupported_or_unreadable_image",
-      "sha256": "614108f4ce63948593c867cdf84c201317a0804cd0e72c6edcbe84bd55380409",
-      "status": "review_required"
+      "actual_format_note": "JPEG bytes retained under legacy .png filename",
+      "compressed_picture_data_unchanged": true,
+      "copyright": "Copyright 2026 Lace & Leather Arcane",
+      "format": "JPEG",
+      "height": 1024,
+      "manual_hold_resolution": "actual-format-aware metadata-only retrofit",
+      "original_image_payload_sha256": "d48b5f39f49b0c21d51d28aa8a178d214f49dcf44b873617df74e2b9f40b3cdc",
+      "pixel_sha256": "3652d043569ef851f88eca02cec4f712b49e90cb069c876975dd2ea1ca104e98",
+      "pixels_alpha_frames_profile_unchanged": true,
+      "sha256": "5f45130b837458afb0fdd2baa851fe2b7dfb1a11aedb97e133efaea7d7df80e6",
+      "source_sha256": "614108f4ce63948593c867cdf84c201317a0804cd0e72c6edcbe84bd55380409",
+      "status": "verified_metadata_only",
+      "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
+      "website": "https://laceleatherarcane.com",
+      "width": 1536
     },
     "assets/creation/creation_4.webp": {
       "compressed_picture_data_unchanged": true,
@@ -690,13 +734,21 @@
       "width": 820
     },
     "assets/previews/buttons/blue-naut-wax-preview.webp": {
-      "note": "Rectangular checkerboard visible behind blue wax-seal artwork in both original and staged. Restore original file and hold until image-design review.",
+      "actual_format_note": "Valid WebP; baked checkerboard preview intentionally preserved",
+      "compressed_picture_data_unchanged": true,
+      "copyright": "Copyright 2026 Lace & Leather Arcane",
+      "format": "WEBP",
+      "height": 820,
+      "manual_hold_resolution": "actual-format-aware metadata-only retrofit",
+      "original_image_payload_sha256": "dbe2495ea41b28fa5e00074d2ceaa923ac8a2810ddbd7582d2a03c4116d6d0cf",
       "pixel_sha256": "814db03e4907c04318c8201b6648730efab38e905a9b51a743dfdd95a18e0c50",
-      "reason": "preexisting_checkerboard_in_blue_nautical_preview",
-      "sha256": "1d35fdcbaec413c2766feb901fb9ee3f0c19b9d43fe465ebafcbc62db8a5a557",
-      "staged_sha256_held": "1b41ebcab60f47a987caaa3d40a6cdbf0c3a2f2d571f6657ebc36a277da4afd5",
-      "status": "review_required",
-      "visual_review": "held_after_original_vs_staged_pair_inspection"
+      "pixels_alpha_frames_profile_unchanged": true,
+      "sha256": "1b41ebcab60f47a987caaa3d40a6cdbf0c3a2f2d571f6657ebc36a277da4afd5",
+      "source_sha256": "1d35fdcbaec413c2766feb901fb9ee3f0c19b9d43fe465ebafcbc62db8a5a557",
+      "status": "verified_metadata_only",
+      "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
+      "website": "https://laceleatherarcane.com",
+      "width": 820
     },
     "assets/previews/buttons/bronze-x-sheild-preview.webp": {
       "compressed_picture_data_unchanged": true,
