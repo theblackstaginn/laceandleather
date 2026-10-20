@@ -1,0 +1,145 @@
+{
+  "pilot": "L&L Studio metadata-only verification",
+  "branch_scope": "isolated GitHub review branch",
+  "total": 6,
+  "verified": 5,
+  "skipped": 1,
+  "files": [
+    {
+      "path": "assets/previews/grimoire/grimoire-01-preview.webp",
+      "rights_basis": "public L&L product-preview graphic",
+      "original_sha256": "871edd4aded71e80b3cd4ca6adc5159a388c9eea7db8f834222324db59f027a5",
+      "decoded_pixel_sha256": "b9c514ba8038a115ea45c8f1467cb6e2de2db67a0f5b1c47d202d7221b82c9bb",
+      "encoded_image_sha256": "5a738965ac793d62ff362675d895275e8d932745a522112591b93fd88fe0c60a",
+      "original_dimensions": [
+        426,
+        640
+      ],
+      "format": "WEBP",
+      "status": "verified_metadata_only",
+      "output_sha256": "152946589e27764bdb97c0a95e941e7090a57a7d4acd181b30d82ee9e38d4819",
+      "pixel_and_alpha_unchanged": true,
+      "compressed_image_unchanged": true,
+      "color_profile_unchanged": true,
+      "metadata": {
+        "XMP-dc:Creator": "Lace & Leather Arcane",
+        "XMP-dc:Rights": "Copyright 2026 Lace & Leather Arcane",
+        "XMP-dc:Description": "Lace & Leather Arcane Grimoire Series sample page preview",
+        "XMP-photoshop:Credit": "Lace & Leather Arcane Studio (production and metadata)",
+        "XMP-xmpRights:WebStatement": "https://laceleatherarcane.com"
+      }
+    },
+    {
+      "path": "assets/previews/mapmaker/mapmaker-03-preview.webp",
+      "rights_basis": "public L&L product-preview graphic",
+      "original_sha256": "d050f0acf2bc88bebc05f4da068f0f4f5a6483e3a9732d660500910c9822017c",
+      "decoded_pixel_sha256": "59a8b9db4f08aaa77a4164d84b778988d6f09ab2604b50e97ec8bfb36d86af2e",
+      "encoded_image_sha256": "7d2cabbd34d87b219e633796e08a5e1f5172db3428996bfbcfda983f6fdd2af7",
+      "original_dimensions": [
+        933,
+        1400
+      ],
+      "format": "WEBP",
+      "status": "verified_metadata_only",
+      "output_sha256": "61b6c8a712144c4017928d6dae5e541b43868cd4969256cb14a2cafba34a7128",
+      "pixel_and_alpha_unchanged": true,
+      "compressed_image_unchanged": true,
+      "color_profile_unchanged": true,
+      "metadata": {
+        "XMP-dc:Creator": "Lace & Leather Arcane",
+        "XMP-dc:Rights": "Copyright 2026 Lace & Leather Arcane",
+        "XMP-dc:Description": "Lace & Leather Arcane Mapmakers aged parchment texture preview",
+        "XMP-photoshop:Credit": "Lace & Leather Arcane Studio (production and metadata)",
+        "XMP-xmpRights:WebStatement": "https://laceleatherarcane.com"
+      }
+    },
+    {
+      "path": "assets/previews/volone/volone-01-preview.webp",
+      "rights_basis": "public L&L product-preview graphic",
+      "original_sha256": "1dc02cb4c44819cf98cde05178e967a980e259418d32c5d5326c252cc7a9968d",
+      "decoded_pixel_sha256": "024449ec4483cc076a89a6d7f176e55d1a1c4b2feb57dce3a3fb95dd4e49a85a",
+      "encoded_image_sha256": "e451e2986995cc5a5e4272714032cdced90f4fab00468e99be41d45375ba306f",
+      "original_dimensions": [
+        933,
+        1400
+      ],
+      "format": "WEBP",
+      "status": "verified_metadata_only",
+      "output_sha256": "516626c58e7438ea7d588d6a45de58f345a621ee617fd5ba987c8316f6cc5d29",
+      "pixel_and_alpha_unchanged": true,
+      "compressed_image_unchanged": true,
+      "color_profile_unchanged": true,
+      "metadata": {
+        "XMP-dc:Creator": "Lace & Leather Arcane",
+        "XMP-dc:Rights": "Copyright 2026 Lace & Leather Arcane",
+        "XMP-dc:Description": "Lace & Leather Arcane Parchment Light Volume One texture preview",
+        "XMP-photoshop:Credit": "Lace & Leather Arcane Studio (production and metadata)",
+        "XMP-xmpRights:WebStatement": "https://laceleatherarcane.com"
+      }
+    },
+    {
+      "path": "assets/etsy-previews/grimoire-vol-3/grimoire-vol-3-01-hero.jpg",
+      "rights_basis": "public L&L marketing preview",
+      "original_sha256": "56787c952908b0648fbfe102b598b6646b09aa684a83b93faf2ed93071bcaedc",
+      "decoded_pixel_sha256": "a2d888200938e11566dbb03eedfc5325d9c81a0f6c700cf087743725d62cc37d",
+      "encoded_image_sha256": "809fbb28eaeca43550d656f774f094178242e053e4fb41297e9ed7266a47a2b3",
+      "original_dimensions": [
+        2600,
+        2600
+      ],
+      "format": "JPEG",
+      "status": "verified_metadata_only",
+      "output_sha256": "beef3dc076e156040408e4d62b3ff774c48632f5e47206eeebcb5d9935b095d3",
+      "pixel_and_alpha_unchanged": true,
+      "compressed_image_unchanged": true,
+      "color_profile_unchanged": true,
+      "metadata": {
+        "XMP-dc:Creator": "Lace & Leather Arcane",
+        "XMP-dc:Rights": "Copyright 2026 Lace & Leather Arcane",
+        "XMP-dc:Description": "Grimoire Series Volume Three Etsy product-cover marketing preview",
+        "XMP-photoshop:Credit": "Lace & Leather Arcane Studio (production and metadata)",
+        "XMP-xmpRights:WebStatement": "https://laceleatherarcane.com"
+      }
+    },
+    {
+      "path": "assets/etsy-previews/mapmakers/mapmakers-01-hero.jpg",
+      "rights_basis": "public L&L marketing preview",
+      "original_sha256": "424b19bffebc941644baa9d2e07b4cc41ac7d97bfc7a2e91952d71d54e41c3e7",
+      "decoded_pixel_sha256": "58cb6e9b5598facef119e9d8eeb302a0d92dc521fa67c140770946c892af4619",
+      "encoded_image_sha256": "4df27b2241c9aaa8f16728a6372a25a1ac338703dd0dec098f5bc8577889dcb0",
+      "original_dimensions": [
+        2600,
+        2600
+      ],
+      "format": "JPEG",
+      "status": "verified_metadata_only",
+      "output_sha256": "8545f73e16e70cec19a87e4da9a4bed49a91ce0f79e2ef70738f52276f0240b1",
+      "pixel_and_alpha_unchanged": true,
+      "compressed_image_unchanged": true,
+      "color_profile_unchanged": true,
+      "metadata": {
+        "XMP-dc:Creator": "Lace & Leather Arcane",
+        "XMP-dc:Rights": "Copyright 2026 Lace & Leather Arcane",
+        "XMP-dc:Description": "Mapmakers Series Etsy product-cover marketing preview",
+        "XMP-photoshop:Credit": "Lace & Leather Arcane Studio (production and metadata)",
+        "XMP-xmpRights:WebStatement": "https://laceleatherarcane.com"
+      }
+    },
+    {
+      "path": "assets/grimoire/grim-thumb.png",
+      "rights_basis": "public L&L product thumbnail",
+      "original_sha256": "d26b244c8f8f9fab04d493faae1d7ac9369e8898ee44213e891189e9594d0a1d",
+      "decoded_pixel_sha256": "91c95d70b3b6af043609a16726cfc4d4ee44f4bb91a90963769ca9e530e7c327",
+      "encoded_image_sha256": "8ec2089e054d8a6987c6fddcda0759ab455e374f54736d3350e6db884278517f",
+      "original_dimensions": [
+        1024,
+        1024
+      ],
+      "format": "PNG",
+      "status": "skipped_pending_provenance_review",
+      "reason": "content_credentials",
+      "fields": [],
+      "output_sha256": "d26b244c8f8f9fab04d493faae1d7ac9369e8898ee44213e891189e9594d0a1d"
+    }
+  ]
+}
