@@ -915,6 +915,34 @@
   let activeCategory = "heraldry";
   let activeProduct = null;
   let drawerTrigger = null;
+  let drawerScrollOrigin = null;
+  let previewScrollOrigin = null;
+  let previewTrigger = null;
+  let scrollRestoreTicket = 0;
+
+  function capturePageOffset(){
+    const root = document.scrollingElement || document.documentElement;
+    return {
+      x: window.scrollX || root.scrollLeft || 0,
+      y: window.scrollY || root.scrollTop || 0
+    };
+  }
+
+  function restorePageOffset(offset, canRestore = () => true){
+    if(!offset) return;
+    const ticket = ++scrollRestoreTicket;
+    const restore = () => {
+      if(ticket !== scrollRestoreTicket || !canRestore()) return;
+      window.scrollTo(offset.x, offset.y);
+      const root = document.scrollingElement || document.documentElement;
+      if(Math.abs(root.scrollTop - offset.y) > 1) root.scrollTop = offset.y;
+    };
+    restore();
+    requestAnimationFrame(() => {
+      restore();
+      requestAnimationFrame(restore);
+    });
+  }
 
   function titleFromFile(file){
     return file
@@ -1010,7 +1038,10 @@
     plusPopAt(r.left + r.width * .7, r.top + r.height * .25);
   }
 
-  function openPreview(file, categoryKey){
+  function openPreview(file, categoryKey, trigger){
+    previewScrollOrigin = capturePageOffset();
+    previewTrigger = trigger || document.activeElement;
+    ++scrollRestoreTicket; // Cancel restoration from an older closed preview.
     const product = productFor(file);
     activeProduct = product;
 
@@ -1026,12 +1057,25 @@
     }
   }
 
+  function restorePreviewPosition(){
+    if(!previewScrollOrigin) return;
+    const offset = previewScrollOrigin;
+    previewScrollOrigin = null;
+    if(previewTrigger && previewTrigger.isConnected){
+      previewTrigger.focus({ preventScroll:true });
+    }
+    previewTrigger = null;
+    // Native <dialog> restores focus/scroll asynchronously on mobile Safari.
+    restorePageOffset(offset, () => !preview.open);
+  }
+
   function closePreview(){
     if(typeof preview.close === "function" && preview.open){
       preview.close();
     }else{
       preview.removeAttribute("open");
     }
+    restorePreviewPosition();
   }
 
   function buildSpecimenCard(file, categoryKey){
@@ -1073,7 +1117,7 @@
     add.textContent = "Add · $1";
     add.setAttribute("aria-label", "Add " + product.name + " to cart");
 
-    art.addEventListener("click", () => openPreview(file, categoryKey));
+    art.addEventListener("click", () => openPreview(file, categoryKey, art));
     add.addEventListener("click", (e) => {
       addToCart(product);
       plusPopFromEvent(e, add);
@@ -1097,6 +1141,10 @@
     const def = CATEGORIES[categoryKey];
     if(!def) return;
 
+    if(!drawer.classList.contains("is-open")){
+      drawerScrollOrigin = capturePageOffset();
+      ++scrollRestoreTicket;
+    }
     drawerTrigger = trigger || drawerTrigger;
     activeCategory = categoryKey;
     drawerTitle.textContent = def.label;
@@ -1121,6 +1169,10 @@
     if(drawerTrigger && drawerTrigger.isConnected){
       drawerTrigger.focus({ preventScroll:true });
     }
+    const offset = drawerScrollOrigin;
+    drawerScrollOrigin = null;
+    restorePageOffset(offset, () =>
+      !drawer.classList.contains("is-open") && !preview.open);
   }
 
   document.querySelectorAll(".cabinet-hotspot, .cabinet-index-trigger").forEach(button => {
@@ -1138,6 +1190,7 @@
 
   drawerClose.addEventListener("click", closeDrawer);
   previewClose.addEventListener("click", closePreview);
+  preview.addEventListener("close", restorePreviewPosition);
 
   previewAdd.addEventListener("click", (e) => {
     if(!activeProduct) return;
@@ -1159,7 +1212,7 @@
 })();
 </script>
 
-  <script src="./site-refresh.js?v=LL-20261013-2" defer></script>
+  <script src="./site-refresh.js?v=LL-20261019-SCROLL1" defer></script>
   <script src="./ward.js?v=LL-20261016-WARD2" defer></script>
 </body>
 </html>
