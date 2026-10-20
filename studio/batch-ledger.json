@@ -252,9 +252,10 @@
       "source_sha256": "c79208d33d12b366744c925f818591abb528c34cdf5af1dd087af22362d325e6",
       "status": "already_credited",
       "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
-      "visual_review": "required_before_merge",
+      "visual_review": "approved_2026-10-20",
       "website": "https://laceleatherarcane.com",
-      "width": 1536
+      "width": 1536,
+      "visual_review_record": "studio/visual-review-20261020-manual-hold-resolutions.json"
     },
     "assets/creation/creation_1.webp": {
       "compressed_picture_data_unchanged": true,
@@ -283,9 +284,10 @@
       "source_sha256": "0dc8832aa3e22372c061f55070b2fb56bfa9f18324a501af914ae1a80c73f7fb",
       "status": "already_credited",
       "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
-      "visual_review": "required_before_merge",
+      "visual_review": "approved_2026-10-20",
       "website": "https://laceleatherarcane.com",
-      "width": 1536
+      "width": 1536,
+      "visual_review_record": "studio/visual-review-20261020-manual-hold-resolutions.json"
     },
     "assets/creation/creation_2.webp": {
       "compressed_picture_data_unchanged": true,
@@ -314,9 +316,10 @@
       "source_sha256": "1248c69718295e42e1c2c61abfb7650db80a26d87c119ec2bd55e3c8482dfab8",
       "status": "already_credited",
       "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
-      "visual_review": "required_before_merge",
+      "visual_review": "approved_2026-10-20",
       "website": "https://laceleatherarcane.com",
-      "width": 1536
+      "width": 1536,
+      "visual_review_record": "studio/visual-review-20261020-manual-hold-resolutions.json"
     },
     "assets/creation/creation_3.webp": {
       "compressed_picture_data_unchanged": true,
@@ -345,9 +348,10 @@
       "source_sha256": "614108f4ce63948593c867cdf84c201317a0804cd0e72c6edcbe84bd55380409",
       "status": "already_credited",
       "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
-      "visual_review": "required_before_merge",
+      "visual_review": "approved_2026-10-20",
       "website": "https://laceleatherarcane.com",
-      "width": 1536
+      "width": 1536,
+      "visual_review_record": "studio/visual-review-20261020-manual-hold-resolutions.json"
     },
     "assets/creation/creation_4.webp": {
       "compressed_picture_data_unchanged": true,
@@ -743,7 +747,9 @@
       "status": "verified_metadata_only",
       "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
       "website": "https://laceleatherarcane.com",
-      "width": 820
+      "width": 820,
+      "visual_review": "approved_2026-10-20",
+      "visual_review_record": "studio/visual-review-20261020-manual-hold-resolutions.json"
     },
     "assets/previews/buttons/bronze-x-sheild-preview.webp": {
       "compressed_picture_data_unchanged": true,
