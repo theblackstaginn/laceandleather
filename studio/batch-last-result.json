@@ -3,33 +3,45 @@
   "eligible_public_images": 146,
   "retrofitted_this_run": 12,
   "updated_paths": [
-    "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-04.jpg",
-    "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-05.jpg",
-    "assets/etsy-previews/journal-pages/journal-pages-01-hero.jpg",
-    "assets/etsy-previews/journal-pages/journal-pages-02-contents.jpg",
-    "assets/etsy-previews/journal-pages/journal-pages-03-specs.jpg",
-    "assets/etsy-previews/mapmakers/mapmakers-02-contents.jpg",
-    "assets/etsy-previews/mapmakers/mapmakers-03-specs.jpg",
-    "assets/etsy-previews/parchment-light/parchment-light-01-hero.jpg",
-    "assets/etsy-previews/parchment-light/parchment-light-02-contents.jpg",
-    "assets/etsy-previews/parchment-light/parchment-light-03-specs.jpg",
-    "assets/creation/creation_1.webp",
-    "assets/creation/creation_2.webp"
+    "assets/creation/creation_3.webp",
+    "assets/creation/creation_4.webp",
+    "assets/grimoire/grim-thumb.webp",
+    "assets/mapmaker/mapmaker-cover.webp",
+    "assets/smithy/smithy-cover.png",
+    "assets/smithy/smithy-cover.webp",
+    "assets/vol-one/vol-1-thumbnail.webp",
+    "L&L-buttons/add-to-cart.png",
+    "L&L-buttons/add-to-cart.webp",
+    "L&L-buttons/back.png",
+    "L&L-buttons/back.webp",
+    "L&L-buttons/cart.png"
   ],
-  "already_credited_new_this_run": 1,
+  "already_credited_new_this_run": 0,
   "held_for_rights_or_integrity_review_this_run": [
     {
-      "path": "assets/creation/creation_1.png",
+      "path": "assets/creation/creation_3.png",
       "reason": "unsupported_or_unreadable_image"
     },
     {
-      "path": "assets/creation/creation_2.png",
+      "path": "assets/creation/creation_4.png",
       "reason": "unsupported_or_unreadable_image"
+    },
+    {
+      "path": "assets/grimoire/grim-thumb.png",
+      "reason": "existing_authenticity_credentials"
+    },
+    {
+      "path": "assets/mapmaker/mapmaker-cover.png",
+      "reason": "existing_authenticity_credentials"
+    },
+    {
+      "path": "assets/vol-one/vol-1-thumbnail.png",
+      "reason": "existing_authenticity_credentials"
     }
   ],
-  "previously_completed_or_held": 88,
-  "remaining_unchecked": 43,
-  "requires_manual_review": 3,
+  "previously_completed_or_held": 103,
+  "remaining_unchecked": 26,
+  "requires_manual_review": 8,
   "auto_batches_complete": false,
   "live_site_image_code_changed": false,
   "safety": "On batch failure nothing is committed. Original pixels, alpha, ICC, frames and compressed picture data required to match."
