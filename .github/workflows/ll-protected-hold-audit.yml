@@ -1,0 +1,144 @@
+name: Audit protected L&L image holds
+
+on:
+  push:
+    branches:
+      - ll-protected-hold-audit-20261020
+    paths:
+      - ".github/workflows/ll-protected-hold-audit.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout audit branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install audit tools
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libimage-exiftool-perl binutils
+          python -m pip install --disable-pip-version-check "Pillow==11.3.0"
+
+      - name: Inspect protected originals without modifying them
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageOps
+
+          ROOT=Path.cwd()
+          targets=[
+              "assets/grimoire/grim-thumb.png",
+              "assets/mapmaker/mapmaker-cover.png",
+              "assets/vol-one/vol-1-thumbnail.png",
+              "commission-modal-assets/map-slot-button.png",
+              "commission-modal-assets/modal-bg.png",
+              "itch-assets/bookmaker-cover-source.png",
+          ]
+          out=ROOT/"studio/protected-hold-audit"
+          previews=out/"previews"
+          previews.mkdir(parents=True,exist_ok=True)
+          needle_terms=[
+              "c2pa","jumbf","content credentials","contentcredentials",
+              "trainedalgorithmicmedia","digital source","digitalsourcetype",
+              "generative","artificial intelligence","openai","dall-e","dalle",
+              "chatgpt","firefly","midjourney","stable diffusion"
+          ]
+          key_terms=[
+              "c2pa","jumb","contentcredential","digitalsource","creator","artist",
+              "copyright","rights","credit","software","source","history","manifest",
+              "derived","document","instance"
+          ]
+          report={"schema_version":1,"mode":"read_only","files":[]}
+
+          def checker(size,block=24):
+              bg=Image.new("RGB",size,(205,205,205))
+              d=ImageDraw.Draw(bg)
+              for y in range(0,size[1],block):
+                  for x in range(0,size[0],block):
+                      if ((x//block)+(y//block))%2:
+                          d.rectangle((x,y,min(x+block-1,size[0]-1),min(y+block-1,size[1]-1)),fill=(235,235,235))
+              return bg
+
+          for rel in targets:
+              p=ROOT/rel
+              raw=p.read_bytes()
+              rec={"path":rel,"sha256":hashlib.sha256(raw).hexdigest(),"byte_length":len(raw)}
+              try:
+                  im=Image.open(p)
+                  im.load()
+                  rec.update({"pillow_format":im.format,"size":list(im.size),"mode":im.mode})
+                  vis=ImageOps.exif_transpose(im).convert("RGBA")
+                  vis.thumbnail((900,900),Image.Resampling.LANCZOS)
+                  bg=checker(vis.size)
+                  bg.paste(vis,(0,0),vis)
+                  dest=previews/(Path(rel).stem+"-protected-preview.webp")
+                  bg.save(dest,"WEBP",quality=88,method=6)
+                  rec["preview"]=str(dest.relative_to(ROOT))
+              except Exception as e:
+                  rec["pillow_error"]=type(e).__name__+": "+str(e)
+
+              meta_run=subprocess.run(["exiftool","-j","-G1","-a","-s",str(p)],capture_output=True,text=True)
+              if meta_run.returncode==0:
+                  try:
+                      meta=json.loads(meta_run.stdout)[0]
+                  except Exception:
+                      meta={}
+              else:
+                  meta={}
+                  rec["exiftool_error"]=meta_run.stderr.strip()
+              filtered={}
+              for k,v in meta.items():
+                  lk=k.lower()
+                  if any(term in lk for term in key_terms):
+                      if isinstance(v,(dict,list)):
+                          val=json.dumps(v,ensure_ascii=False)
+                      else:
+                          val=str(v)
+                      filtered[k]=val[:1200]
+              rec["relevant_metadata"]=filtered
+
+              s=subprocess.run(["strings","-a",str(p)],capture_output=True,text=True,errors="ignore")
+              hits=[]
+              if s.returncode==0:
+                  for line in s.stdout.splitlines():
+                      ll=line.lower()
+                      if any(term in ll for term in needle_terms):
+                          hits.append(line[:600])
+                          if len(hits)>=80:
+                              break
+              rec["credential_string_hits"]=hits
+              rawlower=raw.lower()
+              rec["marker_presence"]={
+                  "c2pa":b"c2pa" in rawlower,
+                  "jumbf":b"jumbf" in rawlower,
+                  "content_credentials":b"content credentials" in rawlower or b"contentcredentials" in rawlower,
+                  "trained_algorithmic_media":b"trainedalgorithmicmedia" in rawlower,
+                  "openai":b"openai" in rawlower,
+                  "dall_e":b"dall-e" in rawlower or b"dalle" in rawlower,
+                  "firefly":b"firefly" in rawlower,
+                  "midjourney":b"midjourney" in rawlower,
+                  "stable_diffusion":b"stable diffusion" in rawlower,
+              }
+              report["files"].append(rec)
+
+          (out/"audit.json").write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+          PY
+
+      - name: Commit read-only audit artifacts
+        shell: bash
+        run: |
+          git config user.name "L&L Audit Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add studio/protected-hold-audit
+          git commit -m "audit: inspect protected image credentials without modification"
+          git push
