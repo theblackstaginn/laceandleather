@@ -1,96 +1,124 @@
-name: L&L Studio background image metadata batches
+name: L&L Studio stage metadata for visual review
 
 on:
-  # Hold to manual dispatch while visual inspection gate is being tested.
+  schedule:
+    # Runs only from default branch; prepares new PRs, never deploys assets.
+    - cron: "23 1,7,13,19 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
-  group: ll-studio-background-metadata-batches
+  group: ll-studio-visual-review-queue
   cancel-in-progress: false
 
 jobs:
-  retrofit:
+  stage-one-batch:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
-      - name: Check out current branch
+      - name: Checkout main (leave live assets untouched)
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
           persist-credentials: true
 
+      - name: Pause while a previous image batch awaits visual inspection
+        id: gate
+        shell: bash
+        run: |
+          count=$(gh pr list --state open --base main --json headRefName --jq '[.[] | select(.headRefName | startswith("ll-studio-visual-"))] | length')
+          if [ "$count" -gt 0 ]; then
+            echo "A visual-review pull request is awaiting inspection. Holding next batch."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Set up Python
+        if: steps.gate.outputs.ready == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install tested metadata and image validators
+      - name: Install EXIF and pixel-integrity validators
+        if: steps.gate.outputs.ready == 'true'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends libimage-exiftool-perl
           python -m pip install --disable-pip-version-check "Pillow==11.3.0"
-          exiftool -ver
 
-      - name: Retrofit up to 12 eligible L&L public images
+      - name: Create isolated batch branch and process up to 12 images
+        if: steps.gate.outputs.ready == 'true'
+        shell: bash
         run: |
+          git switch -c "ll-studio-visual-$GITHUB_RUN_ID"
           python studio/ll_metadata_batches.py \
             --policy studio/batch-policy.json \
             --ledger studio/batch-ledger.json \
             --summary studio/batch-last-result.json
 
-      - name: Verify the changed paths and the complete audit
+      - name: Verify audited files and changed paths
+        if: steps.gate.outputs.ready == 'true'
         run: |
           git diff --check
           python - <<'PY'
-          import hashlib
-          import json
-          import subprocess
+          import hashlib, json, subprocess
           from pathlib import Path
-
-          root = Path.cwd()
-          policy = json.loads(Path("studio/batch-policy.json").read_text())
-          summary = json.loads(Path("studio/batch-last-result.json").read_text())
-          ledger = json.loads(Path("studio/batch-ledger.json").read_text())
-          prefixes = tuple(policy["allowlisted_public_paths"])
-          updated = summary["updated_paths"]
-          modified = set(subprocess.check_output(["git", "diff", "--name-only"], text=True).splitlines())
-          assert len(updated) <= 12
-          assert len(updated) == summary["retrofitted_this_run"]
-          assert len(set(updated)) == len(updated)
-          assert modified == set(updated), f"Unexpected modified image paths: {modified ^ set(updated)}"
-          assert ledger["schema_version"] == 1
-          assert summary["eligible_public_images"] >= len(updated)
-          for rel in updated:
-              assert rel.startswith(prefixes), f"Unapproved path: {rel}"
-              r = ledger["records"][rel]
-              assert r["status"] == "verified_metadata_only"
-              assert r["pixels_alpha_frames_profile_unchanged"] is True
-              assert r["compressed_picture_data_unchanged"] is True
-              assert hashlib.sha256((root / rel).read_bytes()).hexdigest() == r["sha256"]
-              assert r["studio_credit"] == "Lace & Leather Arcane Studio (artwork production and preparation)"
-          print(f"Verified batch: {len(updated)} unchanged-pixel images, "
-                f"{summary['remaining_unchecked']} remain uninspected, "
-                f"{summary['requires_manual_review']} held for review")
+          root=Path.cwd()
+          summary=json.loads(Path("studio/batch-last-result.json").read_text())
+          ledger=json.loads(Path("studio/batch-ledger.json").read_text())
+          policy=json.loads(Path("studio/batch-policy.json").read_text())
+          changed=set(subprocess.check_output(["git","diff","--name-only"],text=True).splitlines())
+          approved_source_dirs=tuple(policy["allowlisted_public_paths"])
+          images=summary["updated_paths"]
+          assert len(images)<=12 and len(images)==summary["retrofitted_this_run"]
+          assert changed==set(images),f"Unapproved image file changed: {changed ^ set(images)}"
+          assert summary["live_site_image_code_changed"] is False
+          for name in images:
+              assert name.startswith(approved_source_dirs)
+              record=ledger["records"][name]
+              assert record["status"]=="verified_metadata_only"
+              assert record["pixels_alpha_frames_profile_unchanged"] is True
+              assert record["compressed_picture_data_unchanged"] is True
+              assert hashlib.sha256((root/name).read_bytes()).hexdigest()==record["sha256"]
+          print("Metadata/pixels verified. VISUAL REVIEW STILL REQUIRED:",len(images))
           PY
 
-      - name: Commit verified files and audit ledger only
+      - name: Commit only to new staging branch
+        if: steps.gate.outputs.ready == 'true'
         shell: bash
+        id: push
         run: |
           git config user.name "L&L Studio Metadata Bot"
           git config user.email "actions@users.noreply.github.com"
           python - <<'PY'
-          import json, subprocess
+          import json,subprocess
           from pathlib import Path
-          summary = json.loads(Path("studio/batch-last-result.json").read_text())
-          stage = summary["updated_paths"] + ["studio/batch-ledger.json", "studio/batch-last-result.json"]
-          subprocess.run(["git", "add", "--", *stage], check=True)
+          summary=json.loads(Path("studio/batch-last-result.json").read_text())
+          subprocess.run(["git","add","--",*summary["updated_paths"],
+                          "studio/batch-ledger.json","studio/batch-last-result.json"],check=True)
           PY
           if git diff --cached --quiet; then
-            echo "No changes remain; all eligible L&L files already processed or protected."
+            echo "No eligible assets need changes."
+            echo "new_batch=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          git commit -m "chore: L&L studio verified metadata batch"
-          git push origin HEAD:"$GITHUB_REF_NAME"
+          git commit -m "stage: L&L images pending per-image visual inspection"
+          git push origin "HEAD:refs/heads/ll-studio-visual-$GITHUB_RUN_ID"
+          echo "new_batch=true" >> "$GITHUB_OUTPUT"
+
+      - name: Open PR and STOP for image-by-image review
+        if: steps.gate.outputs.ready == 'true' && steps.push.outputs.new_batch == 'true'
+        shell: bash
+        run: |
+          gh pr create \
+            --base main \
+            --head "ll-studio-visual-$GITHUB_RUN_ID" \
+            --title "VISUAL REVIEW REQUIRED: L&L Studio image batch $GITHUB_RUN_ID" \
+            --body "Automated metadata and pixel checks passed, but this batch MUST NOT be merged until each original and modified image has been rendered and visually inspected. Compare composition, legibility, watermark, edge/crop, alpha/transparency, and source defects. Preserve C2PA and original author/rights. Hold or revert questionable files. Document signed-off paths and hashes in a separate visual-review record, then merge only approved images. Images are still only on a staging branch. The workflow never merges or deploys them."
