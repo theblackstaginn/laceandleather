@@ -1,0 +1,1190 @@
+{
+  "schema_version": 1,
+  "mode": "read_only",
+  "path": "itch-assets/bookmaker-cover-source.png",
+  "byte_length": 6098955,
+  "chunk_sequence": [
+    {
+      "type": "IHDR",
+      "length": 13,
+      "start": 8,
+      "end": 33
+    },
+    {
+      "type": "cHRM",
+      "length": 32,
+      "start": 33,
+      "end": 77
+    },
+    {
+      "type": "bKGD",
+      "length": 6,
+      "start": 77,
+      "end": 95
+    },
+    {
+      "type": "tIME",
+      "length": 7,
+      "start": 95,
+      "end": 114
+    },
+    {
+      "type": "caNv",
+      "length": 16,
+      "start": 114,
+      "end": 142
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 142,
+      "end": 32922
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 32922,
+      "end": 65702
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 65702,
+      "end": 98482
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 98482,
+      "end": 131262
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 131262,
+      "end": 164042
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 164042,
+      "end": 196822
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 196822,
+      "end": 229602
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 229602,
+      "end": 262382
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 262382,
+      "end": 295162
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 295162,
+      "end": 327942
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 327942,
+      "end": 360722
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 360722,
+      "end": 393502
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 393502,
+      "end": 426282
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 426282,
+      "end": 459062
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 459062,
+      "end": 491842
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 491842,
+      "end": 524622
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 524622,
+      "end": 557402
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 557402,
+      "end": 590182
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 590182,
+      "end": 622962
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 622962,
+      "end": 655742
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 655742,
+      "end": 688522
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 688522,
+      "end": 721302
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 721302,
+      "end": 754082
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 754082,
+      "end": 786862
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 786862,
+      "end": 819642
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 819642,
+      "end": 852422
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 852422,
+      "end": 885202
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 885202,
+      "end": 917982
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 917982,
+      "end": 950762
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 950762,
+      "end": 983542
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 983542,
+      "end": 1016322
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1016322,
+      "end": 1049102
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1049102,
+      "end": 1081882
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1081882,
+      "end": 1114662
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1114662,
+      "end": 1147442
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1147442,
+      "end": 1180222
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1180222,
+      "end": 1213002
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1213002,
+      "end": 1245782
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1245782,
+      "end": 1278562
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1278562,
+      "end": 1311342
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1311342,
+      "end": 1344122
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1344122,
+      "end": 1376902
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1376902,
+      "end": 1409682
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1409682,
+      "end": 1442462
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1442462,
+      "end": 1475242
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1475242,
+      "end": 1508022
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1508022,
+      "end": 1540802
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1540802,
+      "end": 1573582
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1573582,
+      "end": 1606362
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1606362,
+      "end": 1639142
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1639142,
+      "end": 1671922
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1671922,
+      "end": 1704702
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1704702,
+      "end": 1737482
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1737482,
+      "end": 1770262
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1770262,
+      "end": 1803042
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1803042,
+      "end": 1835822
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1835822,
+      "end": 1868602
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1868602,
+      "end": 1901382
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1901382,
+      "end": 1934162
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1934162,
+      "end": 1966942
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1966942,
+      "end": 1999722
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 1999722,
+      "end": 2032502
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2032502,
+      "end": 2065282
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2065282,
+      "end": 2098062
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2098062,
+      "end": 2130842
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2130842,
+      "end": 2163622
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2163622,
+      "end": 2196402
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2196402,
+      "end": 2229182
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2229182,
+      "end": 2261962
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2261962,
+      "end": 2294742
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2294742,
+      "end": 2327522
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2327522,
+      "end": 2360302
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2360302,
+      "end": 2393082
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2393082,
+      "end": 2425862
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2425862,
+      "end": 2458642
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2458642,
+      "end": 2491422
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2491422,
+      "end": 2524202
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2524202,
+      "end": 2556982
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2556982,
+      "end": 2589762
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2589762,
+      "end": 2622542
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2622542,
+      "end": 2655322
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2655322,
+      "end": 2688102
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2688102,
+      "end": 2720882
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2720882,
+      "end": 2753662
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2753662,
+      "end": 2786442
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2786442,
+      "end": 2819222
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2819222,
+      "end": 2852002
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2852002,
+      "end": 2884782
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2884782,
+      "end": 2917562
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2917562,
+      "end": 2950342
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2950342,
+      "end": 2983122
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 2983122,
+      "end": 3015902
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3015902,
+      "end": 3048682
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3048682,
+      "end": 3081462
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3081462,
+      "end": 3114242
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3114242,
+      "end": 3147022
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3147022,
+      "end": 3179802
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3179802,
+      "end": 3212582
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3212582,
+      "end": 3245362
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3245362,
+      "end": 3278142
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3278142,
+      "end": 3310922
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3310922,
+      "end": 3343702
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3343702,
+      "end": 3376482
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3376482,
+      "end": 3409262
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3409262,
+      "end": 3442042
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3442042,
+      "end": 3474822
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3474822,
+      "end": 3507602
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3507602,
+      "end": 3540382
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3540382,
+      "end": 3573162
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3573162,
+      "end": 3605942
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3605942,
+      "end": 3638722
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3638722,
+      "end": 3671502
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3671502,
+      "end": 3704282
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3704282,
+      "end": 3737062
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3737062,
+      "end": 3769842
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3769842,
+      "end": 3802622
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3802622,
+      "end": 3835402
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3835402,
+      "end": 3868182
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3868182,
+      "end": 3900962
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3900962,
+      "end": 3933742
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3933742,
+      "end": 3966522
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3966522,
+      "end": 3999302
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 3999302,
+      "end": 4032082
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4032082,
+      "end": 4064862
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4064862,
+      "end": 4097642
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4097642,
+      "end": 4130422
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4130422,
+      "end": 4163202
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4163202,
+      "end": 4195982
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4195982,
+      "end": 4228762
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4228762,
+      "end": 4261542
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4261542,
+      "end": 4294322
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4294322,
+      "end": 4327102
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4327102,
+      "end": 4359882
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4359882,
+      "end": 4392662
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4392662,
+      "end": 4425442
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4425442,
+      "end": 4458222
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4458222,
+      "end": 4491002
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4491002,
+      "end": 4523782
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4523782,
+      "end": 4556562
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4556562,
+      "end": 4589342
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4589342,
+      "end": 4622122
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4622122,
+      "end": 4654902
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4654902,
+      "end": 4687682
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4687682,
+      "end": 4720462
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4720462,
+      "end": 4753242
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4753242,
+      "end": 4786022
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4786022,
+      "end": 4818802
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4818802,
+      "end": 4851582
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4851582,
+      "end": 4884362
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4884362,
+      "end": 4917142
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4917142,
+      "end": 4949922
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4949922,
+      "end": 4982702
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 4982702,
+      "end": 5015482
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5015482,
+      "end": 5048262
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5048262,
+      "end": 5081042
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5081042,
+      "end": 5113822
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5113822,
+      "end": 5146602
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5146602,
+      "end": 5179382
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5179382,
+      "end": 5212162
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5212162,
+      "end": 5244942
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5244942,
+      "end": 5277722
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5277722,
+      "end": 5310502
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5310502,
+      "end": 5343282
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5343282,
+      "end": 5376062
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5376062,
+      "end": 5408842
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5408842,
+      "end": 5441622
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5441622,
+      "end": 5474402
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5474402,
+      "end": 5507182
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5507182,
+      "end": 5539962
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5539962,
+      "end": 5572742
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5572742,
+      "end": 5605522
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5605522,
+      "end": 5638302
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5638302,
+      "end": 5671082
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5671082,
+      "end": 5703862
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5703862,
+      "end": 5736642
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5736642,
+      "end": 5769422
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5769422,
+      "end": 5802202
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5802202,
+      "end": 5834982
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5834982,
+      "end": 5867762
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5867762,
+      "end": 5900542
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5900542,
+      "end": 5933322
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5933322,
+      "end": 5966102
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5966102,
+      "end": 5998882
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 5998882,
+      "end": 6031662
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 6031662,
+      "end": 6064442
+    },
+    {
+      "type": "IDAT",
+      "length": 32768,
+      "start": 6064442,
+      "end": 6097222
+    },
+    {
+      "type": "IDAT",
+      "length": 1709,
+      "start": 6097222,
+      "end": 6098943
+    },
+    {
+      "type": "IEND",
+      "length": 0,
+      "start": 6098943,
+      "end": 6098955
+    }
+  ],
+  "chunk_type_counts": {
+    "IHDR": 1,
+    "cHRM": 1,
+    "bKGD": 1,
+    "tIME": 1,
+    "caNv": 1,
+    "IDAT": 187,
+    "IEND": 1
+  },
+  "raw_marker_hits": [
+    {
+      "needle": "C2PA",
+      "offset": 349795,
+      "chunk_type": "IDAT",
+      "region": "data",
+      "context_hex": "416d1281fa54c30e74125a900e421b1a100d4463c40fc411433250412e594039d9dc046a904006d0907492800a1e7001c821934ca03f1d69028c6704dd40e840d387cf4b",
+      "context_ascii": "Am...T..t.Z..B....Dc....C2PA.Y@9...j.@...t....p..!.L.?.i..g..@.@...K"
+    }
+  ],
+  "all_c2pa_hits_inside_idat_data": true,
+  "has_cabx_chunk": false,
+  "has_jumb_chunk": false,
+  "decompressed_idat_marker_hits": [],
+  "decompressed_idat_error": null
+}
