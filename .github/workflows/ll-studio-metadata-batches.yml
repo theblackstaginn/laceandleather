@@ -82,7 +82,9 @@ jobs:
           approved_source_dirs=tuple(policy["allowlisted_public_paths"])
           images=summary["updated_paths"]
           assert len(images)<=12 and len(images)==summary["retrofitted_this_run"]
-          assert changed==set(images),f"Unapproved image file changed: {changed ^ set(images)}"
+          allowed_changes=set(images)|{"studio/batch-ledger.json","studio/batch-last-result.json"}
+          assert changed.issubset(allowed_changes),f"Unapproved changed paths: {changed-allowed_changes}"
+          assert set(images).issubset(changed),f"Expected processed images absent from git diff: {set(images)-changed}"
           assert summary["live_site_image_code_changed"] is False
           for name in images:
               assert name.startswith(approved_source_dirs)
