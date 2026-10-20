@@ -1,0 +1,134 @@
+[
+  {
+    "source_path": "commission-modal-assets/commission-letter.webp",
+    "review_render": "studio/review-renders/batch11/commission-letter_webp-pair.webp",
+    "original_display_size": [
+      507,
+      760
+    ],
+    "staged_display_size": [
+      507,
+      760
+    ]
+  },
+  {
+    "source_path": "commission-modal-assets/envelope-closed.png",
+    "review_render": "studio/review-renders/batch11/envelope-closed_png-pair.webp",
+    "original_display_size": [
+      760,
+      554
+    ],
+    "staged_display_size": [
+      760,
+      554
+    ]
+  },
+  {
+    "source_path": "commission-modal-assets/envelope-closed.webp",
+    "review_render": "studio/review-renders/batch11/envelope-closed_webp-pair.webp",
+    "original_display_size": [
+      760,
+      554
+    ],
+    "staged_display_size": [
+      760,
+      554
+    ]
+  },
+  {
+    "source_path": "commission-modal-assets/envelope-empty.png",
+    "review_render": "studio/review-renders/batch11/envelope-empty_png-pair.webp",
+    "original_display_size": [
+      753,
+      760
+    ],
+    "staged_display_size": [
+      753,
+      760
+    ]
+  },
+  {
+    "source_path": "commission-modal-assets/envelope-empty.webp",
+    "review_render": "studio/review-renders/batch11/envelope-empty_webp-pair.webp",
+    "original_display_size": [
+      753,
+      760
+    ],
+    "staged_display_size": [
+      753,
+      760
+    ]
+  },
+  {
+    "source_path": "commission-modal-assets/envelope-open-letter.png",
+    "review_render": "studio/review-renders/batch11/envelope-open-letter_png-pair.webp",
+    "original_display_size": [
+      760,
+      757
+    ],
+    "staged_display_size": [
+      760,
+      757
+    ]
+  },
+  {
+    "source_path": "commission-modal-assets/envelope-open-letter.webp",
+    "review_render": "studio/review-renders/batch11/envelope-open-letter_webp-pair.webp",
+    "original_display_size": [
+      760,
+      757
+    ],
+    "staged_display_size": [
+      760,
+      757
+    ]
+  },
+  {
+    "source_path": "commission-modal-assets/map-slot-button.webp",
+    "review_render": "studio/review-renders/batch11/map-slot-button_webp-pair.webp",
+    "original_display_size": [
+      760,
+      507
+    ],
+    "staged_display_size": [
+      760,
+      507
+    ]
+  },
+  {
+    "source_path": "commission-modal-assets/modal-bg.webp",
+    "review_render": "studio/review-renders/batch11/modal-bg_webp-pair.webp",
+    "original_display_size": [
+      760,
+      507
+    ],
+    "staged_display_size": [
+      760,
+      507
+    ]
+  },
+  {
+    "source_path": "itch-assets/arcane-ui-cover.png",
+    "review_render": "studio/review-renders/batch11/arcane-ui-cover_png-pair.webp",
+    "original_display_size": [
+      760,
+      503
+    ],
+    "staged_display_size": [
+      760,
+      503
+    ]
+  },
+  {
+    "source_path": "itch-assets/bookmaker-cover-itch.jpg",
+    "review_render": "studio/review-renders/batch11/bookmaker-cover-itch_jpg-pair.webp",
+    "original_display_size": [
+      760,
+      603
+    ],
+    "staged_display_size": [
+      760,
+      603
+    ]
+  }
+]
