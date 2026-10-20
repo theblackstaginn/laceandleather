@@ -398,7 +398,7 @@
     right:clamp(12px,2.5vw,44px);
     bottom:clamp(10px,2.2vh,26px);
     width:auto;
-    max-height:min(50dvh,460px);
+    max-height:calc(100dvh - 44px);
     border:1px solid rgba(230,192,134,.58);
     border-radius:16px;
     box-shadow:0 -22px 78px rgba(0,0,0,.84);
@@ -586,3 +586,4 @@
     opacity:.25;
   }
 }
+
