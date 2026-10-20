@@ -487,21 +487,63 @@
       border-bottom-color: rgba(250,230,180,.45);
     }
 
+    /* The specimen-card artwork is a complete illustrated sign.
+       Preserve the entire 16:9 canvas at every viewport width. */
+    .specimen-home-card{
+      padding:16px;
+      overflow:visible;
+    }
+
+    .specimen-home-card .h2{
+      font-size:clamp(23px,3vw,34px);
+      line-height:1.2;
+      margin:2px auto 6px;
+    }
+
+    .specimen-home-card .specimen-card-lede{
+      margin:0 0 4px;
+      line-height:1.45;
+    }
+
     .buttons-banner-link{
       display:block;
       width:100%;
-      max-width:980px;
-      margin:14px auto 0;
+      max-width:none;
+      margin:12px auto 0;
+      overflow:visible;
       text-decoration:none;
     }
 
     .buttons-banner-img{
       display:block;
       width:100%;
+      max-width:100%;
       height:auto;
-      border-radius:16px;
+      max-height:none;
+      aspect-ratio:auto;
+      object-fit:contain;
+      object-position:center;
+      box-sizing:border-box;
+      border-radius:14px;
       border:1px solid rgba(255,255,255,.10);
       box-shadow:0 18px 42px rgba(0,0,0,.55);
+    }
+
+    @media (max-width:600px){
+      /* Leave nearly all of the card width to the image on phones. */
+      .specimen-home-card{ padding:10px 6px 12px; }
+      .specimen-home-card .h2{
+        font-size:clamp(22px,5.5vw,27px);
+        margin:4px 7px 6px;
+        line-height:1.16;
+      }
+      .specimen-home-card .specimen-card-lede{
+        font-size:14px;
+        line-height:1.35;
+        margin:0 7px 6px;
+      }
+      .specimen-home-card .buttons-banner-link{ margin:9px 0 0; }
+      .specimen-home-card .buttons-banner-img{ border-radius:8px; }
     }
 
     #cartModal .modal-body{
@@ -863,14 +905,16 @@
       </div>
     </section>
 
-    <section class="glass section" aria-label="Buttons and stickers">
-      <h2 class="h2">Check out our NEW buttons &amp; stickers!</h2>
-      <p class="muted">Printable sticker sheets · scrapbook elements · RPG UI buttons · digital assets</p>
+    <section class="glass section specimen-home-card" aria-label="The Bookmaker's Specimen Cabinet">
+      <h2 class="h2">Explore the Specimen Cabinet</h2>
+      <p class="muted specimen-card-lede">Wax seals, books &amp; keys, celestial curiosities, lunar specimens and more.</p>
 
-      <a href="./buttons.html" class="buttons-banner-link" aria-label="Browse fantasy buttons and stickers">
+      <a href="./buttons.html" class="buttons-banner-link" aria-label="Explore the Bookmaker's Specimen Cabinet">
         <img decoding="async"
-          src="./assets/button-banner.webp"
-          alt="Fantasy Buttons & Stickers"
+          src="./assets/specimen-cabinet-home-banner-20261019.webp"
+          width="1536"
+          height="864"
+          alt="The Bookmaker's Specimen Cabinet: a luna moth above an antique sign, surrounded by wax seals, books, keys, celestial ornaments and crystals"
           class="buttons-banner-img"
           loading="lazy"
         />
