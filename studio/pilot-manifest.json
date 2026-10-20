@@ -1,0 +1,42 @@
+{
+  "standard": "L&L Studio asset standard",
+  "version": 1,
+  "mode": "metadata-only, pixel- and payload-preserving",
+  "studio": "Lace & Leather Arcane Studio",
+  "creator": "Lace & Leather Arcane",
+  "copyright": "Copyright 2026 Lace & Leather Arcane",
+  "website": "https://laceleatherarcane.com",
+  "ownership_basis": "Selected public Lace & Leather Arcane marketing assets in the owned L&L storefront repository; uncertain provenance is excluded by runtime checks",
+  "files": [
+    {
+      "path": "assets/previews/grimoire/grimoire-01-preview.webp",
+      "kind": "public L&L product-preview graphic",
+      "description": "Lace & Leather Arcane Grimoire Series sample page preview"
+    },
+    {
+      "path": "assets/previews/mapmaker/mapmaker-03-preview.webp",
+      "kind": "public L&L product-preview graphic",
+      "description": "Lace & Leather Arcane Mapmakers aged parchment texture preview"
+    },
+    {
+      "path": "assets/previews/volone/volone-01-preview.webp",
+      "kind": "public L&L product-preview graphic",
+      "description": "Lace & Leather Arcane Parchment Light Volume One texture preview"
+    },
+    {
+      "path": "assets/etsy-previews/grimoire-vol-3/grimoire-vol-3-01-hero.jpg",
+      "kind": "public L&L marketing preview",
+      "description": "Grimoire Series Volume Three Etsy product-cover marketing preview"
+    },
+    {
+      "path": "assets/etsy-previews/mapmakers/mapmakers-01-hero.jpg",
+      "kind": "public L&L marketing preview",
+      "description": "Mapmakers Series Etsy product-cover marketing preview"
+    },
+    {
+      "path": "assets/grimoire/grim-thumb.png",
+      "kind": "public L&L product thumbnail",
+      "description": "Grimoire Series manuscript-texture product thumbnail"
+    }
+  ]
+}
