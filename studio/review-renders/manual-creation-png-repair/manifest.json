@@ -1,0 +1,50 @@
+[
+  {
+    "source_path": "assets/creation/creation_1.png",
+    "review_render": "studio/review-renders/manual-creation-png-repair/creation_1-pair.webp",
+    "original_size": [
+      760,
+      507
+    ],
+    "repaired_size": [
+      760,
+      507
+    ]
+  },
+  {
+    "source_path": "assets/creation/creation_2.png",
+    "review_render": "studio/review-renders/manual-creation-png-repair/creation_2-pair.webp",
+    "original_size": [
+      760,
+      507
+    ],
+    "repaired_size": [
+      760,
+      507
+    ]
+  },
+  {
+    "source_path": "assets/creation/creation_3.png",
+    "review_render": "studio/review-renders/manual-creation-png-repair/creation_3-pair.webp",
+    "original_size": [
+      760,
+      507
+    ],
+    "repaired_size": [
+      760,
+      507
+    ]
+  },
+  {
+    "source_path": "assets/creation/creation_4.png",
+    "review_render": "studio/review-renders/manual-creation-png-repair/creation_4-pair.webp",
+    "original_size": [
+      760,
+      507
+    ],
+    "repaired_size": [
+      760,
+      507
+    ]
+  }
+]
