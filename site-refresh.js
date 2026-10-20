@@ -90,7 +90,12 @@
   let startY=0;
   let currentPull=0;
 
-  const atTop=()=> (window.scrollY || document.documentElement.scrollTop || 0) <= 1;
+  // A fixed-body modal makes Safari report scrollY=0. Never mistake that
+  // for a user pulling down from the top of the underlying page.
+  const overlayOpen=()=> document.documentElement.classList.contains("no-scroll")
+    || !!document.querySelector(".modal.open, dialog[open], .specimen-drawer.is-open");
+  const atTop=()=> !overlayOpen()
+    && (window.scrollY || document.documentElement.scrollTop || 0) <= 1;
 
   const isInteractive=target =>
     !!target?.closest?.("input, textarea, select, button, a, [contenteditable='true']");
