@@ -1,16 +1,7 @@
 name: L&L Studio background image metadata batches
 
 on:
-  push:
-    branches:
-      - ll-studio-safe-batches-20261020
-    paths:
-      - "studio/ll_metadata_batches.py"
-      - "studio/batch-policy.json"
-      - ".github/workflows/ll-studio-metadata-batches.yml"
-  schedule:
-    # Four batches per day, at six-hour intervals. GitHub schedules may be delayed.
-    - cron: "23 1,7,13,19 * * *"
+  # Hold to manual dispatch while visual inspection gate is being tested.
   workflow_dispatch:
 
 permissions:
