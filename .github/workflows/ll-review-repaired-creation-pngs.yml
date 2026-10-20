@@ -1,0 +1,85 @@
+name: Review repaired creation PNGs
+
+on:
+  push:
+    branches:
+      - ll-review-repair-creation-pngs-20261020
+    paths:
+      - ".github/workflows/ll-review-repaired-creation-pngs.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout helper branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check "Pillow==11.3.0"
+
+      - name: Render original vs repaired pairs
+        shell: bash
+        run: |
+          git fetch origin main:refs/remotes/origin/main
+          python - <<'PY'
+          import io, json, subprocess
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageOps
+
+          targets=[
+              "assets/creation/creation_1.png",
+              "assets/creation/creation_2.png",
+              "assets/creation/creation_3.png",
+              "assets/creation/creation_4.png",
+          ]
+          out=Path("studio/review-renders/manual-creation-png-repair")
+          out.mkdir(parents=True,exist_ok=True)
+          manifest=[]
+
+          def fit(raw):
+              im=Image.open(io.BytesIO(raw))
+              im=ImageOps.exif_transpose(im).convert("RGB")
+              im.thumbnail((760,760),Image.Resampling.LANCZOS)
+              return im
+
+          for path in targets:
+              original_raw=subprocess.check_output(["git","show",f"origin/main:{path}"])
+              repaired_raw=Path(path).read_bytes()
+              original=fit(original_raw)
+              repaired=fit(repaired_raw)
+              top=34
+              gap=12
+              w=original.width+repaired.width+gap
+              h=max(original.height,repaired.height)+top
+              canvas=Image.new("RGB",(w,h),(35,35,35))
+              draw=ImageDraw.Draw(canvas)
+              draw.text((8,8),"ORIGINAL JPEG-BYTE FILE",fill=(240,240,240))
+              draw.text((original.width+gap+8,8),"REPAIRED TRUE PNG",fill=(240,240,240))
+              canvas.paste(original,(0,top))
+              canvas.paste(repaired,(original.width+gap,top))
+              dest=out/(Path(path).stem+"-pair.webp")
+              canvas.save(dest,"WEBP",quality=90,method=6)
+              manifest.append({"source_path":path,"review_render":str(dest),"original_size":list(original.size),"repaired_size":list(repaired.size)})
+
+          (out/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n")
+          PY
+
+      - name: Commit review-only renders
+        shell: bash
+        run: |
+          git config user.name "L&L Review Render Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add studio/review-renders/manual-creation-png-repair
+          git commit -m "review: add creation PNG repair comparison renders"
+          git push
