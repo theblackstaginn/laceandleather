@@ -9,15 +9,7 @@
   "remaining_unchecked": 0,
   "requires_manual_review": 0,
   "protected_provenance_preserved": 6,
-  "protected_provenance_paths": [
-    "assets/grimoire/grim-thumb.png",
-    "assets/mapmaker/mapmaker-cover.png",
-    "assets/vol-one/vol-1-thumbnail.png",
-    "commission-modal-assets/map-slot-button.png",
-    "commission-modal-assets/modal-bg.png",
-    "itch-assets/bookmaker-cover-source.png"
-  ],
   "auto_batches_complete": true,
   "live_site_image_code_changed": false,
-  "safety": "Six source originals with authenticity credentials were intentionally left byte-identical. Their provenance metadata was preserved rather than overwritten; no live storefront HTML/CSS/JS references those PNG sources."
+  "safety": "On batch failure nothing is committed. Original pixels, alpha, ICC, frames and compressed picture data required to match."
 }
