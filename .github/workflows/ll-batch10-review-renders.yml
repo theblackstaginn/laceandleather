@@ -1,0 +1,92 @@
+name: Batch 10 review-only renders
+
+on:
+  push:
+    branches:
+      - ll-review-renders-39463360392
+    paths:
+      - ".github/workflows/ll-batch10-review-renders.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  render-pairs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout helper branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check "Pillow==11.3.0"
+
+      - name: Render all updated images for review
+        shell: bash
+        run: |
+          git fetch origin main:refs/remotes/origin/main
+          python - <<'PY'
+          import io, json, subprocess
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageOps
+
+          summary=json.loads(Path("studio/batch-last-result.json").read_text())
+          targets=summary["updated_paths"]
+          out=Path("studio/review-renders/batch10")
+          out.mkdir(parents=True, exist_ok=True)
+          manifest=[]
+
+          def checker(size, block=24):
+              bg=Image.new("RGB", size, (205,205,205))
+              d=ImageDraw.Draw(bg)
+              for y in range(0,size[1],block):
+                  for x in range(0,size[0],block):
+                      if ((x//block)+(y//block))%2:
+                          d.rectangle((x,y,min(x+block-1,size[0]-1),min(y+block-1,size[1]-1)),fill=(235,235,235))
+              return bg
+
+          def prepare(raw):
+              im=Image.open(io.BytesIO(raw))
+              im=ImageOps.exif_transpose(im).convert("RGBA")
+              im.thumbnail((760,760),Image.Resampling.LANCZOS)
+              bg=checker(im.size)
+              bg.paste(im,(0,0),im)
+              return bg
+
+          for path in targets:
+              original_bytes=subprocess.check_output(["git","show",f"origin/main:{path}"])
+              staged_bytes=Path(path).read_bytes()
+              o=prepare(original_bytes)
+              s=prepare(staged_bytes)
+              top=34
+              gap=12
+              w=o.width+s.width+gap
+              h=max(o.height,s.height)+top
+              canvas=Image.new("RGB",(w,h),(35,35,35))
+              draw=ImageDraw.Draw(canvas)
+              draw.text((8,8),"ORIGINAL MAIN",fill=(240,240,240))
+              draw.text((o.width+gap+8,8),"STAGED",fill=(240,240,240))
+              canvas.paste(o,(0,top))
+              canvas.paste(s,(o.width+gap,top))
+              dest=out/(Path(path).name.replace(".", "_")+"-pair.webp")
+              canvas.save(dest,"WEBP",quality=88,method=6)
+              manifest.append({"source_path":path,"review_render":str(dest),"original_display_size":list(o.size),"staged_display_size":list(s.size)})
+
+          (out/"manifest.json").write_text(json.dumps(manifest,indent=2)+"\n")
+          PY
+
+      - name: Commit review-only renders
+        shell: bash
+        run: |
+          git config user.name "L&L Review Render Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add studio/review-renders/batch10
+          git commit -m "review: add batch ten comparison renders"
+          git push
