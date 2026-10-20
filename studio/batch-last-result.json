@@ -1,33 +1,27 @@
 {
   "schema_version": 1,
   "eligible_public_images": 146,
-  "retrofitted_this_run": 11,
+  "retrofitted_this_run": 12,
   "updated_paths": [
-    "assets/previews/buttons/amber-bronze-preview.webp",
-    "assets/previews/buttons/amethyst-frame-preview.webp",
-    "assets/previews/buttons/amethyst-rectangle-preview.webp",
-    "assets/previews/buttons/bronze-x-sheild-preview.webp",
-    "assets/previews/buttons/emerald-oval-preview.webp",
-    "assets/previews/buttons/emerald-x-preview.webp",
-    "assets/previews/buttons/green-moon-preview.webp",
-    "assets/previews/buttons/grn-wax-book-preview.webp",
-    "assets/previews/buttons/lantern-preview.webp",
-    "assets/previews/buttons/moon-green-preview.webp",
-    "assets/previews/buttons/moon-parch-clean-preview.webp"
+    "assets/previews/buttons/purple-arrow-preview.webp",
+    "assets/previews/buttons/purple-wax-crystal-preview.webp",
+    "assets/previews/buttons/purple-x-shield-preview.webp",
+    "assets/previews/buttons/red-arrow-preview.webp",
+    "assets/previews/buttons/red-parch-arrow-preview.webp",
+    "assets/previews/buttons/red-stag-preview.webp",
+    "assets/previews/buttons/red-wax-feather-preview.webp",
+    "assets/previews/buttons/red-x-bronze-preview.webp",
+    "assets/previews/buttons/red-x-preview.webp",
+    "assets/previews/buttons/red-x-shield-preview.webp",
+    "assets/previews/buttons/ruby-plate-preview.webp",
+    "assets/previews/buttons/sapphire-arrow-preview.webp"
   ],
   "already_credited_new_this_run": 0,
-  "held_for_rights_or_integrity_review_this_run": [
-    {
-      "path": "assets/previews/buttons/blue-naut-wax-preview.webp",
-      "reason": "preexisting_preview_checkerboard_needs_visual_design_review"
-    }
-  ],
-  "previously_completed_or_held": 0,
-  "remaining_unchecked": 134,
+  "held_for_rights_or_integrity_review_this_run": [],
+  "previously_completed_or_held": 12,
+  "remaining_unchecked": 122,
   "requires_manual_review": 1,
   "auto_batches_complete": false,
   "live_site_image_code_changed": false,
-  "safety": "On batch failure nothing is committed. Original pixels, alpha, ICC, frames and compressed picture data required to match.",
-  "visual_approval_file": "studio/visual-review-20261020-batch01.json",
-  "visual_approval_status": "11 approved; 1 held, original to be restored"
+  "safety": "On batch failure nothing is committed. Original pixels, alpha, ICC, frames and compressed picture data required to match."
 }
