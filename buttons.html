@@ -666,7 +666,7 @@
 
   <!-- Shared site styles, followed by page-specific styles. -->
   <link rel="stylesheet" href="styles.css?v=LL-20261018-TYPE1" />
-  <link rel="stylesheet" href="./buttons.css?v=LL-20261019-OXBLOOD1" />
+  <link rel="stylesheet" href="./buttons.css?v=LL-20261019-DRAWERSCROLL1" />
   <link rel="stylesheet" href="./ward.css?v=LL-20261016-WARD2" />
   <link rel="stylesheet" href="./buttons-desktop.css?v=LL-20261019-PLAQUE-SPARKLE6" />
 </head>
@@ -810,7 +810,23 @@
     </div>
     <button id="drawerClose" class="drawer-close" type="button">Close drawer</button>
   </header>
-  <div id="drawerTrack" class="drawer-track" role="list"></div>
+  <div class="drawer-track-wrap">
+    <div id="drawerTrack" class="drawer-track" role="list"></div>
+    <div
+      id="drawerScrollRail"
+      class="drawer-scroll-rail"
+      role="scrollbar"
+      aria-label="Scroll specimens horizontally"
+      aria-controls="drawerTrack"
+      aria-orientation="vertical"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      tabindex="0"
+    >
+      <div id="drawerScrollThumb" class="drawer-scroll-thumb" aria-hidden="true"></div>
+    </div>
+  </div>
   <div class="drawer-foot">Tap the artwork to examine it. Use Add to place a specimen in your cart.</div>
 </section>
 
@@ -903,6 +919,8 @@
   const drawer = document.getElementById("specimenDrawer");
   const drawerTitle = document.getElementById("drawerTitle");
   const drawerTrack = document.getElementById("drawerTrack");
+  const drawerScrollRail = document.getElementById("drawerScrollRail");
+  const drawerScrollThumb = document.getElementById("drawerScrollThumb");
   const drawerClose = document.getElementById("drawerClose");
 
   const preview = document.getElementById("specimenPreview");
@@ -1139,6 +1157,116 @@
     });
   }
 
+  function drawerMaxScroll(){
+    return Math.max(0, drawerTrack.scrollWidth - drawerTrack.clientWidth);
+  }
+
+  function updateDrawerScrollbar(){
+    if(!drawerScrollRail || !drawerScrollThumb) return;
+
+    const max = drawerMaxScroll();
+    const railHeight = drawerScrollRail.clientHeight;
+    const visibleRatio = drawerTrack.scrollWidth
+      ? Math.min(1, drawerTrack.clientWidth / drawerTrack.scrollWidth)
+      : 1;
+
+    const thumbHeight = Math.max(30, Math.round(railHeight * visibleRatio));
+    const travel = Math.max(0, railHeight - thumbHeight);
+    const progress = max > 0 ? drawerTrack.scrollLeft / max : 0;
+
+    drawerScrollThumb.style.height = `${thumbHeight}px`;
+    drawerScrollThumb.style.transform = `translateY(${Math.round(travel * progress)}px)`;
+    drawerScrollRail.classList.toggle("is-disabled", max <= 1);
+    drawerScrollRail.setAttribute("aria-valuenow", String(Math.round(progress * 100)));
+  }
+
+  function setDrawerScrollFromRail(clientY, centerThumb = true){
+    const max = drawerMaxScroll();
+    if(max <= 0 || !drawerScrollRail || !drawerScrollThumb) return;
+
+    const railRect = drawerScrollRail.getBoundingClientRect();
+    const thumbHeight = drawerScrollThumb.offsetHeight;
+    const travel = Math.max(1, railRect.height - thumbHeight);
+
+    let y = clientY - railRect.top;
+    if(centerThumb) y -= thumbHeight / 2;
+    const progress = Math.max(0, Math.min(1, y / travel));
+
+    drawerTrack.scrollLeft = progress * max;
+  }
+
+  let drawerScrollbarDragOffset = 0;
+
+  drawerScrollThumb?.addEventListener("pointerdown", (e) => {
+    if(drawerMaxScroll() <= 0) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const thumbRect = drawerScrollThumb.getBoundingClientRect();
+    drawerScrollbarDragOffset = e.clientY - thumbRect.top;
+    drawerScrollThumb.setPointerCapture?.(e.pointerId);
+    drawerScrollRail.classList.add("is-dragging");
+  });
+
+  drawerScrollThumb?.addEventListener("pointermove", (e) => {
+    if(!drawerScrollThumb.hasPointerCapture?.(e.pointerId)) return;
+    const railRect = drawerScrollRail.getBoundingClientRect();
+    const thumbHeight = drawerScrollThumb.offsetHeight;
+    const travel = Math.max(1, railRect.height - thumbHeight);
+    const y = e.clientY - railRect.top - drawerScrollbarDragOffset;
+    const progress = Math.max(0, Math.min(1, y / travel));
+    drawerTrack.scrollLeft = progress * drawerMaxScroll();
+  });
+
+  drawerScrollThumb?.addEventListener("pointerup", (e) => {
+    drawerScrollThumb.releasePointerCapture?.(e.pointerId);
+    drawerScrollRail.classList.remove("is-dragging");
+  });
+
+  drawerScrollRail?.addEventListener("pointerdown", (e) => {
+    if(e.target === drawerScrollThumb || drawerMaxScroll() <= 0) return;
+    e.preventDefault();
+    setDrawerScrollFromRail(e.clientY, true);
+  });
+
+  drawerScrollRail?.addEventListener("keydown", (e) => {
+    const max = drawerMaxScroll();
+    if(max <= 0) return;
+
+    const smallStep = Math.max(90, drawerTrack.clientWidth * 0.16);
+    const largeStep = Math.max(180, drawerTrack.clientWidth * 0.72);
+    let next = drawerTrack.scrollLeft;
+
+    if(e.key === "ArrowDown" || e.key === "ArrowRight") next += smallStep;
+    else if(e.key === "ArrowUp" || e.key === "ArrowLeft") next -= smallStep;
+    else if(e.key === "PageDown") next += largeStep;
+    else if(e.key === "PageUp") next -= largeStep;
+    else if(e.key === "Home") next = 0;
+    else if(e.key === "End") next = max;
+    else return;
+
+    e.preventDefault();
+    drawerTrack.scrollTo({ left: Math.max(0, Math.min(max, next)), behavior:"smooth" });
+  });
+
+  // Desktop mouse wheels now move through the specimen row horizontally.
+  drawerTrack.addEventListener("wheel", (e) => {
+    const max = drawerMaxScroll();
+    if(max <= 0) return;
+
+    const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+    if(!delta) return;
+
+    e.preventDefault();
+    drawerTrack.scrollLeft += delta;
+  }, { passive:false });
+
+  drawerTrack.addEventListener("scroll", updateDrawerScrollbar, { passive:true });
+  window.addEventListener("resize", updateDrawerScrollbar);
+
+  if("ResizeObserver" in window){
+    new ResizeObserver(updateDrawerScrollbar).observe(drawerTrack);
+  }
+
   function openDrawer(categoryKey, trigger){
     const def = CATEGORIES[categoryKey];
     if(!def) return;
@@ -1161,6 +1289,7 @@
     setDrawerSelection(categoryKey);
     drawerTrack.scrollLeft = 0;
     drawerTrack.scrollTop = 0;
+    requestAnimationFrame(updateDrawerScrollbar);
     drawerClose.focus({ preventScroll:true });
   }
 
