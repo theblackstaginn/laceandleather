@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-20",
+  "batch": "10",
+  "staging_branch": "ll-studio-visual-39463360392",
+  "staging_commit": "6fd647c69f09a46f6ece37eb874b14f5b7e02635",
+  "review_method": "Every updated image was visually inspected as an original-versus-staged comparison render on an isolated non-deploying helper branch. PNG/WebP twins use extension-specific filenames and transparency is composited over a checkerboard for review.",
+  "helper_branch": "ll-review-renders-39463360392",
+  "helper_render_directory": "studio/review-renders/batch10",
+  "total_reviewed": 12,
+  "approved": 12,
+  "held_from_updated_batch": 0,
+  "result": "all_12_updated_images_approved",
+  "separate_unchanged_holds": [],
+  "safeguards": [
+    "Helper comparison renders and helper workflow files are not on the staging branch and are not part of the merge candidate.",
+    "No customer download masters, client-owned/client-supplied media, or site code were modified.",
+    "GitHub Actions independently required matching decoded pixels, alpha, ICC profile, frame count, and compressed picture data for every edited image."
+  ],
+  "reviews": [
+    {
+      "path": "L&L-buttons/cart.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "909e3cd59bfd32f2367c5293415f2f843d7a845f9d202e17f95e4bd91cde4dda",
+      "staged_sha256": "2beae5f225193884e853b3ea37c066380f50dd35f33c5a8b913d0092a33b172f",
+      "pixel_sha256": "1e4d6618b379b3c83b27f0f5b91cd6bbee93f3528efc0f5ab951de507d96c63f",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged button assets visually match: lettering/logo, bronze frame, ornament, texture, dimensions, crop, highlights, shadows, and checkerboard-confirmed transparency/edge treatment are unchanged."
+    },
+    {
+      "path": "L&L-buttons/clear-cart.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "94295756e653eb5f19a6c000a54cff49c8be30d8d5f8f2b91259362740ac4432",
+      "staged_sha256": "fdbb201f0271f181d08bad01d4f3e57dca7cdf006e96eddc83eb8d2ea238fb4f",
+      "pixel_sha256": "93c53ac5d25f941b93caab55d841f8d798e52e6c99a4f46801c695fc9f570e38",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged button assets visually match: lettering/logo, bronze frame, ornament, texture, dimensions, crop, highlights, shadows, and checkerboard-confirmed transparency/edge treatment are unchanged."
+    },
+    {
+      "path": "L&L-buttons/clear-cart.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "d10bad4be67efa012695fe32a065911ccb9eba19b6ae63a36ddb2a2f502209de",
+      "staged_sha256": "b0ed97b17664e22d0ad72aaf9d72864604d29539f6fbf4de9e6595da880ddd19",
+      "pixel_sha256": "1ebdb4d77c996430115ed629b3e44b9f589b6f2e5db80f9686f1a0b2bd083b22",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged button assets visually match: lettering/logo, bronze frame, ornament, texture, dimensions, crop, highlights, shadows, and checkerboard-confirmed transparency/edge treatment are unchanged."
+    },
+    {
+      "path": "L&L-buttons/confirm-order.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "05c5c939581677fd090ded0963047f5dd9e0dde52383356b354988f78e55c449",
+      "staged_sha256": "80f57c4354d3b1d658ac7608235ca90576eb82a7e148ba7cce24a5af09f84003",
+      "pixel_sha256": "dd7999c9e12b0a85bd3b9dbbacfb91d274f45951a205bd37608143b0de5c771f",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged button assets visually match: lettering/logo, bronze frame, ornament, texture, dimensions, crop, highlights, shadows, and checkerboard-confirmed transparency/edge treatment are unchanged."
+    },
+    {
+      "path": "L&L-buttons/confirm-order.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "34daa22fcb5f587433ff13aea0c9756c7cd73daeb583e9b442db88ec5f86cc8f",
+      "staged_sha256": "c22d6fedead7cb38e13fdbdcf3790d1d77220480f93fdf83c8d3fb7d1ac50c8c",
+      "pixel_sha256": "0e4d93a6c808aa9642cc56f885aaaf38fe33626ec2f6e2c6a9650e44d12a2bd6",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged button assets visually match: lettering/logo, bronze frame, ornament, texture, dimensions, crop, highlights, shadows, and checkerboard-confirmed transparency/edge treatment are unchanged."
+    },
+    {
+      "path": "L&L-buttons/paid.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "73c943db1b7d6d9a83b55d04c0fdd3bd8189cbf4099a4ede5be604b99f6789e4",
+      "staged_sha256": "e08adceff316a3e88f3650fd73b2e50105cd88184f447e34e6e87a564166d02a",
+      "pixel_sha256": "e189f28de64b57c2bce936c87747160a301740a327cb681bf3df4cae844a3e02",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged button assets visually match: lettering/logo, bronze frame, ornament, texture, dimensions, crop, highlights, shadows, and checkerboard-confirmed transparency/edge treatment are unchanged."
+    },
+    {
+      "path": "L&L-buttons/paid.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "812f1eeff378b041025f80cb1b5599f8d59bfe25411f52373b546537b681e1b3",
+      "staged_sha256": "47ab4b9212e592be4d3f95671b29097490e4fa486476c8b17b28a267c3ae3138",
+      "pixel_sha256": "4e311a7b6f2d4b06428f1b73f9d51494c632e6434a96db49a626adae8ded3986",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged button assets visually match: lettering/logo, bronze frame, ornament, texture, dimensions, crop, highlights, shadows, and checkerboard-confirmed transparency/edge treatment are unchanged."
+    },
+    {
+      "path": "L&L-buttons/paypad.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "27e38c1c37d5db42c93e8163a9aa878340ffd4a4915ea534b8d30f32267f0cc8",
+      "staged_sha256": "e226581fcfe9e590a16787f55ccb6622ffe3a5513daf91b63b626992746bac79",
+      "pixel_sha256": "2d26ba83efc95fa62978908666a1f30d2b4f1861d1b04ff0c3a6c286e995cc3d",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged button assets visually match: lettering/logo, bronze frame, ornament, texture, dimensions, crop, highlights, shadows, and checkerboard-confirmed transparency/edge treatment are unchanged."
+    },
+    {
+      "path": "L&L-buttons/paypad.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "4813bd59c5d64b55604ffb2aa090fd585b7466a6149ffa0e4803a39d1a78d36d",
+      "staged_sha256": "2539df1096f6b1829f487a05e7386ef81b3a72f43468a83f8cc281f76f46009d",
+      "pixel_sha256": "09a56e56743e47e8ad5379f003d733f621b71d89f425809400652d9b208c3674",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged button assets visually match: lettering/logo, bronze frame, ornament, texture, dimensions, crop, highlights, shadows, and checkerboard-confirmed transparency/edge treatment are unchanged."
+    },
+    {
+      "path": "L&L-buttons/paypal.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "8e01883810114df3203dfcc05933aa35471116680749b00c4a77277920bb7b2f",
+      "staged_sha256": "9fb2663ed25afaff1e2cd22fdd8c3a5b0b11325b4aaced2748e9c82eb6810315",
+      "pixel_sha256": "6d9165db6f6e884181acaa37b50fb6ddaa2f37bcd5d33c6b1ac438f83dbfba2e",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged button assets visually match: lettering/logo, bronze frame, ornament, texture, dimensions, crop, highlights, shadows, and checkerboard-confirmed transparency/edge treatment are unchanged."
+    },
+    {
+      "path": "L&L-buttons/paypal.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "3eb82d6a501738e3628be95f91a62093c1587d915fe969b556a3a81a65c84ec1",
+      "staged_sha256": "008ffd0147c56ee50c521ccd69c1ff6f06c3a38b6d3b540e0610ddbcf33597f0",
+      "pixel_sha256": "daf70ef400ff8de42ac2d8170d06a42dda732cab336452a67781503234268cde",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged button assets visually match: lettering/logo, bronze frame, ornament, texture, dimensions, crop, highlights, shadows, and checkerboard-confirmed transparency/edge treatment are unchanged."
+    },
+    {
+      "path": "commission-modal-assets/commission-letter.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "0ff012621f69403b1c00804dd4f9d227a23fb4f865e7cc81ef7b690df540cea5",
+      "staged_sha256": "0c60d8a2a5ebddd07b078dd027fd7e00949bc5fa88d0b602c1f6f7f87e834916",
+      "pixel_sha256": "b110a03a95a9750bf5c62317674c3f6e7ebaa1789aa77a89f5c890748739f7c6",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged commission-letter artwork visually matches: parchment edge tears, texture, typography, divider ornament, line wrapping, spacing, crop, transparency, and color are unchanged."
+    }
+  ]
+}

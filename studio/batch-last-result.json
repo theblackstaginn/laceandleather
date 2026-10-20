@@ -3,44 +3,23 @@
   "eligible_public_images": 146,
   "retrofitted_this_run": 12,
   "updated_paths": [
-    "assets/creation/creation_3.webp",
-    "assets/creation/creation_4.webp",
-    "assets/grimoire/grim-thumb.webp",
-    "assets/mapmaker/mapmaker-cover.webp",
-    "assets/smithy/smithy-cover.png",
-    "assets/smithy/smithy-cover.webp",
-    "assets/vol-one/vol-1-thumbnail.webp",
-    "L&L-buttons/add-to-cart.png",
-    "L&L-buttons/add-to-cart.webp",
-    "L&L-buttons/back.png",
-    "L&L-buttons/back.webp",
-    "L&L-buttons/cart.png"
+    "L&L-buttons/cart.webp",
+    "L&L-buttons/clear-cart.png",
+    "L&L-buttons/clear-cart.webp",
+    "L&L-buttons/confirm-order.png",
+    "L&L-buttons/confirm-order.webp",
+    "L&L-buttons/paid.png",
+    "L&L-buttons/paid.webp",
+    "L&L-buttons/paypad.png",
+    "L&L-buttons/paypad.webp",
+    "L&L-buttons/paypal.png",
+    "L&L-buttons/paypal.webp",
+    "commission-modal-assets/commission-letter.png"
   ],
   "already_credited_new_this_run": 0,
-  "held_for_rights_or_integrity_review_this_run": [
-    {
-      "path": "assets/creation/creation_3.png",
-      "reason": "unsupported_or_unreadable_image"
-    },
-    {
-      "path": "assets/creation/creation_4.png",
-      "reason": "unsupported_or_unreadable_image"
-    },
-    {
-      "path": "assets/grimoire/grim-thumb.png",
-      "reason": "existing_authenticity_credentials"
-    },
-    {
-      "path": "assets/mapmaker/mapmaker-cover.png",
-      "reason": "existing_authenticity_credentials"
-    },
-    {
-      "path": "assets/vol-one/vol-1-thumbnail.png",
-      "reason": "existing_authenticity_credentials"
-    }
-  ],
-  "previously_completed_or_held": 103,
-  "remaining_unchecked": 26,
+  "held_for_rights_or_integrity_review_this_run": [],
+  "previously_completed_or_held": 120,
+  "remaining_unchecked": 14,
   "requires_manual_review": 8,
   "auto_batches_complete": false,
   "live_site_image_code_changed": false,
