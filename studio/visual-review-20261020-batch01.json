@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "project": "Lace & Leather Arcane",
+  "studio": "Lace & Leather Arcane Studio",
+  "date": "2026-10-20",
+  "reviewer": "ChatGPT (direct visual comparison of original and staged images)",
+  "method": "Each original and edited WebP opened and inspected side by side at source display size; compared composition, watermark, legibility, crop, colors, transparency depiction and obvious visual artifacts. GitHub Actions separately verified identical decoded pixels, alpha, ICC profile and encoded image payload.",
+  "approved_count": 11,
+  "held_count": 1,
+  "approval_scope": "Metadata-only changes. No correction or endorsement of any existing artwork defect.",
+  "entries": [
+    {
+      "path": "assets/previews/buttons/amber-bronze-preview.webp",
+      "source_sha256": "b7f1191c7aacffe8d22fb2971b780af25a804664ca07844b18a0e6cb7652fa76",
+      "staged_sha256": "6e4b30b0f85fe93e8fd417ff6f3fb8f00fb4e5578a08c63105101414ea12b5ab",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "APPROVE_METADATA_ONLY",
+      "comment": "Original and metadata-modified versions appear identical. L&L watermark and PREVIEW ONLY label preserved; no new clipping, smearing, color shift, or text alteration detected."
+    },
+    {
+      "path": "assets/previews/buttons/amethyst-frame-preview.webp",
+      "source_sha256": "196dedbf9f42817aa6f9f3ba493ea068ad565afdc5cfb41a74c3a535436c28f0",
+      "staged_sha256": "7420ba003eceaf612ca1dfdbde6d6904506ecb0a73ff94f6ee97913cca397eaa",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "APPROVE_METADATA_ONLY",
+      "comment": "Original and metadata-modified versions appear identical. L&L watermark and PREVIEW ONLY label preserved; no new clipping, smearing, color shift, or text alteration detected."
+    },
+    {
+      "path": "assets/previews/buttons/amethyst-rectangle-preview.webp",
+      "source_sha256": "27f3b27419ac6d0c29a77e2f2dc1ebd2254a412633be46ac4d02f00955136327",
+      "staged_sha256": "16c203bc64e9607e05e29fc00cd66830363af7d0bbc5b64883a572b2ea605433",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "APPROVE_METADATA_ONLY",
+      "comment": "Original and metadata-modified versions appear identical. L&L watermark and PREVIEW ONLY label preserved; no new clipping, smearing, color shift, or text alteration detected."
+    },
+    {
+      "path": "assets/previews/buttons/blue-naut-wax-preview.webp",
+      "source_sha256": "1d35fdcbaec413c2766feb901fb9ee3f0c19b9d43fe465ebafcbc62db8a5a557",
+      "staged_sha256": "1b41ebcab60f47a987caaa3d40a6cdbf0c3a2f2d571f6657ebc36a277da4afd5",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "HOLD_EXISTING_VISUAL_ARTIFACT",
+      "comment": "Checkerboard-style transparency backdrop visible within a rectangular area around the nautical wax-seal artwork in both original and staged preview. Hold this graphic for future design review; metadata-only change is safe but existing appearance should not be silently signed off."
+    },
+    {
+      "path": "assets/previews/buttons/bronze-x-sheild-preview.webp",
+      "source_sha256": "b042a7e23cb77c2699e556551049b9966cffdab1ac8c37b8a5861ccb25901506",
+      "staged_sha256": "ec70aba769f85b3d4153ce35dcc835d9f71485b7a072bdb7adee72b3e009ec7b",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "APPROVE_METADATA_ONLY",
+      "comment": "Original and metadata-modified versions appear identical. L&L watermark and PREVIEW ONLY label preserved; no new clipping, smearing, color shift, or text alteration detected."
+    },
+    {
+      "path": "assets/previews/buttons/emerald-oval-preview.webp",
+      "source_sha256": "a84a11cf99d88493a96f0be8a01a0dced62a81e030e02a22181feab0ca4ad780",
+      "staged_sha256": "ae928104e4ff590599820d6995e768ffdd4f653b051c4f6bf935194790df9b99",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "APPROVE_METADATA_ONLY",
+      "comment": "Original and metadata-modified versions appear identical. L&L watermark and PREVIEW ONLY label preserved; no new clipping, smearing, color shift, or text alteration detected."
+    },
+    {
+      "path": "assets/previews/buttons/emerald-x-preview.webp",
+      "source_sha256": "b8254035a37bccca58511bce539b195ea9cee48e1e07ef7edde3ed0dbc3161fa",
+      "staged_sha256": "990a738d368f023332573d08fa337c357121ad9de19848af429a0aa9110c8632",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "APPROVE_METADATA_ONLY",
+      "comment": "Original and metadata-modified versions appear identical. L&L watermark and PREVIEW ONLY label preserved; no new clipping, smearing, color shift, or text alteration detected."
+    },
+    {
+      "path": "assets/previews/buttons/green-moon-preview.webp",
+      "source_sha256": "67ca63a5236cf61b168e181096b5464413cb3fb53a965a4178c5c725fbf9fa41",
+      "staged_sha256": "f8aaeb815504e47f1ea38c31144f11986b8817b51d33a06b1d5caa4f741c3f1e",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "APPROVE_METADATA_ONLY",
+      "comment": "Original and metadata-modified versions appear identical. L&L watermark and PREVIEW ONLY label preserved; no new clipping, smearing, color shift, or text alteration detected."
+    },
+    {
+      "path": "assets/previews/buttons/grn-wax-book-preview.webp",
+      "source_sha256": "b6efa010858fe7386995b8c9b7e3bf27616e0e9157d0c6696e4667f77ddc409d",
+      "staged_sha256": "abc609b59b9a02ec279b9bda55512dbc68b02f8d02303635e8254740213de337",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "APPROVE_METADATA_ONLY",
+      "comment": "Original and metadata-modified versions appear identical. L&L watermark and PREVIEW ONLY label preserved; no new clipping, smearing, color shift, or text alteration detected."
+    },
+    {
+      "path": "assets/previews/buttons/lantern-preview.webp",
+      "source_sha256": "d8d2c45cb42d9148dfa33befaa61672227df7a53b2a4ab7e2d3acde57cebe91b",
+      "staged_sha256": "c5661f5cfb030e334738d79aff2e8cbf1eb33f1975db5c428d81346f724459ce",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "APPROVE_METADATA_ONLY",
+      "comment": "Original and metadata-modified versions appear identical. L&L watermark and PREVIEW ONLY label preserved; no new clipping, smearing, color shift, or text alteration detected."
+    },
+    {
+      "path": "assets/previews/buttons/moon-green-preview.webp",
+      "source_sha256": "cd15b5dc4ac77e9a31a7b3f639b6eea524dde44558658963bfc8794852226054",
+      "staged_sha256": "304512eb3ec84e4244d4425dead13a82e4907b3dde14d33fc277587bf6775771",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "APPROVE_METADATA_ONLY",
+      "comment": "Original and metadata-modified versions appear identical. L&L watermark and PREVIEW ONLY label preserved; no new clipping, smearing, color shift, or text alteration detected."
+    },
+    {
+      "path": "assets/previews/buttons/moon-parch-clean-preview.webp",
+      "source_sha256": "1aebc3813b58f02f8725c758ec1b1ffa991fe253a42f3e837c99d2f5212f524a",
+      "staged_sha256": "6f4a6aa764ff1e06884fa7d22177b6b0dbb1b0a11615bf64f52cbac0107cc0be",
+      "rendered_original_and_staged": true,
+      "pixel_and_payload_identity_verified": true,
+      "decision": "APPROVE_METADATA_ONLY",
+      "comment": "Original and metadata-modified versions appear identical. L&L watermark and PREVIEW ONLY label preserved; no new clipping, smearing, color shift, or text alteration detected."
+    }
+  ]
+}
