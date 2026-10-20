@@ -7,7 +7,7 @@ on:
       - ".github/workflows/ll-studio-metadata-batches.yml"
   schedule:
     # Runs only from default branch; prepares review branches, never deploys assets.
-    # October 20: dispatch the next inspected batch through this safe workflow.
+    # October 20: batch four passed individual visual review; stage batch five next.
     - cron: "23 1,7,13,19 * * *"
   workflow_dispatch:
 
