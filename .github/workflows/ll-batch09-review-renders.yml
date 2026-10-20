@@ -87,6 +87,6 @@ jobs:
         run: |
           git config user.name "L&L Review Render Bot"
           git config user.email "actions@users.noreply.github.com"
-          git add studio/review-renders/batch09
+          git add studio/review-renders/batch09-full
           git commit -m "review: add batch nine comparison renders"
           git push
