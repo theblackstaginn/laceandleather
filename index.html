@@ -1276,7 +1276,7 @@
   </div>
 
   <script src="./catalog.js?v=LL-20261013-2"></script>
-  <script src="./site.js?v=LL-20261013-2"></script>
+  <script src="./site.js?v=LL-20261019-SCROLL1"></script>
   <script>
     const MAP_COMMISSION_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdIVLZ8Nc4GXj5fNdUfKc2dVX0Vo2flcQrCERJiPgeL6qHaOg/viewform?usp=header";
     const CONFIRM_ORDER_FORM_URL  = "https://docs.google.com/forms/d/e/1FAIpQLSdvh4sgUyHin-EeEdrreMRES-Ah1KbDafmRfiDVcODj7ZKzPg/viewform?usp=header";
@@ -1359,11 +1359,11 @@
 
     const sharedUI = window.LaceLeatherUI;
 
-    function openModal(el){
+    function openModal(el, trigger = document.activeElement){
       if(!el) return;
 
       if(sharedUI?.openModal){
-        sharedUI.openModal(el);
+        sharedUI.openModal(el, trigger);
         return;
       }
 
@@ -1684,8 +1684,10 @@
 
     openCommission?.addEventListener("click", () => openModal(commissionModal));
     openLetter?.addEventListener("click", () => {
+      // Keep a modal open throughout the envelope-to-letter transition.
+      // Unlocking between them makes mobile Safari lose the page position.
+      openModal(letterModal, openCommission);
       closeModal(commissionModal);
-      openModal(letterModal);
     });
 
     $("#mapSlotBtn")?.addEventListener("click", () => {
@@ -1725,7 +1727,7 @@
       a.addEventListener("click", (e) => e.stopPropagation());
     });
   </script>
-  <script src="./site-refresh.js?v=LL-20261013-2" defer></script>
+  <script src="./site-refresh.js?v=LL-20261019-SCROLL1" defer></script>
   <script src="./ward.js?v=LL-20261016-WARD2" defer></script>
 </body>
 </html>
