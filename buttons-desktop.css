@@ -309,7 +309,7 @@
 
   .cabinet-hotspot::after {
     z-index:2;
-    opacity:.14;
+    opacity:.56;
     color:transparent;
     font-size:0;
     background:linear-gradient(105deg,
