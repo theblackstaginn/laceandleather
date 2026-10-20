@@ -1,13 +1,19 @@
 {
   "records": {
     "assets/etsy-previews/bookmaker/bookmaker-01-hero.jpg": {
-      "note": "Metadata edit passed automated pixel/payload integrity checks, but the 2600x2600 JPEG exceeds the connected reviewer inline-render limit. Original Git blob restored; hold until a direct original-versus-staged visual pair can be rendered.",
+      "compressed_picture_data_unchanged": true,
+      "copyright": "Copyright 2026 Lace & Leather Arcane",
+      "format": "JPEG",
+      "height": 2600,
+      "original_image_payload_sha256": "ed13d6aae6683993f0a3f7c2da49bc737dfce1a253ea5d372f002bf2dae51aec",
       "pixel_sha256": "e096af91f0cb014432e5b04426b7473249314535e42b2f224eb671e28938fef6",
-      "reason": "visual_review_unavailable_inline_size_limit",
-      "sha256": "e1c8730f587d3ffdddb650a0697d9206dd4fc709629f7ab454b12c95dee000df",
-      "staged_sha256_held": "7b7e03f87b79f30f6813abcd10e17ce815e3f40379bff900ec09d0fc202d43c9",
-      "status": "review_required",
-      "visual_review": "held_without_approval_original_restored"
+      "pixels_alpha_frames_profile_unchanged": true,
+      "sha256": "7b7e03f87b79f30f6813abcd10e17ce815e3f40379bff900ec09d0fc202d43c9",
+      "source_sha256": "e1c8730f587d3ffdddb650a0697d9206dd4fc709629f7ab454b12c95dee000df",
+      "status": "verified_metadata_only",
+      "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
+      "website": "https://laceleatherarcane.com",
+      "width": 2600
     },
     "assets/etsy-previews/bookmaker/bookmaker-02-contents.jpg": {
       "compressed_picture_data_unchanged": true,
