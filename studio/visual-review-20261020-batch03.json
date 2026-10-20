@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "project": "Lace & Leather Arcane",
+  "studio": "Lace & Leather Arcane Studio",
+  "date": "2026-10-20",
+  "reviewer": "ChatGPT, direct original-versus-staged image visual inspection",
+  "batch_branch": "ll-studio-visual-39458803203",
+  "pull_request": "https://github.com/theblackstaginn/laceandleather/pull/26",
+  "scope": "Public marketing image metadata-only retrofit. No claim about original creation process or AI-free provenance.",
+  "method": "Individually opened original and staged version for all 12 images at source display scale; visually checked visual texture, framing, watermarks, footer, ornaments and preexisting defects; crosschecked GitHub Actions exact compressed payload, decoded pixel, alpha, frames and ICC audit.",
+  "total_reviewed": 12,
+  "approved": 12,
+  "held": 0,
+  "entries": [
+    {
+      "path": "assets/previews/buttons/sapphire-plate-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "5028b7fb7e666765c70d7ddb50fe88351dae88722fca515eb717cfcaa23f253b",
+      "staged_sha256": "ceb94a7ef8932646fee902b3e0a8ee40a7b99ae2ea3f809144a72105da498d51",
+      "decoded_pixel_sha256": "ddc289269e5aa0073ab2c11dde84cb8d7d90ae5ff35f772e8e0039b99ea6be40",
+      "encoded_image_sha256": "822776ef9c55fcddc0cc77613d219f0a6b7ce725463d1df9a0b7020e47ef3c38",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Blue sapphire top gem and elongated parchment plaque; original borders, watermark and label preserved"
+    },
+    {
+      "path": "assets/previews/buttons/skull-bronze-plate-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "0d372b6d3aec7ac9b9c4c82b510697f9ad114a0bbf14ff125ded2443a65d28ff",
+      "staged_sha256": "64efc996b61fc47ff99f03959d1ba7790f08fa2f151bf34d672e8d9366dd210b",
+      "decoded_pixel_sha256": "279d6f153877ff2dcabef4d41c5af05697e28b32a5224e0c31f50c133fb6494d",
+      "encoded_image_sha256": "fdd4d513288feb50aecc7282f898a31b36908c8bc57c4569ae3eca6971e8e572",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Bronze skull nameplate; central skull, corner medallions and base shading preserved"
+    },
+    {
+      "path": "assets/previews/buttons/skull-plate-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "ca89af58700c8ccf93ef6d7681ada7c234f74d5a62851074af9e60446d5483e1",
+      "staged_sha256": "8dedd777dddf007a307c0b86a321874493297a02504244387c558a42a2fcb322",
+      "decoded_pixel_sha256": "efa6d4a9d29d8a1d3a35606db5f39047872e8aec5741fb20e8dd8b9df0ff202d",
+      "encoded_image_sha256": "02b2711e4981f8b1b75a25da6d56250449140310b9563c4a612dd31c7540441d",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Circular skull over double-sided parchment plate; all scrollwork unchanged"
+    },
+    {
+      "path": "assets/previews/buttons/skull-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "cf1222d8b4d247129667ea47092256748297c8d73861d57fb39adc4cae370797",
+      "staged_sha256": "73ee510a796b190b6e9d57488243cadb681e613065c3636e4e83a0f84e211ff1",
+      "decoded_pixel_sha256": "77f1ed642794c70e6e077e4ce86e75a007a70cf76db5216a299c531ce2348ebc",
+      "encoded_image_sha256": "963b73e3bdf36c191295c91da0ce642b4387d317c3d84767e751d376c5c7f78e",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Silver skull in black-and-gold diamond plaque; edges, highlights and watermark unchanged"
+    },
+    {
+      "path": "assets/previews/buttons/stag-plate-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "69c498749355213651fee408354981dd28cd1cd0fb92c956acaea95fe6637777",
+      "staged_sha256": "8ba84d136f1edab4575832f18eda7e7ce6518dceb41de01b54c55c4ed62c26e7",
+      "decoded_pixel_sha256": "4cbccf010c12c37ae9e32290cbf40b124b8fd545d14cf6efd136dd5a12b772cb",
+      "encoded_image_sha256": "81444d7bec6bde9b09e310d42ef0a8418a56512c0e513ac40a7c2e0627c18bde",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Stag crest and ornate rectangular frame, original lines and watermarks preserved"
+    },
+    {
+      "path": "assets/previews/buttons/stag-red-wax-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "a88e4ef8c0f6635e8cfc215437523f2d17a27cc0794b62ba58b730893b917281",
+      "staged_sha256": "11fb4464fb34f6c8c39efa337e23bfb431751fffb4a06806176f27cda83ad904",
+      "decoded_pixel_sha256": "afd312a90c098118278fa216e66903874ea726d7de3f5e0fae68fffa3a1bd38c",
+      "encoded_image_sha256": "29e5c5abe7b26878e370f76bbce8db4ca17f994fe2e2f1fdd8bf00272a95c40f",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Red stag wax seal against tied parchment, ropes and edges unchanged"
+    },
+    {
+      "path": "assets/previews/buttons/wax-green-book-2-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "38850082c87c070185dd323a935aba1999fd47805629dd5ef6aa3bda43b19c71",
+      "staged_sha256": "ed88ec439f354652aa31500be5992d8a49af07e008344612b630efa06a802610",
+      "decoded_pixel_sha256": "79fc2e97896146f9abcf929e58d9288f1c5a99de790b8c11d0fd2f3dc673602a",
+      "encoded_image_sha256": "c3be0ba4d4ffd41cd60445c4df95899f37e3bdb584074bf3b59f0690158adb36",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Green book-emblem wax seal, gold icon and textured parchment unchanged"
+    },
+    {
+      "path": "assets/previews/buttons/wax-key-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "bc8e0066f41943dc16267243c5a53f629a6b676e566f88a4adb7c0e47b346575",
+      "staged_sha256": "bd4ae1d46abfa6c57fc31b073eaad7b2cfcd556299344761c2eb033bd1ddeb75",
+      "decoded_pixel_sha256": "4fa38ff49fded1b79191695d6525bd227d9bbf35ff73b15136742131998d57a0",
+      "encoded_image_sha256": "6128065caa875e1f2e4470cefe6b6da6e8f8efb6bee1ca3bfb314835fc309b10",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Brown key wax seal and twine on aged paper, edges and highlights preserved"
+    },
+    {
+      "path": "assets/previews/buttons/wax-skull-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "ccf2acb2991055ff20a7e071f16807cdaae2fa2989d5f1fa34e1d01c6158748d",
+      "staged_sha256": "86072761355459de63db4f514a648e9122843c6681cd6fdfc0e379a8a7174be3",
+      "decoded_pixel_sha256": "35cb4b1b59dae84aa41355661ef6cdaeb8995d0bd47d9dece26a325d47cbe7e2",
+      "encoded_image_sha256": "25d21383d85ed551005a87141fbec8493e117e8f998aef4f0656db515eb5e977",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Dark wax skull seal and vertical parchment tie unchanged"
+    },
+    {
+      "path": "assets/previews/grimoire/grimoire-02-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "089d5fb62afe1c959dfc0dfeaf712e1f25769b0afba02a9e5271b1b14dd68879",
+      "staged_sha256": "245af5a13b38ca8b5872f1e90e0e9556e5639ca2af72ee2f13342cbf4c613e35",
+      "decoded_pixel_sha256": "181e28de2bc0c21955d9637b743e644285b9d03988a2a224547f00fba81be2f6",
+      "encoded_image_sha256": "6e86c0a65f0579ad1820371aea0aa4ddda460f8ff1510fe78663aaeb42916665",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Warm grimoire parchment texture and preview watermark preserved, no shifted crop"
+    },
+    {
+      "path": "assets/previews/grimoire/grimoire-03-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "94d81239d7a4824632c57ec81fc5b1db36ef33a83541e4b3b3cc549879eaf768",
+      "staged_sha256": "19412abe73a1b44966ebe932b746756e26ea4a82d1d1111daa29764b58cb8d22",
+      "decoded_pixel_sha256": "3fe41f9fd154c5f4e3f7e0107438fa2d5118c217d8e7d9c9844e375fcb0362a6",
+      "encoded_image_sha256": "a7f02a9ee16aef8ff605339062841663ebc3423f0227ebd66e49e08cbedb516e",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Pale warm mottled grimoire texture and preview label preserved"
+    },
+    {
+      "path": "assets/previews/grimoire/grimoire-04-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "23ee811be3a98d04a224b1a10a6f02e804092da4b98fce26b9ac91af7ff98a5f",
+      "staged_sha256": "980a0f850f8e5db52985cb86bc27398216ca116217e8af359cf7fd6a9b035ebf",
+      "decoded_pixel_sha256": "6ed8a5103eb54ab3a5e6f2d7eeedfbce783c21a3de781f1748141af37f286643",
+      "encoded_image_sha256": "a209587962be533a99ac2fc5bea7b6aab4686678feb2a6ab5438350062bdeb1d",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Warm tan darker-edge grimoire texture, watermark and footer unchanged"
+    }
+  ]
+}
