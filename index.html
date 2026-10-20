@@ -399,6 +399,12 @@
       animation-direction:reverse;
     }
 
+    .cart-plus-burst.seal-sparkle-burst{
+      top:50%;
+      width:.65em;
+      height:1em;
+    }
+
     .ll-cart.cart-bump{
       animation:ll-cart-bump .34s ease-out;
       animation-duration:.34s !important;
@@ -760,6 +766,8 @@
       --seal-slot-height:64px;
     }
     .social-icons .seal{
+      position:relative;
+      overflow:visible;
       width:var(--seal-slot-width);
       height:var(--seal-slot-height);
       flex:0 0 var(--seal-slot-width);
@@ -1561,17 +1569,21 @@
       clearCartBtn.blur();
     });
 
-    function playAddToCartAnimation(btn){
-      const plus = document.createElement("span");
-      plus.className = "cart-plus-burst";
-      plus.setAttribute("aria-hidden", "true");
-      plus.textContent = "+";
-      btn.appendChild(plus);
-      plus.addEventListener("animationend", (event) => {
-        if(event.animationName === "ll-cart-plus") plus.remove();
+    function playGoldBurst(target, {showPlus = true} = {}){
+      if(!showPlus && target.querySelector(".seal-sparkle-burst")) return;
+      const burst = document.createElement("span");
+      burst.className = showPlus ? "cart-plus-burst" : "cart-plus-burst seal-sparkle-burst";
+      burst.setAttribute("aria-hidden", "true");
+      burst.textContent = showPlus ? "+" : "";
+      target.appendChild(burst);
+      burst.addEventListener("animationend", (event) => {
+        if(event.animationName === "ll-cart-plus") burst.remove();
       });
-      window.setTimeout(() => plus.remove(), 1400);
+      window.setTimeout(() => burst.remove(), 1400);
+    }
 
+    function playAddToCartAnimation(btn){
+      playGoldBurst(btn);
       const cartButton = $("#cartBtn");
       if(cartButton){
         cartButton.classList.remove("cart-bump");
@@ -1582,6 +1594,20 @@
         }, {once:true});
       }
     }
+
+    $$(".social-icons .seal").forEach(seal => {
+      const sparkle = () => playGoldBurst(seal, {showPlus:false});
+      seal.addEventListener("pointerenter", (event) => {
+        if(event.pointerType === "mouse" || event.pointerType === "pen") sparkle();
+      });
+      seal.addEventListener("focus", () => {
+        if(seal.matches(":focus-visible")) sparkle();
+      });
+      seal.addEventListener("pointerdown", (event) => {
+        if(event.button === 0) sparkle();
+      });
+      seal.addEventListener("click", sparkle);
+    });
 
     $$("button.ll-add-btn[data-add]").forEach(btn => {
       btn.addEventListener("click", () => {
