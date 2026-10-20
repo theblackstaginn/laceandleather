@@ -1,0 +1,86 @@
+name: L&L Studio reversible metadata pilot
+
+on:
+  push:
+    branches:
+      - ll-studio-metadata-pilot-20261020
+    paths:
+      - studio/ll_metadata_pilot.py
+      - studio/pilot-manifest.json
+      - .github/workflows/ll-studio-metadata-pilot.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ll-studio-metadata-pilot-20261020
+  cancel-in-progress: false
+
+jobs:
+  test-and-stage:
+    name: Verify six image-metadata retouches
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout isolated L&L pilot branch
+        uses: actions/checkout@v4
+        with:
+          ref: ll-studio-metadata-pilot-20261020
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install EXIF and image validation utilities
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libimage-exiftool-perl
+          python -m pip install --disable-pip-version-check "Pillow==11.3.0"
+          exiftool -ver
+
+      - name: Retrofit only the six allowlisted public marketing files
+        run: |
+          python studio/ll_metadata_pilot.py \
+            --manifest studio/pilot-manifest.json \
+            --report studio/pilot-results.json
+
+      - name: Ensure staged changes contain only allowlisted images and pilot report
+        run: |
+          git diff --check
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          manifest = json.loads(Path("studio/pilot-manifest.json").read_text())
+          allowed = {i["path"] for i in manifest["files"]}
+          changed = set(subprocess.check_output(
+              ["git", "diff", "--name-only"], text=True).splitlines())
+          unexpected = changed - allowed
+          assert not unexpected, f"Unexpected modified paths: {unexpected}"
+          report = json.loads(Path("studio/pilot-results.json").read_text())
+          assert report["total"] == 6
+          assert report["verified"] + report["skipped"] == 6
+          assert report["verified"] >= 1
+          assert all(
+              r["status"] in ("verified_metadata_only", "skipped_pending_provenance_review")
+              for r in report["files"])
+          assert {r["path"] for r in report["files"]} == allowed
+          print("Integrity check complete:", report["verified"], "updated,", report["skipped"], "skipped")
+          PY
+
+      - name: Commit verified pilot changes to review branch only
+        run: |
+          git config user.name "L&L Studio Verification Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -- studio/pilot-results.json
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          manifest = json.loads(Path("studio/pilot-manifest.json").read_text())
+          subprocess.run(["git", "add", "--", *[i["path"] for i in manifest["files"]]], check=True)
+          PY
+          git diff --cached --quiet && exit 0
+          git commit -m "test: stage verified L&L Studio metadata-only pilot"
+          git push origin HEAD:ll-studio-metadata-pilot-20261020
