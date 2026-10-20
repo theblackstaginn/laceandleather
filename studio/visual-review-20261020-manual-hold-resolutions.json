@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-20",
+  "scope": "manual hold resolutions after completion of the automatic metadata queue",
+  "result": "five_resolved_assets_visually_approved",
+  "creation_png_repair_commit": "9a5169a712fc5187b3051d9385520f981be0b068",
+  "creation_review_helper_branch": "ll-review-repair-creation-pngs-20261020",
+  "blue_naut_staging_branch": "ll-studio-blue-naut-39468395051",
+  "blue_naut_staging_commit": "ece783945de56a42b40408e421c609e40bab7ebe",
+  "total_reviewed": 5,
+  "approved": 5,
+  "protected_holds_remaining": 6,
+  "reviews": [
+    {
+      "path": "assets/creation/creation_1.png",
+      "decision": "approved",
+      "inspection": "original_jpeg_byte_file_vs_repaired_true_png_comparison_render",
+      "source_sha256": "c79208d33d12b366744c925f818591abb528c34cdf5af1dd087af22362d325e6",
+      "staged_or_merged_sha256": "962bcb7b76ea92d6c5d8791ebfc6d7b5e559fe74a3b391fb10d07f932a851477",
+      "pixel_sha256": "1245fd9849aaa3a9dbfdd3e7549547522ddb0ea6a346af8ee01d81b236a7effe",
+      "source_format": "JPEG",
+      "output_format": "PNG",
+      "visual_notes": "Original JPEG-byte image and repaired true PNG visually match: composition, hands, parchment/workstation details, lighting, crop, color, dimensions, and fine texture are unchanged. The repair corrects the file-format mismatch without altering decoded image content."
+    },
+    {
+      "path": "assets/creation/creation_2.png",
+      "decision": "approved",
+      "inspection": "original_jpeg_byte_file_vs_repaired_true_png_comparison_render",
+      "source_sha256": "0dc8832aa3e22372c061f55070b2fb56bfa9f18324a501af914ae1a80c73f7fb",
+      "staged_or_merged_sha256": "d013148a2972ae1531d1c3ad0941be853444a4f5574867010e634a58bca2dd98",
+      "pixel_sha256": "dc53d4c7f41922cb78691b9e911e73e28b81540c7a7df2a07b9dc40d243f3732",
+      "source_format": "JPEG",
+      "output_format": "PNG",
+      "visual_notes": "Original JPEG-byte image and repaired true PNG visually match: composition, hands, parchment/workstation details, lighting, crop, color, dimensions, and fine texture are unchanged. The repair corrects the file-format mismatch without altering decoded image content."
+    },
+    {
+      "path": "assets/creation/creation_3.png",
+      "decision": "approved",
+      "inspection": "original_jpeg_byte_file_vs_repaired_true_png_comparison_render",
+      "source_sha256": "1248c69718295e42e1c2c61abfb7650db80a26d87c119ec2bd55e3c8482dfab8",
+      "staged_or_merged_sha256": "5b983d74f293e55431c256ce91ae300fafbf66ce049d15bc4ccd7846bd424306",
+      "pixel_sha256": "bb0ec77b45f6b0dc7215fe53fc86204a5cfaafcf2817177151c99b79a7715e8e",
+      "source_format": "JPEG",
+      "output_format": "PNG",
+      "visual_notes": "Original JPEG-byte image and repaired true PNG visually match: composition, hands, parchment/workstation details, lighting, crop, color, dimensions, and fine texture are unchanged. The repair corrects the file-format mismatch without altering decoded image content."
+    },
+    {
+      "path": "assets/creation/creation_4.png",
+      "decision": "approved",
+      "inspection": "original_jpeg_byte_file_vs_repaired_true_png_comparison_render",
+      "source_sha256": "614108f4ce63948593c867cdf84c201317a0804cd0e72c6edcbe84bd55380409",
+      "staged_or_merged_sha256": "7caab932902ee57632119b4da0f13c6dd00382576a3c21e79244fe7c345d4840",
+      "pixel_sha256": "3652d043569ef851f88eca02cec4f712b49e90cb069c876975dd2ea1ca104e98",
+      "source_format": "JPEG",
+      "output_format": "PNG",
+      "visual_notes": "Original JPEG-byte image and repaired true PNG visually match: composition, hands, parchment/workstation details, lighting, crop, color, dimensions, and fine texture are unchanged. The repair corrects the file-format mismatch without altering decoded image content."
+    },
+    {
+      "path": "assets/previews/buttons/blue-naut-wax-preview.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_direct_render_pair",
+      "source_sha256": "1d35fdcbaec413c2766feb901fb9ee3f0c19b9d43fe465ebafcbc62db8a5a557",
+      "staged_or_merged_sha256": "1b41ebcab60f47a987caaa3d40a6cdbf0c3a2f2d571f6657ebc36a277da4afd5",
+      "pixel_sha256": "814db03e4907c04318c8201b6648730efab38e905a9b51a743dfdd95a18e0c50",
+      "source_format": "WEBP",
+      "output_format": "WEBP",
+      "visual_notes": "Original and staged blue nautical wax preview visually match exactly. The checkerboard is intentionally baked into the preview artwork and remains unchanged, along with the wax seal, parchment tag, diagonal watermarks, footer, crop, and color."
+    }
+  ],
+  "safeguards": [
+    "Four creation files were visually reviewed after their already-merged lossless true-PNG repair; decoded pixel hashes were preserved by the repair workflow.",
+    "The blue nautical preview is metadata-only: decoded pixels, alpha/profile/frame characteristics, and compressed picture payload are unchanged.",
+    "No C2PA/OpenAI/trainedAlgorithmicMedia protected originals are modified by this review or the blue nautical patch."
+  ]
+}
