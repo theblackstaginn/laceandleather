@@ -1,16 +1,23 @@
 {
   "schema_version": 1,
   "eligible_public_images": 146,
-  "retrofitted_this_run": 1,
-  "updated_paths": [
-    "assets/previews/buttons/blue-naut-wax-preview.webp"
-  ],
+  "retrofitted_this_run": 0,
+  "updated_paths": [],
   "already_credited_new_this_run": 0,
   "held_for_rights_or_integrity_review_this_run": [],
-  "previously_completed_or_held": 145,
+  "previously_completed_or_held": 146,
   "remaining_unchecked": 0,
-  "requires_manual_review": 6,
+  "requires_manual_review": 0,
+  "protected_provenance_preserved": 6,
+  "protected_provenance_paths": [
+    "assets/grimoire/grim-thumb.png",
+    "assets/mapmaker/mapmaker-cover.png",
+    "assets/vol-one/vol-1-thumbnail.png",
+    "commission-modal-assets/map-slot-button.png",
+    "commission-modal-assets/modal-bg.png",
+    "itch-assets/bookmaker-cover-source.png"
+  ],
   "auto_batches_complete": true,
   "live_site_image_code_changed": false,
-  "safety": "Blue nautical preview metadata-only retrofit preserved decoded pixels, alpha, ICC profile, frames, compressed picture data, and intentionally baked checkerboard artwork."
+  "safety": "Six source originals with authenticity credentials were intentionally left byte-identical. Their provenance metadata was preserved rather than overwritten; no live storefront HTML/CSS/JS references those PNG sources."
 }
