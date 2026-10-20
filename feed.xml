@@ -5,32 +5,32 @@
     <link>https://laceleatherarcane.com/</link>
     <description>Original fantasy design showcases, digital texture releases, RPG interface assets, cartography resources, and creator use cases from Lace &amp; Leather Arcane.</description>
     <language>en-US</language>
-    <lastBuildDate>Tue, 20 Oct 2026 03:17:27 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 20 Oct 2026 03:28:46 GMT</lastBuildDate>
     <atom:link href="https://laceleatherarcane.com/feed.xml" rel="self" type="application/rss+xml" />
     <atom:link href="https://laceleatherarcane.com/" rel="alternate" type="text/html" />
     <image><url>https://laceleatherarcane.com/assets/l%26l_logo.webp</url><title>Lace &amp; Leather Arcane</title><link>https://laceleatherarcane.com/</link></image>
 
     <item>
-      <title>The Bookmaker</title>
-      <link>https://laceleatherarcane.com/buttons.html</link>
-      <guid isPermaLink="true">https://laceleatherarcane.com/buttons.html</guid>
-      <pubDate>Tue, 20 Oct 2026 03:16:58 GMT</pubDate>
-      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
-      <description><![CDATA[Old-world digital stickers, wax seals, manuscript ornaments, and fantasy UI assets presented in an interactive Victorian specimen cabinet. Tap a labeled compartment to open its drawer. Tap a specimen to examine it. Explore the cabinet or choose a collection from the index below. Open a drawer to examine each piece. Individual assets remain $1 each.]]></description>
-      <enclosure url="https://laceleatherarcane.com/assets/l&amp;l_logo.webp" length="2542834" type="image/webp" />
-      <category>Fantasy UI</category>
-      <category>Game Assets</category>
-    </item>
-    <item>
       <title>Digital Parchment Textures &amp; Aged Paper Backgrounds</title>
       <link>https://laceleatherarcane.com/</link>
       <guid isPermaLink="true">https://laceleatherarcane.com/</guid>
-      <pubDate>Tue, 20 Oct 2026 01:42:05 GMT</pubDate>
+      <pubDate>Tue, 20 Oct 2026 03:28:20 GMT</pubDate>
       <dc:creator>Lace &amp; Leather Arcane</dc:creator>
       <description><![CDATA[Digital parchment, aged textures, grimoire surfaces, overlays, and ritual map assets for TTRPG creators, designers, and bookbinders. Digital textures for artists, designers & bookmakers. Aged parchment · ritual surfaces · dark elegance Built like a workshop: stains, fibers, and surface wear, curated so your text stays legible.]]></description>
       <enclosure url="https://laceleatherarcane.com/assets/l&amp;l_logo.webp" length="2542834" type="image/webp" />
       <category>Digital Art</category>
       <category>Worldbuilding</category>
+    </item>
+    <item>
+      <title>The Bookmaker</title>
+      <link>https://laceleatherarcane.com/buttons.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/buttons.html</guid>
+      <pubDate>Tue, 20 Oct 2026 03:28:20 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Old-world digital stickers, wax seals, manuscript ornaments, and fantasy UI assets presented in an interactive Victorian specimen cabinet. Tap a labeled compartment to open its drawer. Tap a specimen to examine it. Explore the cabinet or choose a collection from the index below. Open a drawer to examine each piece. Individual assets remain $1 each.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/l&amp;l_logo.webp" length="2542834" type="image/webp" />
+      <category>Fantasy UI</category>
+      <category>Game Assets</category>
     </item>
     <item>
       <title>Smithy Textures</title>
