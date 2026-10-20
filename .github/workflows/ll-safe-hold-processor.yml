@@ -177,6 +177,7 @@ jobs:
           s=json.loads(Path("studio/manual-safe-holds-last-result.json").read_text())
           changed=set(subprocess.check_output(["git","diff","--name-only"],text=True).splitlines())
           changed |= set(subprocess.check_output(["git","ls-files","--others","--exclude-standard"],text=True).splitlines())
+          changed={p for p in changed if not p.startswith("studio/__pycache__/")}
           allowed=set(s["resolved_paths"])|{"studio/batch-ledger.json","studio/batch-last-result.json","studio/manual-safe-holds-last-result.json"}
           assert changed==allowed,(changed,allowed)
           assert s["resolved_count"]==5
