@@ -1,0 +1,122 @@
+[
+  {
+    "source_path": "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-04.jpg",
+    "review_render": "studio/review-renders/batch08/grimoire-vol-3-sample-04-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-05.jpg",
+    "review_render": "studio/review-renders/batch08/grimoire-vol-3-sample-05-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/journal-pages/journal-pages-01-hero.jpg",
+    "review_render": "studio/review-renders/batch08/journal-pages-01-hero-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/journal-pages/journal-pages-02-contents.jpg",
+    "review_render": "studio/review-renders/batch08/journal-pages-02-contents-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/journal-pages/journal-pages-03-specs.jpg",
+    "review_render": "studio/review-renders/batch08/journal-pages-03-specs-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/mapmakers/mapmakers-02-contents.jpg",
+    "review_render": "studio/review-renders/batch08/mapmakers-02-contents-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/mapmakers/mapmakers-03-specs.jpg",
+    "review_render": "studio/review-renders/batch08/mapmakers-03-specs-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/parchment-light/parchment-light-01-hero.jpg",
+    "review_render": "studio/review-renders/batch08/parchment-light-01-hero-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/parchment-light/parchment-light-02-contents.jpg",
+    "review_render": "studio/review-renders/batch08/parchment-light-02-contents-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/parchment-light/parchment-light-03-specs.jpg",
+    "review_render": "studio/review-renders/batch08/parchment-light-03-specs-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  }
+]
