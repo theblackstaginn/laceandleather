@@ -1,20 +1,16 @@
 {
   "schema_version": 1,
   "eligible_public_images": 146,
-  "retrofitted_this_run": 4,
+  "retrofitted_this_run": 1,
   "updated_paths": [
-    "assets/creation/creation_1.png",
-    "assets/creation/creation_2.png",
-    "assets/creation/creation_3.png",
-    "assets/creation/creation_4.png"
+    "assets/previews/buttons/blue-naut-wax-preview.webp"
   ],
   "already_credited_new_this_run": 0,
   "held_for_rights_or_integrity_review_this_run": [],
-  "previously_completed_or_held": 142,
+  "previously_completed_or_held": 145,
   "remaining_unchecked": 0,
-  "requires_manual_review": 7,
+  "requires_manual_review": 6,
   "auto_batches_complete": true,
   "live_site_image_code_changed": false,
-  "safety": "Manual repair refused provenance conflicts; decoded pixels, alpha, dimensions and ICC profile were required to remain identical.",
-  "manual_format_repairs_this_run": 4
+  "safety": "Blue nautical preview metadata-only retrofit preserved decoded pixels, alpha, ICC profile, frames, compressed picture data, and intentionally baked checkerboard artwork."
 }
