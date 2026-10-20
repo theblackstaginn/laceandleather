@@ -1,0 +1,146 @@
+[
+  {
+    "source_path": "assets/creation/creation_3.webp",
+    "review_render": "studio/review-renders/batch09-full/creation_3_webp-pair.webp",
+    "original_display_size": [
+      760,
+      507
+    ],
+    "staged_display_size": [
+      760,
+      507
+    ]
+  },
+  {
+    "source_path": "assets/creation/creation_4.webp",
+    "review_render": "studio/review-renders/batch09-full/creation_4_webp-pair.webp",
+    "original_display_size": [
+      760,
+      507
+    ],
+    "staged_display_size": [
+      760,
+      507
+    ]
+  },
+  {
+    "source_path": "assets/grimoire/grim-thumb.webp",
+    "review_render": "studio/review-renders/batch09-full/grim-thumb_webp-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/mapmaker/mapmaker-cover.webp",
+    "review_render": "studio/review-renders/batch09-full/mapmaker-cover_webp-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/smithy/smithy-cover.png",
+    "review_render": "studio/review-renders/batch09-full/smithy-cover_png-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/smithy/smithy-cover.webp",
+    "review_render": "studio/review-renders/batch09-full/smithy-cover_webp-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/vol-one/vol-1-thumbnail.webp",
+    "review_render": "studio/review-renders/batch09-full/vol-1-thumbnail_webp-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/add-to-cart.png",
+    "review_render": "studio/review-renders/batch09-full/add-to-cart_png-pair.webp",
+    "original_display_size": [
+      760,
+      291
+    ],
+    "staged_display_size": [
+      760,
+      291
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/add-to-cart.webp",
+    "review_render": "studio/review-renders/batch09-full/add-to-cart_webp-pair.webp",
+    "original_display_size": [
+      760,
+      291
+    ],
+    "staged_display_size": [
+      760,
+      291
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/back.png",
+    "review_render": "studio/review-renders/batch09-full/back_png-pair.webp",
+    "original_display_size": [
+      760,
+      293
+    ],
+    "staged_display_size": [
+      760,
+      293
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/back.webp",
+    "review_render": "studio/review-renders/batch09-full/back_webp-pair.webp",
+    "original_display_size": [
+      760,
+      293
+    ],
+    "staged_display_size": [
+      760,
+      293
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/cart.png",
+    "review_render": "studio/review-renders/batch09-full/cart_png-pair.webp",
+    "original_display_size": [
+      760,
+      295
+    ],
+    "staged_display_size": [
+      760,
+      295
+    ]
+  }
+]
