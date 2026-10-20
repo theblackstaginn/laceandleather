@@ -1071,11 +1071,13 @@
 
   function closePreview(){
     if(typeof preview.close === "function" && preview.open){
+      // The native close event fires after <dialog> releases scroll/focus.
+      // Restore there, not before Safari finishes the dialog transition.
       preview.close();
     }else{
       preview.removeAttribute("open");
+      restorePreviewPosition();
     }
-    restorePreviewPosition();
   }
 
   function buildSpecimenCard(file, categoryKey){
