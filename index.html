@@ -258,6 +258,7 @@
     .ll-home-btn,
     .ll-add-btn{
       transition:transform .16s ease, filter .16s ease;
+      transition-duration:.16s !important;
     }
 
     @media (hover:hover) and (pointer:fine){
@@ -367,6 +368,7 @@
       animation:
         ll-cart-plus 1.25s cubic-bezier(.18,.72,.22,1) forwards,
         ll-cart-shimmer 1.25s ease-in-out forwards;
+      animation-duration:1.25s !important;
     }
 
     .cart-plus-burst::before,
@@ -379,6 +381,7 @@
         0 0 14px rgba(255,238,179,.98),
         0 0 24px rgba(236,177,71,.88);
       animation:ll-cart-sparkle 1.25s ease-out forwards;
+      animation-duration:1.25s !important;
     }
 
     .cart-plus-burst::before{
@@ -398,6 +401,7 @@
 
     .ll-cart.cart-bump{
       animation:ll-cart-bump .34s ease-out;
+      animation-duration:.34s !important;
     }
 
     @keyframes ll-cart-plus{
@@ -475,27 +479,6 @@
       45%{ transform:scale(1.055); }
     }
 
-    @media (prefers-reduced-motion: reduce){
-      .cart-plus-burst{ display:none; }
-      .ll-cart.cart-bump{ animation:none; }
-      .ll-home-btn,
-      .ll-add-btn{ transition:none; }
-      .ll-home-btn:hover,
-      .ll-add-btn:hover{ transform:none; }
-      .ll-add-btn.cart-added::after{
-        content:"Added ✓";
-        position:absolute;
-        inset:12px 20px;
-        display:grid;
-        place-items:center;
-        border:1px solid rgba(229,188,118,.52);
-        border-radius:6px;
-        background:#291a10;
-        color:#fff3bf;
-        font:600 17px/1.2 var(--font-display);
-        pointer-events:none;
-      }
-    }
     .ll-add-btn:focus{
       outline:2px solid rgba(255,255,255,.35);
       outline-offset:4px;
@@ -1526,18 +1509,7 @@
       clearCartBtn.blur();
     });
 
-    const cartFeedbackTimers = new WeakMap();
-
     function playAddToCartAnimation(btn){
-      window.clearTimeout(cartFeedbackTimers.get(btn));
-      btn.classList.add("cart-added");
-      cartFeedbackTimers.set(btn, window.setTimeout(() => {
-        btn.classList.remove("cart-added");
-        cartFeedbackTimers.delete(btn);
-      }, 1400));
-
-      if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
       const plus = document.createElement("span");
       plus.className = "cart-plus-burst";
       plus.setAttribute("aria-hidden", "true");
@@ -1775,3 +1747,4 @@
   <script src="./ward.js?v=LL-20261016-WARD2" defer></script>
 </body>
 </html>
+

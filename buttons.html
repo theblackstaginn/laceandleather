@@ -666,9 +666,9 @@
 
   <!-- Shared site styles, followed by page-specific styles. -->
   <link rel="stylesheet" href="styles.css?v=LL-20261018-TYPE1" />
-  <link rel="stylesheet" href="./buttons.css?v=LL-20261019-DRAWER-CONTROLS2" />
+  <link rel="stylesheet" href="./buttons.css?v=LL-20261019-EFFECTS-ALWAYS1" />
   <link rel="stylesheet" href="./ward.css?v=LL-20261016-WARD2" />
-  <link rel="stylesheet" href="./buttons-desktop.css?v=LL-20261019-LEATHER-INSET1" />
+  <link rel="stylesheet" href="./buttons-desktop.css?v=LL-20261019-EFFECTS-ALWAYS1" />
 </head>
 
 <body class="specimen-shop">
@@ -1034,8 +1034,6 @@
   }
 
   function plusPopAt(x, y, host = document.body){
-    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
     const wrap = document.createElement("div");
     wrap.className = "ll-plus-pop";
     wrap.setAttribute("aria-hidden", "true");
@@ -1353,4 +1351,5 @@
   <script src="./ward.js?v=LL-20261016-WARD2" defer></script>
 </body>
 </html>
+
 

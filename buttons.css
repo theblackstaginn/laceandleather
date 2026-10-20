@@ -610,6 +610,10 @@ main.specimen-shell{
 }
 
 /* Homepage cart burst, mounted in a fixed overlay above the specimen strip. */
+.specimen-shop .ll-plus-pop{
+  display:block;
+}
+
 .cart-plus-burst{
   position:absolute;
   left:0;
@@ -630,6 +634,7 @@ main.specimen-shell{
   animation:
     ll-cart-plus 1.25s cubic-bezier(.18,.72,.22,1) forwards,
     ll-cart-shimmer 1.25s ease-in-out forwards;
+  animation-duration:1.25s !important;
 }
 
 .cart-plus-burst::before,
@@ -642,6 +647,7 @@ main.specimen-shell{
     0 0 14px rgba(255,238,179,.98),
     0 0 24px rgba(236,177,71,.88);
   animation:ll-cart-sparkle 1.25s ease-out forwards;
+  animation-duration:1.25s !important;
 }
 
 .cart-plus-burst::before{
@@ -727,10 +733,6 @@ main.specimen-shell{
     opacity:.45;
     transform:scale(.80) rotate(82deg);
   }
-}
-
-@media (prefers-reduced-motion: reduce){
-  .cart-plus-burst{ display:none; }
 }
 
 /* On-demand close examination */
@@ -982,14 +984,7 @@ main.specimen-shell{
 }
 
 @media (prefers-reduced-motion:reduce){
-  .specimen-drawer,
-  .cabinet-hotspot{ transition:none; }
-
-  .cabinet-hotspot::before,
-  .cabinet-hotspot::after{
-    animation:none;
-    opacity:0;
-  }
+  .specimen-drawer{ transition:none; }
 }
 
 
@@ -1031,5 +1026,6 @@ main.specimen-shell{
     height:calc(100dvh - 44px);
   }
 }
+
 
 
