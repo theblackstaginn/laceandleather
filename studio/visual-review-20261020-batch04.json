@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "project": "Lace & Leather Arcane",
+  "studio": "Lace & Leather Arcane Studio",
+  "date": "2026-10-20",
+  "reviewer": "ChatGPT (visual side-by-side inspection via GitHub original and staged image files)",
+  "batch_branch": "ll-studio-visual-39459503136",
+  "scope": "Eight Grimoire series WebP texture previews and four Mapmaker series WebP texture previews",
+  "method": "Rendered each original from main and staged WebP from the review branch, compared original vs staged one by one for watercolor/texture grain, illustrations, edges, watermark positioning, footer text, cropping and obvious defects; matched automated checks for decoded pixels, alpha, frame count, ICC profile and original compressed image payload. This review certifies that the metadata change did not alter visual artwork.",
+  "total_reviewed": 12,
+  "approved": 12,
+  "held": 0,
+  "entries": [
+    {
+      "path": "assets/previews/grimoire/grimoire-05-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "a3d092151457706629754f398c917281e39c00223ef6d9b389032ccd58d0ab77",
+      "modified_sha256": "5428847b4c2dbd202518849a220e7299f7f193fbd16ad75e5ce87b6e180d9bd4",
+      "decoded_pixel_sha256": "e697b9a4a728b057e09ce39892119b8b0d532f2866dec68ddc4a6ff6354b9d80",
+      "encoded_image_sha256": "845445cf6287e5d064685f458103160ff62c9d2f243ce90e69b4cf02a91ef47f",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Sepia parchment with dark distressed border; watermark repeated; lower branding and PREVIEW ONLY banner unchanged."
+    },
+    {
+      "path": "assets/previews/grimoire/grimoire-06-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "b733e76934421af377d821e14b57ebe530c01df098bd5c1d2415770cecb3a975",
+      "modified_sha256": "39ae2b4bb32c93106911d392adf45e764aab89419840d2365756426447f716cd",
+      "decoded_pixel_sha256": "2422680d36629fb4d5d0be15d80474120acee0422cd486e909838aedbd5710dc",
+      "encoded_image_sha256": "3c8249c265d4fc446ce9031540cae2e144ef8be2898d4e697de864517d907548",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Warm mottled parchment with staining around margins; watermarks and footer remain aligned and legible."
+    },
+    {
+      "path": "assets/previews/grimoire/grimoire-07-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "fae6a839610d7059e2f56bd6cef19fce179b8b54f841623d2a98841eb9b8021c",
+      "modified_sha256": "c92b9cf9808263e78d578a736cd909b08cb2055f84bad02524f3571584c8a1d5",
+      "decoded_pixel_sha256": "dba18422f5f607f026c47e874f931c8c4005e1558041c4e6c66546cd519779ee",
+      "encoded_image_sha256": "2638eccabb4f7f1163a27d219f02ef2a947b4699c5e3d4b53bf8968f21ec8fea",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Pale parchment and fine branch motifs near top and side edges; watermark, border, and footer intact."
+    },
+    {
+      "path": "assets/previews/grimoire/grimoire-08-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "3f54a0464b0bcf5ef1d3a8fb286159cc3bf46c2971d97be279893ac5b395c223",
+      "modified_sha256": "fa3d12d49b8d7e0b9cf257db07ff4c1a1cb0ef619138258a375ebfbc7b273921",
+      "decoded_pixel_sha256": "20fddfec684a9727ff4cf446ebdb6a5564306f064d5f62255ab9fa1f0075be27",
+      "encoded_image_sha256": "c207bfbe3b1616b27af9650d965cdcd0e6645de73e25219bc206d990e0547996",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Aged manuscript parchment with faint manuscript details and dark weathered edges; intact watermark and footer."
+    },
+    {
+      "path": "assets/previews/grimoire/grimoire-09-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "01cd2ebecb1dc90740e5964e8b18b8e55e4530463b80015c187fb3489db2225e",
+      "modified_sha256": "5a15b24d28b0d72f79262baa2861a44f133b8dd3864d317e692afed92a81a87f",
+      "decoded_pixel_sha256": "ddb3c9d1b82b4587a7f318d139f47ce156c1266a7cc5c41bb30c29ec7d1bee6e",
+      "encoded_image_sha256": "d81773b275e979a4f26f62d816ec80b2412ae50bf41e0a00fb53b8ee78d4fe1e",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Dark-edge crackled parchment with fine repeating texture; watermark placement and footer unchanged."
+    },
+    {
+      "path": "assets/previews/grimoire/grimoire-10-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "375507da83a79876bae1a6779c485c01fb26976bf7bb005734d6e3245318b86b",
+      "modified_sha256": "799afd068dd0759c5a9e53fd1f646e3b4879c45e201393ac06fd4c93a704c595",
+      "decoded_pixel_sha256": "254dedd98c04b2b01ee5e4ea96cd2541268fb0c238d23f0e0d881f9607bf2769",
+      "encoded_image_sha256": "c711edd8690d972ee11f3ad8a7a262d29b2a011506d15573b12b17caa59c7412",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Light warm parchment with delicate floral ornamentation in corners and borders; intact preview watermark and footer."
+    },
+    {
+      "path": "assets/previews/grimoire/grimoire-11-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "3119741ab20e3f79286111a5bc7d446bf5fb343cdc47496aa5b9dd931f84021c",
+      "modified_sha256": "e9376210a7025d06cee903be1a1403bdfde60748ff87c016d6842b28f6b48042",
+      "decoded_pixel_sha256": "40c4b2f660b99cfa36a036d39d68d3f97e5ac2e21a707de5e3d500fe7d497e66",
+      "encoded_image_sha256": "272cf123036108baddcfcdcec19421a818d64051891851826435af3dbaa9e02b",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Minimal light peach parchment, subtle texture and original diagonal watermark; preview footer preserved."
+    },
+    {
+      "path": "assets/previews/grimoire/grimoire-12-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "49530d06920054f707090c30166d595ea151aabbd3599e82a0df52fe9c98c828",
+      "modified_sha256": "324fcacffa48fb7c424d54799cab87620820ae9a9df263d00ab263edd629502e",
+      "decoded_pixel_sha256": "43666487bde049f799038bbdbb931a27629eb120528f44ed1880f25146b47f8c",
+      "encoded_image_sha256": "4366f35db80e52a32cb83c358a1f2097eb931b509b56708169a70cee170f83e8",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Warm parchment with organic irregular stains around borders; diagonal watermark and bottom banner preserved."
+    },
+    {
+      "path": "assets/previews/mapmaker/mapmaker-04-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "e5a89680843794cb5501b322297237d962107b63c441f10e0471687d24052f0c",
+      "modified_sha256": "95558169cfc7f787fddf1c66e2d080b22b068a9f5fb33d4e6312837f86e4866b",
+      "decoded_pixel_sha256": "3c80a4e1f336f281dbee14b1e9acfa07a8a1f43e57edda6760f3a662a800a1bc",
+      "encoded_image_sha256": "26eab1b218b81034bdcd3d920f4d403c1e9eb6b0645d742a1a6f2d7d63fde6c8",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Coastal fantasy parchment with lower-right curling tentacle drawing, cracked border, watermarks and footer all unchanged."
+    },
+    {
+      "path": "assets/previews/mapmaker/mapmaker-05-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "044a8faff6bb748b2f7e50607eea4eb9f3f10e35979802b26e5f79670d682c67",
+      "modified_sha256": "7743a5ac96c75a8b21b0bb35be77f87f02fd3198c7fc3c1e01d85fe7dcc60263",
+      "decoded_pixel_sha256": "003acb4706af20b2043481ab61bc9530f178e74451268e4754448f1634ece592",
+      "encoded_image_sha256": "0121f586d4038fc9966f5001ec78efc59ba5ba1b3195df886b00819501f2dc83",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Cliff and surf line drawing along top-left edge; parchment grain and diagonal watermark unchanged."
+    },
+    {
+      "path": "assets/previews/mapmaker/mapmaker-06-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "a92c02d5f025296b0dc97337d823f30e52e831d0db24706c529b19d502138fb9",
+      "modified_sha256": "6cf144940496dca6fd1d7d0133cb0cb4870ee74bde5fbf3a35c8760a7edb9340",
+      "decoded_pixel_sha256": "28d5c7544e1c5a3f9aca2c1563cded8f930e6d256d2e6fedab12c527872b085f",
+      "encoded_image_sha256": "46d5b8707382cc76ac13439b5615470c0047088e3c1e54f6170fc8ac82583057",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Cave and crashing waves drawing in lower-right; decorative framing, watermarks and footer preserved."
+    },
+    {
+      "path": "assets/previews/mapmaker/mapmaker-07-preview.webp",
+      "decision": "APPROVED",
+      "original_sha256": "9c0090afff9c1fe458e54da1be129b2dc134d4983c75af6778e0398c241cd38a",
+      "modified_sha256": "c12c273e905e8bcb6cebfdac65416218f0a11b4fe6997b20c18f35e594f3a5f9",
+      "decoded_pixel_sha256": "8a411c994d4bce49130b0284ac8927707e7af1ae299748ce74eeb28dc9cb0555",
+      "encoded_image_sha256": "e65cd4aa7e37f02e1a20356bee1177757fc203a06d09fe65ec6e4052df9ffa1a",
+      "original_and_staged_rendered_and_compared": true,
+      "pixel_alpha_icc_frames_and_payload_preserved": true,
+      "visual_notes": "Coastal lighthouse near top-right, rocky waves, aged parchment, watermark and footer unchanged."
+    }
+  ]
+}
