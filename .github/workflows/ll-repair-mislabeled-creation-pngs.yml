@@ -1,0 +1,206 @@
+name: Repair mislabeled creation PNGs
+
+on:
+  push:
+    branches:
+      - ll-manual-repair-creation-pngs-20261020
+    paths:
+      - ".github/workflows/ll-repair-mislabeled-creation-pngs.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repair branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validators
+        shell: bash
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y libimage-exiftool-perl
+          python -m pip install --disable-pip-version-check "Pillow==11.3.0"
+
+      - name: Repair mislabeled files with pixel and provenance gates
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+          from PIL import Image
+          import sys
+
+          ROOT=Path(".").resolve()
+          sys.path.insert(0, str(ROOT/"studio"))
+          from ll_metadata_pilot import exiftool_metadata, has_authenticity_credentials, has_conflicting_rights
+
+          OWNER="Lace & Leather Arcane"
+          STUDIO="Lace & Leather Arcane Studio"
+          RIGHTS="Copyright 2026 Lace & Leather Arcane"
+          WEBSITE="https://laceleatherarcane.com"
+          CREDIT=STUDIO+" (artwork production and preparation)"
+          targets=[
+            "assets/creation/creation_1.png",
+            "assets/creation/creation_2.png",
+            "assets/creation/creation_3.png",
+            "assets/creation/creation_4.png",
+          ]
+
+          def digest(data):
+              return hashlib.sha256(data).hexdigest()
+
+          def pixel_info(path):
+              with Image.open(path) as im:
+                  if getattr(im,"n_frames",1)!=1:
+                      raise RuntimeError(f"Multiframe image refused: {path}")
+                  im.load()
+                  rgba=im.convert("RGBA")
+                  alpha=rgba.getchannel("A")
+                  profile=im.info.get("icc_profile") or b""
+                  if isinstance(profile,str):
+                      profile=profile.encode()
+                  orientation=im.getexif().get(274,1)
+                  return {
+                      "format": im.format,
+                      "size": list(im.size),
+                      "pixel_sha256": digest(rgba.tobytes()),
+                      "alpha_sha256": digest(alpha.tobytes()),
+                      "icc_sha256": digest(profile),
+                      "orientation": orientation,
+                      "rgba": rgba,
+                      "icc_profile": profile,
+                  }
+
+          ledger_path=ROOT/"studio/batch-ledger.json"
+          summary_path=ROOT/"studio/batch-last-result.json"
+          ledger=json.loads(ledger_path.read_text())
+          results=[]
+
+          for rel in targets:
+              path=ROOT/rel
+              raw=path.read_bytes()
+              old_sha=digest(raw)
+              if not raw.startswith(b"\xff\xd8"):
+                  raise RuntimeError(f"{rel}: expected JPEG bytes under .png extension")
+              before=pixel_info(path)
+              if before["format"]!="JPEG":
+                  raise RuntimeError(f"{rel}: decoder did not identify JPEG")
+              if before["orientation"] not in (None,1):
+                  raise RuntimeError(f"{rel}: non-normal EXIF orientation refused")
+              meta=exiftool_metadata(path)
+              if has_authenticity_credentials(raw,meta):
+                  raise RuntimeError(f"{rel}: authenticity credentials present; refusing repair")
+              conflicts=has_conflicting_rights(meta)
+              if conflicts:
+                  raise RuntimeError(f"{rel}: conflicting creator/rights metadata: {conflicts}")
+              dangerous=[k for k in ("XMP-iptcExt:DigitalSourceType","XMP-xmpRights:UsageTerms","XMP-plus:LicensorName") if meta.get(k)]
+              if dangerous:
+                  raise RuntimeError(f"{rel}: provenance/licensing field present: {dangerous}")
+
+              save_kwargs={}
+              if before["icc_profile"]:
+                  save_kwargs["icc_profile"]=before["icc_profile"]
+              before["rgba"].save(path,format="PNG",**save_kwargs)
+
+              description=f"Lace & Leather Arcane public artwork: {Path(rel).stem.replace('_',' ').replace('-',' ')}"[:180]
+              cmd=[
+                  "exiftool","-overwrite_original","-P",
+                  f"-XMP-dc:Creator={OWNER}",
+                  f"-XMP-dc:Rights={RIGHTS}",
+                  f"-XMP-dc:Description={description}",
+                  f"-XMP-photoshop:Credit={CREDIT}",
+                  f"-XMP-xmpRights:WebStatement={WEBSITE}",
+                  str(path),
+              ]
+              p=subprocess.run(cmd,capture_output=True,text=True)
+              if p.returncode!=0 or "1 image files updated" not in p.stdout:
+                  raise RuntimeError(f"{rel}: ExifTool failed: {p.stdout} {p.stderr}")
+
+              after=pixel_info(path)
+              if after["format"]!="PNG":
+                  raise RuntimeError(f"{rel}: repair did not produce a PNG")
+              for field in ("size","pixel_sha256","alpha_sha256","icc_sha256"):
+                  if after[field]!=before[field]:
+                      raise RuntimeError(f"{rel}: {field} changed during repair")
+              after_meta=exiftool_metadata(path)
+              required={
+                  "XMP-dc:Creator":OWNER,
+                  "XMP-dc:Rights":RIGHTS,
+                  "XMP-dc:Description":description,
+                  "XMP-photoshop:Credit":CREDIT,
+                  "XMP-xmpRights:WebStatement":WEBSITE,
+              }
+              for k,v in required.items():
+                  got=after_meta.get(k)
+                  if isinstance(got,list):
+                      got=", ".join(str(x) for x in got)
+                  if str(got or "")!=v:
+                      raise RuntimeError(f"{rel}: metadata readback failed for {k}")
+
+              new_sha=digest(path.read_bytes())
+              record={
+                  "status":"already_credited",
+                  "sha256":new_sha,
+                  "source_sha256":old_sha,
+                  "pixel_sha256":before["pixel_sha256"],
+                  "width":before["size"][0],
+                  "height":before["size"][1],
+                  "format":"PNG",
+                  "studio_credit":CREDIT,
+                  "copyright":RIGHTS,
+                  "website":WEBSITE,
+                  "manual_repair":"jpeg_bytes_mislabeled_as_png_reencoded_losslessly_to_true_png",
+                  "source_format":"JPEG",
+                  "decoded_pixels_alpha_profile_unchanged":True,
+                  "visual_review":"required_before_merge",
+              }
+              ledger["records"][rel]=record
+              results.append({"path":rel,"old_sha256":old_sha,"new_sha256":new_sha,"pixel_sha256":before["pixel_sha256"],"size":before["size"],"source_format":"JPEG","output_format":"PNG"})
+
+          ledger_path.write_text(json.dumps(ledger,indent=2,ensure_ascii=False,sort_keys=True)+"\n")
+          summary=json.loads(summary_path.read_text())
+          summary.update({
+              "retrofitted_this_run":len(targets),
+              "updated_paths":targets,
+              "already_credited_new_this_run":0,
+              "held_for_rights_or_integrity_review_this_run":[],
+              "previously_completed_or_held":146-len(targets),
+              "remaining_unchecked":0,
+              "requires_manual_review":sum(1 for r in ledger["records"].values() if r.get("status")=="review_required"),
+              "auto_batches_complete":True,
+              "live_site_image_code_changed":False,
+              "manual_format_repairs_this_run":len(targets),
+              "safety":"Manual repair refused provenance conflicts; decoded pixels, alpha, dimensions and ICC profile were required to remain identical."
+          })
+          summary_path.write_text(json.dumps(summary,indent=2,ensure_ascii=False)+"\n")
+          audit={
+              "schema_version":1,
+              "date":"2026-10-20",
+              "repair":"Correct four JPEG-byte files mislabeled with .png extensions while preserving decoded image content exactly.",
+              "provenance_policy":"Refuse files with authenticity credentials, DigitalSourceType, licensing fields, or conflicting creator/rights metadata.",
+              "visual_review_required":True,
+              "results":results,
+          }
+          (ROOT/"studio/manual-repair-20261020-creation-pngs.json").write_text(json.dumps(audit,indent=2)+"\n")
+          print(json.dumps(audit,indent=2))
+          PY
+
+      - name: Commit staged manual repair
+        shell: bash
+        run: |
+          git config user.name "L&L Studio Repair Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/creation/creation_1.png assets/creation/creation_2.png assets/creation/creation_3.png assets/creation/creation_4.png studio/batch-ledger.json studio/batch-last-result.json studio/manual-repair-20261020-creation-pngs.json
+          git commit -m "repair: correct mislabeled creation PNGs with pixel-preserving metadata retrofit"
+          git push
