@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-20",
+  "batch": "09",
+  "staging_branch": "ll-studio-visual-39462690406",
+  "staging_commit": "2f546889e6028046d6d707474b0fa610de4b60f3",
+  "review_method": "Every updated image was visually inspected against its original. Nine assets were reviewed in side-by-side helper renders with transparency shown over a checkerboard; three PNG variants sharing stems with WebPs were inspected directly after the helper naming collision was detected.",
+  "helper_branch": "ll-review-renders-39462690406",
+  "total_reviewed": 12,
+  "approved": 12,
+  "held_from_updated_batch": 0,
+  "result": "all_12_updated_images_approved",
+  "separate_unchanged_holds": [
+    {
+      "path": "assets/creation/creation_3.png",
+      "reason": "unsupported_or_unreadable_image"
+    },
+    {
+      "path": "assets/creation/creation_4.png",
+      "reason": "unsupported_or_unreadable_image"
+    },
+    {
+      "path": "assets/grimoire/grim-thumb.png",
+      "reason": "existing_authenticity_credentials"
+    },
+    {
+      "path": "assets/mapmaker/mapmaker-cover.png",
+      "reason": "existing_authenticity_credentials"
+    },
+    {
+      "path": "assets/vol-one/vol-1-thumbnail.png",
+      "reason": "existing_authenticity_credentials"
+    }
+  ],
+  "safeguards": [
+    "Assets carrying existing authenticity credentials were not edited and remain held.",
+    "Unsupported/unreadable creation PNGs were not edited and remain held.",
+    "The helper naming collision affected review-only render filenames, not source or staged image files; missing PNG variants were inspected directly.",
+    "No customer download masters, client-owned media, client-supplied media, or site code were modified.",
+    "GitHub Actions independently required matching decoded pixels, alpha, ICC profile, frame count, and compressed picture data for every edited image."
+  ],
+  "reviews": [
+    {
+      "path": "assets/creation/creation_3.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "df8a4279ad82111b8e13f919da95301e56c920a1a5413c6dde4617aaa3129dd3",
+      "staged_sha256": "8270cd0b65d26fff837371978cc0e5e6ed4009fa143e0e4e8e09259edf620f32",
+      "pixel_sha256": "35811ab404c6e0d6bf79cb58c632433303017bbd94771137c721885ba5385f16",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged creation-scene artwork visually matches: composition, hands, parchment, equipment, lighting, crop, color, shadows, and fine details are unchanged."
+    },
+    {
+      "path": "assets/creation/creation_4.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "0696e9f1ee8ee7971c8d4634a84de7ea0d4ba934d057e6e159e849979f9c4f14",
+      "staged_sha256": "782d54ec334933aff131e11cd9465cabd99cb09a118f390550e04882016aeed9",
+      "pixel_sha256": "a539eb4a85cbda552025a41b1375a6d21cbb373537f36ac6d8014c419f968b3a",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged creation-scene artwork visually matches: composition, hands, parchment, equipment, lighting, crop, color, shadows, and fine details are unchanged."
+    },
+    {
+      "path": "assets/grimoire/grim-thumb.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "21b683fecd1b7cd693a89cbaf733c3792d50b95563c8140ec11b4fa9c9db4cca",
+      "staged_sha256": "cbae43263b8f684e2b17927ece0f9cb229b9b23fd8dbf61cc5f6393f04ef5fdc",
+      "pixel_sha256": "e9ee08970b562543d429d1368c0aa3147dcbaa258d4832fec163605e4d79d2d2",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged product-cover artwork visually matches: typography, parchment art, background props, borders, labels, crop, color, lighting, and fine details are unchanged."
+    },
+    {
+      "path": "assets/mapmaker/mapmaker-cover.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "455bc2c330f0e40ae105b333774e378583166558b0d327750c3f763c5c878631",
+      "staged_sha256": "d2cb208f28a021ce794a047df9fbd15542dca6c229778c710c46352af3624f1c",
+      "pixel_sha256": "4d16a1dcfe4d6371fdbc280bdd8851ac9ba8a16cbc990ec98a9763052c248a94",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged product-cover artwork visually matches: typography, parchment art, background props, borders, labels, crop, color, lighting, and fine details are unchanged."
+    },
+    {
+      "path": "assets/smithy/smithy-cover.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_direct_render_pair",
+      "source_sha256": "0eb4f461844e2ed0df2436dc8483e83e76e0775c88c0ac12fd2fb061631af4c1",
+      "staged_sha256": "cba39e391d600175ce6f571d8bccc0c67d1a9d68cbd404720b22a8da2f9275bb",
+      "pixel_sha256": "ad4cac9fa0b7de90a87aae31a602fdec82a5cd056ace1b326e8ce975980cb8be",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged product-cover artwork visually matches: typography, parchment art, background props, borders, labels, crop, color, lighting, and fine details are unchanged."
+    },
+    {
+      "path": "assets/smithy/smithy-cover.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "e560d8ef22b4ccd2ed170c1dd16352cece870e55c46d69163ac7e31f131770ce",
+      "staged_sha256": "9c8811f40b84a5fd18475f50c34b8a6831eb8c6777c4b10483cb356a7ca269b2",
+      "pixel_sha256": "2153bb80f0a2a45339b9db9d2fcb45922a25191fd0d273bb72a6e4e59d3f3c14",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged product-cover artwork visually matches: typography, parchment art, background props, borders, labels, crop, color, lighting, and fine details are unchanged."
+    },
+    {
+      "path": "assets/vol-one/vol-1-thumbnail.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "4016f3e14a42b9c2480852c6b2af1571d3da95ce319d50c7cb2f7c6870d62e74",
+      "staged_sha256": "d3830314d9e656c3a71fd5e5dad45a038bfb3ce32ac159316381656564d541fc",
+      "pixel_sha256": "3da68bffd7606360ac47d2b514e7487ab003a50935bae81b1cb02f62ca8b6d71",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged product-cover artwork visually matches: typography, parchment art, background props, borders, labels, crop, color, lighting, and fine details are unchanged."
+    },
+    {
+      "path": "L&L-buttons/add-to-cart.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_direct_render_pair",
+      "source_sha256": "7aafc9368a5bf6628e69ccb53991a84bf9ed351e87a6a2ebcb712ac3da395368",
+      "staged_sha256": "dadb4cda832dd87e37de0041b388a4b7c0fda9ae3433ed14d0377fbdac59bc3e",
+      "pixel_sha256": "965fc2d73e15ddbd5d2e849afa582b70ab49894844a3bd00405c3aef940add3b",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged UI button artwork visually matches: bronze frame, lettering, texture, transparency/edge treatment, dimensions, crop, highlights, and shadows are unchanged."
+    },
+    {
+      "path": "L&L-buttons/add-to-cart.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "8e7053737a9bfc264b169fe4b60a6503bc1d21a5f518ab0442e2d19a0953cd2a",
+      "staged_sha256": "01f3631d28813904b5a1aa98f71fdd5dac08531c1adf1997fb701d14d3b75377",
+      "pixel_sha256": "1ba742d52c7598f12b3c6ebf48c9ff8cfeedbb935c11231a69ce35d6845ac5fd",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged UI button artwork visually matches: bronze frame, lettering, texture, transparency/edge treatment, dimensions, crop, highlights, and shadows are unchanged."
+    },
+    {
+      "path": "L&L-buttons/back.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_direct_render_pair",
+      "source_sha256": "c84e9a04cc8c89b0e27d2e2259d46a848a01c1280b9047988092f579283b7b8e",
+      "staged_sha256": "43ab1a0132beae554307609e3e7a7cb544abd46fa69c67411feb87f93ff623b0",
+      "pixel_sha256": "907e5c56a768d24c4dfe2425ea3fe192a9ee02f27521b19fadba4358a255fce0",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged UI button artwork visually matches: bronze frame, lettering, texture, transparency/edge treatment, dimensions, crop, highlights, and shadows are unchanged."
+    },
+    {
+      "path": "L&L-buttons/back.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "d91dd9ebeabebe9c16986cf239e34a0054a55ca5c3e5b97ff6243d99a1e1b04b",
+      "staged_sha256": "2f1f1f3d6108d8f2c1d65ba92f7a651adc053ce4f99d77b1459eb66742325a7d",
+      "pixel_sha256": "bbe622312495a33f2a2d74d8a34871851dae3aa65b86b6ca84412566ba5c3e19",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged UI button artwork visually matches: bronze frame, lettering, texture, transparency/edge treatment, dimensions, crop, highlights, and shadows are unchanged."
+    },
+    {
+      "path": "L&L-buttons/cart.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "47177f90b5d70a0f33d73054fd0793f829b6a5d97031d2f9a95f767aac253de6",
+      "staged_sha256": "c4724642d92394d5e2ab0475510ccc5513c960822f2a1308d5097584c56b79b2",
+      "pixel_sha256": "ea09e8aaacab2539fd84f03809bd9e52b61453ef430a9374d9a7e50bc2ff16b2",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged UI button artwork visually matches: bronze frame, lettering, texture, transparency/edge treatment, dimensions, crop, highlights, and shadows are unchanged."
+    }
+  ]
+}
