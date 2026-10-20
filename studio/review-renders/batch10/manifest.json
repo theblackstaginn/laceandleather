@@ -1,0 +1,146 @@
+[
+  {
+    "source_path": "L&L-buttons/cart.webp",
+    "review_render": "studio/review-renders/batch10/cart_webp-pair.webp",
+    "original_display_size": [
+      760,
+      295
+    ],
+    "staged_display_size": [
+      760,
+      295
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/clear-cart.png",
+    "review_render": "studio/review-renders/batch10/clear-cart_png-pair.webp",
+    "original_display_size": [
+      760,
+      292
+    ],
+    "staged_display_size": [
+      760,
+      292
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/clear-cart.webp",
+    "review_render": "studio/review-renders/batch10/clear-cart_webp-pair.webp",
+    "original_display_size": [
+      760,
+      292
+    ],
+    "staged_display_size": [
+      760,
+      292
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/confirm-order.png",
+    "review_render": "studio/review-renders/batch10/confirm-order_png-pair.webp",
+    "original_display_size": [
+      760,
+      301
+    ],
+    "staged_display_size": [
+      760,
+      301
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/confirm-order.webp",
+    "review_render": "studio/review-renders/batch10/confirm-order_webp-pair.webp",
+    "original_display_size": [
+      760,
+      301
+    ],
+    "staged_display_size": [
+      760,
+      301
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/paid.png",
+    "review_render": "studio/review-renders/batch10/paid_png-pair.webp",
+    "original_display_size": [
+      760,
+      252
+    ],
+    "staged_display_size": [
+      760,
+      252
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/paid.webp",
+    "review_render": "studio/review-renders/batch10/paid_webp-pair.webp",
+    "original_display_size": [
+      760,
+      252
+    ],
+    "staged_display_size": [
+      760,
+      252
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/paypad.png",
+    "review_render": "studio/review-renders/batch10/paypad_png-pair.webp",
+    "original_display_size": [
+      760,
+      295
+    ],
+    "staged_display_size": [
+      760,
+      295
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/paypad.webp",
+    "review_render": "studio/review-renders/batch10/paypad_webp-pair.webp",
+    "original_display_size": [
+      760,
+      295
+    ],
+    "staged_display_size": [
+      760,
+      295
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/paypal.png",
+    "review_render": "studio/review-renders/batch10/paypal_png-pair.webp",
+    "original_display_size": [
+      760,
+      739
+    ],
+    "staged_display_size": [
+      760,
+      739
+    ]
+  },
+  {
+    "source_path": "L&L-buttons/paypal.webp",
+    "review_render": "studio/review-renders/batch10/paypal_webp-pair.webp",
+    "original_display_size": [
+      760,
+      739
+    ],
+    "staged_display_size": [
+      760,
+      739
+    ]
+  },
+  {
+    "source_path": "commission-modal-assets/commission-letter.png",
+    "review_render": "studio/review-renders/batch10/commission-letter_png-pair.webp",
+    "original_display_size": [
+      507,
+      760
+    ],
+    "staged_display_size": [
+      507,
+      760
+    ]
+  }
+]
