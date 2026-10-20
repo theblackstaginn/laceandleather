@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "project": "Lace & Leather Arcane",
+  "studio": "Lace & Leather Arcane Studio",
+  "creator": "Lace & Leather Arcane",
+  "rights": "Copyright 2026 Lace & Leather Arcane",
+  "website": "https://laceleatherarcane.com",
+  "scope": "Only originally created or commissioned public L&L marketing artwork; skip files carrying conflicting creator/rights or authenticity metadata.",
+  "allowlisted_public_paths": [
+    "assets/previews/",
+    "assets/etsy-previews/",
+    "assets/creation/",
+    "assets/grimoire/",
+    "assets/mapmaker/",
+    "assets/smithy/",
+    "assets/vol-one/",
+    "L&L-buttons/",
+    "commission-modal-assets/",
+    "itch-assets/"
+  ],
+  "excluded_categories": [
+    "client-owned files",
+    "client-supplied photography and logos",
+    "third-party platform icons and stock artwork",
+    "source masters or customer downloads",
+    "use-case mockups with unclear rights",
+    "video, animation, SVG, fonts",
+    "already-exported Pinterest pin JPEGs",
+    "files with protected provenance/C2PA or conflicting credits"
+  ],
+  "max_processed_per_run": 12,
+  "output_ledger": "studio/batch-ledger.json",
+  "max_file_bytes": 15000000
+}
