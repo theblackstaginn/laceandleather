@@ -1,0 +1,105 @@
+name: L&L Studio background image metadata batches
+
+on:
+  push:
+    branches:
+      - ll-studio-safe-batches-20261020
+    paths:
+      - "studio/ll_metadata_batches.py"
+      - "studio/batch-policy.json"
+      - ".github/workflows/ll-studio-metadata-batches.yml"
+  schedule:
+    # Four batches per day, at six-hour intervals. GitHub schedules may be delayed.
+    - cron: "23 1,7,13,19 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ll-studio-background-metadata-batches
+  cancel-in-progress: false
+
+jobs:
+  retrofit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out current branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install tested metadata and image validators
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends libimage-exiftool-perl
+          python -m pip install --disable-pip-version-check "Pillow==11.3.0"
+          exiftool -ver
+
+      - name: Retrofit up to 12 eligible L&L public images
+        run: |
+          python studio/ll_metadata_batches.py \
+            --policy studio/batch-policy.json \
+            --ledger studio/batch-ledger.json \
+            --summary studio/batch-last-result.json
+
+      - name: Verify the changed paths and the complete audit
+        run: |
+          git diff --check
+          python - <<'PY'
+          import hashlib
+          import json
+          import subprocess
+          from pathlib import Path
+
+          root = Path.cwd()
+          policy = json.loads(Path("studio/batch-policy.json").read_text())
+          summary = json.loads(Path("studio/batch-last-result.json").read_text())
+          ledger = json.loads(Path("studio/batch-ledger.json").read_text())
+          prefixes = tuple(policy["allowlisted_public_paths"])
+          updated = summary["updated_paths"]
+          modified = set(subprocess.check_output(["git", "diff", "--name-only"], text=True).splitlines())
+          assert len(updated) <= 12
+          assert len(updated) == summary["retrofitted_this_run"]
+          assert len(set(updated)) == len(updated)
+          assert modified == set(updated), f"Unexpected modified image paths: {modified ^ set(updated)}"
+          assert ledger["schema_version"] == 1
+          assert summary["eligible_public_images"] >= len(updated)
+          for rel in updated:
+              assert rel.startswith(prefixes), f"Unapproved path: {rel}"
+              r = ledger["records"][rel]
+              assert r["status"] == "verified_metadata_only"
+              assert r["pixels_alpha_frames_profile_unchanged"] is True
+              assert r["compressed_picture_data_unchanged"] is True
+              assert hashlib.sha256((root / rel).read_bytes()).hexdigest() == r["sha256"]
+              assert r["studio_credit"] == "Lace & Leather Arcane Studio (artwork production and preparation)"
+          print(f"Verified batch: {len(updated)} unchanged-pixel images, "
+                f"{summary['remaining_unchecked']} remain uninspected, "
+                f"{summary['requires_manual_review']} held for review")
+          PY
+
+      - name: Commit verified files and audit ledger only
+        shell: bash
+        run: |
+          git config user.name "L&L Studio Metadata Bot"
+          git config user.email "actions@users.noreply.github.com"
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          summary = json.loads(Path("studio/batch-last-result.json").read_text())
+          stage = summary["updated_paths"] + ["studio/batch-ledger.json", "studio/batch-last-result.json"]
+          subprocess.run(["git", "add", "--", *stage], check=True)
+          PY
+          if git diff --cached --quiet; then
+            echo "No changes remain; all eligible L&L files already processed or protected."
+            exit 0
+          fi
+          git commit -m "chore: L&L studio verified metadata batch"
+          git push origin HEAD:"$GITHUB_REF_NAME"
