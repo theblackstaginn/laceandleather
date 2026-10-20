@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-20",
+  "batch": "07",
+  "staging_branch": "ll-studio-visual-39461310294",
+  "staging_commit": "aa9597d77ee01d520e58c88e68274671361c67dd",
+  "review_method": "Every updated image was visually inspected as an original-versus-staged pair. Large JPEGs were rendered on an isolated non-deploying helper branch into review-only comparison sheets because the connected GitHub contents response did not return their large binary bodies inline.",
+  "helper_branch": "ll-review-renders-39461310294",
+  "total_reviewed": 12,
+  "approved": 12,
+  "held": 0,
+  "result": "all_approved",
+  "safeguards": [
+    "Helper comparison renders are not on the staging branch and are not part of the merge candidate.",
+    "The Bookmaker hero's prior hold was limited to the inline-render size constraint; its metadata edit had already passed image payload and decoded-pixel integrity checks, and the helper comparison supplied the missing visual review.",
+    "No customer download masters reviewed or modified.",
+    "No client-owned or client-supplied media reviewed or modified.",
+    "No site code reviewed or modified by this batch.",
+    "GitHub Actions independently required matching decoded pixels, alpha, ICC profile, frame count, and compressed picture data."
+  ],
+  "reviews": [
+    {
+      "path": "assets/previews/volone/volone-09-preview.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_direct_render_pair",
+      "source_sha256": "5052dc88b7f0587bf482fefa1683a79dd836c8c51542ac9b553b5c72de5bdbcc",
+      "staged_sha256": "68ee0d6fb6db32454dce4c6df973d12727f5bc2e88a0633be998f0bb2fc4081c",
+      "pixel_sha256": "f2ba09fabfe1da5bf70c3bd28800568c39e295a7e753768588c97269ec0ab8f9",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged previews visually match: parchment tone and texture, edge aging, creases and scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
+    },
+    {
+      "path": "assets/previews/volone/volone-10-preview.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_direct_render_pair",
+      "source_sha256": "ba09d209d33b5c9f083eb51038758a14aee700d9384a4331e9ac6f4e4d6fe8f1",
+      "staged_sha256": "c2bab15eca0db08190a774669a17735f48d5abd683a197202ecac97bb454b0d3",
+      "pixel_sha256": "72be47692c8c0ca9daf915984e8eb16b7fd0788118f5e9bfc22e7394c97f62ac",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged previews visually match: parchment tone and texture, edge aging, creases and scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
+    },
+    {
+      "path": "assets/previews/volone/volone-11-preview.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_direct_render_pair",
+      "source_sha256": "ba09d209d33b5c9f083eb51038758a14aee700d9384a4331e9ac6f4e4d6fe8f1",
+      "staged_sha256": "5d96b599c170a4e48ee3dbb1decd9437f576b38b97f9fad3cf86708604701dca",
+      "pixel_sha256": "72be47692c8c0ca9daf915984e8eb16b7fd0788118f5e9bfc22e7394c97f62ac",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged previews visually match: parchment tone and texture, edge aging, creases and scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
+    },
+    {
+      "path": "assets/previews/volone/volone-12-preview.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_direct_render_pair",
+      "source_sha256": "6345df9e763c845d47bd8b0c9ac71e5f516dcaf39588d72bc79262a7a8494d38",
+      "staged_sha256": "00d6867d3d32f93c096b96fd168ebd888bf801f792c7ddc7a46e403870f8b985",
+      "pixel_sha256": "f1c92e18b1fda2b8c580763d90f0adb5d6be16800854e20b642bd049e7d371e8",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged previews visually match: parchment tone and texture, edge aging, creases and scratches, diagonal watermark placement, crop, and PREVIEW ONLY footer are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/bookmaker/bookmaker-01-hero.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "e1c8730f587d3ffdddb650a0697d9206dd4fc709629f7ab454b12c95dee000df",
+      "staged_sha256": "7b7e03f87b79f30f6813abcd10e17ce815e3f40379bff900ec09d0fc202d43c9",
+      "pixel_sha256": "e096af91f0cb014432e5b04426b7473249314535e42b2f224eb671e28938fef6",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Etsy listing images visually match: typography, object placement, colors, shadows, borders, product copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/bookmaker/bookmaker-02-contents.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "96510fbaf5e3ae252064f6444b4d49372070787e889647b88f3a2676b1121d4a",
+      "staged_sha256": "85beb8123a2b015daf9cb5b0ebe4f12ea452290f58b6ac6df8fb22d9c536d2c6",
+      "pixel_sha256": "cce0bbdc53a63c1c73df85edfc7c14e2e570f47e0a6ad4c5b5cc4b3d66d19a38",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Etsy listing images visually match: typography, object placement, colors, shadows, borders, product copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/bookmaker/bookmaker-03-specs.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "5a57346a0853c27f7d96df763553004377f194972997bbe93f7e7159d9f3b43e",
+      "staged_sha256": "a2170253857d4c0c921643c22fbf05867f68fffc3f1d819a18a77eb3cce9f2a7",
+      "pixel_sha256": "20ebcd6e01c6cddb6bd263fa4fdf1b622df45a88bc73001dec4112affe3c0132",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Etsy listing images visually match: typography, object placement, colors, shadows, borders, product copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/grimoire-vol-3/grimoire-vol-3-02-contents.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "f1f46d66a9f25e380c8f421bb8724958bc2e499a7696295e81da3c456791385e",
+      "staged_sha256": "b588e32d97bb826d864ee273add6ea7f7361070a486cd6ad469f44d529c5b94a",
+      "pixel_sha256": "53aef86789c820aa748f1bffbb1703f531a91626631e9994a57d040dde044267",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Grimoire Vol. 3 listing/sample images visually match: typography, parchment previews, watermarking, colors, layout, borders, and copy are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/grimoire-vol-3/grimoire-vol-3-03-specs.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "71b69c4f4eb34994ecbcb3563e3efb24b5f90825a27882e95e3bb2d1463d98d9",
+      "staged_sha256": "9796fb96ee245fc15d49cddf572bf1d87e0d2bfc9df19636ca04c5520e11825b",
+      "pixel_sha256": "27e2e042176af994eeea61e79c8f69bb48b60f44c16c1ca00aaba464be323513",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Grimoire Vol. 3 listing/sample images visually match: typography, parchment previews, watermarking, colors, layout, borders, and copy are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-01.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "6f7c4ee4d922c6a6cc346c4d97c5e1972cd72617ea38af0f1e8abf242ca276c4",
+      "staged_sha256": "7ac27f8833529b52de762a66c6de91d5365262165ab8d0d727b1edaefd6d642e",
+      "pixel_sha256": "a353c9cbc92efadfab99590a268b2bec48bd52cafc4eed1c2933cacc8a127b62",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Grimoire Vol. 3 listing/sample images visually match: typography, parchment previews, watermarking, colors, layout, borders, and copy are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-02.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "cc1d68b3cded3957dacc8d3e5b331aaed18cad223e18a3f36ef144be1af4e08e",
+      "staged_sha256": "bcaf081058b75c371170a11bd41d0485242d186892b0de1a5425755ca61365cf",
+      "pixel_sha256": "36765e6f4f5a4706635c7c07ebf6a223148234fe28f92d880452b4c7fa0f7257",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Grimoire Vol. 3 listing/sample images visually match: typography, parchment previews, watermarking, colors, layout, borders, and copy are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-03.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "5b4364baca8cc5e8d5d272b5ea07100801b01ccc954b5135d3b89caf54468f25",
+      "staged_sha256": "23c99fa5c04e9ff27b48b5107d89fb755b695de4141f5d2017827915ae952abc",
+      "pixel_sha256": "d7abc1575c4bef0e2777da764c3ffe1c7f0ed74781e164542d693e108579616a",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Grimoire Vol. 3 listing/sample images visually match: typography, parchment previews, watermarking, colors, layout, borders, and copy are unchanged."
+    }
+  ]
+}
