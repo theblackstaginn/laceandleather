@@ -1,0 +1,193 @@
+name: Process five safe L&L metadata holds
+
+on:
+  push:
+    branches:
+      - ll-safe-hold-processor-20261020
+    paths:
+      - ".github/workflows/ll-safe-hold-processor.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout clean main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Install validators
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq libimage-exiftool-perl
+          python -m pip install --disable-pip-version-check "Pillow==11.3.0"
+
+      - name: Process only the five manually cleared holds
+        shell: bash
+        run: |
+          git switch -c "ll-studio-safe-holds-$GITHUB_RUN_ID"
+          python - <<'PY'
+          import hashlib, json, subprocess, sys, tempfile
+          from pathlib import Path
+
+          ROOT=Path.cwd()
+          sys.path.insert(0,str(ROOT/"studio"))
+          from ll_metadata_pilot import (
+              OWNER, STUDIO, WEBSITE, RIGHTS, digest, identify_unchanged_image,
+              compressed_image_payload, exiftool_metadata,
+              has_authenticity_credentials, has_conflicting_rights,
+          )
+          from ll_metadata_batches import full_description, metadata_matches
+
+          targets=[
+              "assets/creation/creation_1.png",
+              "assets/creation/creation_2.png",
+              "assets/creation/creation_3.png",
+              "assets/creation/creation_4.png",
+              "assets/previews/buttons/blue-naut-wax-preview.webp",
+          ]
+          actual_suffix={"JPEG":".jpg","WEBP":".webp","PNG":".png"}
+          ledger_path=ROOT/"studio/batch-ledger.json"
+          summary_path=ROOT/"studio/batch-last-result.json"
+          ledger=json.loads(ledger_path.read_text(encoding="utf-8"))
+          results={}
+
+          for rel in targets:
+              path=ROOT/rel
+              raw=path.read_bytes()
+              before_sha=digest(raw)
+              prior=ledger["records"].get(rel,{})
+              if prior.get("sha256") and prior["sha256"] != before_sha:
+                  raise RuntimeError(f"Hold source changed since ledger capture: {rel}")
+
+              with tempfile.TemporaryDirectory() as td:
+                  td=Path(td)
+                  probe=td/"probe.bin"
+                  probe.write_bytes(raw)
+                  before_image=identify_unchanged_image(probe)
+                  fmt=before_image["format"]
+                  suffix=actual_suffix.get(fmt)
+                  if suffix is None:
+                      raise RuntimeError(f"Unsupported actual format {fmt}: {rel}")
+
+                  work=td/("work"+suffix)
+                  work.write_bytes(raw)
+                  before_payload=compressed_image_payload(raw,suffix)
+                  before_meta=exiftool_metadata(work)
+
+                  if has_authenticity_credentials(raw,before_meta):
+                      raise RuntimeError(f"Authenticity credentials detected; refusing manual retrofit: {rel}")
+                  conflicts=has_conflicting_rights(before_meta)
+                  if conflicts:
+                      raise RuntimeError(f"Conflicting rights detected in {rel}: {conflicts}")
+
+                  description=full_description(rel)
+                  cmd=[
+                      "exiftool","-overwrite_original","-P",
+                      f"-XMP-dc:Creator={OWNER}",
+                      f"-XMP-dc:Rights={RIGHTS}",
+                      f"-XMP-dc:Description={description}",
+                      f"-XMP-photoshop:Credit={STUDIO} (artwork production and preparation)",
+                      f"-XMP-xmpRights:WebStatement={WEBSITE}",
+                      str(work),
+                  ]
+                  p=subprocess.run(cmd,capture_output=True,text=True)
+                  if p.returncode != 0 or "1 image files updated" not in p.stdout:
+                      raise RuntimeError(f"ExifTool refused {rel}: {p.stderr or p.stdout}")
+
+                  updated=work.read_bytes()
+                  after_image=identify_unchanged_image(work)
+                  after_payload=compressed_image_payload(updated,suffix)
+                  after_meta=exiftool_metadata(work)
+
+                  if before_image != after_image:
+                      raise RuntimeError(f"Decoded image characteristics changed: {rel}")
+                  if before_payload != after_payload:
+                      raise RuntimeError(f"Compressed picture payload changed: {rel}")
+                  if has_authenticity_credentials(updated,after_meta):
+                      raise RuntimeError(f"Unexpected authenticity marker after write: {rel}")
+                  if not metadata_matches(after_meta,description):
+                      raise RuntimeError(f"Metadata readback failed: {rel}")
+
+                  path.write_bytes(updated)
+                  record={
+                      "status":"verified_metadata_only",
+                      "source_sha256":before_sha,
+                      "sha256":digest(updated),
+                      "pixel_sha256":before_image["pixel_sha256"],
+                      "original_image_payload_sha256":before_payload,
+                      "width":before_image["size"][0],
+                      "height":before_image["size"][1],
+                      "format":fmt,
+                      "actual_format_note":"JPEG bytes retained under legacy .png filename" if rel.startswith("assets/creation/") else "Valid WebP; baked checkerboard preview intentionally preserved",
+                      "pixels_alpha_frames_profile_unchanged":True,
+                      "compressed_picture_data_unchanged":True,
+                      "studio_credit":STUDIO+" (artwork production and preparation)",
+                      "copyright":RIGHTS,
+                      "website":WEBSITE,
+                      "manual_hold_resolution":"actual-format-aware metadata-only retrofit",
+                  }
+                  ledger["records"][rel]=record
+                  results[rel]=record
+
+          ledger_path.write_text(json.dumps(ledger,indent=2,ensure_ascii=False,sort_keys=True)+"\n",encoding="utf-8")
+          manual_remaining=sum(v.get("status")=="review_required" for v in ledger["records"].values())
+          summary={
+              "schema_version":1,
+              "eligible_public_images":146,
+              "retrofitted_this_run":len(targets),
+              "updated_paths":targets,
+              "already_credited_new_this_run":0,
+              "held_for_rights_or_integrity_review_this_run":[],
+              "previously_completed_or_held":146-len(targets),
+              "remaining_unchecked":0,
+              "requires_manual_review":manual_remaining,
+              "auto_batches_complete":True,
+              "live_site_image_code_changed":False,
+              "safety":"Manual hold resolution used actual image format for validation; decoded pixels, alpha, ICC, frames and compressed picture data are unchanged.",
+          }
+          summary_path.write_text(json.dumps(summary,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+          (ROOT/"studio/manual-safe-holds-last-result.json").write_text(
+              json.dumps({
+                  "schema_version":1,
+                  "resolved_paths":targets,
+                  "resolved_count":len(targets),
+                  "manual_review_remaining":manual_remaining,
+                  "records":results,
+              },indent=2,ensure_ascii=False)+"\n",
+              encoding="utf-8"
+          )
+          print(json.dumps(summary,indent=2))
+          PY
+
+      - name: Verify exact staged scope
+        shell: bash
+        run: |
+          git diff --check
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          s=json.loads(Path("studio/manual-safe-holds-last-result.json").read_text())
+          changed=set(subprocess.check_output(["git","diff","--name-only"],text=True).splitlines())
+          allowed=set(s["resolved_paths"])|{"studio/batch-ledger.json","studio/batch-last-result.json","studio/manual-safe-holds-last-result.json"}
+          assert changed==allowed,(changed,allowed)
+          assert s["resolved_count"]==5
+          assert s["manual_review_remaining"]==6
+          print("Verified five safe holds; six protected holds remain.")
+          PY
+
+      - name: Commit isolated staging branch
+        shell: bash
+        run: |
+          git config user.name "L&L Studio Metadata Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/creation/creation_1.png assets/creation/creation_2.png assets/creation/creation_3.png assets/creation/creation_4.png assets/previews/buttons/blue-naut-wax-preview.webp studio/batch-ledger.json studio/batch-last-result.json studio/manual-safe-holds-last-result.json
+          git commit -m "stage: resolve five safe metadata holds pending visual review"
+          git push origin "HEAD:refs/heads/ll-studio-safe-holds-$GITHUB_RUN_ID"
