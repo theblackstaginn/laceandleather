@@ -1,77 +1,81 @@
 (() => {
-  const previousFocus =
-    new WeakMap();
+  const previousFocus = new WeakMap();
 
-  let lockedScrollX = 0;
-  let lockedScrollY = 0;
-  let bodyStyleBeforeLock = null;
+  // One snapshot for the entire modal stack. iOS Safari may temporarily
+  // report window.scrollY=0 while the body is fixed, so never recapture it
+  // when moving between overlapping dialogs.
+  let scrollLock = null;
+  let restorationGeneration = 0;
+
+  function currentPageScroll() {
+    const root = document.scrollingElement || document.documentElement;
+    return {
+      x: window.scrollX || window.pageXOffset || root.scrollLeft || 0,
+      y: window.scrollY || window.pageYOffset || root.scrollTop || 0
+    };
+  }
 
   function lockPageScroll() {
-    lockedScrollX =
-      window.scrollX
-      || window.pageXOffset
-      || 0;
+    if (scrollLock) return;
+    ++restorationGeneration; // Cancel pending restore frames on a new open.
 
-    lockedScrollY =
-      window.scrollY
-      || window.pageYOffset
-      || 0;
-
-    bodyStyleBeforeLock = {
-      position:
-        document.body.style.position,
-      top:
-        document.body.style.top,
-      left:
-        document.body.style.left,
-      right:
-        document.body.style.right,
-      width:
-        document.body.style.width
+    const { x, y } = currentPageScroll();
+    const body = document.body;
+    scrollLock = {
+      x,
+      y,
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width
     };
 
-    document.body.style.position =
-      "fixed";
-    document.body.style.top =
-      `-${lockedScrollY}px`;
-    document.body.style.left =
-      `-${lockedScrollX}px`;
-    document.body.style.right =
-      "0";
-    document.body.style.width =
-      "100%";
-
-    document.documentElement
-      .classList.add(
-        "no-scroll"
-      );
+    body.style.position = "fixed";
+    body.style.top = "-" + y + "px";
+    body.style.left = "-" + x + "px";
+    body.style.right = "0";
+    body.style.width = "100%";
+    document.documentElement.classList.add("no-scroll");
   }
 
   function unlockPageScroll() {
-    document.documentElement
-      .classList.remove(
-        "no-scroll"
-      );
+    const saved = scrollLock;
+    if (!saved) return;
+    scrollLock = null;
+    const generation = ++restorationGeneration;
 
-    if (bodyStyleBeforeLock) {
-      document.body.style.position =
-        bodyStyleBeforeLock.position;
-      document.body.style.top =
-        bodyStyleBeforeLock.top;
-      document.body.style.left =
-        bodyStyleBeforeLock.left;
-      document.body.style.right =
-        bodyStyleBeforeLock.right;
-      document.body.style.width =
-        bodyStyleBeforeLock.width;
-    }
+    // Restore page layout first, then the scroll root. Restoring only once
+    // here races the fixed-body reflow on iPhone Safari and jumps to top.
+    const body = document.body;
+    body.style.position = saved.position;
+    body.style.top = saved.top;
+    body.style.left = saved.left;
+    body.style.right = saved.right;
+    body.style.width = saved.width;
+    document.documentElement.classList.remove("no-scroll");
 
-    window.scrollTo(
-      lockedScrollX,
-      lockedScrollY
-    );
+    const restore = () => {
+      if (generation !== restorationGeneration ||
+          scrollLock || getOpenModals().length) return;
 
-    bodyStyleBeforeLock = null;
+      window.scrollTo(saved.x, saved.y);
+
+      // Safari can delay the viewport scroll root until the next frame.
+      const root = document.scrollingElement || document.documentElement;
+      if (Math.abs(root.scrollTop - saved.y) > 1) {
+        root.scrollTop = saved.y;
+      }
+      if (Math.abs(root.scrollLeft - saved.x) > 1) {
+        root.scrollLeft = saved.x;
+      }
+    };
+
+    restore();
+    requestAnimationFrame(() => {
+      restore();
+      requestAnimationFrame(restore);
+    });
   }
 
   const focusableSelector = [
@@ -139,6 +143,7 @@
     );
 
     requestAnimationFrame(() => {
+      if (!modal.classList.contains("open")) return;
       const focusable =
         getFocusable(modal);
 
@@ -161,41 +166,28 @@
   }
 
   function closeModal(modal) {
-    if (!modal) {
-      return;
-    }
+    if (!modal || !modal.classList.contains("open")) return;
 
     modal.classList.remove("open");
-    modal.setAttribute(
-      "aria-hidden",
-      "true"
-    );
+    modal.setAttribute("aria-hidden", "true");
 
-    if (
-      !getOpenModals().length
-    ) {
-      unlockPageScroll();
-    }
+    const trigger = previousFocus.get(modal);
+    previousFocus.delete(modal);
 
     modal.dispatchEvent(
-      new CustomEvent(
-        "ll:modal-closed"
-      )
+      new CustomEvent("ll:modal-closed")
     );
 
-    const trigger =
-      previousFocus.get(modal);
-
-    if (
-      trigger
-      && trigger.isConnected
-    ) {
-      trigger.focus({
-        preventScroll: true
-      });
+    // Closing one panel in a stack must not unlock the page or refocus a
+    // trigger hidden behind another panel (commission envelope -> letter).
+    if (!getOpenModals().length) {
+      if (trigger && trigger.isConnected) {
+        trigger.focus({ preventScroll: true });
+      }
+      // Restore AFTER focus. Some browsers ignore preventScroll when a
+      // previously fixed body first becomes scrollable again.
+      unlockPageScroll();
     }
-
-    previousFocus.delete(modal);
   }
 
   document.addEventListener(
