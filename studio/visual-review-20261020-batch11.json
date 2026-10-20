@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-20",
+  "batch": "11",
+  "staging_branch": "ll-studio-visual-39466368141",
+  "staging_commit": "495de9950f0d669293bd725428ddc1d3a1bec3ad",
+  "review_method": "Every updated image was visually inspected as an original-versus-staged comparison render on an isolated non-deploying helper branch. PNG/WebP twins use extension-specific filenames and transparent assets are composited over a checkerboard for review.",
+  "helper_branch": "ll-review-renders-39466368141",
+  "helper_render_directory": "studio/review-renders/batch11",
+  "total_reviewed": 11,
+  "approved": 11,
+  "held_from_updated_batch": 0,
+  "result": "all_11_updated_images_approved",
+  "automatic_queue_complete": true,
+  "remaining_unchecked": 0,
+  "separate_unchanged_holds": [
+    {
+      "path": "commission-modal-assets/map-slot-button.png",
+      "reason": "existing_authenticity_credentials"
+    },
+    {
+      "path": "commission-modal-assets/modal-bg.png",
+      "reason": "existing_authenticity_credentials"
+    },
+    {
+      "path": "itch-assets/bookmaker-cover-source.png",
+      "reason": "existing_authenticity_credentials"
+    }
+  ],
+  "safeguards": [
+    "Three new review-required originals in this final automatic pass were not modified because they carry existing authenticity credentials.",
+    "All previously held files remain untouched.",
+    "Helper comparison renders and helper workflow files are not on the staging branch and are not part of the merge candidate.",
+    "No customer download masters, client-owned/client-supplied media, or site code were modified.",
+    "GitHub Actions independently required matching decoded pixels, alpha, ICC profile, frame count, and compressed picture data for every edited image."
+  ],
+  "reviews": [
+    {
+      "path": "commission-modal-assets/commission-letter.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "5782f6128bfb97d92999cc904ac8b29785cca4ad7c3e9b876cafb724160e8970",
+      "staged_sha256": "dbdd99705b7560c5c554bd16ee5f97be8a3ad37ccea6215ad207e6ce85209579",
+      "pixel_sha256": "4d6437266bf1db2fb6c3d2e0d890d17c54b95860c23acbe3f43675923b8860f4",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged commission-letter artwork visually matches: torn parchment edges, texture, typography, divider ornament, line wrapping, spacing, crop, transparency, and color are unchanged."
+    },
+    {
+      "path": "commission-modal-assets/envelope-closed.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "66fca546146e87bdabaab9a0d7ab91a7ebf605ef158a75f074156588e4cd8ed3",
+      "staged_sha256": "ec32313b873eb581a8a18d2b999e7efc3bedb033c8d2423d0139f4777dbfbf01",
+      "pixel_sha256": "05d200b2c9a8d3da1834a2b5ab2c27191b31db2c1f48b394989ce15917139686",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged closed-envelope assets visually match: paper texture, fold geometry, wax seal, crop, color, shadows, and edge transparency are unchanged."
+    },
+    {
+      "path": "commission-modal-assets/envelope-closed.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "4846c07ae49e0371e8a944df0b67c88804db6891daa508ed99154f349ffff5e5",
+      "staged_sha256": "c6e582061ea723ebfd71e349e266822d5afda88c32cf418e4fe9f6313324352b",
+      "pixel_sha256": "3a8048a5dc095a4de393d9fee68fcccb2f66603fe7495da91d36c7d360590e63",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged closed-envelope assets visually match: paper texture, fold geometry, wax seal, crop, color, shadows, and edge transparency are unchanged."
+    },
+    {
+      "path": "commission-modal-assets/envelope-empty.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "c63dc68d878db1eea8ba2874051711c4fbce3b0e4f787279ec00a80a4b8aa7e0",
+      "staged_sha256": "54a4582c7d350ad5e985c1dbe7f18559c49ec3cb0cf06b87f57517b679cfe3b2",
+      "pixel_sha256": "e940cbd913cc2140a7d5c7bf1d84d9198f03cb604e156f10e303bef8595c983f",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged empty-envelope assets visually match: paper texture, open flap geometry, broken wax detail, crop, color, shadows, and checkerboard-confirmed transparency are unchanged."
+    },
+    {
+      "path": "commission-modal-assets/envelope-empty.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "03eb256a4423941042366af2ad21ffcc4dad00871632242aaa788d3f3d86412e",
+      "staged_sha256": "f60f424c3c2c1847850d6579ac76cf40d4c142996f87dbcd1e18f565afeff1c9",
+      "pixel_sha256": "04db4c2cb5abe7543197c3520e91f8bcb7a06cd15c88290c61792a11d2f365ed",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged empty-envelope assets visually match: paper texture, open flap geometry, broken wax detail, crop, color, shadows, and checkerboard-confirmed transparency are unchanged."
+    },
+    {
+      "path": "commission-modal-assets/envelope-open-letter.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "dae4f0a4a4df858aa4972436138a7eef0ea35614f0e970ae507213f69818f3e4",
+      "staged_sha256": "b24217bb23bb6afb80cb8d3adc0d0992450703fe91088e677500794d2f804e25",
+      "pixel_sha256": "365561d3f57429af353020d2a562e22a9559372d3c251cc47ed634941ebb5528",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged open-envelope-with-letter assets visually match: paper texture, letter placement, open flap geometry, broken wax detail, crop, color, shadows, and transparency are unchanged."
+    },
+    {
+      "path": "commission-modal-assets/envelope-open-letter.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "82b48c397c3ab478a69fb5473f48f92cc20d761f91f6ec8dd0fcd3c6eb1e440b",
+      "staged_sha256": "97fd94c0dd75c0a8d880adfa88c00c32ab3fe1c16a541ca1b9fece9d4a97be63",
+      "pixel_sha256": "700ed3b556c1d67c947ccdf706ff6efb4f8a1e8540c2e02b6d953d39da12424e",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged open-envelope-with-letter assets visually match: paper texture, letter placement, open flap geometry, broken wax detail, crop, color, shadows, and transparency are unchanged."
+    },
+    {
+      "path": "commission-modal-assets/map-slot-button.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "c50694955e18388df4122316e2501af70a513e0e330943799c082b3a684cfb81",
+      "staged_sha256": "39f53fc4fb3c1988cf00004254ab9dd3a4ca6eccc1ff49333225504144696394",
+      "pixel_sha256": "1c1ef07592dedcbdbe60dc3e54c1a14010f5ada4722ee4bb97e917cb582cd004",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Claim Map Slot button visually matches: red carved frame, lettering, wax-like drips, crop, highlights, shadows, and checkerboard-confirmed transparency are unchanged."
+    },
+    {
+      "path": "commission-modal-assets/modal-bg.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "a8962c27a71cdc852a48cc00834fe89fc872fb157b5579a393e7e029555e0ccc",
+      "staged_sha256": "dbb63a6e51e9fde9cc7ffc777a0cf420711d728cba2ef5b1f014b1d4c95e0d4c",
+      "pixel_sha256": "1cf3fcc101874e56ecebef283d2a7bef42fb0ee898ff046dd61701dc76f1beb5",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged commission modal background visually matches: leather panel, brass corners, desk props, crop, lighting, color, texture, and composition are unchanged."
+    },
+    {
+      "path": "itch-assets/arcane-ui-cover.png",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "066db8328fd7179209733ec1afa982c1a2de3f6d2cabf01970ce7799b0b6c304",
+      "staged_sha256": "4a098050118d8f59c124862b113fab74d4475e38a3f49e67a684ebb86657977d",
+      "pixel_sha256": "a890f006f522c8fad024a928434518ca5a02f5aec1cd66db5a8a1436b356fe46",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Arcane Fantasy UI cover visually matches: typography, asset lineup, colors, spacing, crop, and footer branding are unchanged."
+    },
+    {
+      "path": "itch-assets/bookmaker-cover-itch.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_extension_specific_review_render_pair",
+      "source_sha256": "1129752dee9e4cdc79e972ddec7bd31f8cf85b6b57b44b2e5f7dc3b124574f29",
+      "staged_sha256": "51aa79078dfba0e429c04bc1df85fe88fc37a4de875514e6bddd801f68bd3113",
+      "pixel_sha256": "a5d9e5a89b9a31f7fe0ad6819c55271a1eaaedb675a3f05d7186de34de378843",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Bookmaker Itch cover visually matches: typography, ten asset previews, colors, spacing, crop, and Lace & Leather Arcane footer branding are unchanged."
+    }
+  ]
+}
