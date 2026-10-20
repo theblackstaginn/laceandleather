@@ -1,27 +1,39 @@
 {
   "schema_version": 1,
   "eligible_public_images": 146,
-  "retrofitted_this_run": 12,
+  "retrofitted_this_run": 11,
   "updated_paths": [
-    "L&L-buttons/cart.webp",
-    "L&L-buttons/clear-cart.png",
-    "L&L-buttons/clear-cart.webp",
-    "L&L-buttons/confirm-order.png",
-    "L&L-buttons/confirm-order.webp",
-    "L&L-buttons/paid.png",
-    "L&L-buttons/paid.webp",
-    "L&L-buttons/paypad.png",
-    "L&L-buttons/paypad.webp",
-    "L&L-buttons/paypal.png",
-    "L&L-buttons/paypal.webp",
-    "commission-modal-assets/commission-letter.png"
+    "commission-modal-assets/commission-letter.webp",
+    "commission-modal-assets/envelope-closed.png",
+    "commission-modal-assets/envelope-closed.webp",
+    "commission-modal-assets/envelope-empty.png",
+    "commission-modal-assets/envelope-empty.webp",
+    "commission-modal-assets/envelope-open-letter.png",
+    "commission-modal-assets/envelope-open-letter.webp",
+    "commission-modal-assets/map-slot-button.webp",
+    "commission-modal-assets/modal-bg.webp",
+    "itch-assets/arcane-ui-cover.png",
+    "itch-assets/bookmaker-cover-itch.jpg"
   ],
   "already_credited_new_this_run": 0,
-  "held_for_rights_or_integrity_review_this_run": [],
-  "previously_completed_or_held": 120,
-  "remaining_unchecked": 14,
-  "requires_manual_review": 8,
-  "auto_batches_complete": false,
+  "held_for_rights_or_integrity_review_this_run": [
+    {
+      "path": "commission-modal-assets/map-slot-button.png",
+      "reason": "existing_authenticity_credentials"
+    },
+    {
+      "path": "commission-modal-assets/modal-bg.png",
+      "reason": "existing_authenticity_credentials"
+    },
+    {
+      "path": "itch-assets/bookmaker-cover-source.png",
+      "reason": "existing_authenticity_credentials"
+    }
+  ],
+  "previously_completed_or_held": 132,
+  "remaining_unchecked": 0,
+  "requires_manual_review": 11,
+  "auto_batches_complete": true,
   "live_site_image_code_changed": false,
   "safety": "On batch failure nothing is committed. Original pixels, alpha, ICC, frames and compressed picture data required to match."
 }
