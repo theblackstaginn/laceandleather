@@ -46,19 +46,13 @@
       "width": 820
     },
     "assets/previews/buttons/blue-naut-wax-preview.webp": {
-      "compressed_picture_data_unchanged": true,
-      "copyright": "Copyright 2026 Lace & Leather Arcane",
-      "format": "WEBP",
-      "height": 820,
-      "original_image_payload_sha256": "dbe2495ea41b28fa5e00074d2ceaa923ac8a2810ddbd7582d2a03c4116d6d0cf",
+      "status": "review_required",
+      "reason": "preexisting_checkerboard_in_blue_nautical_preview",
+      "sha256": "1d35fdcbaec413c2766feb901fb9ee3f0c19b9d43fe465ebafcbc62db8a5a557",
+      "staged_sha256_held": "1b41ebcab60f47a987caaa3d40a6cdbf0c3a2f2d571f6657ebc36a277da4afd5",
       "pixel_sha256": "814db03e4907c04318c8201b6648730efab38e905a9b51a743dfdd95a18e0c50",
-      "pixels_alpha_frames_profile_unchanged": true,
-      "sha256": "1b41ebcab60f47a987caaa3d40a6cdbf0c3a2f2d571f6657ebc36a277da4afd5",
-      "source_sha256": "1d35fdcbaec413c2766feb901fb9ee3f0c19b9d43fe465ebafcbc62db8a5a557",
-      "status": "verified_metadata_only",
-      "studio_credit": "Lace & Leather Arcane Studio (artwork production and preparation)",
-      "website": "https://laceleatherarcane.com",
-      "width": 820
+      "visual_review": "held_after_original_vs_staged_pair_inspection",
+      "note": "Rectangular checkerboard visible behind blue wax-seal artwork in both original and staged. Restore original file and hold until image-design review."
     },
     "assets/previews/buttons/bronze-x-sheild-preview.webp": {
       "compressed_picture_data_unchanged": true,
