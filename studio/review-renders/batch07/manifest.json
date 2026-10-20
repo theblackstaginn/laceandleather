@@ -1,0 +1,98 @@
+[
+  {
+    "source_path": "assets/etsy-previews/bookmaker/bookmaker-01-hero.jpg",
+    "review_render": "studio/review-renders/batch07/bookmaker-01-hero-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/bookmaker/bookmaker-02-contents.jpg",
+    "review_render": "studio/review-renders/batch07/bookmaker-02-contents-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/bookmaker/bookmaker-03-specs.jpg",
+    "review_render": "studio/review-renders/batch07/bookmaker-03-specs-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/grimoire-vol-3/grimoire-vol-3-02-contents.jpg",
+    "review_render": "studio/review-renders/batch07/grimoire-vol-3-02-contents-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/grimoire-vol-3/grimoire-vol-3-03-specs.jpg",
+    "review_render": "studio/review-renders/batch07/grimoire-vol-3-03-specs-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-01.jpg",
+    "review_render": "studio/review-renders/batch07/grimoire-vol-3-sample-01-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-02.jpg",
+    "review_render": "studio/review-renders/batch07/grimoire-vol-3-sample-02-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  },
+  {
+    "source_path": "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-03.jpg",
+    "review_render": "studio/review-renders/batch07/grimoire-vol-3-sample-03-pair.webp",
+    "original_display_size": [
+      760,
+      760
+    ],
+    "staged_display_size": [
+      760,
+      760
+    ]
+  }
+]
