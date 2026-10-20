@@ -1,0 +1,140 @@
+name: Audit Bookmaker source C2PA marker location
+
+on:
+  push:
+    branches:
+      - ll-protected-hold-audit-20261020
+    paths:
+      - ".github/workflows/ll-bookmaker-source-marker-audit.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout audit branch
+        uses: actions/checkout@v4
+
+      - name: Parse PNG chunks without modifying source
+        shell: bash
+        run: |
+          python -B - <<'PY'
+          import json, struct, zlib
+          from pathlib import Path
+
+          path=Path("itch-assets/bookmaker-cover-source.png")
+          raw=path.read_bytes()
+          sig=b"\x89PNG\r\n\x1a\n"
+          if not raw.startswith(sig):
+              raise RuntimeError("Not a PNG")
+
+          chunks=[]
+          pos=8
+          idat_parts=[]
+          while pos+12 <= len(raw):
+              start=pos
+              length=struct.unpack(">I",raw[pos:pos+4])[0]
+              ctype=raw[pos+4:pos+8]
+              data_start=pos+8
+              data_end=data_start+length
+              crc_end=data_end+4
+              if crc_end>len(raw):
+                  raise RuntimeError("Truncated PNG chunk")
+              data=raw[data_start:data_end]
+              ctype_s=ctype.decode("latin1")
+              chunks.append({
+                  "type":ctype_s,
+                  "start":start,
+                  "type_start":pos+4,
+                  "data_start":data_start,
+                  "data_end":data_end,
+                  "end":crc_end,
+                  "length":length,
+              })
+              if ctype==b"IDAT":
+                  idat_parts.append(data)
+              pos=crc_end
+              if ctype==b"IEND":
+                  break
+
+          needles=[b"c2pa",b"C2PA",b"jumbf",b"JUMBF",b"OpenAI",b"trainedAlgorithmicMedia"]
+          hits=[]
+          for needle in needles:
+              search=0
+              while True:
+                  idx=raw.find(needle,search)
+                  if idx<0:
+                      break
+                  owner=None
+                  region=None
+                  for ch in chunks:
+                      if ch["start"] <= idx < ch["end"]:
+                          owner=ch["type"]
+                          if ch["data_start"] <= idx < ch["data_end"]:
+                              region="data"
+                          elif ch["type_start"] <= idx < ch["data_start"]:
+                              region="chunk_type"
+                          else:
+                              region="length_or_crc"
+                          break
+                  context=raw[max(0,idx-24):min(len(raw),idx+len(needle)+40)]
+                  hits.append({
+                      "needle":needle.decode("latin1"),
+                      "offset":idx,
+                      "chunk_type":owner,
+                      "region":region,
+                      "context_hex":context.hex(),
+                      "context_ascii":"".join(chr(b) if 32<=b<127 else "." for b in context),
+                  })
+                  search=idx+1
+
+          decompressed_hits=[]
+          idat_error=None
+          if idat_parts:
+              try:
+                  decoded=zlib.decompress(b"".join(idat_parts))
+                  for needle in needles:
+                      search=0
+                      while True:
+                          idx=decoded.find(needle)
+                          if idx<0:
+                              break
+                          decompressed_hits.append({"needle":needle.decode("latin1"),"offset":idx})
+                          search=idx+1
+              except Exception as e:
+                  idat_error=type(e).__name__+": "+str(e)
+
+          report={
+              "schema_version":1,
+              "mode":"read_only",
+              "path":str(path),
+              "byte_length":len(raw),
+              "chunk_sequence":[{"type":c["type"],"length":c["length"],"start":c["start"],"end":c["end"]} for c in chunks],
+              "chunk_type_counts":{},
+              "raw_marker_hits":hits,
+              "all_c2pa_hits_inside_idat_data":bool(hits) and all(h["chunk_type"]=="IDAT" and h["region"]=="data" for h in hits if h["needle"].lower()=="c2pa"),
+              "has_cabx_chunk":any(c["type"]=="caBX" for c in chunks),
+              "has_jumb_chunk":any("jumb" in c["type"].lower() for c in chunks),
+              "decompressed_idat_marker_hits":decompressed_hits,
+              "decompressed_idat_error":idat_error,
+          }
+          for c in chunks:
+              report["chunk_type_counts"][c["type"]]=report["chunk_type_counts"].get(c["type"],0)+1
+
+          out=Path("studio/protected-hold-audit/bookmaker-source-marker.json")
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
+          print(json.dumps(report,indent=2))
+          PY
+
+      - name: Commit audit report only
+        shell: bash
+        run: |
+          git config user.name "L&L Audit Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add studio/protected-hold-audit/bookmaker-source-marker.json
+          git commit -m "audit: locate Bookmaker source C2PA byte marker"
+          git push
