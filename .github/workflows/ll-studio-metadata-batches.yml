@@ -37,8 +37,20 @@ jobs:
         shell: bash
         run: |
           count=$(gh pr list --state open --base main --json headRefName --jq '[.[] | select(.headRefName | startswith("ll-studio-visual-"))] | length')
-          if [ "$count" -gt 0 ]; then
-            echo "A visual-review pull request is awaiting inspection. Holding next batch."
+          waiting_branch=0
+          # GitHub Actions cannot create PRs in this repo. Hold if a staging
+          # branch is awaiting ChatGPT's connected GitHub review.
+          branches=$(gh api "repos/$GITHUB_REPOSITORY/branches?per_page=100" --paginate --jq '.[].name' | grep '^ll-studio-visual-' || true)
+          while IFS= read -r candidate; do
+            [ -n "$candidate" ] || continue
+            merged_count=$(gh pr list --state merged --head "$candidate" --json number --jq 'length')
+            if [ "$merged_count" -eq 0 ]; then
+              echo "Unreviewed staging branch: $candidate"
+              waiting_branch=1
+            fi
+          done <<< "$branches"
+          if [ "$count" -gt 0 ] || [ "$waiting_branch" -gt 0 ]; then
+            echo "An image batch still awaits actual visual approval. Holding next batch."
             echo "ready=false" >> "$GITHUB_OUTPUT"
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
@@ -119,12 +131,13 @@ jobs:
           git push origin "HEAD:refs/heads/ll-studio-visual-$GITHUB_RUN_ID"
           echo "new_batch=true" >> "$GITHUB_OUTPUT"
 
-      - name: Open PR and STOP for image-by-image review
+      - name: Hand staged branch to visual inspection queue
         if: steps.gate.outputs.ready == 'true' && steps.push.outputs.new_batch == 'true'
         shell: bash
         run: |
-          gh pr create \
-            --base main \
-            --head "ll-studio-visual-$GITHUB_RUN_ID" \
-            --title "VISUAL REVIEW REQUIRED: L&L Studio image batch $GITHUB_RUN_ID" \
-            --body "Automated metadata and pixel checks passed, but this batch MUST NOT be merged until each original and modified image has been rendered and visually inspected. Compare composition, legibility, watermark, edge/crop, alpha/transparency, and source defects. Preserve C2PA and original author/rights. Hold or revert questionable files. Document signed-off paths and hashes in a separate visual-review record, then merge only approved images. Images are still only on a staging branch. The workflow never merges or deploys them."
+          echo "STAGED BRANCH: ll-studio-visual-$GITHUB_RUN_ID"
+          echo "This branch contains verified metadata-only file changes."
+          echo "NEXT: Connected GitHub reviewer opens a PR, renders every original"
+          echo "and staged image, logs per-image approval or hold with hashes,"
+          echo "then merges only individually approved art."
+          echo "STOP: GitHub Actions never merges or deploys the batch."
