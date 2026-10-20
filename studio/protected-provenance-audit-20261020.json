@@ -200,5 +200,23 @@
     }
   ],
   "schema_version": 1,
-  "targets": 6
+  "targets": 6,
+  "resolution": {
+    "completed": true,
+    "resolution_date": "2026-10-20",
+    "terminal_status": "protected_provenance_preserved",
+    "images_modified": 0,
+    "action": "Preserve all six source originals byte-for-byte with their existing authenticity credentials. Do not overwrite or strip protected provenance metadata.",
+    "storefront_findings": {
+      "live_html_css_js_references_to_protected_png_sources": 0,
+      "current_site_uses_reviewed_webp_counterparts_for_grimoire_mapmaker_vol_one_map_slot_and_modal_background": true,
+      "bookmaker_source_png_is_unreferenced": true,
+      "legacy_non_live_references": [
+        "WEBP_AUDIT_2026-10-13.csv",
+        "scripts/build_delivery_package.py exclusions for Grimoire and Mapmaker covers"
+      ],
+      "active_workflow_reference_to_build_delivery_package_script_found": false
+    },
+    "note": "Five files explicitly expose C2PA trained-algorithmic-media metadata naming GPT-4o. The Bookmaker source still trips the authenticity-credential detector even though the selected ExifTool fields do not expose the same values. All credentials are intentionally preserved."
+  }
 }
