@@ -99,7 +99,7 @@ jobs:
                   for needle in needles:
                       search=0
                       while True:
-                          idx=decoded.find(needle)
+                          idx=decoded.find(needle,search)
                           if idx<0:
                               break
                           decompressed_hits.append({"needle":needle.decode("latin1"),"offset":idx})
