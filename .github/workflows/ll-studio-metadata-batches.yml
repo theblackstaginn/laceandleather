@@ -1,6 +1,10 @@
 name: L&L Studio stage metadata for visual review
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/ll-studio-metadata-batches.yml"
   schedule:
     # Runs only from default branch; prepares new PRs, never deploys assets.
     - cron: "23 1,7,13,19 * * *"
