@@ -200,6 +200,7 @@ def run(policy_file: Path, ledger_file: Path, summary_file: Path):
         prior = ledger["records"].get(rel)
         if prior and prior.get("sha256") == current_sha and prior.get("status") in {
             "verified_metadata_only", "already_credited", "review_required",
+            "protected_provenance_preserved",
         }:
             continue
         if len(updated) >= limit:
@@ -235,6 +236,7 @@ def run(policy_file: Path, ledger_file: Path, summary_file: Path):
         "previously_completed_or_held": len(files) - remaining - len(updated) - already - new_reviews,
         "remaining_unchecked": remaining,
         "requires_manual_review": sum(v.get("status") == "review_required" for v in ledger["records"].values()),
+        "protected_provenance_preserved": sum(v.get("status") == "protected_provenance_preserved" for v in ledger["records"].values()),
         "auto_batches_complete": remaining == 0,
         "live_site_image_code_changed": False,
         "safety": "On batch failure nothing is committed. Original pixels, alpha, ICC, frames and compressed picture data required to match.",

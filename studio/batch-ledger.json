@@ -649,9 +649,16 @@
       "width": 2600
     },
     "assets/grimoire/grim-thumb.png": {
-      "reason": "existing_authenticity_credentials",
+      "reason": "existing_authenticity_credentials_preserved",
       "sha256": "d26b244c8f8f9fab04d493faae1d7ac9369e8898ee44213e891189e9594d0a1d",
-      "status": "review_required"
+      "status": "protected_provenance_preserved",
+      "resolution_date": "2026-10-20",
+      "audit_record": "studio/protected-provenance-audit-20261020.json",
+      "preservation_action": "left_byte_identical_do_not_rewrite_or_strip_authenticity_credentials",
+      "authenticity_credentials_detected": true,
+      "live_storefront_reference": false,
+      "webp_counterpart": "assets/grimoire/grim-thumb.webp",
+      "repository_reference_classification": "non_live_build_exclusion_and_historical_audit_only"
     },
     "assets/grimoire/grim-thumb.webp": {
       "compressed_picture_data_unchanged": true,
@@ -669,9 +676,16 @@
       "width": 1024
     },
     "assets/mapmaker/mapmaker-cover.png": {
-      "reason": "existing_authenticity_credentials",
+      "reason": "existing_authenticity_credentials_preserved",
       "sha256": "e9e512d5dcc1c77d6614b78d17aaf4aee6702fb7f6712aba6c21f26666490d6c",
-      "status": "review_required"
+      "status": "protected_provenance_preserved",
+      "resolution_date": "2026-10-20",
+      "audit_record": "studio/protected-provenance-audit-20261020.json",
+      "preservation_action": "left_byte_identical_do_not_rewrite_or_strip_authenticity_credentials",
+      "authenticity_credentials_detected": true,
+      "live_storefront_reference": false,
+      "webp_counterpart": "assets/mapmaker/mapmaker-cover.webp",
+      "repository_reference_classification": "non_live_build_exclusion_and_historical_audit_only"
     },
     "assets/mapmaker/mapmaker-cover.webp": {
       "compressed_picture_data_unchanged": true,
@@ -1877,9 +1891,16 @@
       "width": 1024
     },
     "assets/vol-one/vol-1-thumbnail.png": {
-      "reason": "existing_authenticity_credentials",
+      "reason": "existing_authenticity_credentials_preserved",
       "sha256": "54d62151d5ed1b91db5546719c3f77b4a6ee9eb2182854427f64ccbc9b385b51",
-      "status": "review_required"
+      "status": "protected_provenance_preserved",
+      "resolution_date": "2026-10-20",
+      "audit_record": "studio/protected-provenance-audit-20261020.json",
+      "preservation_action": "left_byte_identical_do_not_rewrite_or_strip_authenticity_credentials",
+      "authenticity_credentials_detected": true,
+      "live_storefront_reference": false,
+      "webp_counterpart": "assets/vol-one/vol-1-thumbnail.webp",
+      "repository_reference_classification": "historical_audit_only"
     },
     "assets/vol-one/vol-1-thumbnail.webp": {
       "compressed_picture_data_unchanged": true,
@@ -2017,9 +2038,16 @@
       "width": 1455
     },
     "commission-modal-assets/map-slot-button.png": {
-      "reason": "existing_authenticity_credentials",
+      "reason": "existing_authenticity_credentials_preserved",
       "sha256": "08c9b07af216f8b836237f3aeab2563b930060ac8400417828e58fa0970a88d8",
-      "status": "review_required"
+      "status": "protected_provenance_preserved",
+      "resolution_date": "2026-10-20",
+      "audit_record": "studio/protected-provenance-audit-20261020.json",
+      "preservation_action": "left_byte_identical_do_not_rewrite_or_strip_authenticity_credentials",
+      "authenticity_credentials_detected": true,
+      "live_storefront_reference": false,
+      "webp_counterpart": "commission-modal-assets/map-slot-button.webp",
+      "repository_reference_classification": "historical_audit_only"
     },
     "commission-modal-assets/map-slot-button.webp": {
       "compressed_picture_data_unchanged": true,
@@ -2037,9 +2065,16 @@
       "width": 1536
     },
     "commission-modal-assets/modal-bg.png": {
-      "reason": "existing_authenticity_credentials",
+      "reason": "existing_authenticity_credentials_preserved",
       "sha256": "55328b747ef3c81036af331871d6a3a799867acefb170855572009c2a28ce74e",
-      "status": "review_required"
+      "status": "protected_provenance_preserved",
+      "resolution_date": "2026-10-20",
+      "audit_record": "studio/protected-provenance-audit-20261020.json",
+      "preservation_action": "left_byte_identical_do_not_rewrite_or_strip_authenticity_credentials",
+      "authenticity_credentials_detected": true,
+      "live_storefront_reference": false,
+      "webp_counterpart": "commission-modal-assets/modal-bg.webp",
+      "repository_reference_classification": "historical_audit_only"
     },
     "commission-modal-assets/modal-bg.webp": {
       "compressed_picture_data_unchanged": true,
@@ -2087,9 +2122,16 @@
       "width": 1260
     },
     "itch-assets/bookmaker-cover-source.png": {
-      "reason": "existing_authenticity_credentials",
+      "reason": "existing_authenticity_credentials_preserved",
       "sha256": "4677da8af0acb547764c3484281926c3c9c3b0901f8ab56dd31fa1b955baf25c",
-      "status": "review_required"
+      "status": "protected_provenance_preserved",
+      "resolution_date": "2026-10-20",
+      "audit_record": "studio/protected-provenance-audit-20261020.json",
+      "preservation_action": "left_byte_identical_do_not_rewrite_or_strip_authenticity_credentials",
+      "authenticity_credentials_detected": true,
+      "live_storefront_reference": false,
+      "webp_counterpart": null,
+      "repository_reference_classification": "unreferenced_source_asset"
     }
   },
   "schema_version": 1,

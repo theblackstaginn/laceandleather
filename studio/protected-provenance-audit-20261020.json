@@ -1,0 +1,222 @@
+{
+  "audit_date": "2026-10-20",
+  "images_modified": 0,
+  "purpose": "Read-only provenance and repository-reference audit for six files held because existing authenticity credentials must not be overwritten.",
+  "records": [
+    {
+      "authenticity_credentials_detected": true,
+      "bytes": 2059839,
+      "conflicting_creator_or_rights_fields": [],
+      "image": {
+        "format": "PNG",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1024
+        ]
+      },
+      "non_audit_repository_references": [
+        "WEBP_AUDIT_2026-10-13.csv:30:assets/grimoire/grim-thumb.png,1024,1024,RGB,quality-88,2059839,241014,1818825,88.3",
+        "scripts/build_delivery_package.py:51:    \"grimoire\": (\"assets/grimoire\", \"grim-\", {\"grim-thumb.png\"}),"
+      ],
+      "path": "assets/grimoire/grim-thumb.png",
+      "referenced_outside_audit_files": true,
+      "relevant_metadata": {
+        "CBOR:ActionsDigitalSourceType": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+        "CBOR:ActionsSoftwareAgentName": "GPT-4o",
+        "CBOR:Claim_Generator_InfoOrgContentauthC2Pa_Rs": "0.0.0",
+        "JUMBF:JUMDLabel": "c2pa",
+        "JUMBF:JUMDType": "(c2pa)-0011-0010-800000aa00389b71",
+        "Jpeg2000:C2PAThumbnailIngredientData": "(Binary data 70457 bytes, use -b option to extract)",
+        "Jpeg2000:C2PAThumbnailIngredientSalt": "218ddd3b6b28555607c0c344375e436f",
+        "Jpeg2000:C2PAThumbnailIngredientType": "image/jpeg"
+      },
+      "sha256": "d26b244c8f8f9fab04d493faae1d7ac9369e8898ee44213e891189e9594d0a1d",
+      "webp_counterpart": {
+        "exists": true,
+        "path": "assets/grimoire/grim-thumb.webp",
+        "sha256": "cbae43263b8f684e2b17927ece0f9cb229b9b23fd8dbf61cc5f6393f04ef5fdc"
+      }
+    },
+    {
+      "authenticity_credentials_detected": true,
+      "bytes": 2065266,
+      "conflicting_creator_or_rights_fields": [],
+      "image": {
+        "format": "PNG",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1024
+        ]
+      },
+      "non_audit_repository_references": [
+        "WEBP_AUDIT_2026-10-13.csv:45:assets/mapmaker/mapmaker-cover.png,1024,1024,RGB,quality-88,2065266,241454,1823812,88.3",
+        "scripts/build_delivery_package.py:52:    \"mapmaker\": (\"assets/mapmaker\", \"map_\", {\"mapmaker-cover.png\"}),"
+      ],
+      "path": "assets/mapmaker/mapmaker-cover.png",
+      "referenced_outside_audit_files": true,
+      "relevant_metadata": {
+        "CBOR:ActionsDigitalSourceType": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+        "CBOR:ActionsSoftwareAgentName": "GPT-4o",
+        "CBOR:Claim_Generator_InfoOrgContentauthC2Pa_Rs": "0.0.0",
+        "JUMBF:JUMDLabel": "c2pa",
+        "JUMBF:JUMDType": "(c2pa)-0011-0010-800000aa00389b71",
+        "Jpeg2000:C2PAThumbnailIngredientData": "(Binary data 76245 bytes, use -b option to extract)",
+        "Jpeg2000:C2PAThumbnailIngredientSalt": "789d464604d9e0b04b39e40cd6c2c15b",
+        "Jpeg2000:C2PAThumbnailIngredientType": "image/jpeg"
+      },
+      "sha256": "e9e512d5dcc1c77d6614b78d17aaf4aee6702fb7f6712aba6c21f26666490d6c",
+      "webp_counterpart": {
+        "exists": true,
+        "path": "assets/mapmaker/mapmaker-cover.webp",
+        "sha256": "d2cb208f28a021ce794a047df9fbd15542dca6c229778c710c46352af3624f1c"
+      }
+    },
+    {
+      "authenticity_credentials_detected": true,
+      "bytes": 1995868,
+      "conflicting_creator_or_rights_fields": [],
+      "image": {
+        "format": "PNG",
+        "mode": "RGB",
+        "size": [
+          1024,
+          1024
+        ]
+      },
+      "non_audit_repository_references": [
+        "WEBP_AUDIT_2026-10-13.csv:73:assets/vol-one/vol-1-thumbnail.png,1024,1024,RGB,quality-88,1995868,222738,1773130,88.8"
+      ],
+      "path": "assets/vol-one/vol-1-thumbnail.png",
+      "referenced_outside_audit_files": true,
+      "relevant_metadata": {
+        "CBOR:ActionsDigitalSourceType": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+        "CBOR:ActionsSoftwareAgentName": "GPT-4o",
+        "CBOR:Claim_Generator_InfoOrgContentauthC2Pa_Rs": "0.0.0",
+        "JUMBF:JUMDLabel": "c2pa",
+        "JUMBF:JUMDType": "(c2pa)-0011-0010-800000aa00389b71",
+        "Jpeg2000:C2PAThumbnailIngredientData": "(Binary data 73511 bytes, use -b option to extract)",
+        "Jpeg2000:C2PAThumbnailIngredientSalt": "44d5ed47f05ecba7e9df3f50af1a84ac",
+        "Jpeg2000:C2PAThumbnailIngredientType": "image/jpeg"
+      },
+      "sha256": "54d62151d5ed1b91db5546719c3f77b4a6ee9eb2182854427f64ccbc9b385b51",
+      "webp_counterpart": {
+        "exists": true,
+        "path": "assets/vol-one/vol-1-thumbnail.webp",
+        "sha256": "d3830314d9e656c3a71fd5e5dad45a038bfb3ce32ac159316381656564d541fc"
+      }
+    },
+    {
+      "authenticity_credentials_detected": true,
+      "bytes": 2846779,
+      "conflicting_creator_or_rights_fields": [],
+      "image": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          1536,
+          1024
+        ]
+      },
+      "non_audit_repository_references": [
+        "WEBP_AUDIT_2026-10-13.csv:112:commission-modal-assets/map-slot-button.png,1536,1024,RGBA,lossless-alpha,2846779,1071216,1775563,62.4"
+      ],
+      "path": "commission-modal-assets/map-slot-button.png",
+      "referenced_outside_audit_files": true,
+      "relevant_metadata": {
+        "CBOR:ActionsDigitalSourceType": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+        "CBOR:ActionsSoftwareAgentName": "GPT-4o",
+        "CBOR:Claim_Generator_InfoOrgContentauthC2Pa_Rs": "0.0.0",
+        "JUMBF:JUMDLabel": "c2pa",
+        "JUMBF:JUMDType": "(c2pa)-0011-0010-800000aa00389b71",
+        "Jpeg2000:C2PAThumbnailIngredientData": "(Binary data 32146 bytes, use -b option to extract)",
+        "Jpeg2000:C2PAThumbnailIngredientSalt": "c66ac1b9eff5a21650944a2f12c78f4d",
+        "Jpeg2000:C2PAThumbnailIngredientType": "image/jpeg"
+      },
+      "sha256": "08c9b07af216f8b836237f3aeab2563b930060ac8400417828e58fa0970a88d8",
+      "webp_counterpart": {
+        "exists": true,
+        "path": "commission-modal-assets/map-slot-button.webp",
+        "sha256": "39f53fc4fb3c1988cf00004254ab9dd3a4ca6eccc1ff49333225504144696394"
+      }
+    },
+    {
+      "authenticity_credentials_detected": true,
+      "bytes": 2963464,
+      "conflicting_creator_or_rights_fields": [],
+      "image": {
+        "format": "PNG",
+        "mode": "RGB",
+        "size": [
+          1536,
+          1024
+        ]
+      },
+      "non_audit_repository_references": [
+        "WEBP_AUDIT_2026-10-13.csv:113:commission-modal-assets/modal-bg.png,1536,1024,RGB,quality-88,2963464,410468,2552996,86.1"
+      ],
+      "path": "commission-modal-assets/modal-bg.png",
+      "referenced_outside_audit_files": true,
+      "relevant_metadata": {
+        "CBOR:ActionsDigitalSourceType": "http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia",
+        "CBOR:ActionsSoftwareAgentName": "GPT-4o",
+        "CBOR:Claim_Generator_InfoOrgContentauthC2Pa_Rs": "0.0.0",
+        "JUMBF:JUMDLabel": "c2pa",
+        "JUMBF:JUMDType": "(c2pa)-0011-0010-800000aa00389b71",
+        "Jpeg2000:C2PAThumbnailIngredientData": "(Binary data 33376 bytes, use -b option to extract)",
+        "Jpeg2000:C2PAThumbnailIngredientSalt": "5ae2f73c329df7e68509285abc925dc9",
+        "Jpeg2000:C2PAThumbnailIngredientType": "image/jpeg"
+      },
+      "sha256": "55328b747ef3c81036af331871d6a3a799867acefb170855572009c2a28ce74e",
+      "webp_counterpart": {
+        "exists": true,
+        "path": "commission-modal-assets/modal-bg.webp",
+        "sha256": "dbb63a6e51e9fde9cc7ffc777a0cf420711d728cba2ef5b1f014b1d4c95e0d4c"
+      }
+    },
+    {
+      "authenticity_credentials_detected": true,
+      "bytes": 6098955,
+      "conflicting_creator_or_rights_fields": [],
+      "image": {
+        "format": "PNG",
+        "mode": "RGBA",
+        "size": [
+          2600,
+          1720
+        ]
+      },
+      "non_audit_repository_references": [],
+      "path": "itch-assets/bookmaker-cover-source.png",
+      "referenced_outside_audit_files": false,
+      "relevant_metadata": {},
+      "sha256": "4677da8af0acb547764c3484281926c3c9c3b0901f8ab56dd31fa1b955baf25c",
+      "webp_counterpart": {
+        "exists": false,
+        "path": "itch-assets/bookmaker-cover-source.webp",
+        "sha256": null
+      }
+    }
+  ],
+  "schema_version": 1,
+  "targets": 6,
+  "resolution": {
+    "completed": true,
+    "resolution_date": "2026-10-20",
+    "terminal_status": "protected_provenance_preserved",
+    "images_modified": 0,
+    "action": "Preserve all six source originals byte-for-byte with their existing authenticity credentials. Do not overwrite or strip protected provenance metadata.",
+    "storefront_findings": {
+      "live_html_css_js_references_to_protected_png_sources": 0,
+      "current_site_uses_reviewed_webp_counterparts_for_grimoire_mapmaker_vol_one_map_slot_and_modal_background": true,
+      "bookmaker_source_png_is_unreferenced": true,
+      "legacy_non_live_references": [
+        "WEBP_AUDIT_2026-10-13.csv",
+        "scripts/build_delivery_package.py exclusions for Grimoire and Mapmaker covers"
+      ],
+      "active_workflow_reference_to_build_delivery_package_script_found": false
+    },
+    "note": "Five files explicitly expose C2PA trained-algorithmic-media metadata naming GPT-4o. The Bookmaker source still trips the authenticity-credential detector even though the selected ExifTool fields do not expose the same values. All credentials are intentionally preserved."
+  }
+}
