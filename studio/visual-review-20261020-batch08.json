@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-20",
+  "batch": "08",
+  "staging_branch": "ll-studio-visual-39462242303",
+  "staging_commit": "e4127f8e1faf1c1443065d11afa885b5e792d49a",
+  "review_method": "Every updated image was visually inspected as an original-versus-staged pair. Oversized Etsy JPEGs were rendered on an isolated non-deploying helper branch into review-only comparison sheets.",
+  "helper_branch": "ll-review-renders-39462242303",
+  "total_reviewed": 12,
+  "approved": 12,
+  "held_from_updated_batch": 0,
+  "result": "all_12_updated_images_approved",
+  "separate_unchanged_holds": [
+    {
+      "path": "assets/creation/creation_1.png",
+      "reason": "unsupported_or_unreadable_image"
+    },
+    {
+      "path": "assets/creation/creation_2.png",
+      "reason": "unsupported_or_unreadable_image"
+    }
+  ],
+  "safeguards": [
+    "The two unsupported creation PNGs were not modified and remain review-required.",
+    "Helper comparison renders are not on the staging branch and are not part of the merge candidate.",
+    "No customer download masters, client-owned media, client-supplied media, or site code were modified.",
+    "GitHub Actions independently required matching decoded pixels, alpha, ICC profile, frame count, and compressed picture data for every edited image."
+  ],
+  "reviews": [
+    {
+      "path": "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-04.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "d074dc94c5bdfa9a5d90ebd1f4b4a637754f880ae3f41f672d53d11a99b6d634",
+      "staged_sha256": "6a2530a1b23e9ee3466e332e27661a3634cd7837caaff188d7669ce60d7dd7ad",
+      "pixel_sha256": "9c4e972411fab21788def035c63d5601f000e19dc35d4627dfe64df9b7be18ad",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Grimoire Vol. 3 sample images visually match: parchment artwork, watermarks, typography, colors, borders, shadows, copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/grimoire-vol-3/samples/grimoire-vol-3-sample-05.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "0abaf135793edf943e26982d24b23fda6ede3fc2c81471239df75e4e827ca1c3",
+      "staged_sha256": "8e967269c27e4957198abe5f8fbb49d070390e512802ce265ad05ee9fdeef742",
+      "pixel_sha256": "4844f41fefb74b03a405b0f6dbbffdb486032eaac229ac1a0ade9a7eafa53a90",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Grimoire Vol. 3 sample images visually match: parchment artwork, watermarks, typography, colors, borders, shadows, copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/journal-pages/journal-pages-01-hero.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "38c988446fa1c25f2bf64e516fbd1362ebb8ba8cc90478f23dc229b2aebd8a23",
+      "staged_sha256": "719a632c27e657561e6ac4877b28447e6aeb75047b5dfcf6875dff8c82bce2fe",
+      "pixel_sha256": "b7e2037782116c899dd4e08f02cd86878d3cd032e2877c6806edf5587f391a31",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Grimoire Journal Pages listing images visually match: page artwork, typography, colors, borders, shadows, copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/journal-pages/journal-pages-02-contents.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "2bd8cb2eb0cd25746c5d06b7a2f49798f8168a37b2ea56d847d519b4a3f7af39",
+      "staged_sha256": "ec5f729ffc6c811c847edb100abec9f22d120f5ee123f3b7ffc5bb3d48ddf47e",
+      "pixel_sha256": "5bda952d536fef68ffad39faa5dbbee5d69583ef022a8c01adbbdd75a1cf959e",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Grimoire Journal Pages listing images visually match: page artwork, typography, colors, borders, shadows, copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/journal-pages/journal-pages-03-specs.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "21016b943f2a2031d9b5720f7e15c5c2d6af8e675c4061977de780c101ba66ae",
+      "staged_sha256": "3861f63428f2d4081ae9c899102961b5b25c86b86be1466edf2b2d7e0cce5382",
+      "pixel_sha256": "4213cf8404f13e167253339e929085df9f5b0a3fe1eca75b373fafe9cc9f4728",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Grimoire Journal Pages listing images visually match: page artwork, typography, colors, borders, shadows, copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/mapmakers/mapmakers-02-contents.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "eaea0698f1c05dd7014c1ac440388d89114b5e131fe4428c2aa0aa3b46d83768",
+      "staged_sha256": "0f903d533ba8224d8cbee96a98acb8bc956f8599d93c09afe120bf4e1071dc08",
+      "pixel_sha256": "95f0ebba658361be7c806cf21de10f2f05db1e3325f7ff9e52c0bc77e9e1b66b",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Mapmakers listing images visually match: texture thumbnails, illustration details, typography, colors, borders, shadows, copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/mapmakers/mapmakers-03-specs.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "0032ef9c882ac428a3edec5792d36d806a35798a32c2e32976245d9e66234c87",
+      "staged_sha256": "a948a97d13066734a7fd04e054e54ec3c121f41051fa2270a074d268b2413c8f",
+      "pixel_sha256": "2fb65d98c3446dd6320ac34507c5aad8996acd2c624562b24b0e76f231e803fd",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Mapmakers listing images visually match: texture thumbnails, illustration details, typography, colors, borders, shadows, copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/parchment-light/parchment-light-01-hero.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "a2bc521d3b55c9cf5442d69bc02a7b0818823ac3b6b9eb886be8a50de410139f",
+      "staged_sha256": "88566538ae2c0db62f36782a7632c796057fed433c000a7bf7a2fd671a90c0a2",
+      "pixel_sha256": "e2edeaeaaeefcd081bba9b7781b3e2299908aee8d1e477424bc6ea0606ce8f3f",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Parchment Light listing images visually match: texture previews, watermarks, typography, colors, borders, shadows, copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/parchment-light/parchment-light-02-contents.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "924fb73a30c66b582c118424ad2282a755133a045c967612176f816b0100d356",
+      "staged_sha256": "239b3153bef31e7e7a5942bb3fcb7fbbfd674830edb87660491a0064e4c2d03a",
+      "pixel_sha256": "cc5d9d6a3f816f08df31b8ef599c0fad330397ba0c038bd1ec33d5665005b80d",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Parchment Light listing images visually match: texture previews, watermarks, typography, colors, borders, shadows, copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/etsy-previews/parchment-light/parchment-light-03-specs.jpg",
+      "decision": "approved",
+      "inspection": "original_vs_staged_review_render_pair",
+      "source_sha256": "86224fdb49e24d504524cd0f51fc437b2f27d56ecc0e058f4dba684d5ffa338b",
+      "staged_sha256": "d8f2d119301a92bcd5e243e99af817a27212d3ac2da75cca342b4179da5e1f0e",
+      "pixel_sha256": "32ea2a581d0bdf4bc2ae250620274ddf0147135465092f8aad1deae9c7455c6d",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged Parchment Light listing images visually match: texture previews, watermarks, typography, colors, borders, shadows, copy, and layout are unchanged."
+    },
+    {
+      "path": "assets/creation/creation_1.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_direct_render_pair",
+      "source_sha256": "8cd1e4c6d38d4e5a7a4897d60ee280bad38f342dcad1da61c4cdc33683a63bf2",
+      "staged_sha256": "51e0af45173baa8139ba316893ac93e28aa3316094853f5c6bdeb4589163aecc",
+      "pixel_sha256": "b067046b9c33bcb51e9b159696d7ba7b01a4edf95a949135c2b571525b303fd5",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged creation-scene WebPs visually match: hands, parchment, desk objects, candlelight, crop, color, shadows, and fine details are unchanged."
+    },
+    {
+      "path": "assets/creation/creation_2.webp",
+      "decision": "approved",
+      "inspection": "original_vs_staged_direct_render_pair",
+      "source_sha256": "0d815d3345b0039233b5c24b78cac2d1eba79600b29e24be825516e695b4d4e4",
+      "staged_sha256": "0ff01483583f6b60a4d92c481e3fef00b51c60ad527a8e25a100f88718e695b8",
+      "pixel_sha256": "98d5a20cacb52ab9c721dd3eb6c1472a781921b93e77c4882393eec24231517d",
+      "compressed_picture_data_unchanged": true,
+      "pixels_alpha_frames_profile_unchanged": true,
+      "visual_notes": "Original and staged creation-scene WebPs visually match: hands, parchment, desk objects, candlelight, crop, color, shadows, and fine details are unchanged."
+    }
+  ]
+}
