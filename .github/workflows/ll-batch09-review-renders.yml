@@ -39,7 +39,7 @@ jobs:
 
           summary=json.loads(Path("studio/batch-last-result.json").read_text())
           targets=summary["updated_paths"]
-          out=Path("studio/review-renders/batch09")
+          out=Path("studio/review-renders/batch09-full")
           out.mkdir(parents=True, exist_ok=True)
           manifest=[]
 
@@ -75,7 +75,7 @@ jobs:
               draw.text((o.width+gap+8,8),"STAGED",fill=(240,240,240))
               canvas.paste(o,(0,top))
               canvas.paste(s,(o.width+gap,top))
-              dest=out/(Path(path).stem+"-pair.webp")
+              dest=out/(Path(path).name.replace(".", "_")+"-pair.webp")
               canvas.save(dest,"WEBP",quality=88,method=6)
               manifest.append({"source_path":path,"review_render":str(dest),"original_display_size":list(o.size),"staged_display_size":list(s.size)})
 
