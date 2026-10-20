@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-20",
+  "repair": "Correct four JPEG-byte files mislabeled with .png extensions while preserving decoded image content exactly.",
+  "provenance_policy": "Refuse files with authenticity credentials, DigitalSourceType, licensing fields, or conflicting creator/rights metadata.",
+  "visual_review_required": true,
+  "results": [
+    {
+      "path": "assets/creation/creation_1.png",
+      "old_sha256": "c79208d33d12b366744c925f818591abb528c34cdf5af1dd087af22362d325e6",
+      "new_sha256": "962bcb7b76ea92d6c5d8791ebfc6d7b5e559fe74a3b391fb10d07f932a851477",
+      "pixel_sha256": "1245fd9849aaa3a9dbfdd3e7549547522ddb0ea6a346af8ee01d81b236a7effe",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_format": "JPEG",
+      "output_format": "PNG"
+    },
+    {
+      "path": "assets/creation/creation_2.png",
+      "old_sha256": "0dc8832aa3e22372c061f55070b2fb56bfa9f18324a501af914ae1a80c73f7fb",
+      "new_sha256": "d013148a2972ae1531d1c3ad0941be853444a4f5574867010e634a58bca2dd98",
+      "pixel_sha256": "dc53d4c7f41922cb78691b9e911e73e28b81540c7a7df2a07b9dc40d243f3732",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_format": "JPEG",
+      "output_format": "PNG"
+    },
+    {
+      "path": "assets/creation/creation_3.png",
+      "old_sha256": "1248c69718295e42e1c2c61abfb7650db80a26d87c119ec2bd55e3c8482dfab8",
+      "new_sha256": "5b983d74f293e55431c256ce91ae300fafbf66ce049d15bc4ccd7846bd424306",
+      "pixel_sha256": "bb0ec77b45f6b0dc7215fe53fc86204a5cfaafcf2817177151c99b79a7715e8e",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_format": "JPEG",
+      "output_format": "PNG"
+    },
+    {
+      "path": "assets/creation/creation_4.png",
+      "old_sha256": "614108f4ce63948593c867cdf84c201317a0804cd0e72c6edcbe84bd55380409",
+      "new_sha256": "7caab932902ee57632119b4da0f13c6dd00382576a3c21e79244fe7c345d4840",
+      "pixel_sha256": "3652d043569ef851f88eca02cec4f712b49e90cb069c876975dd2ea1ca104e98",
+      "size": [
+        1536,
+        1024
+      ],
+      "source_format": "JPEG",
+      "output_format": "PNG"
+    }
+  ]
+}
