@@ -53,5 +53,21 @@
       "source_format": "JPEG",
       "output_format": "PNG"
     }
-  ]
+  ],
+  "visual_review": {
+    "completed": true,
+    "reviewed_at": "2026-10-20",
+    "method": "Each original JPEG-byte file from main was rendered beside the repaired true-PNG version from the repair branch.",
+    "approved": 4,
+    "held": 0,
+    "result": "all_four_repaired_images_visually_match",
+    "notes": [
+      "creation_1.png: composition, hands, parchment, desk props, lighting, crop, color, and fine details unchanged.",
+      "creation_2.png: drawing hand, parchment marks, desk props, lighting, crop, color, and fine details unchanged.",
+      "creation_3.png: scanner, hands, parchment, desk scene, lighting, crop, color, and fine details unchanged.",
+      "creation_4.png: monitor, texture grid, hands, desk scene, lighting, crop, color, and fine details unchanged."
+    ],
+    "helper_branch": "ll-review-repair-creation-pngs-20261020",
+    "helper_render_directory": "studio/review-renders/manual-creation-png-repair"
+  }
 }
