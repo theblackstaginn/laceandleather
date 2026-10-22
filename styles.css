@@ -1752,3 +1752,10 @@ body.pay-page .pay-qr{
     display:none;
   }
 }
+
+/* Conversion path clarity: existing serif, copper and glass palette. */
+.shop-entry{margin:12px 0 6px;}
+.shop-entry .btn-link{border-color:rgba(196,148,91,.65);min-height:44px;}
+#packs{scroll-margin-top:20px;}
+.edition-note{margin:14px 0!important;padding:12px 14px;border-left:2px solid #b78b58;text-align:left;font-size:16px;line-height:1.55;}
+.edition-note strong{color:#e5c79c;}
