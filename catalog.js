@@ -3,7 +3,7 @@
     "grimoire": {
       id: "grimoire",
       name: "Grimoire Pages",
-      price: 5.00
+      price: 4.25
     },
     "mapmaker": {
       id: "mapmaker",
@@ -13,7 +13,7 @@
     "volone": {
       id: "volone",
       name: "Light Aged Parchment - Vol. One",
-      price: 5.00,
+      price: 4.25,
       aliases: ["Light Aged Parchment — Vol. One"]
     },
     "smithy": {
@@ -40,6 +40,11 @@
       id: "bookmaker",
       name: "Old-World Bookmaker Stickers & Seals Vol. 1",
       price: 2.00
+    },
+    "gui-pack": {
+      id: "gui-pack",
+      name: "Fantasy RPG GUI Pack",
+      price: 12.00
     },
     "button-amber-bronze": {
       id: "button-amber-bronze",
