@@ -90,9 +90,41 @@ def run_device(device, browser, base, failures, results):
     ):
         verify_shared_modal(page, selector, failures, f"{device} {label}")
 
+    homepage_packs = (
+        ("grimoire", 12),
+        ("grimoirejournal", 8),
+        ("mapmaker", 10),
+        ("volone", 12),
+        ("voltwo", 8),
+        ("illuminated", 14),
+        ("smithy", 12),
+    )
+
+    baseline = None
+    for pack, total in homepage_packs:
+        page.locator(f'button.pack[data-pack="{pack}"]').click()
+        page.locator("#packModal.open").wait_for(timeout=8000)
+        signature = modal_signature(page, "#packModal")
+        if baseline is None:
+            baseline = signature
+        else:
+            check(signature == baseline,
+                  f"{device} {pack}: homepage preview shell differs", failures)
+
+        tiles = page.locator("#packCollage .tile")
+        check(tiles.count() == total,
+              f"{device} {pack}: expected {total} homepage previews, got {tiles.count()}", failures)
+        sources = tiles.locator("img").evaluate_all(
+            "(els) => els.map(img => img.getAttribute('src'))")
+        check(len(sources) == total and all(
+            f"assets/previews/{pack}/" in src for src in sources),
+            f"{device} {pack}: homepage modal contains an unprotected source", failures)
+        page.keyboard.press("Escape")
+        check(page.locator("#packModal.open").count() == 0,
+              f"{device} {pack}: Escape failed to close homepage pack modal", failures)
+
     page.locator('button.pack[data-pack="smithy"]').click()
     page.locator("#packModal.open").wait_for(timeout=8000)
-    baseline = modal_signature(page, "#packModal")
     page.locator("#packCollage .tile").first.click()
     page.locator("#packModal.mode-viewer").wait_for(timeout=8000)
     check(page.locator("#packViewer").evaluate(
@@ -129,14 +161,16 @@ def run_device(device, browser, base, failures, results):
     check(page.locator("#useCaseModal.open").count() == 0,
           f"{device}: Escape failed on use-case page", failures)
 
-    # These pages still use the shared protected preview-modal gallery.
-    # Grimoire Series Vol. 3 intentionally moved to current marketplace preview
-    # imagery during the 2026-10 SEO refresh, so it is no longer part of this
-    # modal-consistency harness.
+    # Every customer-facing pack gallery must use local, reduced,
+    # baked-watermark previews. Marketplace/mockup images are not allowed here.
     packs = (
         ("smithy", "smithy-textures.html", 12),
+        ("grimoire", "grimoire-pages.html", 12),
+        ("grimoirejournal", "grimoire-journal-pages.html", 8),
         ("mapmaker", "mapmaker-sheets.html", 10),
         ("volone", "light-aged-parchment-vol-1.html", 12),
+        ("voltwo", "parchment-light-vol-2.html", 8),
+        ("illuminated", "illuminated-manuscripts-vol-1.html", 14),
     )
     detail_signatures = []
 
