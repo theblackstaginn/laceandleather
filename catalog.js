@@ -21,6 +21,26 @@
       name: "Smithy Textures",
       price: 5.00
     },
+    "illuminated": {
+      id: "illuminated",
+      name: "Illuminated Manuscripts Vol. 1",
+      price: 5.00
+    },
+    "voltwo": {
+      id: "voltwo",
+      name: "Parchment Light Vol. 2",
+      price: 3.75
+    },
+    "grimoire-journal": {
+      id: "grimoire-journal",
+      name: "Grimoire Journal Pages Vol. 1",
+      price: 3.50
+    },
+    "bookmaker": {
+      id: "bookmaker",
+      name: "Old-World Bookmaker Stickers & Seals Vol. 1",
+      price: 2.00
+    },
     "button-amber-bronze": {
       id: "button-amber-bronze",
       name: "Amber Bronze",
