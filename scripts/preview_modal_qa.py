@@ -129,9 +129,12 @@ def run_device(device, browser, base, failures, results):
     check(page.locator("#useCaseModal.open").count() == 0,
           f"{device}: Escape failed on use-case page", failures)
 
+    # These pages still use the shared protected preview-modal gallery.
+    # Grimoire Series Vol. 3 intentionally moved to current marketplace preview
+    # imagery during the 2026-10 SEO refresh, so it is no longer part of this
+    # modal-consistency harness.
     packs = (
         ("smithy", "smithy-textures.html", 12),
-        ("grimoire", "grimoire-pages.html", 12),
         ("mapmaker", "mapmaker-sheets.html", 10),
         ("volone", "light-aged-parchment-vol-1.html", 12),
     )
