@@ -2,24 +2,56 @@
   const products = {
     "grimoire": {
       id: "grimoire",
-      name: "Grimoire Pages",
-      price: 5.00
+      name: "Grimoire Series Vol. 3",
+      price: 4.25,
+      aliases: ["Grimoire Pages"]
     },
     "mapmaker": {
       id: "mapmaker",
-      name: "Mapmaker Sheets",
-      price: 5.00
+      name: "Mapmakers Series",
+      price: 5.00,
+      aliases: ["Mapmaker Sheets"]
     },
     "volone": {
       id: "volone",
-      name: "Light Aged Parchment - Vol. One",
-      price: 5.00,
-      aliases: ["Light Aged Parchment — Vol. One"]
+      name: "Parchment Light Vol. 1",
+      price: 4.25,
+      aliases: ["Light Aged Parchment - Vol. One", "Light Aged Parchment — Vol. One"]
     },
     "smithy": {
       id: "smithy",
       name: "Smithy Textures",
       price: 5.00
+    },
+    "illuminated": {
+      id: "illuminated",
+      name: "Illuminated Manuscripts Vol. 1",
+      price: 5.00
+    },
+    "voltwo": {
+      id: "voltwo",
+      name: "Parchment Light Vol. 2",
+      price: 3.75
+    },
+    "grimoire-journal": {
+      id: "grimoire-journal",
+      name: "Grimoire Journal Pages Vol. 1",
+      price: 3.50
+    },
+    "bookmaker": {
+      id: "bookmaker",
+      name: "Old-World Bookmaker Stickers & Seals Vol. 1",
+      price: 2.00
+    },
+    "gui-pack": {
+      id: "gui-pack",
+      name: "Fantasy RPG GUI Pack",
+      price: 12.00
+    },
+    "ui-buttons": {
+      id: "ui-buttons",
+      name: "Arcane Fantasy UI Buttons Vol. 1",
+      price: 2.00
     },
     "button-amber-bronze": {
       id: "button-amber-bronze",
