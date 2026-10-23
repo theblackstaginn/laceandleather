@@ -114,8 +114,12 @@ def run_device(device, browser, base, failures, results):
         tiles = page.locator("#packCollage .tile")
         check(tiles.count() == total,
               f"{device} {pack}: expected {total} homepage previews, got {tiles.count()}", failures)
-        sources = tiles.locator("img").evaluate_all(
-            "(els) => els.map(img => img.getAttribute('src'))")
+        sources = tiles.locator(".tile-face").evaluate_all(
+            """els => els.map(el => {
+              const value = el.style.backgroundImage || "";
+              const match = value.match(/url\\(["']?(.*?)["']?\\)/);
+              return match ? match[1] : "";
+            })""")
         check(len(sources) == total and all(
             f"assets/previews/{pack}/" in src for src in sources),
             f"{device} {pack}: homepage modal contains an unprotected source", failures)
