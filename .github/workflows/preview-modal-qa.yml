@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - fix/unify-preview-modals-20261016
-      - protected-pack-previews-20261023
       - main
     paths:
       - index.html
