@@ -356,6 +356,7 @@ p, h1, h2, h3, h4, h5, h6,
 }
 .pack{
   display:grid;
+  text-decoration:none;
   gap:10px;
   padding:12px;
   border-radius:16px;
@@ -1672,6 +1673,12 @@ body.pay-page .pay-qr{
 
 .btn-link:hover{
   background:rgba(0,0,0,.48);
+}
+
+button.btn-link,
+button.btn{
+  font:inherit;
+  cursor:pointer;
 }
 
 .specs{
