@@ -894,20 +894,36 @@
       <p class="muted">Tap a cover to preview the full set. Shop options are shown below.</p>
 
       <div class="packs">
-        <!-- GRIMOIRE -->
+        <!-- GRIMOIRE SERIES -->
         <div class="pack-wrap">
-          <button class="pack" type="button" data-pack="grimoire" aria-label="Preview Grimoire Pages">
-            <img decoding="async" src="https://i.etsystatic.com/63811998/r/il/06ec36/8701032852/il_fullxfull.8701032852_glk6.jpg" alt="Grimoire Journal Pages new cover" loading="lazy" />
+          <button class="pack" type="button" data-pack="grimoire" aria-label="Preview Grimoire Series Vol. 3">
+            <img decoding="async" src="https://i.etsystatic.com/63811998/r/il/08a790/8748883553/il_fullxfull.8748883553_1uqi.jpg" alt="Grimoire Series Vol. 3 aged parchment texture pack cover" loading="lazy" />
             <div class="pack-meta">
-              <div class="pack-title">Grimoire Pages</div>
-              <div class="pack-note muted">Click to preview all pages</div>
+              <div class="pack-title">Grimoire Series Vol. 3</div>
+              <div class="pack-note muted">12 aged grimoire parchment textures</div>
             </div>
           </button>
 
-          <div class="pack-buy" aria-label="Buy Grimoire Pages">
+          <div class="pack-buy" aria-label="Buy Grimoire Series">
             <a class="pack-details" href="./grimoire-pages.html">Details</a>
             <div class="pack-price muted">$5.00</div>
             <button class="ll-add-btn" type="button" data-add="grimoire" aria-label="Add Grimoire Pages to cart"></button>
+          </div>
+        </div>
+
+        <!-- GRIMOIRE JOURNAL PAGES -->
+        <div class="pack-wrap">
+          <button class="pack" type="button" data-pack="grimoirejournal" aria-label="Preview Grimoire Journal Pages">
+            <img decoding="async" src="https://i.etsystatic.com/63811998/r/il/06ec36/8701032852/il_fullxfull.8701032852_glk6.jpg" alt="Grimoire Journal Pages cover for printable Book of Shadows, tarot and ritual journal layouts" loading="lazy" />
+            <div class="pack-meta">
+              <div class="pack-title">Grimoire Journal Pages</div>
+              <div class="pack-note muted">8 designs · 72 printable layouts</div>
+            </div>
+          </button>
+
+          <div class="pack-buy" aria-label="Shop Grimoire Journal Pages">
+            <a class="pack-details" href="./grimoire-journal-pages.html">Details</a>
+            <div class="pack-price muted">$3.50</div>
           </div>
         </div>
 
@@ -1668,9 +1684,25 @@
 
     const PACKS = {
       grimoire: {
-        title: "Grimoire Pages",
-        sub: "Preview (12 pages)",
-        images: Array.from({length: 12}, (_,i)=> `./assets/previews/grimoire/grimoire-${String(i+1).padStart(2, "0")}-preview.webp`)
+        title: "Grimoire Series Vol. 3",
+        sub: "Preview (12 textures)",
+        images: [
+          "https://i.etsystatic.com/63811998/r/il/6a6164/8748521753/il_fullxfull.8748521753_3d4f.jpg",
+          "https://i.etsystatic.com/63811998/r/il/27b53e/8700719980/il_fullxfull.8700719980_dujs.jpg",
+          "https://i.etsystatic.com/63811998/r/il/1c342f/8748535377/il_fullxfull.8748535377_t39n.jpg",
+          "https://i.etsystatic.com/63811998/r/il/91fb39/8700720438/il_fullxfull.8700720438_h8xw.jpg"
+        ]
+      },
+      grimoirejournal: {
+        title: "Grimoire Journal Pages",
+        sub: "Preview (8 designs)",
+        images: [
+          "https://i.etsystatic.com/63811998/r/il/5e07ed/8700714786/il_fullxfull.8700714786_qqu6.jpg",
+          "https://i.etsystatic.com/63811998/r/il/87259a/8700715002/il_fullxfull.8700715002_okwd.jpg",
+          "https://i.etsystatic.com/63811998/r/il/5ee64a/7557238192/il_fullxfull.7557238192_dxml.jpg",
+          "https://i.etsystatic.com/63811998/r/il/117b43/7557238200/il_fullxfull.7557238200_9btd.jpg",
+          "https://i.etsystatic.com/63811998/r/il/3fc7e9/7557238202/il_fullxfull.7557238202_h8r3.jpg"
+        ]
       },
       mapmaker: {
         title: "Mapmaker Sheets",
