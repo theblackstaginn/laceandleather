@@ -11,8 +11,12 @@ on:
       - use-case.html
       - smithy-textures.html
       - grimoire-pages.html
+      - grimoire-journal-pages.html
       - mapmaker-sheets.html
       - light-aged-parchment-vol-1.html
+      - parchment-light-vol-2.html
+      - illuminated-manuscripts-vol-1.html
+      - assets/previews/**
       - styles.css
       - detail-previews.css
       - detail-previews.js
