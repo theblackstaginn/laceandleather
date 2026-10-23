@@ -2,19 +2,21 @@
   const products = {
     "grimoire": {
       id: "grimoire",
-      name: "Grimoire Pages",
-      price: 4.25
+      name: "Grimoire Series Vol. 3",
+      price: 4.25,
+      aliases: ["Grimoire Pages"]
     },
     "mapmaker": {
       id: "mapmaker",
-      name: "Mapmaker Sheets",
-      price: 5.00
+      name: "Mapmakers Series",
+      price: 5.00,
+      aliases: ["Mapmaker Sheets"]
     },
     "volone": {
       id: "volone",
-      name: "Light Aged Parchment - Vol. One",
+      name: "Parchment Light Vol. 1",
       price: 4.25,
-      aliases: ["Light Aged Parchment — Vol. One"]
+      aliases: ["Light Aged Parchment - Vol. One", "Light Aged Parchment — Vol. One"]
     },
     "smithy": {
       id: "smithy",
