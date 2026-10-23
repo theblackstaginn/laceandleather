@@ -34,9 +34,27 @@ main.specimen-shell{
   padding:22px 0 62px;
 }
 
+.specimen-back-link{
+  display:inline-flex;
+  align-items:center;
+  margin:0 0 14px 4px;
+  color:rgba(239,225,203,.70);
+  font-size:12px;
+  line-height:1;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+  text-decoration:none;
+  transition:color .18s ease, transform .18s ease;
+}
+
+.specimen-back-link:hover{
+  color:#f0d8ad;
+  transform:translateX(-2px);
+}
+
 .specimen-header{
   width:min(820px, calc(100% - 22px));
-  margin:0 auto 14px;
+  margin:0 auto 16px;
   text-align:center;
 }
 
@@ -44,17 +62,70 @@ main.specimen-shell{
   margin:0;
   font-family:var(--font-display);
   font-weight:600;
-  font-size:clamp(22px, 3vw, 34px);
+  font-size:clamp(24px, 3vw, 34px);
+  line-height:1.08;
   letter-spacing:.055em;
+  text-wrap:balance;
   text-shadow:0 4px 18px rgba(0,0,0,.8);
+}
+
+.specimen-strap{
+  max-width:720px;
+  margin:9px auto 0;
+  color:rgba(244,225,194,.88);
+  font-size:clamp(14px, 1.55vw, 17px);
+  line-height:1.35;
+  letter-spacing:.025em;
 }
 
 .page-sub{
   max-width:720px;
-  margin:7px auto 0;
-  color:rgba(239,225,203,.82);
-  font-size:clamp(15px, 1.7vw, 18px);
-  line-height:1.45;
+  margin:5px auto 0;
+  color:rgba(239,225,203,.58);
+  font-size:clamp(13px, 1.45vw, 15px);
+  line-height:1.35;
+  font-style:italic;
+}
+
+.specimen-related{
+  width:min(820px, calc(100% - 28px));
+  margin:22px auto 0;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:10px;
+}
+
+.specimen-related a{
+  display:grid;
+  gap:3px;
+  padding:12px 14px;
+  border:1px solid rgba(214,169,103,.16);
+  border-radius:10px;
+  background:rgba(11,7,5,.28);
+  color:#e7c991;
+  text-decoration:none;
+  text-align:left;
+  transition:border-color .18s ease, background .18s ease, transform .18s ease;
+}
+
+.specimen-related a:hover{
+  border-color:rgba(229,193,132,.36);
+  background:rgba(25,15,9,.46);
+  transform:translateY(-1px);
+}
+
+.specimen-related span{
+  color:rgba(239,225,203,.48);
+  font-size:10px;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+
+.specimen-related strong{
+  font-family:var(--font-display);
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:.035em;
 }
 
 .cabinet-stage{
@@ -835,22 +906,6 @@ main.specimen-shell{
   padding:8px 14px;
 }
 
-.close-btn{
-  position:fixed;
-  top:max(12px, env(safe-area-inset-top));
-  right:max(12px, env(safe-area-inset-right));
-  z-index:60;
-  background:none;
-  border:0;
-  cursor:pointer;
-}
-
-.close-btn img{
-  width:42px;
-  height:auto;
-  filter:drop-shadow(0 10px 18px rgba(0,0,0,.72));
-}
-
 .seo-product-list{
   position:absolute !important;
   width:1px !important;
@@ -870,12 +925,36 @@ main.specimen-shell{
 
   main.specimen-shell{
     width:min(100%, 560px);
-    padding:14px 0 40px;
+    padding:12px 0 40px;
+  }
+
+  .specimen-back-link{
+    margin:0 0 10px 16px;
+    font-size:10px;
   }
 
   .specimen-header{
     width:calc(100% - 34px);
     margin-bottom:10px;
+  }
+
+  .specimen-header h1{
+    font-size:clamp(24px, 7.2vw, 30px);
+  }
+
+  .specimen-strap{
+    margin-top:7px;
+    font-size:14px;
+  }
+
+  .page-sub{
+    margin-top:4px;
+    font-size:13px;
+  }
+
+  .specimen-related{
+    grid-template-columns:1fr;
+    margin-top:16px;
   }
 
   .cabinet-stage{
