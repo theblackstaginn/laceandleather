@@ -46,6 +46,11 @@
       name: "Fantasy RPG GUI Pack",
       price: 12.00
     },
+    "ui-buttons": {
+      id: "ui-buttons",
+      name: "Arcane Fantasy UI Buttons Vol. 1",
+      price: 2.00
+    },
     "button-amber-bronze": {
       id: "button-amber-bronze",
       name: "Amber Bronze",
