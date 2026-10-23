@@ -1708,24 +1708,13 @@
     const PACKS = {
       grimoire: {
         title: "Grimoire Series Vol. 3",
-        sub: "Preview (12 textures)",
-        images: [
-          "https://i.etsystatic.com/63811998/r/il/6a6164/8748521753/il_fullxfull.8748521753_3d4f.jpg",
-          "https://i.etsystatic.com/63811998/r/il/27b53e/8700719980/il_fullxfull.8700719980_dujs.jpg",
-          "https://i.etsystatic.com/63811998/r/il/1c342f/8748535377/il_fullxfull.8748535377_t39n.jpg",
-          "https://i.etsystatic.com/63811998/r/il/91fb39/8700720438/il_fullxfull.8700720438_h8xw.jpg"
-        ]
+        sub: "Preview (12 watermarked textures)",
+        images: Array.from({length: 12}, (_,i)=> `./assets/previews/grimoire/grimoire-${String(i+1).padStart(2, "0")}-preview.svg`)
       },
       grimoirejournal: {
         title: "Grimoire Journal Pages",
-        sub: "Preview (8 designs)",
-        images: [
-          "https://i.etsystatic.com/63811998/r/il/5e07ed/8700714786/il_fullxfull.8700714786_qqu6.jpg",
-          "https://i.etsystatic.com/63811998/r/il/87259a/8700715002/il_fullxfull.8700715002_okwd.jpg",
-          "https://i.etsystatic.com/63811998/r/il/5ee64a/7557238192/il_fullxfull.7557238192_dxml.jpg",
-          "https://i.etsystatic.com/63811998/r/il/117b43/7557238200/il_fullxfull.7557238200_9btd.jpg",
-          "https://i.etsystatic.com/63811998/r/il/3fc7e9/7557238202/il_fullxfull.7557238202_h8r3.jpg"
-        ]
+        sub: "Preview (8 watermarked designs)",
+        images: Array.from({length: 8}, (_,i)=> `./assets/previews/grimoirejournal/grimoirejournal-${String(i+1).padStart(2, "0")}-preview.svg`)
       },
       mapmaker: {
         title: "Mapmaker Sheets",
@@ -1750,29 +1739,13 @@
       },
       voltwo: {
         title: "Parchment Light Vol. 2",
-        sub: "Preview (8 Victorian textures)",
-        images: [
-          "https://i.etsystatic.com/63811998/r/il/b7d864/8749641737/il_fullxfull.8749641737_5jc2.jpg",
-          "https://i.etsystatic.com/63811998/r/il/f46e37/8749655115/il_fullxfull.8749655115_blob.jpg",
-          "https://i.etsystatic.com/63811998/r/il/45f68d/8701836312/il_fullxfull.8701836312_2pxb.jpg",
-          "https://i.etsystatic.com/63811998/r/il/3003a4/8701838588/il_fullxfull.8701838588_nny6.jpg",
-          "https://i.etsystatic.com/63811998/r/il/207588/8701839632/il_fullxfull.8701839632_b8d8.jpg",
-          "https://i.etsystatic.com/63811998/r/il/250890/8701834868/il_fullxfull.8701834868_tpvs.jpg",
-          "https://i.etsystatic.com/63811998/r/il/142899/8701840242/il_fullxfull.8701840242_5nu7.jpg",
-          "https://i.etsystatic.com/63811998/r/il/0b2af5/8701840984/il_fullxfull.8701840984_3siq.jpg"
-        ]
+        sub: "Preview (8 watermarked Victorian textures)",
+        images: Array.from({length: 8}, (_,i)=> `./assets/previews/voltwo/voltwo-${String(i+1).padStart(2, "0")}-preview.svg`)
       },
       illuminated: {
         title: "Illuminated Manuscripts Vol. 1",
-        sub: "Preview (14 designs)",
-        images: [
-          "https://i.etsystatic.com/63811998/r/il/bc4bdd/8723975548/il_fullxfull.8723975548_kl6y.jpg",
-          "https://i.etsystatic.com/63811998/r/il/51fee2/8771805219/il_fullxfull.8771805219_2x6h.jpg",
-          "https://i.etsystatic.com/63811998/r/il/f40cc7/8771805215/il_fullxfull.8771805215_kr1a.jpg",
-          "https://i.etsystatic.com/63811998/r/il/9c7fc5/8772005561/il_fullxfull.8772005561_tla2.jpg",
-          "https://i.etsystatic.com/63811998/r/il/5bbc1f/8724176940/il_fullxfull.8724176940_mzn0.jpg",
-          "https://i.etsystatic.com/63811998/r/il/813aaa/8724176930/il_fullxfull.8724176930_it8x.jpg"
-        ]
+        sub: "Preview (14 watermarked designs)",
+        images: Array.from({length: 14}, (_,i)=> `./assets/previews/illuminated/illuminated-${String(i+1).padStart(2, "0")}-preview.svg`)
       },
       smithy: {
         title: "Smithy Textures",
