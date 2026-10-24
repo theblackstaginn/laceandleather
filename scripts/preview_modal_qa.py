@@ -94,7 +94,7 @@ def run_device(device, browser, base, failures, results):
         ("grimoire", 12),
         ("grimoirejournal", 8),
         ("mapmaker", 10),
-        ("volone", 12),
+        ("volone", 10),
         ("voltwo", 8),
         ("illuminated", 14),
         ("smithy", 12),
@@ -172,7 +172,7 @@ def run_device(device, browser, base, failures, results):
         ("grimoire", "grimoire-pages.html", 12),
         ("grimoirejournal", "grimoire-journal-pages.html", 8),
         ("mapmaker", "mapmaker-sheets.html", 10),
-        ("volone", "light-aged-parchment-vol-1.html", 12),
+        ("volone", "light-aged-parchment-vol-1.html", 10),
         ("voltwo", "parchment-light-vol-2.html", 8),
         ("illuminated", "illuminated-manuscripts-vol-1.html", 14),
     )
