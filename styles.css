@@ -1783,3 +1783,95 @@ button.btn{
 #packs{scroll-margin-top:20px;}
 .edition-note{margin:14px 0!important;padding:12px 14px;border-left:2px solid #b78b58;text-align:left;font-size:16px;line-height:1.55;}
 .edition-note strong{color:#e5c79c;}
+
+
+/* =========================================================
+   DIRECT STOREFRONT CONVERSION
+========================================================= */
+
+.direct-purchase-note{
+  margin:14px 0 10px;
+  padding:12px 14px;
+  border:1px solid rgba(196,148,91,.34);
+  border-radius:14px;
+  background:rgba(0,0,0,.18);
+  color:#e8dfd0;
+  font-size:14px;
+  line-height:1.5;
+  text-align:left;
+}
+
+.direct-purchase-note strong{
+  color:#f1d49e;
+}
+
+.product-cta [data-buy-product]{
+  border-color:rgba(210,165,97,.74);
+  background:
+    linear-gradient(180deg, rgba(184,132,70,.22), rgba(0,0,0,.34));
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.22),
+    inset 0 0 0 1px rgba(255,235,196,.05);
+}
+
+.marketplace-alts{
+  margin:9px 0 0;
+  font-size:12px;
+  line-height:1.5;
+  text-align:left;
+  opacity:.78;
+}
+
+.marketplace-alt-link{
+  color:rgba(238,218,181,.9);
+  text-decoration:none;
+  border-bottom:1px solid rgba(238,218,181,.22);
+}
+
+.direct-shop-trust{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:6px 13px;
+  margin:5px auto 12px;
+  max-width:720px;
+  color:rgba(239,226,205,.9);
+  font-size:13px;
+  line-height:1.4;
+}
+
+.direct-shop-trust span:not(:last-child)::after{
+  content:"·";
+  margin-left:13px;
+  opacity:.55;
+}
+
+@media (max-width:600px){
+  .direct-purchase-note{
+    font-size:13px;
+    padding:11px 12px;
+  }
+
+  .product-cta{
+    gap:9px;
+  }
+
+  .product-cta .btn-link{
+    width:100%;
+    box-sizing:border-box;
+    text-align:center;
+  }
+
+  .marketplace-alts{
+    text-align:center;
+  }
+
+  .direct-shop-trust{
+    display:grid;
+    gap:4px;
+  }
+
+  .direct-shop-trust span::after{
+    display:none;
+  }
+}
