@@ -53,7 +53,14 @@
   };
 
   try {
-    const saved = JSON.parse(localStorage.getItem(attributionKey) || "null") || {};
+    let saved = JSON.parse(localStorage.getItem(attributionKey) || "null") || {};
+    const maxAgeMs = 30 * 24 * 60 * 60 * 1000;
+    const firstAt = Date.parse(saved?.first?.at || "");
+
+    if (!Number.isFinite(firstAt) || Date.now() - firstAt > maxAgeMs) {
+      saved = {};
+    }
+
     const hasCampaign =
       !!source
       || !!campaign.medium
