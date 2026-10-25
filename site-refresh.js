@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = "LL-20261013-2";
+  const VERSION = "LL-20261024-PIN1";
   window.LL_SITE_VERSION = VERSION;
 
   const current = new URL(window.location.href);
@@ -9,9 +9,65 @@
     window.history.replaceState({}, "", current.toString());
   }
 
+  const isPayPage = document.body.classList.contains("pay-page");
+
+  // Keep measurement consistent even when a product page forgets its explicit
+  // measurement.js tag. The measurement script itself rejects checkout pages.
+  if (
+    !isPayPage
+    && !window.__llMeasurementLoaded
+    && !document.querySelector('script[src*="measurement.js"]')
+  ) {
+    const measurement = document.createElement("script");
+    measurement.src = "./measurement.js?v=LL-20261024-PIN1";
+    measurement.defer = true;
+    document.head.appendChild(measurement);
+  }
+
+  // Product-page conversion treatment: keep direct checkout as the primary
+  // path while preserving marketplace alternatives in a quieter position.
+  const productCta = document.querySelector(".product-cta");
+  if (productCta) {
+    const buyNow = productCta.querySelector("[data-buy-product]");
+    if (buyNow) productCta.prepend(buyNow);
+
+    if (!document.querySelector(".direct-purchase-note")) {
+      const note = document.createElement("div");
+      note.className = "direct-purchase-note";
+      note.innerHTML =
+        "<strong>Shop direct.</strong> No marketplace account or app required. "
+        + "Secure Stripe checkout. Digital files are delivered by email.";
+      productCta.parentNode.insertBefore(note, productCta);
+    }
+
+    const marketplaceLinks = Array.from(
+      productCta.querySelectorAll(
+        'a[href*="etsy.com"], a[href*="itch.io"], a[href*="payhip.com"]'
+      )
+    );
+
+    if (marketplaceLinks.length && !document.querySelector(".marketplace-alts")) {
+      const alts = document.createElement("div");
+      alts.className = "marketplace-alts muted";
+      const label = document.createElement("span");
+      label.textContent = "Prefer another marketplace?";
+      alts.appendChild(label);
+
+      marketplaceLinks.forEach((link, index) => {
+        const copy = link.cloneNode(true);
+        copy.className = "marketplace-alt-link";
+        if (index > 0) alts.append(" · ");
+        alts.appendChild(copy);
+        link.remove();
+      });
+
+      productCta.insertAdjacentElement("afterend", alts);
+    }
+  }
+
   // Sitewide PTR is for normal Lace & Leather pages.
   // The PayPad has its own internal scroll surface and is intentionally skipped.
-  if (document.body.classList.contains("pay-page")) return;
+  if (isPayPage) return;
 
   const touchCapable =
     "ontouchstart" in window ||
