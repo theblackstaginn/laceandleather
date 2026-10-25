@@ -352,6 +352,9 @@
                 <p class="pay-payment-help">
                   You’ll continue to Stripe’s secure checkout. Your payment credentials never touch the Lace & Leather site.
                 </p>
+                <p class="pay-payment-help">
+                  Changed your mind? Tap Clear Cart above to discard this unpaid checkout.
+                </p>
               </div>
             </section>
           </div>
@@ -467,7 +470,7 @@
     function setBusy(busy){
       actionInFlight = !!busy;
       $("continueBtn").disabled = !!busy || isLocked() || !loadCart().length;
-      $("clearCartBtn").disabled = !!busy || isLocked();
+      $("clearCartBtn").disabled = !!busy || !loadCart().length;
       $("custEmail").disabled = !!busy || isLocked();
       if($("stripePayBtn")){
         $("stripePayBtn").disabled = !!busy || !isLocked() || !loadCart().length;
@@ -479,7 +482,7 @@
       $("paymentPanel").hidden = !ready;
       $("paymentTotal").textContent = money(subtotal(loadCart()));
       $("continueBtn").disabled = !!ready || !loadCart().length;
-      $("clearCartBtn").disabled = !!ready;
+      $("clearCartBtn").disabled = actionInFlight || !loadCart().length;
       $("custEmail").disabled = !!ready;
       if($("stripePayBtn")){
         $("stripePayBtn").disabled = !ready || actionInFlight;
@@ -838,8 +841,8 @@
     $("stripePayBtn").addEventListener("click", startStripeCheckout_);
 
     $("clearCartBtn").addEventListener("click", () => {
-      if(actionInFlight || isLocked()){
-        setStatus("This order is already saved. Finish payment before starting over.", "bad");
+      if(actionInFlight){
+        setStatus("Please wait for the current checkout action to finish before clearing your cart.", "bad");
         return;
       }
 
@@ -850,6 +853,7 @@
       localStorage.removeItem(LAST_SUBMISSION_KEY);
       syncCustomerInputs();
       render();
+      setStatus("Cart cleared. You can leave checkout without paying.", "ok");
       $("payScroll").scrollTo({top:0, behavior:"smooth"});
     });
 
