@@ -5,11 +5,22 @@
     <link>https://laceleatherarcane.com/</link>
     <description>Original fantasy design showcases, digital texture releases, RPG interface assets, cartography resources, and creator use cases from Lace &amp; Leather Arcane.</description>
     <language>en-US</language>
-    <lastBuildDate>Sun, 25 Oct 2026 03:44:40 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 25 Oct 2026 03:50:04 GMT</lastBuildDate>
     <atom:link href="https://laceleatherarcane.com/feed.xml" rel="self" type="application/rss+xml" />
     <atom:link href="https://laceleatherarcane.com/" rel="alternate" type="text/html" />
     <image><url>https://laceleatherarcane.com/assets/l%26l_logo.webp</url><title>Lace &amp; Leather Arcane</title><link>https://laceleatherarcane.com/</link></image>
 
+    <item>
+      <title>Wax Seal PNGs &amp; Bookmaker Specimens</title>
+      <link>https://laceleatherarcane.com/buttons.html</link>
+      <guid isPermaLink="true">https://laceleatherarcane.com/buttons.html</guid>
+      <pubDate>Sun, 25 Oct 2026 03:49:43 GMT</pubDate>
+      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
+      <description><![CDATA[Individual transparent PNG wax seals, manuscript ornaments, fantasy buttons and old-world embellishments in the Bookmaker 31 individual transparent PNG specimens · $1 each Tap a labeled drawer to explore. Choose a collection from the index or open a drawer to explore. Choose a drawer to examine the collection.]]></description>
+      <enclosure url="https://laceleatherarcane.com/assets/l&amp;l_logo.webp" length="2542834" type="image/webp" />
+      <category>Fantasy UI</category>
+      <category>Game Assets</category>
+    </item>
     <item>
       <title>Grimoire Parchment Digital Paper | 12 Aged Spellbook Textures</title>
       <link>https://laceleatherarcane.com/grimoire-pages.html</link>
@@ -130,17 +141,6 @@
       <enclosure url="https://laceleatherarcane.com/assets/mapmaker/mapmaker-cover.webp" length="245052" type="image/webp" />
       <category>Fantasy Cartography</category>
       <category>Worldbuilding</category>
-    </item>
-    <item>
-      <title>Wax Seal PNGs &amp; Bookmaker Specimens</title>
-      <link>https://laceleatherarcane.com/buttons.html</link>
-      <guid isPermaLink="true">https://laceleatherarcane.com/buttons.html</guid>
-      <pubDate>Fri, 23 Oct 2026 04:25:34 GMT</pubDate>
-      <dc:creator>Lace &amp; Leather Arcane</dc:creator>
-      <description><![CDATA[Individual transparent PNG wax seals, manuscript ornaments, fantasy buttons and old-world embellishments in the Bookmaker 31 individual transparent PNG specimens · $1 each Tap a labeled drawer to explore. Choose a collection from the index or open a drawer to explore. Choose a drawer to examine the collection.]]></description>
-      <enclosure url="https://laceleatherarcane.com/assets/l&amp;l_logo.webp" length="2542834" type="image/webp" />
-      <category>Fantasy UI</category>
-      <category>Game Assets</category>
     </item>
     <item>
       <title>Suneen Reef: Fantasy Map Showcase</title>
