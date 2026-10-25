@@ -22,7 +22,7 @@
   --font-body:"Cormorant Garamond", Georgia, serif;
 
   --text:#e7e2db;
-  --muted: rgba(231,226,219,.80);
+  --muted: rgba(239,232,220,.94);
 
   /* symmetric gutters, avoids mobile drift */
   --wrap: min(1100px, 100%);
@@ -301,7 +301,7 @@ p, h1, h2, h3, h4, h5, h6,
 }
 .shop-line{
   margin:18px 0 6px;
-  font-size:14px;
+  font-size:16px;
   letter-spacing:.08em;
   text-transform:uppercase;
   opacity:.9;
@@ -388,7 +388,7 @@ p, h1, h2, h3, h4, h5, h6,
 }
 .pack-note{
   font-family:var(--font-body);
-  font-size:15px;
+  font-size:16px;
   text-shadow:0 0 6px rgba(0,0,0,.9);
 }
 .pack:hover{
@@ -424,7 +424,7 @@ p, h1, h2, h3, h4, h5, h6,
   border:1px solid rgba(255,255,255,.12);
   filter: drop-shadow(0 12px 22px rgba(0,0,0,.48));
 }
-.map-caption{ margin-top:6px; font-size:13px; }
+.map-caption{ margin-top:6px; font-size:16px; }
 .map-name{
   display:block;
   font-family:var(--font-display);
@@ -434,7 +434,7 @@ p, h1, h2, h3, h4, h5, h6,
 }
 .map-tagline{
   display:block;
-  font-size:15px;
+  font-size:16px;
   text-shadow:0 0 6px rgba(0,0,0,.9);
 }
 .maps-copy{
@@ -448,7 +448,7 @@ p, h1, h2, h3, h4, h5, h6,
 .maps-ward{
   margin:2px auto 10px;
   max-width:620px;
-  font-size:13px;
+  font-size:16px;
   opacity:.86;
   text-shadow:0 0 6px rgba(0,0,0,.85);
 }
@@ -500,7 +500,7 @@ p, h1, h2, h3, h4, h5, h6,
 }
 .footer-sub{
   margin: 0 0 10px;
-  font-size: 13px;
+  font-size: 16px;
   color: rgba(231,226,219,.78);
   text-shadow:0 0 8px rgba(0,0,0,.85);
 }
@@ -575,7 +575,7 @@ p, h1, h2, h3, h4, h5, h6,
   text-shadow:0 0 10px rgba(0,0,0,.9);
 }
 .modal-sub{
-  font-size:14px;
+  font-size:16px;
   margin-top:2px;
   text-shadow:0 0 8px rgba(0,0,0,.85);
 }
@@ -921,7 +921,7 @@ p, h1, h2, h3, h4, h5, h6,
     line-height:1.15;
   }
   .pack-note{
-    font-size:13px;
+    font-size:16px;
     line-height:1.25;
   }
   .pack img{ height:auto; }
@@ -1054,12 +1054,12 @@ body.pay-page .pay-head{
 body.pay-page .pay-brand{
   font-weight:700;
   letter-spacing:.12em;
-  font-size:14px;
+  font-size:16px;
   color:#111;
 }
 
 body.pay-page .pay-sub{
-  font-size:13px;
+  font-size:16px;
   font-weight:600;
   opacity:.82;
   color:#111;
@@ -1136,12 +1136,12 @@ body.pay-page .pay-card{
   -webkit-backdrop-filter:none;
   padding:0;
   color:#111;
-  font-size:15px;
+  font-size:16px;
   font-weight:600;
 }
 body.pay-page .pay-card h2{
   margin:0 0 8px;
-  font-size:15px;
+  font-size:16px;
   font-weight:700;
   letter-spacing:.12em;
   color:#111;
@@ -1157,7 +1157,7 @@ body.pay-page .pay-row{
 }
 body.pay-page .pay-row-top{ align-items:flex-end; }
 body.pay-page .pay-muted{
-  font-size:13px;
+  font-size:16px;
   font-weight:700;
   opacity:.78;
 }
@@ -1165,7 +1165,7 @@ body.pay-page .pay-id{
   display:flex;
   align-items:center;
   gap:8px;
-  font-size:13px;
+  font-size:16px;
   font-weight:700;
 }
 body.pay-page .pay-right{ text-align:right; }
@@ -1203,14 +1203,14 @@ body.pay-page .pay-item{
   background: rgba(255,255,255,.08);
 }
 body.pay-page .pay-item-name{
-  font-size:13px;
+  font-size:16px;
   font-weight:700;
   line-height:1.2;
 }
 body.pay-page .pay-item-meta{
   display:flex;
   gap:10px;
-  font-size:13px;
+  font-size:16px;
   white-space:nowrap;
   font-weight:700;
 }
@@ -1218,7 +1218,7 @@ body.pay-page .pay-item-qty{ opacity:.72; }
 body.pay-page .pay-item-price{ font-weight:700; }
 
 body.pay-page .pay-note{
-  font-size:12px;
+  font-size:16px;
   font-weight:700;
   opacity:.86;
   margin-top:10px;
@@ -1320,7 +1320,7 @@ body.pay-page .pay-qr{
     text-align:center !important;
     margin: 6px 0 10px !important;
     opacity: .90;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 800;
     letter-spacing: .06em;
     width: 100%;
@@ -1462,7 +1462,7 @@ body.pay-page .pay-qr{
   max-width:820px;
   margin:0 auto 14px;
   color:var(--ll-wild-muted);
-  font-size:15px;
+  font-size:16px;
   text-align:center;
   text-shadow:0 0 8px rgba(0,0,0,.75);
 }
@@ -1515,7 +1515,7 @@ body.pay-page .pay-qr{
   display:block;
   margin-top:6px;
   color:rgba(231,226,219,.70);
-  font-size:12px;
+  font-size:16px;
   letter-spacing:.08em;
 }
 
@@ -1629,7 +1629,7 @@ body.pay-page .pay-qr{
 
 .crumbs{
   margin-bottom:10px;
-  font-size:13px;
+  font-size:16px;
   text-align:left;
   opacity:.9;
 }
@@ -1796,7 +1796,7 @@ button.btn{
   border-radius:14px;
   background:rgba(0,0,0,.18);
   color:#e8dfd0;
-  font-size:14px;
+  font-size:16px;
   line-height:1.5;
   text-align:left;
 }
@@ -1816,7 +1816,7 @@ button.btn{
 
 .marketplace-alts{
   margin:9px 0 0;
-  font-size:12px;
+  font-size:16px;
   line-height:1.5;
   text-align:left;
   opacity:.78;
@@ -1836,7 +1836,7 @@ button.btn{
   margin:5px auto 12px;
   max-width:720px;
   color:rgba(239,226,205,.9);
-  font-size:13px;
+  font-size:16px;
   line-height:1.4;
 }
 
@@ -1848,7 +1848,7 @@ button.btn{
 
 @media (max-width:600px){
   .direct-purchase-note{
-    font-size:13px;
+    font-size:16px;
     padding:11px 12px;
   }
 
@@ -1891,7 +1891,7 @@ button.btn{
   border-radius:12px;
   background:rgba(0,0,0,.14);
   color:rgba(239,226,205,.88);
-  font-size:13px;
+  font-size:16px;
   line-height:1.45;
   text-align:left;
 }
@@ -1908,6 +1908,30 @@ button.btn{
 
   .shop-explainer span{
     padding:10px 12px;
-    font-size:12.5px;
+    font-size:16px;
   }
+}
+
+/* Keep supporting copy legible on phones without changing the serif palette. */
+.shop-explainer span{
+  font-size:17px;
+  line-height:1.6;
+  font-weight:600;
+  color:#f0e6d6;
+  background:rgba(12,9,7,.62);
+  padding:13px 15px;
+}
+.pack-note{line-height:1.45;}
+.pack-meta{gap:6px;}
+.marketplace-alts,
+.footer-sub,
+.maps-ward,
+.ll-project-grid a span{
+  opacity:1;
+  color:var(--muted);
+}
+.direct-shop-trust{line-height:1.55;}
+@media (max-width:600px){
+  .pack-title{line-height:1.3;}
+  .pack-note{line-height:1.4;}
 }
