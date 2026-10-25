@@ -158,6 +158,12 @@
           "position": 10,
           "name": "Wax Seal PNG Clipart — Old-World Bookmaker Embellishments",
           "url": "https://laceleatherarcane.com/bookmaker-stickers-seals-vol-1.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "name": "Junk Journal Textures — The Antiquarian's Cabinet",
+          "url": "https://laceleatherarcane.com/antiquarians-cabinet.html"
         }
       ]
     },
@@ -973,6 +979,24 @@
           </div>
         </div>
 
+
+        <!-- ANTIQUARIAN'S CABINET -->
+        <div class="pack-wrap">
+          <button class="pack" type="button" data-pack="antiquarian" aria-label="Preview The Antiquarian's Cabinet Junk Journal Textures Vol. 1">
+            <img decoding="async" src="./assets/previews/antiquarian/antiquarian-17-preview.webp" alt="The Antiquarian's Cabinet aged junk journal paper texture preview" loading="lazy" />
+            <div class="pack-meta">
+              <div class="pack-title">Junk Journal Texture Pack</div>
+              <div class="pack-note muted">20 aged archive paper textures</div>
+            </div>
+          </button>
+
+          <div class="pack-buy" aria-label="Buy The Antiquarian's Cabinet">
+            <a class="pack-details" href="./antiquarians-cabinet.html">Details</a>
+            <div class="pack-price muted">$7.50</div>
+            <button class="ll-add-btn" type="button" data-add="antiquarians-cabinet" aria-label="Add The Antiquarian's Cabinet to cart"></button>
+          </div>
+        </div>
+
         <!-- SMITHY (NEW) -->
         <div class="pack-wrap">
           <button class="pack" type="button" data-pack="smithy" aria-label="Preview Smithy Textures">
@@ -1507,6 +1531,7 @@
       volone: { id: "volone", name: "Parchment Light Vol. 1", price: 4.25 },
       voltwo: { id: "voltwo", name: "Parchment Light Vol. 2", price: 3.75 },
       illuminated: { id: "illuminated", name: "Illuminated Manuscripts Vol. 1", price: 5.00 },
+      "antiquarians-cabinet": { id: "antiquarians-cabinet", name: "The Antiquarian's Cabinet - Junk Journal Textures Vol. 1", price: 7.50 },
       smithy: { id: "smithy", name: "Smithy Textures", price: 5.00 },
       bookmaker: { id: "bookmaker", name: "Old-World Bookmaker Stickers & Seals Vol. 1", price: 2.00 },
       "gui-pack": { id: "gui-pack", name: "Fantasy RPG GUI Pack", price: 12.00 },
@@ -1760,6 +1785,11 @@
         title: "Illuminated Manuscripts Vol. 1",
         sub: "Preview (14 watermarked designs)",
         images: Array.from({length: 14}, (_,i)=> `./assets/previews/illuminated/illuminated-${String(i+1).padStart(2, "0")}-preview.svg`)
+      },
+      antiquarian: {
+        title: "The Antiquarian's Cabinet",
+        sub: "Preview (20 watermarked junk journal textures)",
+        images: Array.from({length: 20}, (_,i)=> `./assets/previews/antiquarian/antiquarian-${String(i+1).padStart(2, "0")}-preview.webp`)
       },
       smithy: {
         title: "Smithy Textures",
