@@ -34,7 +34,7 @@
     })();
   </script>
 
-  <link rel="stylesheet" href="./styles.css?v=LL-20261018-TYPE1" />
+  <link rel="stylesheet" href="./styles.css?v=LL-20261024-PIN1" />
 
   <style>
     body.pay-page .pay-step{
@@ -277,7 +277,7 @@
         <header class="pay-head">
           <div class="pay-head-left">
             <div class="pay-brand">LACE &amp; LEATHER</div>
-            <div class="pay-sub">Review your order, then pay securely with Stripe.</div>
+            <div class="pay-sub">No account required. Review your order, then pay securely with Stripe.</div>
           </div>
 
           <div class="pay-actions">
@@ -350,7 +350,7 @@
                 </div>
 
                 <p class="pay-payment-help">
-                  You’ll continue to Stripe’s secure checkout. Your payment credentials never touch the Lace & Leather site.
+                  You’ll continue to Stripe’s secure checkout. Your payment credentials never touch the Lace & Leather site, and your digital delivery is sent to the email above after payment is confirmed.
                 </p>
                 <p class="pay-payment-help">
                   Changed your mind? Tap Clear Cart above to discard this unpaid checkout.
@@ -384,6 +384,7 @@
     const LOCK_KEY = "ll_cart_locked";
     const CUST_EMAIL_KEY = "ll_customer_email";
     const LAST_SUBMISSION_KEY = "ll_last_payment_submission";
+    const ATTRIBUTION_KEY = "ll_attribution_v1";
 
     let actionInFlight = false;
 
@@ -635,8 +636,56 @@
       saveCart([]);
       resetOrderId();
       clearCustomerInfo();
+      localStorage.removeItem(ATTRIBUTION_KEY);
       setBusy(false);
       showComplete(verifiedOrderId);
+    }
+
+    function readAttribution_(){
+      try{
+        const saved = JSON.parse(localStorage.getItem(ATTRIBUTION_KEY) || "null");
+        return saved && typeof saved === "object" ? saved : null;
+      }catch{
+        return null;
+      }
+    }
+
+    function cleanAttributionValue_(value, max=180){
+      return String(value || "")
+        .replace(/[\r\n\t]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, max);
+    }
+
+    function attributionSummary_(){
+      const saved = readAttribution_();
+      const touch = saved?.last || saved?.first;
+      if(!touch) return "";
+
+      const parts = [
+        ["source", touch.source],
+        ["medium", touch.medium],
+        ["campaign", touch.campaign],
+        ["content", touch.content],
+        ["landing", touch.path]
+      ]
+        .map(([key, value]) => [key, cleanAttributionValue_(value)])
+        .filter(([, value]) => !!value)
+        .map(([key, value]) => key + "=" + value);
+
+      return parts.join("; ");
+    }
+
+    function attributionReferrer_(){
+      const saved = readAttribution_();
+      return cleanAttributionValue_(
+        saved?.last?.referrer
+        || saved?.first?.referrer
+        || document.referrer
+        || "",
+        500
+      );
     }
 
     function stripeOrderPayload_(){
@@ -804,8 +853,10 @@
         currency:"USD",
         items,
         customer:{email},
-        note:"Stripe checkout — payment is confirmed by Stripe before fulfillment.",
-        referrer:document.referrer || "",
+        note:
+          "Stripe checkout — payment is confirmed by Stripe before fulfillment."
+          + (attributionSummary_() ? " Attribution: " + attributionSummary_() : ""),
+        referrer:attributionReferrer_(),
         status:"new"
       };
 
@@ -828,9 +879,9 @@
 
         setLocked(true);
         showPaymentReady(true);
-        setStatus("Order saved. Complete payment in Step 2.", "ok");
+        setStatus("Order saved. Opening secure Stripe checkout…", "ok");
         setBusy(false);
-        $("paymentCard").scrollIntoView({behavior:"smooth", block:"nearest"});
+        await startStripeCheckout_();
       }catch(error){
         setStatus(error?.message || "We could not save your order. Please try once more.", "bad");
         setBusy(false);
@@ -886,6 +937,6 @@
       handleStripeReturn_();
     }
   </script>
-  <script src="./site-refresh.js?v=LL-20261014-STRIPE5" defer></script>
+  <script src="./site-refresh.js?v=LL-20261024-PIN1" defer></script>
 </body>
 </html>
