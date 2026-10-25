@@ -1875,3 +1875,39 @@ button.btn{
     display:none;
   }
 }
+
+
+/* SHOP EXPLAINER */
+.shop-explainer{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin:14px 0 20px;
+}
+
+.shop-explainer span{
+  padding:11px 13px;
+  border:1px solid rgba(210,165,97,.24);
+  border-radius:12px;
+  background:rgba(0,0,0,.14);
+  color:rgba(239,226,205,.88);
+  font-size:13px;
+  line-height:1.45;
+  text-align:left;
+}
+
+.shop-explainer strong{
+  color:#f1d49e;
+}
+
+@media (max-width:760px){
+  .shop-explainer{
+    grid-template-columns:1fr;
+    gap:7px;
+  }
+
+  .shop-explainer span{
+    padding:10px 12px;
+    font-size:12.5px;
+  }
+}
