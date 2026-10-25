@@ -16,6 +16,7 @@ on:
       - light-aged-parchment-vol-1.html
       - parchment-light-vol-2.html
       - illuminated-manuscripts-vol-1.html
+      - antiquarians-cabinet.html
       - assets/previews/**
       - styles.css
       - detail-previews.css

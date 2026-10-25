@@ -194,6 +194,7 @@ def run_device(device, browser, base, failures, results):
         ("volone", "light-aged-parchment-vol-1.html", 10),
         ("voltwo", "parchment-light-vol-2.html", 8),
         ("illuminated", "illuminated-manuscripts-vol-1.html", 14),
+        ("antiquarian", "antiquarians-cabinet.html", 20),
     )
     detail_signatures = []
 
