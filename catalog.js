@@ -28,6 +28,12 @@
       name: "Illuminated Manuscripts Vol. 1",
       price: 5.00
     },
+    "antiquarians-cabinet": {
+      id: "antiquarians-cabinet",
+      name: "The Antiquarian\'s Cabinet - Junk Journal Textures Vol. 1",
+      price: 7.50,
+      aliases: ["Antiquarian\'s Cabinet", "Junk Journal Textures Vol. 1"]
+    },
     "voltwo": {
       id: "voltwo",
       name: "Parchment Light Vol. 2",
