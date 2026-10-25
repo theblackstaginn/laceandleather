@@ -65,6 +65,26 @@
     }
   }
 
+  // On the homepage, merchandise should appear before the workshop/social
+  // detour so Pinterest shoppers reach products with less scrolling.
+  const packsSection = document.querySelector("#packs");
+  const processSection = document.querySelector("#process");
+  if (packsSection && processSection && packsSection.nextElementSibling !== processSection) {
+    packsSection.insertAdjacentElement("afterend", processSection);
+  }
+
+  const shopEntry = document.querySelector(".shop-entry");
+  if (shopEntry && !document.querySelector(".direct-shop-trust")) {
+    const trust = document.createElement("div");
+    trust.className = "direct-shop-trust";
+    trust.setAttribute("aria-label", "Direct shop benefits");
+    trust.innerHTML =
+      "<span>No marketplace account required</span>"
+      + "<span>Secure Stripe checkout</span>"
+      + "<span>Digital delivery by email</span>";
+    shopEntry.insertAdjacentElement("afterend", trust);
+  }
+
   // Sitewide PTR is for normal Lace & Leather pages.
   // The PayPad has its own internal scroll surface and is intentionally skipped.
   if (isPayPage) return;
