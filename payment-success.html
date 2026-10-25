@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Lace & Leather — Payment Confirmed</title>
   <meta name="robots" content="noindex,nofollow,noarchive" />
-  <link rel="stylesheet" href="./styles.css?v=LL-20261018-TYPE1" />
+  <link rel="stylesheet" href="./styles.css?v=LL-20261024-PIN1" />
   <style>
     body.pay-page .pay-success-wrap{
       min-height:100%;
@@ -110,6 +110,7 @@
     const LOCK_KEY = "ll_cart_locked";
     const CUST_EMAIL_KEY = "ll_customer_email";
     const LAST_SUBMISSION_KEY = "ll_last_payment_submission";
+    const ATTRIBUTION_KEY = "ll_attribution_v1";
 
     const $ = id => document.getElementById(id);
 
@@ -161,6 +162,7 @@
         localStorage.removeItem(ORDER_KEY);
         localStorage.setItem(LOCK_KEY, "0");
         localStorage.removeItem(CUST_EMAIL_KEY);
+        localStorage.removeItem(ATTRIBUTION_KEY);
 
         $("successCard").dataset.state = "success";
         $("successMark").textContent = "✓";
