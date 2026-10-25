@@ -97,6 +97,7 @@ def run_device(device, browser, base, failures, results):
         ("volone", 10),
         ("voltwo", 8),
         ("illuminated", 14),
+        ("antiquarian", 20),
         ("smithy", 12),
     )
 
@@ -123,6 +124,24 @@ def run_device(device, browser, base, failures, results):
         check(len(sources) == total and all(
             f"assets/previews/{pack}/" in src for src in sources),
             f"{device} {pack}: homepage modal contains an unprotected source", failures)
+        if pack == "antiquarian":
+            # CSS backgrounds can fail silently or remain blank with HTTP 200.
+            # Decode every public preview, including tiles initially off screen.
+            decoded = page.evaluate("""async urls => Promise.all(urls.map(async src => {
+              const image = new Image();
+              image.src = src;
+              try {
+                await image.decode();
+                return {src, ok: true, width: image.naturalWidth, height: image.naturalHeight};
+              } catch {
+                return {src, ok: false, width: 0, height: 0};
+              }
+            }))""", sources)
+            check(len(decoded) == 20 and all(
+                result["ok"] and result["width"] == 600 and result["height"] == 900
+                and result["src"].endswith(".jpg") for result in decoded),
+                f"{device} antiquarian: a public preview failed decoding or has the wrong dimensions", failures)
+
         page.keyboard.press("Escape")
         check(page.locator("#packModal.open").count() == 0,
               f"{device} {pack}: Escape failed to close homepage pack modal", failures)
@@ -307,3 +326,4 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+
