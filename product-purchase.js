@@ -24,6 +24,12 @@
     const product = window.LaceLeatherCatalog?.get(productId);
     if (!product) return null;
 
+    // Updating a saved unpaid cart must not reuse the old order reference.
+    if (localStorage.getItem("ll_cart_locked") === "1") {
+      localStorage.removeItem("ll_cart_locked");
+      localStorage.removeItem("ll_order_id");
+    }
+
     const cart = readCart();
     const existing = cart.find(item => item.id === product.id);
 
