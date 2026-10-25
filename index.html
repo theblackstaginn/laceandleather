@@ -1472,6 +1472,11 @@
     }
 
     function addToCart(item){
+      // Any cart change after saving an unpaid draft requires a fresh order.
+      if(localStorage.getItem("ll_cart_locked") === "1"){
+        localStorage.removeItem("ll_cart_locked");
+        localStorage.removeItem(ORDER_KEY);
+      }
       const cart = loadCart();
       const existing = cart.find(x =>
         (item.id && x?.id === item.id)
@@ -1630,6 +1635,8 @@
     function clearCart(){
       localStorage.removeItem(CART_KEY);
       localStorage.removeItem(ORDER_KEY);
+      localStorage.removeItem("ll_cart_locked");
+      localStorage.removeItem("ll_customer_email");
       renderCart();
     }
 
