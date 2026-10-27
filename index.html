@@ -1844,7 +1844,7 @@
       "antiquarian-collage": { title: "Aged Paper & Collage", src: "https://i.etsystatic.com/63811998/r/il/5220ee/8745608458/il_fullxfull.8745608458_p7oq.jpg", alt: "Vintage-style antiquarian aged parchment use-case scene illustrating printable journal and collage possibilities." },
       "light-parchment": { title: "Everyday Aged Parchment", src: "https://i.etsystatic.com/63811998/r/il/9cc5a2/7688066239/il_fullxfull.7688066239_it9u.jpg", alt: "Styled creative example showing softly aged ivory parchment paper used for vintage-inspired journal pages." }
     };
-    $("#process button.uc-btn[data-uc]").forEach(btn => {
+    $$("#process button.uc-btn[data-uc]").forEach(btn => {
       btn.addEventListener("click", () => {
         const def = USE_CASES[btn.getAttribute("data-uc")];
         if(!def || !useCaseModal || !ucViewerImg || !ucTitle) return;
