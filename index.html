@@ -74,8 +74,12 @@
       "url": "https://laceleatherarcane.com/",
       "name": "Printable Parchment, Journal Pages & RPG Assets | Lace & Leather Arcane",
       "description": "Printable parchment paper, junk journal pages, grimoire printables, fantasy map textures, wax seal PNGs and RPG assets from Lace & Leather Arcane.",
-      "isPartOf": { "@id": "https://laceleatherarcane.com/#website" },
-      "about": { "@id": "https://laceleatherarcane.com/#organization" },
+      "isPartOf": {
+        "@id": "https://laceleatherarcane.com/#website"
+      },
+      "about": {
+        "@id": "https://laceleatherarcane.com/#organization"
+      },
       "primaryImageOfPage": {
         "@type": "ImageObject",
         "url": "https://laceleatherarcane.com/assets/l&l_logo.webp"
@@ -173,18 +177,34 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What are these files used for?",
+          "name": "Are these digital downloads or physical paper?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Use the packs as printable journal pages, parchment backgrounds, fantasy map textures, grimoire pages, digital collage elements, manuscript assets, and TTRPG handouts."
+            "text": "The current shop sells digital downloads. No printed paper or physical item is shipped with these products."
           }
         },
         {
           "@type": "Question",
-          "name": "Are the textures high-resolution?",
+          "name": "Which files and paper sizes are included?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Depending on the pack, products include high-resolution JPG or transparent PNG assets plus prepared printable PDF layouts for common paper sizes."
+            "text": "Formats and sizes vary by pack. Check the individual product page for its JPG or PNG files, included PDF layouts, source dimensions and permitted uses before buying."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I print the parchment pages?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Choose an included PDF that matches your paper size and start with Actual size or 100% scaling. If your printer cannot print the full page, use its fit-to-printable-area option and check the preview. Print one test page before a full set."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How will I receive my files?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Digital delivery is by email after confirmed payment. You can purchase through the website without a marketplace account or app."
           }
         }
       ]
@@ -193,7 +213,7 @@
 }
   </script>
 
-  <link rel="stylesheet" href="styles.css?v=LL-20261025-READ1" />
+  <link rel="stylesheet" href="styles.css?v=LL-20261027-SEO1" />
 
   <style>
     .cart-pay-row{
@@ -274,6 +294,13 @@
     @media (max-width: 420px){
       .ll-home-btn{ width: 200px; height: 66px; }
       .usecase-row .ll-home-btn{ width: 280px; height: 66px; }
+    }
+
+    /* Keep the homepage grids and illustrated controls inside narrow screens. */
+    @media (max-width: 360px){
+      body > .wrap, .hero-inner{ grid-template-columns:minmax(0, 1fr); }
+      .hero-inner > *{ min-width:0; max-width:100%; }
+      .usecase-row .ll-home-btn{ max-width:100%; }
     }
 
     .pack-wrap{
@@ -1154,6 +1181,27 @@
         for games, websites, TTRPG tools and interactive projects. The
         <a href="./buttons.html">Bookmaker's Specimen Cabinet</a> remains a separate collection of individual decorative interface pieces.
       </p>
+    </section>
+
+    <section class="section section-copy" id="faq" aria-labelledby="shop-faq-heading">
+      <h2 id="shop-faq-heading">Before you choose a digital paper pack</h2>
+      <details class="specs">
+        <summary><strong>Are these digital downloads or physical paper?</strong></summary>
+        <p>The current shop sells digital downloads. No printed paper or physical item is shipped with these products.</p>
+      </details>
+      <details class="specs">
+        <summary><strong>Which files and paper sizes are included?</strong></summary>
+        <p>Formats and sizes vary by pack. Check the individual product page for its JPG or PNG files, included PDF layouts, source dimensions and permitted uses before buying.</p>
+      </details>
+      <details class="specs">
+        <summary><strong>How do I print the parchment pages?</strong></summary>
+        <p>Choose an included PDF that matches your paper size and start with Actual size or 100% scaling. If your printer cannot print the full page, use its fit-to-printable-area option and check the preview. Print one test page before a full set.</p>
+      </details>
+      <details class="specs">
+        <summary><strong>How will I receive my files?</strong></summary>
+        <p>Digital delivery is by email after confirmed payment. You can purchase through the website without a marketplace account or app.</p>
+      </details>
+      <p style="margin-top:16px">For file formats, print scaling and choosing a pack, read our <a href="./journal/how-to-print-parchment-paper.html">guide to printing parchment paper and journal pages</a>.</p>
     </section>
 
     <section class="ll-projects" aria-label="In the Wild">
