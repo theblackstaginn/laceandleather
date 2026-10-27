@@ -491,6 +491,17 @@ p, h1, h2, h3, h4, h5, h6,
   text-align:left;
 }
 
+.section-copy a,
+.print-help a{
+  color:#d8c7a3;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.section-copy a:hover,
+.print-help a:hover{
+  color:#fff1d2;
+}
+
 /* =========================
    FOOTER
    ========================= */
