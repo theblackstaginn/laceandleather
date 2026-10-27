@@ -86,7 +86,6 @@ def run_device(device, browser, base, failures, results):
     for selector, label in (
         ("#packModal", "homepage pack"),
         ("#mapModal", "homepage map"),
-        ("#useCaseModal", "homepage use-case"),
     ):
         verify_shared_modal(page, selector, failures, f"{device} {label}")
 
@@ -166,8 +165,8 @@ def run_device(device, browser, base, failures, results):
     check(page.locator("#mapModal.open").count() == 0,
           f"{device}: Escape failed to close map modal", failures)
 
-    # The standalone gallery and its six-image popup were merged into the
-    # homepage's "Made for What You Create" section. Test the actual buyer flow.
+    # The unified homepage inspiration gallery is static; the images no longer
+    # open a full-size viewer. Preserve captions, artwork, and product links.
     gallery_entry = page.locator('a.ll-home-btn.ll-usecase[href="#process"]')
     check(gallery_entry.count() == 1,
           f"{device}: homepage gallery anchor missing", failures)
@@ -180,39 +179,37 @@ def run_device(device, browser, base, failures, results):
           f"{device}: unified gallery grid missing", failures)
     check(gallery.locator(".uc-card").count() == 8,
           f"{device}: unified gallery must show eight approved examples", failures)
-    check(gallery.locator(".uc-product-link").count() == 8,
-          f"{device}: unified gallery must have eight product links", failures)
+    artwork = gallery.locator(".uc-art img.uc-img")
+    check(artwork.count() == 8,
+          f"{device}: unified gallery must show eight static images", failures)
+    check(all(img.get_attribute("alt") for img in artwork.all()),
+          f"{device}: gallery artwork missing accessible alt text", failures)
+    check(all((img.get_attribute("src") or "").startswith("https://i.etsystatic.com/")
+              for img in artwork.all()),
+          f"{device}: gallery artwork source changed unexpectedly", failures)
+    links = gallery.locator(".uc-product-link")
+    check(links.count() == 8,
+          f"{device}: unified gallery must retain eight product links", failures)
+    check(all((link.get_attribute("href") or "").startswith("./") for link in links.all()),
+          f"{device}: gallery product link missing destination", failures)
+    check(gallery.locator(".uc-btn, .uc-zoom, .uc-art button, .uc-art a").count() == 0,
+          f"{device}: gallery images still expose a zoom control", failures)
+    check(page.locator("#useCaseModal").count() == 0,
+          f"{device}: removed full-size gallery popup still present", failures)
     check(page.locator(".creation-grid").count() == 0,
           f"{device}: old illustrative homepage grid remains", failures)
-    check(page.locator("#useCaseModal .usecase-grid").count() == 0,
-          f"{device}: old six-image popup remains", failures)
     check(page.locator("#meet-the-maker").count() == 1,
           f"{device}: Meet the Maker should not be duplicated", failures)
-
-    gallery.locator("button.uc-btn[data-uc]").first.click()
-    page.locator("#useCaseModal.open").wait_for(timeout=8000)
-    check(modal_signature(page, "#useCaseModal") == baseline,
-          f"{device}: unified gallery viewer differs from shared preview shell", failures)
-    check("il_fullxfull" in page.locator("#ucViewerImg").evaluate("e => e.style.backgroundImage"),
-          f"{device}: gallery viewer did not load the approved full-size artwork", failures)
     page.screenshot(path=str(OUT / f"{device}-unified-use-case.png"))
-    page.locator("#useCaseModal .modal-backdrop").click(position={"x": 5, "y": 5})
-    check(page.locator("#useCaseModal.open").count() == 0,
-          f"{device}: backdrop failed to close unified gallery viewer", failures)
 
-    # Old bookmarks still land on the correct individual image on the homepage.
+    # Old image bookmarks still resolve to their cards on the homepage.
     page.goto(base + "/use-case.html#light-parchment",
               wait_until="domcontentloaded", timeout=30000)
     page.wait_for_url("**/#light-parchment", timeout=8000)
     check(page.locator("#process .uc-card").count() == 8,
-          f"{device}: legacy use-case URL failed to reach homepage gallery", failures)
-    page.locator('button.uc-btn[data-uc="light-parchment"]').click()
-    page.locator("#useCaseModal.open").wait_for(timeout=8000)
-    check(modal_signature(page, "#useCaseModal") == baseline,
-          f"{device}: redirected gallery viewer differs from shared preview shell", failures)
-    page.keyboard.press("Escape")
-    check(page.locator("#useCaseModal.open").count() == 0,
-          f"{device}: Escape failed to close redirected gallery viewer", failures)
+          f"{device}: legacy gallery URL failed to reach homepage", failures)
+    check(page.locator("#light-parchment .uc-art img.uc-img").count() == 1,
+          f"{device}: image bookmark failed to preserve gallery card", failures)
 
     # Every customer-facing pack gallery must use local, reduced,
     # baked-watermark previews. Marketplace/mockup images are not allowed here.
