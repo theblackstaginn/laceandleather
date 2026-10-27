@@ -779,11 +779,9 @@
     #process .uc-disclosure{max-width:800px;margin:15px auto;color:#e5dbc9;font-size:15px;line-height:1.5;}
     #process .uc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:20px 0;}
     #process .uc-card{margin:0;display:flex;flex-direction:column;min-width:0;overflow:hidden;border:1px solid rgba(226,187,129,.23);border-radius:16px;background:rgba(13,10,9,.55);box-shadow:0 14px 30px rgba(0,0,0,.45);text-align:left;}
-    #process .uc-btn{appearance:none;display:block;position:relative;overflow:hidden;width:100%;aspect-ratio:5/4;padding:0;border:0;background:transparent;cursor:pointer;}
-    #process .uc-img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s ease;}
-    #process .uc-btn:hover .uc-img,#process .uc-btn:focus-visible .uc-img{transform:scale(1.035);}
-    #process .uc-btn:focus-visible,#process .uc-product-link:focus-visible{outline:2px solid #e3c48f;outline-offset:3px;}
-    #process .uc-zoom{position:absolute;top:10px;right:10px;padding:5px 10px;border-radius:30px;background:rgba(0,0,0,.8);font-family:var(--font-display);font-size:12px;letter-spacing:.04em;color:#fff;}
+    #process .uc-art{display:block;overflow:hidden;width:100%;aspect-ratio:5/4;}
+    #process .uc-img{display:block;width:100%;height:100%;object-fit:cover;}
+    #process .uc-product-link:focus-visible{outline:2px solid #e3c48f;outline-offset:3px;}
     #process .uc-cap{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:18px;border-top:1px solid rgba(226,187,129,.2);text-align:left;}
     #process .uc-card-title{margin:0;font-size:clamp(17px,2vw,21px);line-height:1.3;color:#f7e5c7;letter-spacing:.02em;text-align:left;}
     #process .uc-card-description{margin:0 0 5px;color:#ece2d6;font-family:var(--font-body);font-size:18px;line-height:1.4;text-align:left;}
@@ -791,9 +789,7 @@
     #process .uc-product-link:hover{background:rgba(105,60,36,.8);color:#fff3d6;}
     #process .uc-print-guide{margin:22px auto 8px;line-height:1.6;}
     #process .uc-print-guide a{color:#f4dfb8;}
-    #useCaseModal .uc-viewer .viewer-img{aspect-ratio:16/9;max-height:min(70vh,780px);background-size:contain;}
     @media(max-width:720px){#process .uc-grid{grid-template-columns:1fr;gap:16px;}#process .uc-cap{padding:14px;}}
-    @media(prefers-reduced-motion:reduce){#process .uc-img{transition:none;}#process .uc-btn:hover .uc-img,#process .uc-btn:focus-visible .uc-img{transform:none;}}
   </style>
   <script src="./measurement.js?v=LL-20261024-PIN1" defer></script>
   <link rel="stylesheet" href="./ward.css?v=LL-20261016-WARD2" />
@@ -1115,10 +1111,9 @@
       <p class="uc-disclosure">Styled project examples using Lace &amp; Leather digital artwork. Products are digital downloads; the printed pieces, journals, devices and props shown are not included.</p>
     <div class="uc-grid" aria-label="Creative project examples from our Etsy collection">
                 <figure class="uc-card" id="illuminated-journal">
-                  <button class="uc-btn" type="button" data-uc="illuminated-journal" aria-label="View larger image: Illuminated Journal Pages">
+                  <div class="uc-art">
                     <img class="uc-img" src="https://i.etsystatic.com/63811998/r/il/f40cc7/8771805215/il_570xN.8771805215_kr1a.jpg" alt="Styled open-journal example displaying Lace &amp; Leather illuminated manuscript parchment with medieval borders." loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-                    <span class="uc-zoom" aria-hidden="true">View larger</span>
-                  </button>
+                  </div>
                   <figcaption class="uc-cap">
                     <h2 class="uc-card-title">Illuminated Journal Pages</h2>
                     <p class="uc-card-description">Medieval-style borders in an open journal, with generous room for writing.</p>
@@ -1127,10 +1122,9 @@
                 </figure>
     
                 <figure class="uc-card" id="printing-pages">
-                  <button class="uc-btn" type="button" data-uc="printing-pages" aria-label="View larger image: Print Your Own Parchment">
+                  <div class="uc-art">
                     <img class="uc-img" src="https://i.etsystatic.com/63811998/r/il/9c7fc5/8772005561/il_570xN.8772005561_tla2.jpg" alt="Styled home printer producing a medieval manuscript page with a pen, books and a second page on the desk." loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-                    <span class="uc-zoom" aria-hidden="true">View larger</span>
-                  </button>
+                  </div>
                   <figcaption class="uc-cap">
                     <h2 class="uc-card-title">Print Your Own Parchment</h2>
                     <p class="uc-card-description">A home-printer scene showing how illustrated pages can become a paper project.</p>
@@ -1139,10 +1133,9 @@
                 </figure>
     
                 <figure class="uc-card" id="junk-journal-crafting">
-                  <button class="uc-btn" type="button" data-uc="junk-journal-crafting" aria-label="View larger image: Junk Journal Crafting">
+                  <div class="uc-art">
                     <img class="uc-img" src="https://i.etsystatic.com/63811998/r/il/813aaa/8724176930/il_570xN.8724176930_it8x.jpg" alt="Junk journal craft-table scene with illuminated parchment pages, scissors, glue and paper trimmings." loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-                    <span class="uc-zoom" aria-hidden="true">View larger</span>
-                  </button>
+                  </div>
                   <figcaption class="uc-cap">
                     <h2 class="uc-card-title">Junk Journal Crafting</h2>
                     <p class="uc-card-description">Cut, layer and arrange printable manuscript pages in a creative journal.</p>
@@ -1151,10 +1144,9 @@
                 </figure>
     
                 <figure class="uc-card" id="cutout-embellishments">
-                  <button class="uc-btn" type="button" data-uc="cutout-embellishments" aria-label="View larger image: Cut-Out Bookmaker Embellishments">
+                  <div class="uc-art">
                     <img class="uc-img" src="https://i.etsystatic.com/63811998/r/il/39ddb5/8723199826/il_570xN.8723199826_tvyu.jpg" alt="Styled craft table with printed Bookmaker embellishments, cut-out shapes, scissors and paper trimmings." loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-                    <span class="uc-zoom" aria-hidden="true">View larger</span>
-                  </button>
+                  </div>
                   <figcaption class="uc-cap">
                     <h2 class="uc-card-title">Cut-Out Bookmaker Embellishments</h2>
                     <p class="uc-card-description">Print and trim wax seals and small motifs for journals and collages.</p>
@@ -1163,10 +1155,9 @@
                 </figure>
     
                 <figure class="uc-card" id="digital-journal">
-                  <button class="uc-btn" type="button" data-uc="digital-journal" aria-label="View larger image: Digital Journal Decoration">
+                  <div class="uc-art">
                     <img class="uc-img" src="https://i.etsystatic.com/63811998/r/il/d0c704/8723199820/il_570xN.8723199820_7pna.jpg" alt="Tablet displaying an example digital journal decorated with transparent Bookmaker lantern, stag and moon PNG designs." loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-                    <span class="uc-zoom" aria-hidden="true">View larger</span>
-                  </button>
+                  </div>
                   <figcaption class="uc-cap">
                     <h2 class="uc-card-title">Digital Journal Decoration</h2>
                     <p class="uc-card-description">Layer transparent seals, lanterns and emblems into your own digital layouts.</p>
@@ -1175,10 +1166,9 @@
                 </figure>
     
                 <figure class="uc-card" id="antiquarian-journals">
-                  <button class="uc-btn" type="button" data-uc="antiquarian-journals" aria-label="View larger image: Vintage Journal Papers">
+                  <div class="uc-art">
                     <img class="uc-img" src="https://i.etsystatic.com/63811998/r/il/e2f7bd/8745608366/il_570xN.8745608366_qxyw.jpg" alt="Styled creative use-case preview featuring aged paper artwork from the Antiquarian&#39;s Cabinet collection." loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-                    <span class="uc-zoom" aria-hidden="true">View larger</span>
-                  </button>
+                  </div>
                   <figcaption class="uc-cap">
                     <h2 class="uc-card-title">Vintage Journal Papers</h2>
                     <p class="uc-card-description">Turn aged archive-style paper into printable pages and layered journals.</p>
@@ -1187,10 +1177,9 @@
                 </figure>
     
                 <figure class="uc-card" id="antiquarian-collage">
-                  <button class="uc-btn" type="button" data-uc="antiquarian-collage" aria-label="View larger image: Aged Paper &amp; Collage">
+                  <div class="uc-art">
                     <img class="uc-img" src="https://i.etsystatic.com/63811998/r/il/5220ee/8745608458/il_570xN.8745608458_p7oq.jpg" alt="Vintage-style antiquarian aged parchment use-case scene illustrating printable journal and collage possibilities." loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-                    <span class="uc-zoom" aria-hidden="true">View larger</span>
-                  </button>
+                  </div>
                   <figcaption class="uc-cap">
                     <h2 class="uc-card-title">Aged Paper &amp; Collage</h2>
                     <p class="uc-card-description">Timeworn textures for scrapbooks, grimoire layouts and paper collages.</p>
@@ -1199,10 +1188,9 @@
                 </figure>
     
                 <figure class="uc-card" id="light-parchment">
-                  <button class="uc-btn" type="button" data-uc="light-parchment" aria-label="View larger image: Everyday Aged Parchment">
+                  <div class="uc-art">
                     <img class="uc-img" src="https://i.etsystatic.com/63811998/r/il/9cc5a2/7688066239/il_570xN.7688066239_it9u.jpg" alt="Styled creative example showing softly aged ivory parchment paper used for vintage-inspired journal pages." loading="lazy" decoding="async" referrerpolicy="no-referrer" />
-                    <span class="uc-zoom" aria-hidden="true">View larger</span>
-                  </button>
+                  </div>
                   <figcaption class="uc-cap">
                     <h2 class="uc-card-title">Everyday Aged Parchment</h2>
                     <p class="uc-card-description">Soft ivory papers make a subtle foundation for writing and stationery.</p>
@@ -1362,31 +1350,6 @@
       </div>
     </footer>
   </main>
-
-  <!-- APPROVED GALLERY IMAGE VIEWER -->
-  <div class="modal preview-modal" id="useCaseModal" aria-hidden="true" role="dialog" aria-label="Project gallery image preview">
-    <div class="modal-backdrop" data-close></div>
-    <div class="glass modal-panel uc-viewer" role="document">
-      <div class="modal-head">
-        <div class="modal-left">
-          <div>
-            <div class="modal-title" id="ucTitle">Project Preview</div>
-            <div class="modal-sub muted">Tap outside to close</div>
-          </div>
-        </div>
-        <div class="modal-actions">
-          <button class="wax-btn" type="button" data-close aria-label="Close">
-            <img decoding="async" src="./assets/x-button.webp" alt="Close" />
-          </button>
-        </div>
-      </div>
-      <div class="modal-body">
-        <div class="viewer" style="display:block">
-          <div class="viewer-img" id="ucViewerImg" role="img" aria-label="Selected project preview"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- CART MODAL -->
   <div class="modal" id="cartModal" aria-hidden="true" role="dialog" aria-label="Cart">
@@ -1827,31 +1790,6 @@
         addToCart(p);
         playAddToCartAnimation(btn);
         btn.blur();
-      });
-    });
-
-    /* One gallery: enlarge the actual approved Etsy use-case images. */
-    const useCaseModal = $("#useCaseModal");
-    const ucViewerImg = $("#ucViewerImg");
-    const ucTitle = $("#ucTitle");
-    const USE_CASES = {
-      "illuminated-journal": { title: "Illuminated Journal Pages", src: "https://i.etsystatic.com/63811998/r/il/f40cc7/8771805215/il_fullxfull.8771805215_kr1a.jpg", alt: "Styled open-journal example displaying Lace & Leather illuminated manuscript parchment with medieval borders." },
-      "printing-pages": { title: "Print Your Own Parchment", src: "https://i.etsystatic.com/63811998/r/il/9c7fc5/8772005561/il_fullxfull.8772005561_tla2.jpg", alt: "Styled home printer producing a medieval manuscript page with a pen, books and a second page on the desk." },
-      "junk-journal-crafting": { title: "Junk Journal Crafting", src: "https://i.etsystatic.com/63811998/r/il/813aaa/8724176930/il_fullxfull.8724176930_it8x.jpg", alt: "Junk journal craft-table scene with illuminated parchment pages, scissors, glue and paper trimmings." },
-      "cutout-embellishments": { title: "Cut-Out Bookmaker Embellishments", src: "https://i.etsystatic.com/63811998/r/il/39ddb5/8723199826/il_fullxfull.8723199826_tvyu.jpg", alt: "Styled craft table with printed Bookmaker embellishments, cut-out shapes, scissors and paper trimmings." },
-      "digital-journal": { title: "Digital Journal Decoration", src: "https://i.etsystatic.com/63811998/r/il/d0c704/8723199820/il_fullxfull.8723199820_7pna.jpg", alt: "Tablet displaying an example digital journal decorated with transparent Bookmaker lantern, stag and moon PNG designs." },
-      "antiquarian-journals": { title: "Vintage Journal Papers", src: "https://i.etsystatic.com/63811998/r/il/e2f7bd/8745608366/il_fullxfull.8745608366_qxyw.jpg", alt: "Styled creative use-case preview featuring aged paper artwork from the Antiquarian's Cabinet collection." },
-      "antiquarian-collage": { title: "Aged Paper & Collage", src: "https://i.etsystatic.com/63811998/r/il/5220ee/8745608458/il_fullxfull.8745608458_p7oq.jpg", alt: "Vintage-style antiquarian aged parchment use-case scene illustrating printable journal and collage possibilities." },
-      "light-parchment": { title: "Everyday Aged Parchment", src: "https://i.etsystatic.com/63811998/r/il/9cc5a2/7688066239/il_fullxfull.7688066239_it9u.jpg", alt: "Styled creative example showing softly aged ivory parchment paper used for vintage-inspired journal pages." }
-    };
-    $$("#process button.uc-btn[data-uc]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const def = USE_CASES[btn.getAttribute("data-uc")];
-        if(!def || !useCaseModal || !ucViewerImg || !ucTitle) return;
-        ucTitle.textContent = def.title;
-        ucViewerImg.setAttribute("aria-label", def.alt);
-        ucViewerImg.style.backgroundImage = `url('${def.src}')`;
-        openModal(useCaseModal, btn);
       });
     });
 
