@@ -35,8 +35,7 @@
       mark.className = "ll-beacon-home-mark";
       mark.setAttribute("aria-label", "Runic Beacon: Fehu, Gebo and Jera, a symbolic maker's invitation");
       mark.innerHTML =
-        '<span class="ll-beacon-home-runes" aria-hidden="true">ᚠ ᚷ ᛃ</span>'
-        + '<span class="ll-beacon-home-caption">Made with intention</span>';
+        '<span class="ll-beacon-home-runes" aria-hidden="true">ᚠ ᚷ ᛃ</span>';
       anchor.insertAdjacentElement("afterend", mark);
     }
   }
@@ -60,9 +59,6 @@
     inscription.className = "ll-beacon-footer-content";
     inscription.innerHTML =
       '<p class="ll-beacon-seal" role="img" aria-label="Runic Beacon: Fehu, Gebo and Jera">ᚠ ᚷ ᛃ</p>'
-      + '<p class="ll-beacon-verse">May those who seek what we create find their way here.'
-      + '<br>May every exchange be fair and freely chosen.'
-      + '<br>May our work bring abundance to maker and patron alike.</p>'
       + '<div class="ll-beacon-divider" aria-hidden="true"></div>'
       + (!hadFooter
         ? '<strong class="ll-beacon-footer-brand">Lace &amp; Leather Arcane</strong>'
@@ -84,4 +80,36 @@
         : '');
     footer.appendChild(inscription);
   }
+})();
+
+
+/* The Runic Beacon: a ten-second, owner-invoked apparition. */
+(() => {
+  "use strict";
+  function init(){
+    if(document.getElementById("ll-beacon-popup")) return;
+    const triggers=[...document.querySelectorAll(".ll-beacon-seal, .ll-beacon-home-mark, .ll-beacon-rail-runes")];
+    if(!triggers.length)return;
+    const modal=document.createElement("div");
+    modal.id="ll-beacon-popup";
+    modal.hidden=true;
+    modal.className="ll-beacon-popup";
+    modal.innerHTML='<div class="ll-beacon-popup-shade"></div><section class="ll-beacon-popup-card" role="dialog" aria-modal="true" aria-label="The Runic Beacon intention"><button class="ll-beacon-popup-close" type="button" aria-label="Close">×</button><img class="ll-beacon-popup-art" src="/assets/runic-beacon-intention.webp" alt="A weathered parchment bearing ᚠ ᚷ ᛃ and the intention: May those who seek what we create find their way here. May every exchange be fair and freely chosen. May our work bring abundance to maker and patron alike."><div class="ll-beacon-popup-sparks" aria-hidden="true"></div></section>';
+    document.body.append(modal);
+    const close=modal.querySelector(".ll-beacon-popup-close"),sparks=modal.querySelector(".ll-beacon-popup-sparks");
+    const reduce=window.matchMedia("(prefers-reduced-motion: reduce)");
+    let timer,cleanup,previous,open=false;
+    function finish(){clearTimeout(timer);clearTimeout(cleanup);modal.hidden=true;modal.classList.remove("ll-beacon-popup-vanishing");sparks.replaceChildren();open=false;if(previous&&previous.isConnected)previous.focus({preventScroll:true});}
+    function vanish(){if(!open||modal.classList.contains("ll-beacon-popup-vanishing"))return;clearTimeout(timer);if(reduce.matches){finish();return;}modal.classList.add("ll-beacon-popup-vanishing");cleanup=setTimeout(finish,1100);}
+    function show(){if(open)finish();previous=document.activeElement;open=true;modal.hidden=false;modal.classList.remove("ll-beacon-popup-vanishing");sparks.replaceChildren();if(!reduce.matches){for(let i=0;i<28;i++){const s=document.createElement("i");s.style.setProperty("--i",String(i));s.style.setProperty("--x",((i*67+11)%100)+"%");s.style.setProperty("--y",((i*47+19)%100)+"%");sparks.append(s);}}close.focus({preventScroll:true});timer=setTimeout(vanish,10000);}
+    triggers.forEach(el=>{
+      if(el.classList.contains("ll-beacon-rail-runes")){
+        el.closest("a")?.addEventListener("click",e=>{if(e.target!==el)return;e.preventDefault();show();});
+      }else{el.tabIndex=0;el.setAttribute("role","button");el.setAttribute("aria-label","Reveal the Runic Beacon intention");el.addEventListener("click",show);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();show();}});}
+    });
+    modal.querySelector(".ll-beacon-popup-shade").addEventListener("click",vanish);
+    close.addEventListener("click",vanish);
+    document.addEventListener("keydown",e=>{if(!open)return;if(e.key==="Escape"){e.preventDefault();vanish();}else if(e.key==="Tab"){e.preventDefault();close.focus();}});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
