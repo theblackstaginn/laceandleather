@@ -1,0 +1,172 @@
+/* Lace & Leather Arcane | Runic Beacon, 2026-10-30.
+   Decorative maker's intention. No SEO, tracking or conversion claims. */
+:root {
+  --ll-beacon-copper: #d0a079;
+  --ll-beacon-copper-deep: #a9744e;
+  --ll-beacon-ink: #0b0f14;
+}
+.ll-beacon-rail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin: 12px 0 clamp(22px, 4vw, 38px);
+  padding: 11px clamp(12px, 2.6vw, 22px);
+  border: 1px solid rgba(208,160,121,.26);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(35,25,20,.78), rgba(13,16,21,.78));
+  color: #f0e4d4;
+  box-shadow: 0 10px 28px rgba(0,0,0,.17), inset 0 1px 0 rgba(255,255,255,.045);
+  font-family: Georgia, "Times New Roman", serif;
+}
+.ll-beacon-rail a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+.ll-beacon-rail a:hover,
+.ll-beacon-rail a:focus-visible { color: #f4cba8; text-decoration: underline; }
+.ll-beacon-rail a:focus-visible,
+.ll-beacon-footer a:focus-visible { outline: 2px solid #f4cba8; outline-offset: 4px; border-radius: 3px; }
+.ll-beacon-rail-brand {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  font-family: var(--font-display, Georgia, serif);
+  font-size: clamp(13px, 2.3vw, 16px);
+  font-weight: 600;
+  letter-spacing: .045em;
+  white-space: nowrap;
+}
+.ll-beacon-rail-runes {
+  font-family: "Segoe UI Symbol", "Noto Sans Runic", Georgia, serif;
+  font-size: 19px;
+  letter-spacing: .14em;
+  color: var(--ll-beacon-copper);
+}
+.ll-beacon-rail-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 18px;
+  font-size: 14px;
+  letter-spacing: .03em;
+}
+.ll-beacon-home-mark {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px 13px;
+  margin: 8px auto 16px;
+  color: var(--ll-beacon-copper);
+  text-align: center;
+}
+.ll-beacon-home-runes {
+  font-family: "Segoe UI Symbol", "Noto Sans Runic", Georgia, serif;
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: .2em;
+}
+.ll-beacon-home-caption {
+  font-family: Georgia, serif;
+  font-size: 12px;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  opacity: .89;
+}
+.ll-beacon-footer,
+main > footer.ll-beacon-footer,
+main.wrap > footer.ll-beacon-footer {
+  display: block;
+  width: 100%;
+  max-width: 1120px;
+  box-sizing: border-box;
+  margin: clamp(36px, 6vw, 70px) auto 0;
+  padding: clamp(24px, 4vw, 42px) clamp(12px, 3vw, 28px) 25px;
+  border-top: 1px solid rgba(208,160,121,.32);
+  text-align: center;
+  background: transparent;
+  color: #dcd0c1;
+}
+.ll-beacon-footer-content {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.ll-beacon-seal {
+  margin: 0;
+  font-family: "Segoe UI Symbol", "Noto Sans Runic", Georgia, serif;
+  font-size: clamp(25px, 4vw, 36px);
+  letter-spacing: .24em;
+  line-height: 1.2;
+  color: var(--ll-beacon-copper);
+  text-shadow: 0 2px 12px rgba(180,103,57,.18);
+}
+.ll-beacon-verse {
+  margin: 5px 0 15px;
+  max-width: 650px;
+  font-family: var(--font-body, Georgia, serif);
+  font-size: clamp(15px, 2.2vw, 18px);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.67;
+  color: #e0bc9c;
+}
+.ll-beacon-divider {
+  width: min(240px, 65%);
+  height: 1px;
+  margin: 0 auto 6px;
+  background: linear-gradient(90deg, transparent, rgba(208,160,121,.58), transparent);
+}
+.ll-beacon-footer-brand {
+  font-family: var(--font-display, Georgia, serif);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .085em;
+  color: #f0e2cf;
+}
+.ll-beacon-footer-note {
+  margin: 0;
+  color: #cbbba7;
+  font-family: var(--font-body, Georgia, serif);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.ll-beacon-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 18px;
+  margin: 7px 0 0;
+  font-family: Georgia, serif;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.ll-beacon-footer-links a,
+.ll-beacon-footer-credit a {
+  color: #e2b991;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(226,185,145,.35);
+}
+.ll-beacon-footer-links a:hover,
+.ll-beacon-footer-credit a:hover { color: #fff0dc; border-bottom-color: currentColor; }
+.ll-beacon-footer-credit {
+  margin: 7px 0 0;
+  font-family: Georgia, serif;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #bba78f;
+}
+@media (max-width: 600px) {
+  .ll-beacon-rail { justify-content: center; gap: 10px; padding: 13px 9px; }
+  .ll-beacon-rail-brand { white-space: normal; justify-content: center; text-align: center; }
+  .ll-beacon-rail-links { gap: 8px 16px; font-size: 13px; }
+  .ll-beacon-footer-links { gap: 8px 14px; }
+  .ll-beacon-verse { font-size: 15px; line-height: 1.64; }
+}
