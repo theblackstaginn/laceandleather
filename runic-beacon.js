@@ -41,33 +41,47 @@
     }
   }
 
-  // The Specimen Cabinet has its own functional inner footer. Leave it alone.
-  // Replace only a direct child footer of main; add one if the page lacks it.
+  // Preserve existing footer content, links and attribution on every page.
+  // The Specimen Cabinet's functional inner footer is not a site footer.
   let footer = main.querySelector(":scope > footer:not(.cabinet-index-foot)");
+  const hadFooter = Boolean(footer);
   if (!footer) {
     footer = document.createElement("footer");
     main.appendChild(footer);
   }
-  footer.className = "site-footer ll-beacon-footer";
-  footer.setAttribute("aria-label", "Lace and Leather Runic Beacon and site links");
-  footer.innerHTML =
-    '<div class="ll-beacon-footer-content">'
-    + '<p class="ll-beacon-seal" role="img" aria-label="Runic Beacon: Fehu, Gebo and Jera">ᚠ ᚷ ᛃ</p>'
-    + '<p class="ll-beacon-verse">May those who seek what we create find their way here.'
-    + '<br>May every exchange be fair and freely chosen.'
-    + '<br>May our work bring abundance to maker and patron alike.</p>'
-    + '<div class="ll-beacon-divider" aria-hidden="true"></div>'
-    + '<strong class="ll-beacon-footer-brand">Lace &amp; Leather Arcane</strong>'
-    + '<p class="ll-beacon-footer-note">Digital textures, printable pages &amp; old-world creative assets</p>'
-    + '<nav class="ll-beacon-footer-links" aria-label="Footer navigation">'
-    + '<a href="/">Home</a>'
-    + '<a href="/#packs">Collections</a>'
-    + '<a href="/journal/">Field Notes</a>'
-    + '<a href="/refunds.html">Delivery &amp; Refunds</a>'
-    + '<a href="/privacy-policy.html">Privacy</a>'
-    + '<a href="mailto:lace.and.leather65@gmail.com">Support</a>'
-    + "</nav>"
-    + '<p class="ll-beacon-footer-credit">© 2026 Lace &amp; Leather Arcane'
-    + ' · Website by <a href="https://blackstagweb.com" rel="noopener noreferrer">Black Stag Web Design</a></p>'
-    + "</div>";
+  footer.classList.add("site-footer", "ll-beacon-footer");
+  if (!footer.hasAttribute("aria-label")) {
+    footer.setAttribute("aria-label", "Lace and Leather footer and Runic Beacon");
+  }
+
+  // Add rather than replace: existing Home, policy and product links survive.
+  if (!footer.querySelector(".ll-beacon-footer-content")) {
+    const inscription = document.createElement("div");
+    inscription.className = "ll-beacon-footer-content";
+    inscription.innerHTML =
+      '<p class="ll-beacon-seal" role="img" aria-label="Runic Beacon: Fehu, Gebo and Jera">ᚠ ᚷ ᛃ</p>'
+      + '<p class="ll-beacon-verse">May those who seek what we create find their way here.'
+      + '<br>May every exchange be fair and freely chosen.'
+      + '<br>May our work bring abundance to maker and patron alike.</p>'
+      + '<div class="ll-beacon-divider" aria-hidden="true"></div>'
+      + (!hadFooter
+        ? '<strong class="ll-beacon-footer-brand">Lace &amp; Leather Arcane</strong>'
+          + '<p class="ll-beacon-footer-note">Digital textures, printable pages &amp; old-world creative assets</p>'
+        : '')
+      + (!footer.querySelector(".footer-links")
+        ? '<nav class="ll-beacon-footer-links" aria-label="Footer navigation">'
+          + '<a href="/">Home</a>'
+          + '<a href="/#packs">Collections</a>'
+          + '<a href="/journal/">Field Notes</a>'
+          + '<a href="/refunds.html">Delivery &amp; Refunds</a>'
+          + '<a href="/privacy-policy.html">Privacy</a>'
+          + '<a href="mailto:lace.and.leather65@gmail.com">Support</a>'
+          + '</nav>'
+        : '')
+      + (!hadFooter
+        ? '<p class="ll-beacon-footer-credit">© 2026 Lace &amp; Leather Arcane'
+          + ' · Website by <a href="https://blackstagweb.com" rel="noopener noreferrer">Black Stag Web Design</a></p>'
+        : '');
+    footer.appendChild(inscription);
+  }
 })();
