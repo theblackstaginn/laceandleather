@@ -35,8 +35,7 @@
       mark.className = "ll-beacon-home-mark";
       mark.setAttribute("aria-label", "Runic Beacon: Fehu, Gebo and Jera, a symbolic maker's invitation");
       mark.innerHTML =
-        '<span class="ll-beacon-home-runes" aria-hidden="true">ᚠ ᚷ ᛃ</span>'
-        + '<span class="ll-beacon-home-caption">Made with intention</span>';
+        '<span class="ll-beacon-home-runes" aria-hidden="true">ᚠ ᚷ ᛃ</span>';
       anchor.insertAdjacentElement("afterend", mark);
     }
   }
@@ -60,9 +59,6 @@
     inscription.className = "ll-beacon-footer-content";
     inscription.innerHTML =
       '<p class="ll-beacon-seal" role="img" aria-label="Runic Beacon: Fehu, Gebo and Jera">ᚠ ᚷ ᛃ</p>'
-      + '<p class="ll-beacon-verse">May those who seek what we create find their way here.'
-      + '<br>May every exchange be fair and freely chosen.'
-      + '<br>May our work bring abundance to maker and patron alike.</p>'
       + '<div class="ll-beacon-divider" aria-hidden="true"></div>'
       + (!hadFooter
         ? '<strong class="ll-beacon-footer-brand">Lace &amp; Leather Arcane</strong>'
