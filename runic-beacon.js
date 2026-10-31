@@ -101,7 +101,14 @@
     let timer,cleanup,previous,open=false;
     function finish(){clearTimeout(timer);clearTimeout(cleanup);modal.hidden=true;modal.classList.remove("ll-beacon-popup-vanishing");sparks.replaceChildren();open=false;if(previous&&previous.isConnected)previous.focus({preventScroll:true});}
     function vanish(){if(!open||modal.classList.contains("ll-beacon-popup-vanishing"))return;clearTimeout(timer);if(reduce.matches){finish();return;}modal.classList.add("ll-beacon-popup-vanishing");cleanup=setTimeout(finish,1100);}
-    function show(){if(open)finish();previous=document.activeElement;open=true;modal.hidden=false;modal.classList.remove("ll-beacon-popup-vanishing");sparks.replaceChildren();if(!reduce.matches){for(let i=0;i<28;i++){const s=document.createElement("i");s.style.setProperty("--i",String(i));s.style.setProperty("--x",((i*67+11)%100)+"%");s.style.setProperty("--y",((i*47+19)%100)+"%");sparks.append(s);}}close.focus({preventScroll:true});timer=setTimeout(vanish,10000);}
+    function show(){
+      // Symbolic offering acknowledgment, without loading or showing the artwork.
+      if (typeof window.fetch === "function") {
+        void window.fetch("/assets/offering-makers-hearth.png", {
+          method: "HEAD", cache: "no-store"
+        }).catch(() => {});
+      }
+      if(open)finish();previous=document.activeElement;open=true;modal.hidden=false;modal.classList.remove("ll-beacon-popup-vanishing");sparks.replaceChildren();if(!reduce.matches){for(let i=0;i<28;i++){const s=document.createElement("i");s.style.setProperty("--i",String(i));s.style.setProperty("--x",((i*67+11)%100)+"%");s.style.setProperty("--y",((i*47+19)%100)+"%");sparks.append(s);}}close.focus({preventScroll:true});timer=setTimeout(vanish,10000);}
     triggers.forEach(el=>{
       if(el.classList.contains("ll-beacon-rail-runes")){
         el.closest("a")?.addEventListener("click",e=>{if(e.target!==el)return;e.preventDefault();show();});
